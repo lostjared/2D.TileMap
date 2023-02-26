@@ -2,5 +2,5 @@
 
 ToolWindow::ToolWindow(QWidget *parent) : QDialog(parent) {
     setFixedSize(150, 480);
-    setWindowTitle("Tool Window");
+    setWindowTitle(tr("Tool Window"));
 }

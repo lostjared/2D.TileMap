@@ -2,6 +2,8 @@
 #define _EDITOR_H__
 
 #include<QMainWindow>
+#include<QMenu>
+#include<QAction>
 #include"tool_window.hpp"
 #include"new_window.hpp"
 
@@ -13,11 +15,15 @@ class MainWindow : public QMainWindow {
 public:
     MainWindow();
     void paintEvent(QPaintEvent *p);
+public slots:
+    void openNewMenu();
+
 private:
-    QMenu *menu;
+    QMenu *file_menu;
     QAction *file_new;
 
-    ToolWindow *tool_window;    
+    ToolWindow *tool_window;  
+    NewWindow *new_window;  
 };
 
 

@@ -2,5 +2,5 @@
 
 NewWindow::NewWindow(QWidget *parent) : QDialog(parent) {
     setFixedSize(640, 480);
-    setWindowTitle("New Map");
+    setWindowTitle(tr("New Map"));
 }
