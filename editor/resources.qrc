@@ -1,0 +1,18 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+<file>images/bg.bmp</file>
+<file>images/black.bmp</file>
+<file>images/bluebrick.bmp</file>
+<file>images/bluesky.bmp</file>
+<file>images/brick.bmp</file>
+<file>images/eblock.bmp</file>
+<file>images/red_brick.bmp</file>
+<file>images/sand1.bmp</file>
+<file>images/sand2.bmp</file>
+<file>images/snow.bmp</file>
+<file>images/stone.bmp</file>
+<file>images/stone2.bmp</file>
+<file>images/stone3.bmp</file>
+<file>images/stone4.bmp</file>
+</qresource>
+</RCC>

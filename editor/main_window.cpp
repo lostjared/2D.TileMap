@@ -3,7 +3,7 @@
 #include<QMenuBar>
 #include<QAction>
 #include<QDir>
-
+#include<QApplication>
 
 MainWindow::MainWindow() {
     setGeometry(200, 10, 1280, 720);
@@ -35,8 +35,8 @@ void MainWindow::paintEvent(QPaintEvent *p) {
             int y = z*16;
             x += 1;
             y += 1;
-            paint.fillRect(QRect(x, y, 15, 15), QColor(0, 0, 0));
-            //paint.drawImage(i*16, z*16, images[2]);
+            //paint.fillRect(QRect(x, y, 15, 15), QColor(0, 0, 0));
+            paint.drawImage(i*16, z*16, images[2]);
         }
     }
 }
@@ -50,7 +50,7 @@ void MainWindow::loadImages() {
     for(int i = 0; fileNames[i] != 0; ++i) {
         QString fn;
         QTextStream stream(&fn);
-        stream << QDir::currentPath() << "/" << "images/" << fileNames[i];
+        stream << ":/images/" << fileNames[i];
         images.append(QImage(fn));
     }
 }
