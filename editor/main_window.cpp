@@ -2,8 +2,13 @@
 #include<QPainter>
 
 MainWindow::MainWindow() {
+    setGeometry(200, 10, 1280, 720);
     setFixedSize(1280, 720);
     setWindowTitle("Editor");
+
+    tool_window = new ToolWindow(this);
+    tool_window->setGeometry(10, 10, 150, 480);
+    tool_window->show(); 
 }
 
 void MainWindow::paintEvent(QPaintEvent *p) {
