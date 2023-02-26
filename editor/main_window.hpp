@@ -4,6 +4,7 @@
 #include<QMainWindow>
 #include<QMenu>
 #include<QAction>
+#include<QVector>
 #include"tool_window.hpp"
 #include"new_window.hpp"
 
@@ -24,6 +25,10 @@ private:
 
     ToolWindow *tool_window;  
     NewWindow *new_window;  
+
+    QVector<QImage> images;
+    
+    void loadImages();
 };
 
 

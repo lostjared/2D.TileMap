@@ -2,11 +2,15 @@
 #include<QPainter>
 #include<QMenuBar>
 #include<QAction>
+#include<QDir>
+
 
 MainWindow::MainWindow() {
     setGeometry(200, 10, 1280, 720);
     setFixedSize(1280, 720);
     setWindowTitle(tr("Editor"));
+
+    loadImages();
 
     tool_window = new ToolWindow(this);
     tool_window->setGeometry(10, 10, 150, 480);
@@ -32,10 +36,21 @@ void MainWindow::paintEvent(QPaintEvent *p) {
             x += 1;
             y += 1;
             paint.fillRect(QRect(x, y, 15, 15), QColor(0, 0, 0));
+            //paint.drawImage(i*16, z*16, images[2]);
         }
     }
 }
 
 void MainWindow::openNewMenu() {
     new_window->show();
+}
+
+void MainWindow::loadImages() {
+    const char *fileNames[] = { "bg.bmp", "black.bmp", "bluebrick.bmp", "bluesky.bmp", "brick.bmp", "eblock.bmp", "red_brick.bmp", "sand1.bmp", "sand2.bmp", "snow.bmp", "stone.bmp", "stone2.bmp", "stone3.bmp", "stone4.bmp", 0 };
+    for(int i = 0; fileNames[i] != 0; ++i) {
+        QString fn;
+        QTextStream stream(&fn);
+        stream << QDir::currentPath() << "/" << "images/" << fileNames[i];
+        images.append(QImage(fn));
+    }
 }
