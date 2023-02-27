@@ -7,6 +7,7 @@
 #include<QVector>
 #include"tool_window.hpp"
 #include"new_window.hpp"
+#include "../level.hpp"
 
 const int MAP_WIDTH=1280/16;
 const int MAP_HEIGHT=720/16;
@@ -29,6 +30,7 @@ private:
     QVector<QImage> images;
     
     void loadImages();
+    game::Level level;
 };
 
 

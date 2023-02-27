@@ -16,7 +16,7 @@ MainWindow::MainWindow() {
     tool_window->setGeometry(10, 10, 150, 480);
     tool_window->show(); 
 
-    new_window = new NewWindow(this);
+    new_window = new NewWindow(&level, this);
     new_window->hide();
 
     file_menu = menuBar()->addMenu(tr("&File"));
@@ -26,7 +26,7 @@ MainWindow::MainWindow() {
 
 }
 
-void MainWindow::paintEvent(QPaintEvent *p) {
+void MainWindow::paintEvent(QPaintEvent *) {
     QPainter paint(this);
     paint.fillRect(QRect(0, 0, 1280, 720), QColor(255,255,255));
     for(int i = 0; i < MAP_WIDTH; ++i) {
