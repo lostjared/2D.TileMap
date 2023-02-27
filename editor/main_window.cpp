@@ -5,9 +5,11 @@
 #include<QDir>
 #include<QApplication>
 #include<QMouseEvent>
+#include<QKeyEvent>
 
 MainWindow::MainWindow() {
     map_init = false;
+    pos_x = pos_y = 0;
     setGeometry(200, 10, 1280, 720);
     setFixedSize(1280, 720);
     setWindowTitle(tr("Editor [Please Create/Open a Map]"));
@@ -36,7 +38,7 @@ void MainWindow::paintEvent(QPaintEvent *) {
         for(int z = 0; z < MAP_HEIGHT; ++z) {
             int x = i*16;
             int y = z*16;
-            game::Tile *tile = level.at(i, z);
+            game::Tile *tile = level.at(pos_x+i, pos_y+z);
             if(map_init == false) {
                 paint.fillRect(QRect(x, y, 15, 15), QColor(0, 0, 0));
             } else {
@@ -47,16 +49,36 @@ void MainWindow::paintEvent(QPaintEvent *) {
 }
 
 void MainWindow::mouseMoveEvent(QMouseEvent *e) {
-    std::cout << e->button() << "\n";
     setTile(e->pos());
     update();
 }
+
+void MainWindow::keyPressEvent(QKeyEvent *e) {
+    switch(e->key()) {
+        case Qt::Key::Key_Left:
+        if(pos_x > 0) pos_x--;
+        break;
+        case Qt::Key::Key_Right:
+        if(pos_x < level.width - (1280/16))
+        pos_x++;
+        break;
+        case Qt::Key::Key_Up:
+        if(pos_y > 0) pos_y--;
+        break;
+        case Qt::Key::Key_Down:
+        if(pos_y < level.height - (720/16))
+        pos_y++;
+        break;
+    }
+    update();
+}
+
 
 void MainWindow::setTile(const QPoint &pos) {
     if(map_init == true) {
         int x,y;
         if(game::atPoint(pos.x(), pos.y(), x, y)) {
-            game::Tile *tile = level.at(x, y);
+            game::Tile *tile = level.at(pos_x+x, pos_y+y);
             if(tile != nullptr) {
                 tile->img = 2;
             } 

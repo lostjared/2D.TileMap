@@ -18,6 +18,7 @@ public:
     MainWindow();
     void paintEvent(QPaintEvent *p) override;
     void mouseMoveEvent(QMouseEvent *e) override;
+    void keyPressEvent(QKeyEvent *e) override;
     void createdNewMap();
     void setTile(const QPoint &pos);
 public slots:
@@ -35,6 +36,7 @@ private:
     void loadImages();
     game::Level level;
     bool map_init;
+    int pos_x, pos_y;
 };
 
 
