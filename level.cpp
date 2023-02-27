@@ -90,6 +90,8 @@ namespace game {
     }
 
     bool atPoint(int x1, int y1, int &x, int &y) {
+        y1 -= 16;
+        x1 -= 16;
         for(int i = 0; i < 1280/16; ++i) {
             for(int z = 0; z < 720/16; ++z) {
                 int cx = i*16;
