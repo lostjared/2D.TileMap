@@ -10,6 +10,7 @@ public:
     ToolWindow(QWidget *parent);
     int current_tile = 1;
     QComboBox *tiles;
+    QComboBox *tool;
 };
 
 #endif

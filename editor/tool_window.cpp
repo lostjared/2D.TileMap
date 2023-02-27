@@ -9,7 +9,6 @@ ToolWindow::ToolWindow(QWidget *parent) : QDialog(parent) {
     lbl_tile->setGeometry(20, 10, 75, 20);
     tiles = new QComboBox(this);
     tiles->setGeometry(10, 30, 120, 25);
-
     const char *fileNames[] = {  "black.bmp", "bluebrick.bmp", "bluesky.bmp", "brick.bmp", "eblock.bmp", "red_brick.bmp", "sand1.bmp", "sand2.bmp", "snow.bmp", "stone.bmp", "stone2.bmp", "stone3.bmp", "stone4.bmp", 0 };
     for(int i = 0; fileNames[i] != 0; ++i) {
         QString fn;
@@ -19,6 +18,13 @@ ToolWindow::ToolWindow(QWidget *parent) : QDialog(parent) {
         tiles->addItem(fileNames[i]);
         tiles->setItemData(i,pix,Qt::DecorationRole);
     }
-
     tiles->setCurrentIndex(1);
+    QLabel *lbl_tool = new QLabel(tr("Tool: "), this);
+    lbl_tool->setGeometry(20, 65, 75, 20);
+    tool = new QComboBox(this);
+    tool->setGeometry(10, 90, 120, 25);
+    tool->addItem("Pencil");
+    tool->addItem("Eraser");
+    tool->addItem("Fill");
+    tool->setCurrentIndex(0);
 }

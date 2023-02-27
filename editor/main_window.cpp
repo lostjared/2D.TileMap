@@ -81,7 +81,24 @@ void MainWindow::setTile(const QPoint &pos) {
             game::Tile *tile = level.at(pos_x+x, pos_y+y);
             if(tile != nullptr) {
                 //tile->img = 2;
-                *tile = tiles[tool_window->tiles->currentIndex()];
+                switch(tool_window->tool->currentIndex()) {
+                    case 0:
+                        *tile = tiles[tool_window->tiles->currentIndex()];
+                    break;
+                    case 1:
+                        *tile = tiles[0];
+                    break;
+                    case 2:
+                       for(int i = pos_x; i < pos_x+(1280/16) && i < level.width; ++i) {
+                            for(int z = pos_y; z < pos_y+(720/16) && z < level.height; ++z) {
+                                game::Tile *tile = level.at(i, z);
+                                if(tile != nullptr) {
+                                    *tile = tiles[tool_window->tiles->currentIndex()];
+                                }
+                            }
+                        }
+                    break;
+                }
             } 
         }
     }
