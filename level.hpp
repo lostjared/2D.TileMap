@@ -9,6 +9,7 @@ namespace game {
     struct Tile {
         Tile() = default;
         Tile(const Tile &tile);
+        Tile(int32_t c, int32_t s, int32_t i);
         Tile(Tile &&tile) = default;
         Tile& operator=(const Tile &tile);
         Tile& operator=(Tile &&tile) = default;
