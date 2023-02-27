@@ -17,6 +17,8 @@ namespace game {
         int32_t img = 0;
     };   
 
+    bool atPoint(int x1, int y1, int &x, int &y);
+
     class Level {
     public:
         Level();

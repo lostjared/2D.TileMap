@@ -16,8 +16,10 @@ class MainWindow : public QMainWindow {
     Q_OBJECT
 public:
     MainWindow();
-    void paintEvent(QPaintEvent *p);
+    void paintEvent(QPaintEvent *p) override;
+    void mouseMoveEvent(QMouseEvent *e) override;
     void createdNewMap();
+    void setTile(const QPoint &pos);
 public slots:
     void openNewMenu();
 
