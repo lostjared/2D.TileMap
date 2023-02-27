@@ -11,8 +11,9 @@ namespace game {
         Camera();
         Camera(int w, int h, int mx, int my);
         Camera(const Camera &c);
-
+        Camera(Camera &&c) = default;
         Camera &operator=(const Camera &c);
+        Camera &operator=(Camera &&c) = default;
         void init(int w, int h, int mx, int my);
         void move(float delta, float dx, float dy);
         int getX() const;
