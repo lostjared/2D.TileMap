@@ -1,4 +1,5 @@
 #include"new_window.hpp"
+#include"main_window.hpp"
 #include<QLabel>
 
 NewWindow::NewWindow(game::Level *lvl, QWidget *parent) : QDialog(parent), level{lvl} {
@@ -20,8 +21,14 @@ NewWindow::NewWindow(game::Level *lvl, QWidget *parent) : QDialog(parent), level
     connect(page_create, SIGNAL(clicked()), this, SLOT(createMap()));
 }
 
+void NewWindow::setMainWindow(MainWindow *w) {
+    main_window = w;
+}
+
 void NewWindow::createMap() {
     int width = page_width1->text().toInt();
     int height = page_height1->text().toInt();
     level->create(1280/16 * width, 720/16 * height, game::Tile{});
+    main_window->createdNewMap();
+    hide();
 }

@@ -17,6 +17,7 @@ class MainWindow : public QMainWindow {
 public:
     MainWindow();
     void paintEvent(QPaintEvent *p);
+    void createdNewMap();
 public slots:
     void openNewMenu();
 
@@ -31,6 +32,7 @@ private:
     
     void loadImages();
     game::Level level;
+    bool map_init;
 };
 
 
