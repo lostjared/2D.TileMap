@@ -3,8 +3,26 @@
 #include<sstream>
 #include<string>
 
-namespace game {   
+namespace game {  
+
+    Tile::Tile(const Tile &tile) {
+        set(tile);
+    } 
+
+    Tile& Tile::operator=(const Tile &tile) {
+        set(tile);
+        return *this;
+    }
    
+    void Tile::set(const Tile &tile) { 
+        color = tile.color;
+        img = tile.img;
+        solid = tile.solid;
+        layers[0] = tile.layers[0];
+        layers[1] = tile.layers[1];
+        layers[2] = tile.layers[2];
+    }
+
    Level::Level() : width{0}, height{0}, tiles{nullptr} {
 
    }

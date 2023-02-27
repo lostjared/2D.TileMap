@@ -8,13 +8,15 @@ namespace game {
 
     struct Tile {
         Tile() = default;
-        int32_t x = 0;
-        int32_t y = 0;
-        int32_t w = 0;
-        int32_t h = 0;
+        Tile(const Tile &tile);
+        Tile(Tile &&tile) = default;
+        Tile& operator=(const Tile &tile);
+        Tile& operator=(Tile &&tile) = default;
         int32_t color = 0;
         int32_t solid = 0;
         int32_t img = 0;
+        int32_t layers[3];
+        void set(const Tile &tile);
     };   
 
     bool atPoint(int x1, int y1, int &x, int &y);
