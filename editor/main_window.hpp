@@ -32,7 +32,7 @@ private:
     NewWindow *new_window;  
 
     QVector<QImage> images;
-    
+    QVector<game::Tile> tiles; 
     void loadImages();
     game::Level level;
     bool map_init;

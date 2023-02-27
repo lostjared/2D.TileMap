@@ -80,7 +80,8 @@ void MainWindow::setTile(const QPoint &pos) {
         if(game::atPoint(pos.x(), pos.y(), x, y)) {
             game::Tile *tile = level.at(pos_x+x, pos_y+y);
             if(tile != nullptr) {
-                tile->img = 2;
+                //tile->img = 2;
+                *tile = tiles[tool_window->current_tile];
             } 
         }
     }
@@ -106,5 +107,10 @@ void MainWindow::loadImages() {
         QTextStream stream(&fn);
         stream << ":/images/" << fileNames[i];
         images.append(QImage(fn));
+        tiles.append(game::Tile{0, 1, i});
     }
+
+    tiles[0].solid = 0;
+    tiles[1].solid = 0;
+    tiles[3].solid = 0;
 }

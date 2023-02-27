@@ -7,6 +7,7 @@ class ToolWindow : public QDialog {
     Q_OBJECT
 public:
     ToolWindow(QWidget *parent);
+    int current_tile = 1;
 };
 
 #endif
