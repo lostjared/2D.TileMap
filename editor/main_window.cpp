@@ -10,6 +10,7 @@
 #include<QMessageBox>
 
 MainWindow::MainWindow() {
+    file_name = "Untitled.lvl";
     map_init = false;
     pos_x = pos_y = 0;
     setGeometry(200, 10, 1280, 720);
@@ -39,6 +40,9 @@ MainWindow::MainWindow() {
     file_save = new QAction(tr("Save Map"), this);
     connect(file_save, SIGNAL(triggered()), this, SLOT(saveFile()));
     file_menu->addAction(file_save);
+    file_save_as = new QAction(tr("Save Map As"), this);
+    connect(file_save_as, SIGNAL(triggered()), this, SLOT(saveFileAs()));
+    file_menu->addAction(file_save_as);
 }
 
 void MainWindow::paintEvent(QPaintEvent *) {
@@ -124,16 +128,21 @@ void MainWindow::setTile(const QPoint &pos) {
 
 
 void MainWindow::createdNewMap() {
-    QString title;
-    QTextStream stream(&title);
-    stream << "Map [" << level.width << "x" << level.height << "]";
-    setWindowTitle(title);
+    updateTitle();
     tool_window->camera_x->setMinimum(0);
     tool_window->camera_x->setMaximum(level.width-(1280/16));
     tool_window->camera_y->setMinimum(0);
     tool_window->camera_y->setMaximum(level.height-(720/16));
     map_init = true;
 }
+
+void MainWindow::updateTitle() {
+    QString title;
+    QTextStream stream(&title);
+    stream << file_name << " - Map [" << level.width << "x" << level.height << "]";
+    setWindowTitle(title);
+}
+
 
 void MainWindow::cameraChanged(int) {
     pos_x = tool_window->camera_x->sliderPosition();
@@ -158,6 +167,23 @@ void MainWindow::openNewMenu() {
 }
 
 void MainWindow::saveFile() {
+
+    if(file_name == "Untitled.lvl")
+        saveFileAs();
+    else {
+        if(!level.saveLevel(file_name.toStdString())) {
+                QMessageBox msgbox;
+                msgbox.setText("Error on load of map");
+                msgbox.setWindowTitle("Error loading map");
+                msgbox.exec();
+            } else {
+                updateTitle();
+            }
+    }
+}
+
+
+void MainWindow::saveFileAs() {
     if(map_init == true) {
         QString filename = QFileDialog::getSaveFileName(nullptr, tr("Save File"), "", tr("LVL (*.lvl)"));
         if(filename != "") {
@@ -166,6 +192,9 @@ void MainWindow::saveFile() {
                 msgbox.setText("Error on load of map");
                 msgbox.setWindowTitle("Error loading map");
                 msgbox.exec();
+            } else {
+                file_name = filename;
+                updateTitle();
             }
         }
     }
@@ -176,8 +205,15 @@ void MainWindow::loadFile() {
     if(filename != "") {
         if(level.loadLevel(filename.toStdString())) {
             createdNewMap();
+            file_name = filename;
+            updateTitle();
             update();
-        }   
+        } else {
+            QMessageBox msgbox;
+            msgbox.setText("Could not load map");
+            msgbox.setWindowTitle("Error on load");
+            msgbox.exec();
+        }
     }
 }
 

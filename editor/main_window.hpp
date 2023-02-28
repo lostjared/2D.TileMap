@@ -23,15 +23,17 @@ public:
     void createdNewMap();
     void setTile(const QPoint &pos);
     void updateLabelText();
+    void updateTitle();
 public slots:
     void openNewMenu();
     void saveFile();
+    void saveFileAs();
     void loadFile();
     void cameraChanged(int value);
 
 private:
     QMenu *file_menu;
-    QAction *file_new, *file_save, *file_load;
+    QAction *file_new, *file_save,*file_save_as,*file_load;
 
     ToolWindow *tool_window;  
     NewWindow *new_window;  
@@ -42,6 +44,7 @@ private:
     game::Level level;
     bool map_init;
     int pos_x, pos_y;
+    QString file_name;
 };
 
 
