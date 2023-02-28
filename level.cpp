@@ -103,11 +103,32 @@ namespace game {
     }
 
    bool Level::serialize(std::ostream &out) {
-
+        if(tiles == nullptr) return false;
+        unsigned int type = 0x420;
+        out.write(reinterpret_cast<char*>(&type), sizeof(type));
+        out.write(reinterpret_cast<char*>(&width), sizeof(width));
+        out.write(reinterpret_cast<char*>(&height), sizeof(height));
+        for(int i = 0; i < width; ++i) {
+            for(int z = 0; z < height; ++z) {
+                out.write(reinterpret_cast<char*>(&tiles[i][z]), sizeof(tiles[i][z]));
+            }
+        }
         return true;
    }
    
    bool Level::unserialize(std::istream &in) {
+        unsigned int type = 0;
+        in.read(reinterpret_cast<char*>(&type), sizeof(type));
+        if(type != 0x420) return false;
+        releaseTiles();
+        in.read(reinterpret_cast<char*>(&width), sizeof(width));
+        in.read(reinterpret_cast<char*>(&height), sizeof(height));
+        create(width, height, game::Tile{});
+        for(int i = 0; i < width; ++i) {
+            for(int z = 0; z < height; ++z) {
+                in.read(reinterpret_cast<char*>(&tiles[i][z]), sizeof(tiles[i][z]));
+            }
+        }
         return true;
    }
 
