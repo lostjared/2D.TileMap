@@ -4,6 +4,7 @@
 #include"camera.hpp"
 #include"level.hpp"
 #include"game.hpp"
+#include<vector>
 
 namespace game {
      class GameLevel : public GameObject {
@@ -17,7 +18,7 @@ namespace game {
     protected:    
         Level level;
         Camera cam;
-        Image brick;
+        std::vector<Image> images;
         Font arial;
         int tsize;
         float delta;

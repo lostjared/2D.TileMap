@@ -7,10 +7,15 @@
 namespace game {
 
   void GameLevel::init(RenderObject *ro) {
-        int max_x = ((WINDOW_SIZE_W*2) * 16 - WINDOW_SIZE_WIDTH) -1;
-        int max_y = ((WINDOW_SIZE_H*2) * 16 - WINDOW_SIZE_HEIGHT) -1;
+        if(!level.loadLevel("levels/level1.lvl")) {
+            std::cerr << "Error loading level..\n";
+            exit(0);
+        }
+        int max_x = level.width * 16 - WINDOW_SIZE_WIDTH -1;
+        int max_y = level.height * 16 - WINDOW_SIZE_HEIGHT -1;
         tsize = 16;
         cam.init(1280, 720, max_x, max_y);
+        /*
         level.create(WINDOW_SIZE_W*2, WINDOW_SIZE_H*2, Tile{});
         for(int i = 0; i < WINDOW_SIZE_W*2; ++i) {
             for(int z = 0; z < WINDOW_SIZE_H*2; ++z) {
@@ -19,7 +24,16 @@ namespace game {
             }
         }
         std::cout << "Created: " << level.width << ":" << level.height << "\n";
-        brick = ro->loadImage("img/brick.bmp");
+        */
+        
+        const char *fileNames[] = {  "black.bmp", "bluebrick.bmp", "bluesky.bmp", "brick.bmp", "eblock.bmp", "red_brick.bmp", "sand1.bmp", "sand2.bmp", "snow.bmp", "stone.bmp", "stone2.bmp", "stone3.bmp", "stone4.bmp", 0 };
+        for(uint8_t i = 0; fileNames[i] != 0; ++i) {
+            std::ostringstream stream;
+            stream << "./img/" << fileNames[i];
+            int img = ro->loadImage(stream.str());
+            images.push_back(img);
+        }
+
         arial = ro->loadFont("./img/arial.ttf", 24);
         delta = 0;
     }
@@ -42,7 +56,7 @@ namespace game {
                 if(tile != nullptr && tile->img != 0) {
                     int xx = (x - start_col) * tsize + off_x;
                     int yy = (y - start_row) * tsize + off_y;
-                    ro->drawAt(brick, xx, yy);                 
+                    ro->drawAt(images[tile->img], xx, yy);                 
                 }
             }
         }       
