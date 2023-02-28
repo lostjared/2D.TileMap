@@ -25,11 +25,13 @@ public:
     void updateLabelText();
 public slots:
     void openNewMenu();
+    void saveFile();
+    void loadFile();
     void cameraChanged(int value);
 
 private:
     QMenu *file_menu;
-    QAction *file_new;
+    QAction *file_new, *file_save, *file_load;
 
     ToolWindow *tool_window;  
     NewWindow *new_window;  

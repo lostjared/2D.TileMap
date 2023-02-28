@@ -6,6 +6,8 @@
 #include<QApplication>
 #include<QMouseEvent>
 #include<QKeyEvent>
+#include<QFileDialog>
+
 
 MainWindow::MainWindow() {
     map_init = false;
@@ -31,7 +33,12 @@ MainWindow::MainWindow() {
     connect(file_new, SIGNAL(triggered()), this, SLOT(openNewMenu()));
     file_menu->addAction(file_new);
     //setMouseTracking(true);
-
+    file_load = new QAction(tr("Open Map"), this);
+    connect(file_load, SIGNAL(triggered()), this, SLOT(loadFile()));
+    file_menu->addAction(file_load);
+    file_save = new QAction(tr("Save Map"), this);
+    connect(file_save, SIGNAL(triggered()), this, SLOT(saveFile()));
+    file_menu->addAction(file_save);
 }
 
 void MainWindow::paintEvent(QPaintEvent *) {
@@ -149,6 +156,26 @@ void MainWindow::updateLabelText() {
 void MainWindow::openNewMenu() {
     new_window->show();
 }
+
+void MainWindow::saveFile() {
+    if(map_init == true) {
+        QString filename = QFileDialog::getSaveFileName(nullptr, tr("Save File"), "", tr("LVL (*.lvl)"));
+        if(filename != "") {
+            level.saveLevel(filename.toStdString());
+        }
+    }
+}
+
+void MainWindow::loadFile() {
+    QString filename = QFileDialog::getOpenFileName(nullptr, tr("Save File"), "", tr("LVL (*.lvl)"));
+    if(filename != "") {
+        if(level.loadLevel(filename.toStdString())) {
+            createdNewMap();
+            update();
+        }   
+    }
+}
+
 
 void MainWindow::loadImages() {
     const char *fileNames[] = {  "black.bmp", "bluebrick.bmp", "bluesky.bmp", "brick.bmp", "eblock.bmp", "red_brick.bmp", "sand1.bmp", "sand2.bmp", "snow.bmp", "stone.bmp", "stone2.bmp", "stone3.bmp", "stone4.bmp", 0 };
