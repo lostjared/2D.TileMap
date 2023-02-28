@@ -99,6 +99,7 @@ namespace game {
                 delete [] tiles[i];
             }
             delete [] tiles;
+            tiles = nullptr;
         }
     }
 

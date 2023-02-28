@@ -133,6 +133,8 @@ void MainWindow::createdNewMap() {
     tool_window->camera_x->setMaximum(level.width-(1280/16));
     tool_window->camera_y->setMinimum(0);
     tool_window->camera_y->setMaximum(level.height-(720/16));
+    tool_window->camera_x->setSliderPosition(0);
+    tool_window->camera_y->setSliderPosition(0);
     map_init = true;
 }
 
