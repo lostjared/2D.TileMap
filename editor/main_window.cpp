@@ -7,7 +7,7 @@
 #include<QMouseEvent>
 #include<QKeyEvent>
 #include<QFileDialog>
-
+#include<QMessageBox>
 
 MainWindow::MainWindow() {
     map_init = false;
@@ -161,7 +161,12 @@ void MainWindow::saveFile() {
     if(map_init == true) {
         QString filename = QFileDialog::getSaveFileName(nullptr, tr("Save File"), "", tr("LVL (*.lvl)"));
         if(filename != "") {
-            level.saveLevel(filename.toStdString());
+            if(!level.saveLevel(filename.toStdString())) {
+                QMessageBox msgbox;
+                msgbox.setText("Error on load of map");
+                msgbox.setWindowTitle("Error loading map");
+                msgbox.exec();
+            }
         }
     }
 }
