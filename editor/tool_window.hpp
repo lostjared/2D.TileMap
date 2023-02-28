@@ -3,6 +3,8 @@
 
 #include<QDialog>
 #include<QComboBox>
+#include<QScrollBar>
+#include<QLabel>
 
 class ToolWindow : public QDialog {
     Q_OBJECT
@@ -11,6 +13,8 @@ public:
     int current_tile = 1;
     QComboBox *tiles;
     QComboBox *tool;
+    QScrollBar *camera_x, *camera_y;
+    QLabel *lbl_x, *lbl_y;
 };
 
 #endif

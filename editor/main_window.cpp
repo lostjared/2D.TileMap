@@ -19,6 +19,9 @@ MainWindow::MainWindow() {
     tool_window->setGeometry(10, 10, 150, 480);
     tool_window->show(); 
 
+    connect(tool_window->camera_x, SIGNAL(valueChanged(int)), this, SLOT(cameraChanged(int)));
+    connect(tool_window->camera_y, SIGNAL(valueChanged(int)), this, SLOT(cameraChanged(int)));    
+
     new_window = new NewWindow(&level, this);
     new_window->setMainWindow(this);
     new_window->hide();
@@ -53,6 +56,13 @@ void MainWindow::mouseMoveEvent(QMouseEvent *e) {
     update();
 }
 
+void MainWindow::mousePressEvent(QMouseEvent *e) {
+    if(e->button() == Qt::MouseButton::LeftButton) {
+        setTile(e->pos());
+        update();
+    }
+}
+
 void MainWindow::keyPressEvent(QKeyEvent *e) {
     switch(e->key()) {
         case Qt::Key::Key_Left:
@@ -70,6 +80,7 @@ void MainWindow::keyPressEvent(QKeyEvent *e) {
         pos_y++;
         break;
     }
+    updateLabelText();
     update();
 }
 
@@ -110,8 +121,30 @@ void MainWindow::createdNewMap() {
     QTextStream stream(&title);
     stream << "Map [" << level.width << "x" << level.height << "]";
     setWindowTitle(title);
+    tool_window->camera_x->setMinimum(0);
+    tool_window->camera_x->setMaximum(level.width-(1280/16));
+    tool_window->camera_y->setMinimum(0);
+    tool_window->camera_y->setMaximum(level.height-(720/16));
     map_init = true;
 }
+
+void MainWindow::cameraChanged(int) {
+    pos_x = tool_window->camera_x->sliderPosition();
+    pos_y = tool_window->camera_y->sliderPosition();
+    updateLabelText();
+    update();
+}
+
+void MainWindow::updateLabelText() {
+    QString lbl;
+    QTextStream stream(&lbl);
+    stream << "Camera X: " << pos_x;
+    tool_window->lbl_x->setText(lbl);
+    lbl = "";
+    stream << "Camera Y: " << pos_y;
+    tool_window->lbl_y->setText(lbl);
+}
+
 
 void MainWindow::openNewMenu() {
     new_window->show();
