@@ -5,6 +5,7 @@
 #include<QComboBox>
 #include<QScrollBar>
 #include<QLabel>
+#include<cstdint>
 
 class ToolWindow : public QDialog {
     Q_OBJECT

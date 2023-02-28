@@ -9,7 +9,8 @@ namespace game {
         set(tile);
     }
 
-    Tile::Tile(int32_t c, int32_t s, int32_t i) : color{c}, solid{s}, img{i} {}
+    
+    Tile::Tile(uint8_t c, uint8_t s, uint8_t i) : color{c}, solid{s}, img{i} {}
 
     Tile& Tile::operator=(const Tile &tile) {
         set(tile);

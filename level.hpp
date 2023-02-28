@@ -9,14 +9,14 @@ namespace game {
     struct Tile {
         Tile() = default;
         Tile(const Tile &tile);
-        Tile(int32_t c, int32_t s, int32_t i);
+        Tile(uint8_t c, uint8_t s, uint8_t i);
         Tile(Tile &&tile) = default;
         Tile& operator=(const Tile &tile);
         Tile& operator=(Tile &&tile) = default;
-        int32_t color = 0;
-        int32_t solid = 0;
-        int32_t img = 0;
-        int32_t layers[3];
+        uint8_t color = 0;
+        uint8_t solid = 0;
+        uint8_t img = 0;
+        uint8_t layers[3];
         void set(const Tile &tile);
     };   
 

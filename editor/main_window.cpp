@@ -152,7 +152,7 @@ void MainWindow::openNewMenu() {
 
 void MainWindow::loadImages() {
     const char *fileNames[] = {  "black.bmp", "bluebrick.bmp", "bluesky.bmp", "brick.bmp", "eblock.bmp", "red_brick.bmp", "sand1.bmp", "sand2.bmp", "snow.bmp", "stone.bmp", "stone2.bmp", "stone3.bmp", "stone4.bmp", 0 };
-    for(int i = 0; fileNames[i] != 0; ++i) {
+    for(uint8_t i = 0; fileNames[i] != 0; ++i) {
         QString fn;
         QTextStream stream(&fn);
         stream << ":/images/" << fileNames[i];
