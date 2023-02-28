@@ -2,6 +2,7 @@
 #include<iostream>
 #include<sstream>
 #include<string>
+#include<fstream>
 
 namespace game {  
 
@@ -35,8 +36,19 @@ namespace game {
     }
 
     bool Level::loadLevel(const std::string &filename) {
+        std::fstream file;
+        file.open(filename, std::ios::in | std::ios::binary);
+        if(!file.is_open()) 
+            return false;
+        return unserialize(file);
+    }
 
-        return true;
+    bool Level::saveLevel(const std::string &filename) {
+        std::fstream file;
+        file.open(filename, std::ios::out | std::ios::binary);
+        if(!file.is_open()) 
+            return false;
+        return serialize(file);
     }
 
     void Level::create(int w, int h, const Tile &init_tile) {
@@ -89,6 +101,15 @@ namespace game {
             delete [] tiles;
         }
     }
+
+   bool Level::serialize(std::ostream &out) {
+
+        return true;
+   }
+   
+   bool Level::unserialize(std::istream &in) {
+        return true;
+   }
 
     bool atPoint(int x1, int y1, int &x, int &y) {
         y1 -= 16;

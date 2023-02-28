@@ -27,6 +27,7 @@ namespace game {
         Level();
         ~Level();
         bool loadLevel(const std::string &filename);
+        bool saveLevel(const std::string &filename);
         int width, height;
         void create(int w, int h, const Tile &init_tile);
         Tile *at(int x, int y);
@@ -35,6 +36,8 @@ namespace game {
         Tile **tiles;
         bool resizeTiles(int w, int h);
         void releaseTiles();
+        bool serialize(std::ostream &out);
+        bool unserialize(std::istream &in);
     };
 }
 
