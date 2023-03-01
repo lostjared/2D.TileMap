@@ -36,7 +36,7 @@ ToolWindow::ToolWindow(QWidget *parent) : QDialog(parent) {
     cam_img->setGeometry(5,220, 32, 32);
     QLabel *cam_img2 = new QLabel(this);
     cam_img2->setPixmap(QPixmap(":/images/camera.png"));
-    cam_img2->setGeometry(5, 270, 32, 32);
+    cam_img2->setGeometry(5, 280, 32, 32);
 
     lbl_x = new QLabel(tr("Camera X: "), this);
     lbl_x->setGeometry(40, 230, 125, 20);
@@ -47,10 +47,10 @@ ToolWindow::ToolWindow(QWidget *parent) : QDialog(parent) {
     camera_x->setMaximum(1280);
 
     lbl_y = new QLabel(tr("Camera Y: "), this);
-    lbl_y->setGeometry(40, 280, 125, 20);
+    lbl_y->setGeometry(40, 290, 125, 20);
 
     camera_y = new QScrollBar(Qt::Orientation::Horizontal, this);
-    camera_y->setGeometry(10, 300, 120, 25);
+    camera_y->setGeometry(10, 310, 120, 25);
     camera_y->setMinimum(0);
     camera_y->setMaximum(720);
 
