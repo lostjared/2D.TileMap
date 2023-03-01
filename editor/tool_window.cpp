@@ -10,7 +10,7 @@ ToolWindow::ToolWindow(QWidget *parent) : QDialog(parent) {
     tiles = new QComboBox(this);
     tiles->setGeometry(10, 30, 120, 25);
     const char *fileNames[] = {  "black.bmp", "bluebrick.bmp", "bluesky.bmp", "brick.bmp", "eblock.bmp", "red_brick.bmp", "sand1.bmp", "sand2.bmp", "snow.bmp", "stone.bmp", "stone2.bmp", "stone3.bmp", "stone4.bmp", 0 };
-    for(int i = 0; fileNames[i] != 0; ++i) {
+    for(uint8_t i = 0; fileNames[i] != 0; ++i) {
         QString fn;
         QTextStream stream(&fn);
         stream << ":/images/" << fileNames[i];
@@ -27,7 +27,9 @@ ToolWindow::ToolWindow(QWidget *parent) : QDialog(parent) {
     tool->addItem("Eraser");
     tool->addItem("Fill");
     tool->setCurrentIndex(0);
-
+    tool->setItemData(0, QPixmap(":/images/pencil.png"), Qt::DecorationRole);
+    tool->setItemData(1, QPixmap(":/images/eraser.png"), Qt::DecorationRole);
+    tool->setItemData(2, QPixmap(":/images/bucket.png"), Qt::DecorationRole);
     lbl_x = new QLabel(tr("Camera X: "), this);
     lbl_x->setGeometry(20, 230, 125, 20);
 
