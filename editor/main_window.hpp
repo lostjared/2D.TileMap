@@ -30,11 +30,14 @@ public slots:
     void saveFileAs();
     void loadFile();
     void cameraChanged(int value);
-
+    void levelUp();
+    void levelDown();
+    void levelLeft();
+    void levelRight();
 private:
-    QMenu *file_menu;
+    QMenu *file_menu, *level_menu;
     QAction *file_new, *file_save,*file_save_as,*file_load;
-
+    QAction *level_left, *level_right, *level_down, *level_up;
     ToolWindow *tool_window;  
     NewWindow *new_window;  
 

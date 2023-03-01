@@ -43,6 +43,24 @@ MainWindow::MainWindow() {
     file_save_as = new QAction(tr("Save Map As"), this);
     connect(file_save_as, SIGNAL(triggered()), this, SLOT(saveFileAs()));
     file_menu->addAction(file_save_as);
+
+    level_menu = menuBar()->addMenu(tr("&Level"));
+    level_left = new QAction(tr("Scroll Left"));
+    connect(level_left, SIGNAL(triggered()), this, SLOT(levelLeft()));
+    level_menu->addAction(level_left);
+
+    level_right = new QAction(tr("Scroll Right"));
+    connect(level_right, SIGNAL(triggered()), this, SLOT(levelRight()));
+    level_menu->addAction(level_right);
+
+    level_up = new QAction(tr("Scroll Up"));
+    connect(level_up, SIGNAL(triggered()), this, SLOT(levelUp()));
+    level_menu->addAction(level_up);
+
+    level_down = new QAction(tr("Scroll Down"));
+    connect(level_down, SIGNAL(triggered()), this, SLOT(levelDown()));
+    level_menu->addAction(level_down);
+
 }
 
 void MainWindow::paintEvent(QPaintEvent *) {
@@ -91,6 +109,8 @@ void MainWindow::keyPressEvent(QKeyEvent *e) {
         pos_y++;
         break;
     }
+    tool_window->camera_x->setSliderPosition(pos_x);
+    tool_window->camera_y->setSliderPosition(pos_y);
     updateLabelText();
     update();
 }
@@ -219,6 +239,38 @@ void MainWindow::loadFile() {
     }
 }
 
+void MainWindow::levelUp() {
+   if(pos_y > 0) pos_y--;
+    tool_window->camera_y->setSliderPosition(pos_y);
+    updateLabelText();
+    update();
+}
+ 
+void MainWindow::levelDown() {
+    if(pos_y < level.height - (720/16))
+        pos_y++;
+
+    tool_window->camera_y->setSliderPosition(pos_y);
+    updateLabelText();
+    update();
+}
+
+void MainWindow::levelLeft() {
+    if(pos_x > 0)
+        pos_x--;
+
+    tool_window->camera_x->setSliderPosition(pos_x);
+    updateLabelText();
+    update();
+}
+
+void MainWindow::levelRight() {
+    if(pos_x < level.width - (1280/16))
+        pos_x++;
+    tool_window->camera_x->setSliderPosition(pos_x);
+    updateLabelText();
+    update();
+}
 
 void MainWindow::loadImages() {
     const char *fileNames[] = {  "black.bmp", "bluebrick.bmp", "bluesky.bmp", "brick.bmp", "eblock.bmp", "red_brick.bmp", "sand1.bmp", "sand2.bmp", "snow.bmp", "stone.bmp", "stone2.bmp", "stone3.bmp", "stone4.bmp", 0 };
