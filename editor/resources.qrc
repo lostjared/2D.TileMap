@@ -13,5 +13,8 @@
 <file>images/stone2.bmp</file>
 <file>images/stone3.bmp</file>
 <file>images/stone4.bmp</file>
+<file>images/pencil.png</file>
+<file>images/eraser.png</file>
+<file>images/bucket.png</file>
 </qresource>
 </RCC>
