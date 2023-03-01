@@ -7,25 +7,7 @@
 namespace game {
 
   void GameLevel::init(RenderObject *ro) {
-        if(!level.loadLevel("levels/level1.lvl")) {
-            std::cerr << "Error loading level..\n";
-            exit(0);
-        }
-        int max_x = level.width * 16 - WINDOW_SIZE_WIDTH -1;
-        int max_y = level.height * 16 - WINDOW_SIZE_HEIGHT -1;
-        tsize = 16;
-        cam.init(1280, 720, max_x, max_y);
-        /*
-        level.create(WINDOW_SIZE_W*2, WINDOW_SIZE_H*2, Tile{});
-        for(int i = 0; i < WINDOW_SIZE_W*2; ++i) {
-            for(int z = 0; z < WINDOW_SIZE_H*2; ++z) {
-                Tile *t = level.at(i, z);
-                t->img = rand()%2;
-            }
-        }
-        std::cout << "Created: " << level.width << ":" << level.height << "\n";
-        */
-        
+        loadLevel("levels/level1.lvl");
         const char *fileNames[] = {  "black.bmp", "bluebrick.bmp", "bluesky.bmp", "brick.bmp", "eblock.bmp", "red_brick.bmp", "sand1.bmp", "sand2.bmp", "snow.bmp", "stone.bmp", "stone2.bmp", "stone3.bmp", "stone4.bmp", 0 };
         for(uint8_t i = 0; fileNames[i] != 0; ++i) {
             std::ostringstream stream;
@@ -33,9 +15,19 @@ namespace game {
             int img = ro->loadImage(stream.str());
             images.push_back(img);
         }
-
         arial = ro->loadFont("./img/arial.ttf", 24);
         delta = 0;
+    }
+
+    void GameLevel::loadLevel(const std::string &filename) {
+        if(!level.loadLevel(filename)) {
+            std::cerr << "Error loading level..\n";
+            exit(0);
+        }
+        int max_x = level.width * 16 - WINDOW_SIZE_WIDTH -1;
+        int max_y = level.height * 16 - WINDOW_SIZE_HEIGHT -1;
+        tsize = 16;
+        cam.init(1280, 720, max_x, max_y);
     }
 
     void GameLevel::draw(RenderObject *ro) {
