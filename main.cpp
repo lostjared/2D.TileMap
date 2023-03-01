@@ -4,7 +4,7 @@
 
 
 int main(int argc, char **argv) {
-    int width = 1280, height = 720;
+    int width = 1280-16, height = 720-16;
     if(argc == 3) {
         width = atoi(argv[1]);
         height = atoi(argv[2]);

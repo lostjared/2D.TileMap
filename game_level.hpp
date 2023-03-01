@@ -15,7 +15,6 @@ namespace game {
         void keydown(char key) override;
         void keyup(char key) override;  
         void loadLevel(const std::string &filename); 
-
     protected:    
         Level level;
         Camera cam;

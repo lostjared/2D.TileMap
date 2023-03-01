@@ -123,7 +123,7 @@ namespace game {
                 return false;
             }
 
-            tex = SDL_CreateTexture(ren, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, 1280, 720);
+            tex = SDL_CreateTexture(ren, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, 1280-16, 720-16);
 
             if(!tex) {
                 std::cerr << "Could not create texture: " << SDL_GetError() << "\n";
@@ -132,7 +132,7 @@ namespace game {
                 return false;
             }
 
-            surface = SDL_CreateRGBSurfaceFrom(NULL, 1280, 720, 32, w*4, 0x00FF0000, 0x0000FF00,0x000000FF,0xFF000000);
+            surface = SDL_CreateRGBSurfaceFrom(NULL, 1280-16, 720-16, 32, w*4, 0x00FF0000, 0x0000FF00,0x000000FF,0xFF000000);
 
             if(!surface) {
                 std::cerr << "Could not create main surface: " << SDL_GetError() << "\n";
