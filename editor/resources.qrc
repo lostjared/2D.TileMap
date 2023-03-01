@@ -16,5 +16,6 @@
 <file>images/pencil.png</file>
 <file>images/eraser.png</file>
 <file>images/bucket.png</file>
+<file>images/camera.png</file>
 </qresource>
 </RCC>
