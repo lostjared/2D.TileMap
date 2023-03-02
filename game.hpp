@@ -18,6 +18,12 @@ namespace game {
         Rect(int xx, int yy, int ww, int hh);
     };
 
+    struct Point {
+        int x = 0, y = 0;
+        Point() = default;
+        Point(int xx, int yy);
+    };
+
     enum class Key { KEY_LEFT=1, KEY_RIGHT, KEY_UP, KEY_DOWN };
 
     using Font = int;
