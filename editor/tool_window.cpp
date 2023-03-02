@@ -56,5 +56,4 @@ ToolWindow::ToolWindow(QWidget *parent) : QDialog(parent) {
 
     camera_x->setSliderPosition(0);
     camera_y->setSliderPosition(0);
-
 }

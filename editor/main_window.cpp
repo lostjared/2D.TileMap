@@ -78,6 +78,21 @@ void MainWindow::paintEvent(QPaintEvent *) {
             }
         }
     }
+    drawLayer1(paint);
+    drawLayer2(paint);
+    drawLayer3(paint);
+}
+
+void MainWindow::drawLayer1(QPainter & /*paint*/) {
+
+}
+ 
+void MainWindow::drawLayer2(QPainter & /*paint*/) {
+
+}
+ 
+void MainWindow::drawLayer3(QPainter & /*paint*/) {
+
 }
 
 void MainWindow::mouseMoveEvent(QMouseEvent *e) {

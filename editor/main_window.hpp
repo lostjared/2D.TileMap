@@ -5,6 +5,7 @@
 #include<QMenu>
 #include<QAction>
 #include<QVector>
+#include<QPainter>
 #include"tool_window.hpp"
 #include"new_window.hpp"
 #include "../level.hpp"
@@ -24,6 +25,9 @@ public:
     void setTile(const QPoint &pos);
     void updateLabelText();
     void updateTitle();
+    void drawLayer1(QPainter &paint);
+    void drawLayer2(QPainter &paint);
+    void drawLayer3(QPainter &paint);
 public slots:
     void openNewMenu();
     void saveFile();
