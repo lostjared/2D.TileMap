@@ -12,7 +12,7 @@ namespace game {
         Color(unsigned char r, unsigned char g, unsigned char b);
     };
 
-    enum Key { KEY_LEFT=1, KEY_RIGHT, KEY_UP, KEY_DOWN };
+    enum class Key { KEY_LEFT=1, KEY_RIGHT, KEY_UP, KEY_DOWN };
 
     using Font = int;
     using Image = int;
