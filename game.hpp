@@ -7,9 +7,15 @@
 namespace game {
 
     struct Color {
-        unsigned char r,g,b;
+        unsigned char r = 0,g = 0,b = 0;
         Color() = default;
         Color(unsigned char r, unsigned char g, unsigned char b);
+    };
+
+    struct Rect {
+        int x = 0, y = 0, w = 0, h = 0;
+        Rect() = default;
+        Rect(int xx, int yy, int ww, int hh);
     };
 
     enum class Key { KEY_LEFT=1, KEY_RIGHT, KEY_UP, KEY_DOWN };
