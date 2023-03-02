@@ -32,6 +32,10 @@ namespace game {
     struct RenderObject {
         virtual ~RenderObject() = default;
         virtual void drawAt(Image image, int x, int y) = 0;
+        virtual void drawAt(Image image, const Point &p) = 0;
+        virtual void drawAtRect(Image image, const Rect &r) = 0;
+        virtual void drawAtRect(Image image, const Rect &src, const Rect &dst) = 0;
+        virtual void printText(Font font, const Point &p, const std::string &text, const Color &col) = 0;
         virtual void drawAtRect(Image image, int x, int y, int w, int h) = 0;
         virtual void drawAtRect(Image image, int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2) = 0;
         virtual void printText(Font font, int x, int y, const std::string &text, const Color &col) = 0;

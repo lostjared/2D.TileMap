@@ -64,7 +64,23 @@ namespace game {
             SDL_BlitSurface(surf, 0, surface, &rc);
             SDL_FreeSurface(surf);
         }
+
+        void drawAt(Image image, const Point &p) override {
+            drawAt(image, p.x, p.y);
+        }
         
+        void drawAtRect(Image image, const Rect &r) override {
+            drawAtRect(image, r.x, r.y, r.w, r.h);
+        }
+
+        void drawAtRect(Image image, const Rect &src, const Rect &dst) override {
+            drawAtRect(image, src.x, src.y, src.w, src.h, dst.x, dst.y, dst.w, dst.h);
+        }
+
+        void printText(Font font, const Point &p, const std::string &text, const Color &col) override {
+            printText(font, p.x, p.y, text, col);
+        }
+
         Font loadImage(const std::string &text) override {
             SDL_Surface *surface = SDL_LoadBMP(text.c_str());
             if(!surface) {
