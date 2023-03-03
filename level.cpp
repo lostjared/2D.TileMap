@@ -105,7 +105,7 @@ namespace game {
 
    bool Level::serialize(std::ostream &out) {
         if(tiles == nullptr) return false;
-        unsigned int type = 0x420;
+        uint32_t type = 0x420;
         out.write(reinterpret_cast<char*>(&type), sizeof(type));
         out.write(reinterpret_cast<char*>(&width), sizeof(width));
         out.write(reinterpret_cast<char*>(&height), sizeof(height));
@@ -118,7 +118,7 @@ namespace game {
    }
    
    bool Level::unserialize(std::istream &in) {
-        unsigned int type = 0;
+        uint32_t type = 0;
         in.read(reinterpret_cast<char*>(&type), sizeof(type));
         if(type != 0x420) return false;
         releaseTiles();
