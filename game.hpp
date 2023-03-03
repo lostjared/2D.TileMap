@@ -29,6 +29,10 @@ namespace game {
     struct Point {
         int x = 0, y = 0;
         Point() = default;
+        Point(const Point &p);
+        Point &operator=(const Point &p);
+        Point(Point &&p) = default;
+        Point &operator=(Point &&p) = default;
         Point(int xx, int yy);
     };
 
