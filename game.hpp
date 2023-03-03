@@ -49,15 +49,49 @@ namespace game {
 
     using Color = TColor<uint8_t>;
 
-    struct Rect {
-        int x = 0, y = 0, w = 0, h = 0;
-        Rect() = default;
-        Rect(const Rect &r);
-        Rect(Rect &&r) = default;
-        Rect &operator=(const Rect &r);
-        Rect &operator=(Rect &&r) = default;
-        Rect(int xx, int yy, int ww, int hh);
+    template<typename T>
+    class TRect {
+    public:
+        T x,y,w,h;
+        TRect();
+        TRect(T x, T y, T w, T h);
+        TRect(const TRect<T> &r);
+        TRect(TRect<T> &&r);
+        TRect<T> &operator=(const TRect <T> &r);
+        TRect<T> &operator=(TRect<T> &&r);
     };
+
+    template<typename T>
+    TRect<T>::TRect() : x{}, y{}, w{}, h{} {}
+
+    template<typename T>
+    TRect<T>::TRect(T xx, T yy, T ww, T hh) : x{xx}, y{yy}, w{ww}, h{hh} {}
+
+    template<typename T>
+    TRect<T>::TRect(const TRect<T> &r) : x{r.x}, y{r.y}, w{r.w}, h{r.h} {}
+
+    template<typename T>
+    TRect<T>::TRect(TRect<T> &&r) : x{r.x}, y{r.y}, w{r.w}, h{r.h} {}
+
+    template<typename T>
+    TRect<T> &TRect<T>::operator=(const TRect<T> &r) {
+        x = r.x;
+        y = r.y;
+        w = r.w;
+        h = r.h;
+        return *this;
+    }
+
+    template<typename T>
+    TRect<T> &TRect<T>::operator=(TRect<T> &&r) {
+        x = r.x;
+        y = r.y;
+        w = r.w;
+        h = r.h;
+        return *this;
+    }    
+
+    using Rect = TRect<int32_t>;
 
     struct Point {
         int x = 0, y = 0;
