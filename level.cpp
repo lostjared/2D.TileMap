@@ -51,7 +51,7 @@ namespace game {
         return serialize(file);
     }
 
-    void Level::create(int w, int h, const Tile &init_tile) {
+    void Level::create(int32_t w, int32_t h, const Tile &init_tile) {
         resizeTiles(w, h);
         for(int i = 0; i < w; ++i) {
             for(int z = 0; z < h; ++z) {
@@ -60,7 +60,7 @@ namespace game {
         }
     }
 
-    Tile *Level::at(int x, int y) {
+    Tile *Level::at(int32_t x, int32_t y) {
         if(x >= 0 && x < width && y >= 0 && y < height) {
             return &tiles[x][y];
         }
@@ -82,7 +82,7 @@ namespace game {
         }
     }
 
-    bool Level::resizeTiles(int w, int h) {
+    bool Level::resizeTiles(int32_t w, int32_t h) {
         releaseTiles();
         width = w;
         height = h;

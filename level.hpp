@@ -28,13 +28,13 @@ namespace game {
         ~Level();
         bool loadLevel(const std::string &filename);
         bool saveLevel(const std::string &filename);
-        int width, height;
-        void create(int w, int h, const Tile &init_tile);
-        Tile *at(int x, int y);
+        int32_t width, height;
+        void create(int32_t w, int32_t h, const Tile &init_tile);
+        Tile *at(int32_t x, int32_t y);
         void output_map(std::ostream &out);
     protected:
         Tile **tiles;
-        bool resizeTiles(int w, int h);
+        bool resizeTiles(int32_t w, int32_t h);
         void releaseTiles();
         bool serialize(std::ostream &out);
         bool unserialize(std::istream &in);
