@@ -7,15 +7,47 @@
 
 namespace game {
 
-    struct Color {
-        unsigned char r = 0,g = 0,b = 0;
-        Color() = default;
-        Color(const Color &c);
-        Color(Color &&c) = default;
-        Color &operator=(const Color &c);
-        Color &operator=(Color &&c) = default;
-        Color(unsigned char r, unsigned char g, unsigned char b);
+    template<typename T>
+    class TColor {
+    public:
+        T r, g, b;
+        TColor();
+        TColor(T r, T g, T b);
+        TColor(const TColor<T> &c);
+        TColor(TColor<T> &&c);
+        TColor<T> &operator=(const TColor<T> &c);
+        TColor<T> &operator=(TColor<T> &&c);
     };
+
+    template<typename T>
+    TColor<T>::TColor() : r{}, g{}, b{} {}
+
+    template<typename T>
+    TColor<T>::TColor(T rr, T gg, T bb) : r{rr}, g{gg}, b{bb} {}
+
+    template<typename T>
+    TColor<T>::TColor(const TColor<T> &c) : r{c.r}, g{c.g}, b{c.b} {}
+
+    template<typename T>
+    TColor<T>::TColor(TColor<T> &&c) : r{c.r}, g{c.g}, b{c.b} {}
+
+    template<typename T>
+    TColor<T> &TColor<T>::operator=(const TColor<T> &c) {
+        r = c.r;
+        g = c.g;
+        b = c.b;
+        return *this;
+    }
+
+    template<typename T>
+    TColor<T> &TColor<T>::operator=(TColor<T> &&c) {
+        r = c.r;
+        g = c.g;
+        b = c.b;
+        return *this;
+    }
+
+    using Color = TColor<uint8_t>;
 
     struct Rect {
         int x = 0, y = 0, w = 0, h = 0;
