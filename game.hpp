@@ -93,15 +93,45 @@ namespace game {
 
     using Rect = TRect<int32_t>;
 
-    struct Point {
-        int x = 0, y = 0;
-        Point() = default;
-        Point(const Point &p);
-        Point &operator=(const Point &p);
-        Point(Point &&p) = default;
-        Point &operator=(Point &&p) = default;
-        Point(int xx, int yy);
+    template<typename T>
+    class TPoint {
+    public:
+        T x, y;
+        TPoint();
+        TPoint(const TPoint<T> &p);
+        TPoint<T> &operator=(const TPoint<T> &p);
+        TPoint(TPoint<T> &&p);
+        TPoint<T> &operator=(TPoint<T> &&p);
+        TPoint(T xx, T yy);
     };
+
+    
+    template<typename T>
+    TPoint<T>::TPoint() : x{}, y{} {}
+
+    template<typename T>
+    TPoint<T>::TPoint(const TPoint<T> &p) : x{p.x}, y{p.y} {}
+
+    template<typename T>
+    TPoint<T> &TPoint<T>::operator=(const TPoint<T> &p) {
+        x = p.x;
+        y = p.y;
+        return *this;
+    }
+    template<typename T>
+    TPoint<T>::TPoint(TPoint<T> &&p) : x{p.x}, y{p.y} {}
+
+    template<typename T>
+    TPoint<T> &TPoint<T>::operator=(TPoint<T> &&p) {
+        x = p.x;
+        y = p.y;
+        return *this;
+    }
+
+    template<typename T>
+    TPoint<T>::TPoint(T xx, T yy) : x{xx}, y{yy} {}
+
+    using Point = TPoint<int32_t>;
 
     enum class Key { KEY_LEFT=1, KEY_RIGHT, KEY_UP, KEY_DOWN };
 
