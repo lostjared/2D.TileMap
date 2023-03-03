@@ -19,6 +19,10 @@ namespace game {
     struct Rect {
         int x = 0, y = 0, w = 0, h = 0;
         Rect() = default;
+        Rect(const Rect &r);
+        Rect(Rect &&r) = default;
+        Rect &operator=(const Rect &r);
+        Rect &operator=(Rect &&r) = default;
         Rect(int xx, int yy, int ww, int hh);
     };
 
