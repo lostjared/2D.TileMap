@@ -9,6 +9,10 @@ namespace game {
     struct Color {
         unsigned char r = 0,g = 0,b = 0;
         Color() = default;
+        Color(const Color &c);
+        Color(Color &&c) = default;
+        Color &operator=(const Color &c);
+        Color &operator=(Color &&c) = default;
         Color(unsigned char r, unsigned char g, unsigned char b);
     };
 
