@@ -2,6 +2,13 @@
 
 namespace game {
 
+    Item::Item(int xx, int yy, int t, int item_t, int item_a) : item_type{item_t}, item_amount{item_a} {
+        x = xx;
+        y = yy;
+        type = t;   
+    }
+
+    
     void Item::init(RenderObject *ro) {
 
     }

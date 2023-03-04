@@ -21,6 +21,7 @@ namespace game {
     class Item : public CObject {
     public:
         Item() = default;
+        Item(int xx, int yy, int type, int item_t, int item_a);
         void init(RenderObject *ro) override;
         void draw(RenderObject *ro) override;
         void release() override;

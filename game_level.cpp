@@ -55,12 +55,7 @@ namespace game {
                 if(tile != nullptr) {
                     switch(tile->layers[0]) {
                         case 1: {
-                            Item *item = new Item();
-                            item->x = i;
-                            item->y = z;
-                            item->type = 1;
-                            item->item_type = 1;
-                            item->item_amount = 100;
+                            Item *item = new Item(i, z, 1, 1, 100);
                             objects.push_back(item);
                             int index = objects.size()-1;
                             tile->layers[1] = index;
