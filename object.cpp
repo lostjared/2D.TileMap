@@ -11,7 +11,8 @@ namespace game {
     Item::Item(int xx, int yy, int t, int item_t, int item_a) : item_type{item_t}, item_amount{item_a} {
         x = xx;
         y = yy;
-        type = t;   
+        type = t;  
+        active = true; 
     }
 
     
@@ -20,7 +21,7 @@ namespace game {
     }
     
     void Item::draw(RenderObject *ro, int x, int y) {
-        ro->drawAt(frame_data[item_type], x, y);
+        if(active) ro->drawAt(frame_data[item_type], x, y);
     }
 
     void Item::release() {

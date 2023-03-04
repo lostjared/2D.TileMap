@@ -16,6 +16,7 @@ namespace game {
         virtual void release() = 0;
         int x = 0,y = 0,cur_frame = 0, type = 0;
         std::vector<Image> frame_data;
+        bool active = true;
     };
 
 
