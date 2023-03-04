@@ -55,11 +55,14 @@ namespace game {
                 if(tile != nullptr) {
                     switch(tile->layers[0]) {
                         case 1: {
-                            objects.push_back(new Item());
+                            Item *item = new Item();
+                            item->x = i;
+                            item->y = z;
+                            item->type = 1;
+                            item->item_type = 1;
+                            item->item_amount = 100;
+                            objects.push_back(item);
                             int index = objects.size()-1;
-                            objects[index]->x = i;
-                            objects[index]->y = z;
-                            objects[index]->type = 1;
                             tile->layers[1] = index;
                         }
                         break;
@@ -100,9 +103,12 @@ namespace game {
                 if(tile != nullptr && tile->layers[0] == 1) {
                     int xx = (x - start_col) * tsize + off_x;
                     int yy = (y - start_row) * tsize + off_y;
+                    Item *item = dynamic_cast<Item *>(objects[tile->layers[1]]);
+                    //std::ostringstream stream;
+                    //stream << item->item_type;
                     //ro->drawAt(images[tile->img], xx, yy);    
                     // temporary             
-                    //ro->printText(arial, xx, yy, "O", Color(255,255,255));
+                    //ro->printText(arial, xx, yy, stream.str(), Color(255,255,255));
                 }
             }
         }       
