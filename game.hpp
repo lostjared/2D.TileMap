@@ -104,8 +104,7 @@ namespace game {
         TPoint<T> &operator=(TPoint<T> &&p);
         TPoint(T xx, T yy);
     };
-
-    
+   
     template<typename T>
     TPoint<T>::TPoint() : x{}, y{} {}
 
