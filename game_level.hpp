@@ -23,6 +23,7 @@ namespace game {
         Camera cam;
         std::vector<Image> images;
         std::vector<CObject *> objects;
+        std::vector<Image> object_images;
         Font arial;
         int tsize;
         float delta;

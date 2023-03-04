@@ -1,6 +1,12 @@
 #include"object.hpp"
+#include<iostream>
 
 namespace game {
+
+    void CObject::setImages(const std::vector<Image> &v) {
+        std::copy(v.begin(), v.end(), std::back_inserter(frame_data));
+    }
+
 
     Item::Item(int xx, int yy, int t, int item_t, int item_a) : item_type{item_t}, item_amount{item_a} {
         x = xx;
@@ -13,8 +19,8 @@ namespace game {
 
     }
     
-    void Item::draw(RenderObject *ro) {
-
+    void Item::draw(RenderObject *ro, int x, int y) {
+        ro->drawAt(frame_data[item_type], x, y);
     }
 
     void Item::release() {
@@ -25,7 +31,7 @@ namespace game {
 
     }
     
-    void Hero::draw(RenderObject *ro) {
+    void Hero::draw(RenderObject *ro, int x, int y) {
 
     }
 

@@ -7,7 +7,6 @@
 namespace game {
 
   void GameLevel::init(RenderObject *ro) {
-        loadLevel("levels/level1.lvl");
         const char *fileNames[] = {  "black.bmp", "bluebrick.bmp", "bluesky.bmp", "brick.bmp", "eblock.bmp", "red_brick.bmp", "sand1.bmp", "sand2.bmp", "snow.bmp", "stone.bmp", "stone2.bmp", "stone3.bmp", "stone4.bmp", 0 };
         for(uint8_t i = 0; fileNames[i] != 0; ++i) {
             std::ostringstream stream;
@@ -17,6 +16,14 @@ namespace game {
         }
         arial = ro->loadFont("./img/arial.ttf", 24);
         delta = 0;
+        object_images.push_back(ro->loadImage("./img/col1.bmp"));
+        object_images.push_back(ro->loadImage("./img/col2.bmp"));
+        object_images.push_back(ro->loadImage("./img/col3.bmp"));
+        object_images.push_back(ro->loadImage("./img/col4.bmp"));
+        object_images.push_back(ro->loadImage("./img/col5.bmp"));
+        object_images.push_back(ro->loadImage("./img/col6.bmp"));
+
+        loadLevel("levels/level1.lvl");
     }
 
     void GameLevel::release() {
@@ -52,10 +59,12 @@ namespace game {
         for(int i = 0; i < level.width; ++i) {
             for(int z = 0; z < level.height; ++z) {
                 Tile *tile = level.at(i, z);
+                if(rand()%50 == 0) tile->layers[0] = 1;
                 if(tile != nullptr) {
                     switch(tile->layers[0]) {
                         case 1: {
                             Item *item = new Item(i, z, 1, 1, 100);
+                            item->setImages(object_images);
                             objects.push_back(item);
                             int index = objects.size()-1;
                             tile->layers[1] = index;
@@ -92,18 +101,15 @@ namespace game {
         }       
 
         // draw objects
-        for(int x = start_col; x < end_col; ++x) {
+        for(int x = start_col-16; x < end_col; ++x) {
             for(int y = start_row; y < end_row; ++y) {
                 Tile *tile = level.at(x, y);
                 if(tile != nullptr && tile->layers[0] == 1) {
                     int xx = (x - start_col) * tsize + off_x;
                     int yy = (y - start_row) * tsize + off_y;
-                    Item *item = dynamic_cast<Item *>(objects[tile->layers[1]]);
-                    //std::ostringstream stream;
-                    //stream << item->item_type;
-                    //ro->drawAt(images[tile->img], xx, yy);    
-                    // temporary             
-                    //ro->printText(arial, xx, yy, stream.str(), Color(255,255,255));
+                    //Item *item = dynamic_cast<Item *>(objects[tile->layers[1]]);
+                    CObject *item = objects[tile->layers[1]];
+                    item->draw(ro, xx, yy);
                 }
             }
         }       

@@ -90,6 +90,7 @@ namespace game {
             }
             surfaces.push_back(surface);
             int index = surfaces.size()-1;
+            setImageColorKey(index, Color(255, 255, 255));
             std::cout << "loaded image [" << text << "] at index: [" << index << "]\n";
             return index;
         }
