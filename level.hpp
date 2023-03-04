@@ -18,6 +18,7 @@ namespace game {
         uint8_t img = 0;
         uint8_t layers[3] = {0};
         void set(const Tile &tile);
+        void setTile(const Tile &tile);
     };   
 
     bool atPoint(int x1, int y1, int &x, int &y);

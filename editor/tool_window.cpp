@@ -66,7 +66,7 @@ ToolWindow::ToolWindow(QWidget *parent) : QDialog(parent) {
     for(int i = 1; i <= 6; ++i) {
         QString text;
         QTextStream stream(&text);
-        stream << "col" << i;
+        stream << "col" << i << ".bmp";
         tile_objects->addItem(text);
         text = "";
         stream << ":/images/col" << i << ".bmp";

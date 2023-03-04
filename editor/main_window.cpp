@@ -83,8 +83,21 @@ void MainWindow::paintEvent(QPaintEvent *) {
     drawLayer3(paint);
 }
 
-void MainWindow::drawLayer1(QPainter & /*paint*/) {
+void MainWindow::drawLayer1(QPainter & paint) {
+    for(int i = 0; i < MAP_WIDTH; ++i) {
+        for(int z = 0; z < MAP_HEIGHT; ++z) {
+            int x = i*16;
+            int y = z*16;
+            game::Tile *tile = level.at(pos_x+i, pos_y+z);
+            if(tile != nullptr) {
+                if(tile->layers[0] > 0 && tile->layers[0] <= 6) {
 
+
+                    paint.drawImage(x, y, col[tile->layers[0]-1]);
+                }
+            }
+        }
+    }
 }
  
 void MainWindow::drawLayer2(QPainter & /*paint*/) {
@@ -103,6 +116,9 @@ void MainWindow::mouseMoveEvent(QMouseEvent *e) {
 void MainWindow::mousePressEvent(QMouseEvent *e) {
     if(e->button() == Qt::MouseButton::LeftButton) {
         setTile(e->pos());
+        update();
+    } else if(e->button() == Qt::MouseButton::RightButton) {
+        setObject(e->pos());
         update();
     }
 }
@@ -140,10 +156,10 @@ void MainWindow::setTile(const QPoint &pos) {
                 //tile->img = 2;
                 switch(tool_window->tool->currentIndex()) {
                     case 0:
-                        *tile = tiles[tool_window->tiles->currentIndex()];
+                        tile->setTile(tiles[tool_window->tiles->currentIndex()]);
                     break;
                     case 1:
-                        *tile = tiles[0];
+                        tile->setTile(tiles[0]);
                     break;
                     case 2:
                        for(int i = pos_x; i < pos_x+(1280/16) && i < level.width; ++i) {
@@ -159,6 +175,25 @@ void MainWindow::setTile(const QPoint &pos) {
             } 
         }
     }
+}
+
+void MainWindow::setObject(const QPoint &pos) {
+    if(map_init == true) {
+        int x,y;
+        if(game::atPoint(pos.x(), pos.y(), x, y)) {
+            game::Tile *tile = level.at(pos_x+x, pos_y+y);
+            if(tile != nullptr) {
+                switch(tool_window->tool->currentIndex()) {
+                    case 0:
+                        tile->layers[0] = tool_window->tile_objects->currentIndex()+1;
+                    break;
+                    case 1:
+                        tile->layers[0] = 0;                        
+                    break;
+                }
+            } 
+        }
+    }   
 }
 
 
@@ -300,4 +335,20 @@ void MainWindow::loadImages() {
 
     tiles[0].solid = 0;
     tiles[2].solid = 0;
+
+    for(int i = 1; i <= 6; ++i) {
+        QString text;
+        QTextStream stream(&text);
+        stream << ":/images/col" << i << ".bmp";
+        QImage img(text);
+        QImage img_t = img.convertToFormat(QImage::Format_ARGB32);
+        for(int i = 0; i < img.width(); ++i) {
+            for(int z = 0; z < img.height(); ++z) {
+                if(img_t.pixel(i, z) == qRgb(255, 255, 255)) {
+                    img_t.setPixel(i, z, qRgba(0, 0, 0, 0));
+                }
+            }
+        }
+        col.append(img_t);
+    }
 }

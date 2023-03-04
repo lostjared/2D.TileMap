@@ -7,7 +7,7 @@
 namespace game {
 
   void GameLevel::init(RenderObject *ro) {
-        const char *fileNames[] = {  "black.bmp", "bluebrick.bmp", "bluesky.bmp", "brick.bmp", "eblock.bmp", "red_brick.bmp", "sand1.bmp", "sand2.bmp", "snow.bmp", "stone.bmp", "stone2.bmp", "stone3.bmp", "stone4.bmp", 0 };
+        const char *fileNames[] = {  "black.bmp", "bluebrick.bmp", "bluesky.bmp", "brick.bmp", "eblock.bmp", "red_brick.bmp", "sand1.bmp", "sand2.bmp", "snow.bmp", "stone.bmp", "stone2.bmp", "stone3.bmp", "stone4.bmp", "grass.bmp", 0 };
         for(uint8_t i = 0; fileNames[i] != 0; ++i) {
             std::ostringstream stream;
             stream << "./img/" << fileNames[i];
@@ -59,11 +59,10 @@ namespace game {
         for(int i = 0; i < level.width; ++i) {
             for(int z = 0; z < level.height; ++z) {
                 Tile *tile = level.at(i, z);
-                if(rand()%50 == 0) tile->layers[0] = 1;
                 if(tile != nullptr) {
                     switch(tile->layers[0]) {
                         case 1: {
-                            Item *item = new Item(i, z, 1, 1, 100);
+                            Item *item = new Item(i, z, 1, tile->layers[0]-1, 100);
                             item->setImages(object_images);
                             objects.push_back(item);
                             int index = objects.size()-1;

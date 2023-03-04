@@ -23,6 +23,7 @@ public:
     void keyPressEvent(QKeyEvent *e) override;
     void createdNewMap();
     void setTile(const QPoint &pos);
+    void setObject(const QPoint &pos);
     void updateLabelText();
     void updateTitle();
     void drawLayer1(QPainter &paint);
@@ -46,6 +47,7 @@ private:
     NewWindow *new_window;  
 
     QVector<QImage> images;
+    QVector<QImage> col;
     QVector<game::Tile> tiles; 
     void loadImages();
     game::Level level;

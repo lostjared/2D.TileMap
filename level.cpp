@@ -31,6 +31,12 @@ namespace game {
         layers[2] = tile.layers[2];
     }
 
+    void Tile::setTile(const Tile &tile) {
+        color = tile.color;
+        img = tile.img;
+        solid = tile.solid;
+    }
+
    Level::Level() : width{0}, height{0}, tiles{nullptr} {
 
    }
