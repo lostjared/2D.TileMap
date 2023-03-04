@@ -13,7 +13,7 @@ namespace game {
         virtual void init(RenderObject *ro) = 0;
         virtual void draw(RenderObject *ro) = 0;
 
-        int x,y,cur_frame;
+        int x = 0,y = 0,cur_frame = 0;
         std::vector<Image> frame_data;
     };
 
@@ -24,8 +24,8 @@ namespace game {
         void init(RenderObject *ro) override;
         void draw(RenderObject *ro) override;
 
-        int item_type;
-        int item_amount;
+        int item_type = 0;
+        int item_amount = 0;
     };
 
     class Hero : public CObject {
