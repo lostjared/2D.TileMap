@@ -10,12 +10,20 @@ namespace game {
 
     }
 
+    void Item::release() {
+
+    }
+
     void Hero::init(RenderObject *ro) {
 
     }
     
     void Hero::draw(RenderObject *ro) {
 
+    }
+
+    void Hero::release() {
+        
     }
 
     void Hero::moveLeft() {

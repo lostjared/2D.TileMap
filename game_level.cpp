@@ -19,6 +19,18 @@ namespace game {
         delta = 0;
     }
 
+    void GameLevel::release() {
+        std::cout << "Level objects release\n";
+         if(!objects.empty()) {
+            for(auto &i : objects) {
+                std::cout << "released object type: " << i->type << "\n";
+                i->release();
+                delete i;
+            }
+            objects.erase(objects.begin(), objects.end());
+        }
+    }
+
     void GameLevel::loadLevel(const std::string &filename) {
         if(!level.loadLevel(filename)) {
             std::cerr << "Error loading level..\n";
@@ -28,6 +40,33 @@ namespace game {
         int max_y = level.height * 16 - WINDOW_SIZE_HEIGHT -1;
         tsize = 16;
         cam.init(1280, 720, max_x, max_y);
+        // free level objects
+        if(!objects.empty()) {
+            for(auto &i : objects) {
+                i->release();
+                delete i;
+            }
+            objects.erase(objects.begin(), objects.end());
+        }
+        // load level objects
+        for(int i = 0; i < level.width; ++i) {
+            for(int z = 0; z < level.height; ++z) {
+                Tile *tile = level.at(i, z);
+                if(tile != nullptr) {
+                    switch(tile->layers[0]) {
+                        case 1: {
+                            objects.push_back(new Item());
+                            int index = objects.size()-1;
+                            objects[index]->x = i;
+                            objects[index]->y = z;
+                            objects[index]->type = 1;
+                            tile->layers[1] = index;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     void GameLevel::draw(RenderObject *ro) {
@@ -42,6 +81,7 @@ namespace game {
         int off_x = -cx + start_col * tsize;
         int off_y = -cy + start_row * tsize;
 
+        // draw background
         for(int x = start_col; x < end_col; ++x) {
             for(int y = start_row; y < end_row; ++y) {
                 Tile *tile = level.at(x, y);
@@ -52,6 +92,21 @@ namespace game {
                 }
             }
         }       
+
+        // draw objects
+        for(int x = start_col; x < end_col; ++x) {
+            for(int y = start_row; y < end_row; ++y) {
+                Tile *tile = level.at(x, y);
+                if(tile != nullptr && tile->layers[0] == 1) {
+                    int xx = (x - start_col) * tsize + off_x;
+                    int yy = (y - start_row) * tsize + off_y;
+                    //ro->drawAt(images[tile->img], xx, yy);    
+                    // temporary             
+                    //ro->printText(arial, xx, yy, "O", Color(255,255,255));
+                }
+            }
+        }       
+    
 
         unsigned int tick = ro->getTicks();
         static unsigned int prev_tick = 0;

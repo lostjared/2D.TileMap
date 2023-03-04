@@ -12,8 +12,8 @@ namespace game {
         virtual ~CObject() = default;
         virtual void init(RenderObject *ro) = 0;
         virtual void draw(RenderObject *ro) = 0;
-
-        int x = 0,y = 0,cur_frame = 0;
+        virtual void release() = 0;
+        int x = 0,y = 0,cur_frame = 0, type = 0;
         std::vector<Image> frame_data;
     };
 
@@ -23,6 +23,7 @@ namespace game {
         Item() = default;
         void init(RenderObject *ro) override;
         void draw(RenderObject *ro) override;
+        void release() override;
 
         int item_type = 0;
         int item_amount = 0;
@@ -33,7 +34,7 @@ namespace game {
         Hero() = default;
         void init(RenderObject *ro) override;
         void draw(RenderObject *ro) override;
-
+        void release() override;
         void moveLeft();
         void moveRight();
         void moveDown();

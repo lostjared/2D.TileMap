@@ -16,7 +16,7 @@ namespace game {
         uint8_t color = 0;
         uint8_t solid = 0;
         uint8_t img = 0;
-        uint8_t layers[3];
+        uint8_t layers[3] = {0};
         void set(const Tile &tile);
     };   
 

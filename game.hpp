@@ -158,6 +158,7 @@ namespace game {
         virtual ~GameObject() = default;
         virtual void init(RenderObject *ro) = 0;
         virtual void draw(RenderObject *ro) = 0;
+        virtual void release() = 0;
         virtual void keydown(char key) = 0;
         virtual void keyup(char key) = 0;
     };

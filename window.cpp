@@ -240,6 +240,7 @@ namespace game {
             }
 
         }
+        current_object->release();
         return EXIT_SUCCESS;
     }
 }

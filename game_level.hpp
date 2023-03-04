@@ -14,6 +14,7 @@ namespace game {
         GameLevel() = default;
         void init(RenderObject *ro) override;
         void draw(RenderObject *ro) override;
+        void release() override;
         void keydown(char key) override;
         void keyup(char key) override;  
         void loadLevel(const std::string &filename); 
