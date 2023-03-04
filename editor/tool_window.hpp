@@ -14,6 +14,7 @@ public:
     int current_tile = 1;
     QComboBox *tiles;
     QComboBox *tool;
+    QComboBox *tile_objects;
     QScrollBar *camera_x, *camera_y;
     QLabel *lbl_x, *lbl_y;
 };

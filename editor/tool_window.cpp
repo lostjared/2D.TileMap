@@ -56,4 +56,14 @@ ToolWindow::ToolWindow(QWidget *parent) : QDialog(parent) {
 
     camera_x->setSliderPosition(0);
     camera_y->setSliderPosition(0);
+
+    QLabel *lbl_obj = new QLabel(tr("Objects"), this);
+    lbl_obj->setGeometry(20, 120, 75, 20);
+
+    tile_objects = new QComboBox(this);
+    tile_objects->setGeometry(10, 145, 120, 25);
+
+    tile_objects->addItem(tr("Item"));
+    
+
 }
