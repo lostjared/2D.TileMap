@@ -4,6 +4,8 @@
 #include"camera.hpp"
 #include"level.hpp"
 #include"game.hpp"
+#include"object.hpp"
+
 #include<vector>
 
 namespace game {
@@ -19,6 +21,7 @@ namespace game {
         Level level;
         Camera cam;
         std::vector<Image> images;
+        std::vector<CObject *> objects;
         Font arial;
         int tsize;
         float delta;
