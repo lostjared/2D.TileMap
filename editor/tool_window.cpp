@@ -63,7 +63,15 @@ ToolWindow::ToolWindow(QWidget *parent) : QDialog(parent) {
     tile_objects = new QComboBox(this);
     tile_objects->setGeometry(10, 145, 120, 25);
 
-    tile_objects->addItem(tr("Item"));
-    
-
+    for(int i = 1; i <= 6; ++i) {
+        QString text;
+        QTextStream stream(&text);
+        stream << "col" << i;
+        tile_objects->addItem(text);
+        text = "";
+        stream << ":/images/col" << i << ".bmp";
+        QPixmap img(text);
+        QPixmap img_s = img.scaled(16,16,Qt::IgnoreAspectRatio);
+        tile_objects->setItemData(i-1, img_s, Qt::DecorationRole);
+    }
 }
