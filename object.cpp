@@ -24,6 +24,11 @@ namespace game {
         if(active) ro->drawAt(frame_data[item_type], x, y);
     }
 
+    int Item::grab() {
+        active = false;
+        return item_amount;
+    }
+
     void Item::release() {
 
     }

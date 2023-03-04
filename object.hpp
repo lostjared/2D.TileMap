@@ -27,7 +27,7 @@ namespace game {
         void init(RenderObject *ro) override;
         void draw(RenderObject *ro, int x, int y) override;
         void release() override;
-
+        int grab();
         int item_type = 0;
         int item_amount = 0;
     };
