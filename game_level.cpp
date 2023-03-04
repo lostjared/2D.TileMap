@@ -61,7 +61,12 @@ namespace game {
                 Tile *tile = level.at(i, z);
                 if(tile != nullptr) {
                     switch(tile->layers[0]) {
-                        case 1: {
+                        case 1: 
+                        case 2:
+                        case 3:
+                        case 4:
+                        case 5:
+                        case 6: {
                             Item *item = new Item(i, z, 1, tile->layers[0]-1, 100);
                             item->setImages(object_images);
                             objects.push_back(item);
@@ -103,7 +108,7 @@ namespace game {
         for(int x = start_col-16; x < end_col; ++x) {
             for(int y = start_row; y < end_row; ++y) {
                 Tile *tile = level.at(x, y);
-                if(tile != nullptr && tile->layers[0] == 1) {
+                if(tile != nullptr && tile->layers[0] > 0 && tile->layers[0] <= 6) {
                     int xx = (x - start_col) * tsize + off_x;
                     int yy = (y - start_row) * tsize + off_y;
                     //Item *item = dynamic_cast<Item *>(objects[tile->layers[1]]);
