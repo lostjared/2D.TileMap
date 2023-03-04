@@ -74,4 +74,8 @@ ToolWindow::ToolWindow(QWidget *parent) : QDialog(parent) {
         QPixmap img_s = img.scaled(16,16,Qt::IgnoreAspectRatio);
         tile_objects->setItemData(i-1, img_s, Qt::DecorationRole);
     }
+    tile_objects->addItem("tree");
+    QPixmap img(":/images/tree.png");
+    QPixmap img_s = img.scaled(16,16,Qt::IgnoreAspectRatio);
+    tile_objects->setItemData(6, img_s, Qt::DecorationRole);
 }

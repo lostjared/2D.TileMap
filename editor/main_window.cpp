@@ -90,9 +90,7 @@ void MainWindow::drawLayer1(QPainter & paint) {
             int y = z*16;
             game::Tile *tile = level.at(pos_x+i, pos_y+z);
             if(tile != nullptr) {
-                if(tile->layers[0] > 0 && tile->layers[0] <= 6) {
-
-
+                if(tile->layers[0] > 0 && tile->layers[0] <= 7) {
                     paint.drawImage(x, y, col[tile->layers[0]-1]);
                 }
             }
@@ -109,8 +107,13 @@ void MainWindow::drawLayer3(QPainter & /*paint*/) {
 }
 
 void MainWindow::mouseMoveEvent(QMouseEvent *e) {
-    setTile(e->pos());
-    update();
+    if(e->buttons() & Qt::MouseButton::LeftButton) {
+        setTile(e->pos());
+        update();
+    } else if(e->buttons() & Qt::MouseButton::RightButton) {
+        setObject(e->pos());
+        update();
+    }
 }
 
 void MainWindow::mousePressEvent(QMouseEvent *e) {
@@ -150,7 +153,7 @@ void MainWindow::keyPressEvent(QKeyEvent *e) {
 void MainWindow::setTile(const QPoint &pos) {
     if(map_init == true) {
         int x,y;
-        if(game::atPoint(pos.x(), pos.y(), x, y)) {
+        if(game::atPoint(pos.x(), pos.y(),16,16,x, y)) {
             game::Tile *tile = level.at(pos_x+x, pos_y+y);
             if(tile != nullptr) {
                 //tile->img = 2;
@@ -179,16 +182,31 @@ void MainWindow::setTile(const QPoint &pos) {
 
 void MainWindow::setObject(const QPoint &pos) {
     if(map_init == true) {
+        if(tool_window->tool->currentIndex() == 1) {
+            int width = col[tool_window->tile_objects->currentIndex()].width();
+            int height = col[tool_window->tile_objects->currentIndex()].height();
+            int px = pos.x()-width;
+            int py = pos.y()-height;
+            for(int i = px; i < px+width; i += 16) {
+                for(int z = py; z < py+height; z += 16) {
+                    int x,y;
+                    if(game::atPoint(i, z, 16, 16, x, y)) {
+                        game::Tile *tile = level.at(pos_x+x, pos_y+y);
+                        if(tile != nullptr) {
+                            tile->layers[0] = 0;
+                        }
+                    }
+                }
+            }
+            return;
+        }
         int x,y;
-        if(game::atPoint(pos.x(), pos.y(), x, y)) {
+        if(game::atPoint(pos.x(), pos.y(), 16,16, x, y)) {
             game::Tile *tile = level.at(pos_x+x, pos_y+y);
             if(tile != nullptr) {
                 switch(tool_window->tool->currentIndex()) {
                     case 0:
                         tile->layers[0] = tool_window->tile_objects->currentIndex()+1;
-                    break;
-                    case 1:
-                        tile->layers[0] = 0;                        
                     break;
                 }
             } 
@@ -351,4 +369,5 @@ void MainWindow::loadImages() {
         }
         col.append(img_t);
     }
+    col.append(QImage(":/images/tree.png"));
 }
