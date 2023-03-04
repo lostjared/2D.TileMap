@@ -22,6 +22,7 @@ namespace game {
         object_images.push_back(ro->loadImage("./img/col4.bmp"));
         object_images.push_back(ro->loadImage("./img/col5.bmp"));
         object_images.push_back(ro->loadImage("./img/col6.bmp"));
+        object_images.push_back(ro->loadImage("./img/tree.bmp"));
 
         loadLevel("levels/level1.lvl");
     }
@@ -66,7 +67,8 @@ namespace game {
                         case 3:
                         case 4:
                         case 5:
-                        case 6: {
+                        case 6:
+                        case 7: {
                             Item *item = new Item(i, z, 1, tile->layers[0]-1, 10+(tile->layers[0]*5));
                             item->setImages(object_images);
                             objects.push_back(item);
@@ -108,7 +110,7 @@ namespace game {
         for(int x = start_col-16; x < end_col; ++x) {
             for(int y = start_row; y < end_row; ++y) {
                 Tile *tile = level.at(x, y);
-                if(tile != nullptr && tile->layers[0] > 0 && tile->layers[0] <= 6) {
+                if(tile != nullptr && tile->layers[0] > 0 && tile->layers[0] <= 7) {
                     int xx = (x - start_col) * tsize + off_x;
                     int yy = (y - start_row) * tsize + off_y;
                     //Item *item = dynamic_cast<Item *>(objects[tile->layers[1]]);

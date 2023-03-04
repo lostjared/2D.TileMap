@@ -21,7 +21,7 @@ namespace game {
         void setTile(const Tile &tile);
     };   
 
-    bool atPoint(int x1, int y1, int &x, int &y);
+    bool atPoint(int x1, int y1, int w, int h, int &x, int &y);
 
     class Level {
     public:

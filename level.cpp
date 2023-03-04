@@ -143,14 +143,14 @@ namespace game {
         return true;
    }
 
-    bool atPoint(int x1, int y1, int &x, int &y) {
+    bool atPoint(int x1, int y1, int w, int h, int &x, int &y) {
         y1 -= 16;
         x1 -= 16;
         for(int i = 0; i < 1280/16; ++i) {
             for(int z = 0; z < 720/16; ++z) {
                 int cx = i*16;
                 int cy = z*16;
-                if(cx >= x1 && cx <= x1+16 && cy >= y1 && cy <= y1+16) {
+                if(cx >= x1 && cx <= x1+w && cy >= y1 && cy <= y1+h) {
                     x = i;
                     y = z;
                     return true;
