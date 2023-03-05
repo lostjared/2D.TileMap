@@ -108,7 +108,7 @@ namespace game {
 
         // draw objects
         for(int x = start_col-16; x < end_col; ++x) {
-            for(int y = start_row; y < end_row; ++y) {
+            for(int y = start_row-16; y < end_row; ++y) {
                 Tile *tile = level.at(x, y);
                 if(tile != nullptr && tile->layers[0] > 0 && tile->layers[0] <= 7) {
                     int xx = (x - start_col) * tsize + off_x;
