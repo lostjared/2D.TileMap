@@ -39,6 +39,7 @@ public slots:
     void levelDown();
     void levelLeft();
     void levelRight();
+    void updateMap(int);
 private:
     QMenu *file_menu, *level_menu;
     QAction *file_new, *file_save,*file_save_as,*file_load;
@@ -54,6 +55,8 @@ private:
     bool map_init;
     int pos_x, pos_y;
     QString file_name;
+    bool draw_cursor;
+    QPoint draw_pos;
 };
 
 

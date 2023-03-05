@@ -60,7 +60,8 @@ MainWindow::MainWindow() {
     level_down = new QAction(tr("Scroll Down"));
     connect(level_down, SIGNAL(triggered()), this, SLOT(levelDown()));
     level_menu->addAction(level_down);
-
+    setMouseTracking(true);
+    connect(tool_window->hover_object, SIGNAL(stateChanged(int)), this, SLOT(updateMap(int)));
 }
 
 void MainWindow::paintEvent(QPaintEvent *) {
@@ -81,6 +82,20 @@ void MainWindow::paintEvent(QPaintEvent *) {
     drawLayer1(paint);
     drawLayer2(paint);
     drawLayer3(paint);
+
+    if(draw_cursor == true) {
+        QImage &img = col[tool_window->tile_objects->currentIndex()];
+        paint.drawImage(draw_pos.x(), draw_pos.y(), img);
+    }
+}
+
+void MainWindow::updateMap(int) {
+    if(tool_window->hover_object->isChecked())
+        draw_cursor = true;
+    else
+        draw_cursor = false;
+        
+    update();
 }
 
 void MainWindow::drawLayer1(QPainter & paint) {
@@ -112,6 +127,14 @@ void MainWindow::mouseMoveEvent(QMouseEvent *e) {
         update();
     } else if(e->buttons() & Qt::MouseButton::RightButton) {
         setObject(e->pos());
+        update();
+    } else {
+        if(map_init == true && tool_window->hover_object->isChecked()) {
+            draw_cursor = true;
+            draw_pos = e->pos();
+        } else {
+            draw_cursor = false;
+        }
         update();
     }
 }
@@ -200,7 +223,6 @@ void MainWindow::setObject(const QPoint &pos) {
                             }
                         }
                     }
-
                 }
             }
             return;

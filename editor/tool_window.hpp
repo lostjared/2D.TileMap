@@ -5,6 +5,7 @@
 #include<QComboBox>
 #include<QScrollBar>
 #include<QLabel>
+#include<QCheckBox>
 #include<cstdint>
 
 class ToolWindow : public QDialog {
@@ -17,6 +18,7 @@ public:
     QComboBox *tile_objects;
     QScrollBar *camera_x, *camera_y;
     QLabel *lbl_x, *lbl_y;
+    QCheckBox *hover_object;
 };
 
 #endif
