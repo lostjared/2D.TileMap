@@ -185,17 +185,22 @@ void MainWindow::setObject(const QPoint &pos) {
         if(tool_window->tool->currentIndex() == 1) {
             int width = col[tool_window->tile_objects->currentIndex()].width();
             int height = col[tool_window->tile_objects->currentIndex()].height();
-            int px = pos.x()-width;
-            int py = pos.y()-height;
-            for(int i = px; i < px+width; i += 16) {
-                for(int z = py; z < py+height; z += 16) {
-                    int x,y;
-                    if(game::atPoint(i, z, 16, 16, x, y)) {
-                        game::Tile *tile = level.at(pos_x+x, pos_y+y);
-                        if(tile != nullptr) {
-                            tile->layers[0] = 0;
+            int px = pos.x();
+            int py = pos.y();
+            for(int i = 0; i < MAP_WIDTH; ++i) {
+                for(int z = 0; z < MAP_HEIGHT; ++z) {
+                    game::Tile *tile = level.at(pos_x+i, pos_y+z);
+                    if(tile != nullptr) {
+                        int x = i*16-16;
+                        int y = z*16-16;
+                        if(tile->layers[0] > 0) {
+                            if(px >= x && px <= x+width && py >= y && py <= y+height) {
+                                tile->layers[0] = 0;
+                                return;
+                            }
                         }
                     }
+
                 }
             }
             return;
