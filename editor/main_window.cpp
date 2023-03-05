@@ -86,6 +86,10 @@ void MainWindow::paintEvent(QPaintEvent *) {
     if(draw_cursor == true) {
         QImage &img = col[tool_window->tile_objects->currentIndex()];
         paint.drawImage(draw_pos.x(), draw_pos.y(), img);
+        paint.fillRect(QRect(draw_pos.x(), draw_pos.y()-1, img.width(), 1), QColor(qRgb(255, 255, 255)));
+        paint.fillRect(QRect(draw_pos.x(), draw_pos.y()+img.height(), img.width(), 1), QColor(qRgb(255, 255, 255)));
+        paint.fillRect(QRect(draw_pos.x(), draw_pos.y()-1, 1, img.height()), QColor(qRgb(255,255,255)));
+        paint.fillRect(QRect(draw_pos.x()+img.width(), draw_pos.y()-1, 1, img.height()), QColor(qRgb(255,255,255)));
     }
 }
 
