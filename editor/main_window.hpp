@@ -56,7 +56,7 @@ private:
     bool map_init;
     int pos_x, pos_y;
     QString file_name;
-    bool draw_cursor;
+    bool draw_cursor, cursor_visible;
     QPoint draw_pos;
 };
 

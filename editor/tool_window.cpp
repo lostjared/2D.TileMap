@@ -78,6 +78,6 @@ ToolWindow::ToolWindow(QWidget *parent) : QDialog(parent) {
     QPixmap img(":/images/tree.png");
     QPixmap img_s = img.scaled(16,16,Qt::IgnoreAspectRatio);
     tile_objects->setItemData(6, img_s, Qt::DecorationRole);
-    hover_object = new QCheckBox(tr("Hover"), this);
-    hover_object->setGeometry(20, 180, 75, 20);
+    hover_object = new QCheckBox(tr("Object Cursor"), this);
+    hover_object->setGeometry(20, 180, 125, 20);
 }
