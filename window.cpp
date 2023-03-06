@@ -81,7 +81,11 @@ namespace game {
             printText(font, p.x, p.y, text, col);
         }
 
-        Font loadImage(const std::string &text) override {
+        Image loadImage(const std::string &text) override {
+           return loadImage(text, Color(255,255,255));
+        }
+
+        Image loadImage(const std::string &text, const Color &color) override {
             SDL_Surface *surface = SDL_LoadBMP(text.c_str());
             if(!surface) {
                 std::cerr << "Error could not load surface: " << text << "\n";
@@ -90,7 +94,7 @@ namespace game {
             }
             surfaces.push_back(surface);
             int index = surfaces.size()-1;
-            setImageColorKey(index, Color(255, 255, 255));
+            setImageColorKey(index, color);
             std::cout << "loaded image [" << text << "] at index: [" << index << "]\n";
             return index;
         }
