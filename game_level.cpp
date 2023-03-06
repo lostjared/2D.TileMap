@@ -12,7 +12,10 @@ namespace game {
         loadLevel("levels/level1.lvl");
     }
 
+// TODO: make load resources from text file
     void GameLevel::loadResources() {
+
+        render_object->releaseResources();
 
         if(!images.empty())
             images.erase(images.begin(), images.end());
