@@ -7,24 +7,36 @@
 namespace game {
 
   void GameLevel::init(RenderObject *ro) {
+        render_object = ro;
+        delta = 0;
+        loadLevel("levels/level1.lvl");
+    }
+
+    void GameLevel::loadResources() {
+
+        if(!images.empty())
+            images.erase(images.begin(), images.end());
+
         const char *fileNames[] = {  "black.bmp", "bluebrick.bmp", "bluesky.bmp", "brick.bmp", "eblock.bmp", "red_brick.bmp", "sand1.bmp", "sand2.bmp", "snow.bmp", "stone.bmp", "stone2.bmp", "stone3.bmp", "stone4.bmp", "grass.bmp", 0 };
         for(uint8_t i = 0; fileNames[i] != 0; ++i) {
             std::ostringstream stream;
             stream << "./img/" << fileNames[i];
-            int img = ro->loadImage(stream.str());
+            int img = render_object->loadImage(stream.str());
             images.push_back(img);
         }
-        arial = ro->loadFont("./img/arial.ttf", 24);
-        delta = 0;
-        object_images.push_back(ro->loadImage("./img/col1.bmp"));
-        object_images.push_back(ro->loadImage("./img/col2.bmp"));
-        object_images.push_back(ro->loadImage("./img/col3.bmp"));
-        object_images.push_back(ro->loadImage("./img/col4.bmp"));
-        object_images.push_back(ro->loadImage("./img/col5.bmp"));
-        object_images.push_back(ro->loadImage("./img/col6.bmp"));
-        object_images.push_back(ro->loadImage("./img/tree.bmp"));
-        loadLevel("levels/level1.lvl");
-        render_object = ro;
+
+        arial = render_object->loadFont("./img/arial.ttf", 24);
+
+        if(!object_images.empty())
+            object_images.erase(object_images.begin(), object_images.end());
+            
+        object_images.push_back(render_object->loadImage("./img/col1.bmp"));
+        object_images.push_back(render_object->loadImage("./img/col2.bmp"));
+        object_images.push_back(render_object->loadImage("./img/col3.bmp"));
+        object_images.push_back(render_object->loadImage("./img/col4.bmp"));
+        object_images.push_back(render_object->loadImage("./img/col5.bmp"));
+        object_images.push_back(render_object->loadImage("./img/col6.bmp"));
+        object_images.push_back(render_object->loadImage("./img/tree.bmp"));
     }
 
     void GameLevel::release(RenderObject *ro) {
@@ -41,6 +53,7 @@ namespace game {
     }
 
     void GameLevel::loadLevel(const std::string &filename) {
+        loadResources();
         if(!level.loadLevel(filename)) {
             std::cerr << "Error loading level..\n";
             exit(0);

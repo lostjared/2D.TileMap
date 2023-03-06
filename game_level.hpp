@@ -17,7 +17,8 @@ namespace game {
         void release(RenderObject *ro) override;
         void keydown(char key) override;
         void keyup(char key) override;  
-        void loadLevel(const std::string &filename); 
+        void loadLevel(const std::string &filename);
+        void loadResources();
     protected:    
         Level level;
         Camera cam;
