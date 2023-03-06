@@ -158,6 +158,11 @@ void MainWindow::mousePressEvent(QMouseEvent *e) {
     }
 }
 
+void MainWindow::leaveEvent(QEvent *) {
+   draw_cursor = false;
+   update();
+}
+
 void MainWindow::keyPressEvent(QKeyEvent *e) {
     switch(e->key()) {
         case Qt::Key::Key_Left:

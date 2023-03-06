@@ -20,6 +20,7 @@ public:
     void paintEvent(QPaintEvent *p) override;
     void mouseMoveEvent(QMouseEvent *e) override;
     void mousePressEvent(QMouseEvent *e) override;
+    void leaveEvent(QEvent *e) override;
     void keyPressEvent(QKeyEvent *e) override;
     void createdNewMap();
     void setTile(const QPoint &pos);
