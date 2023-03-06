@@ -14,7 +14,7 @@ namespace game {
         GameLevel() = default;
         void init(RenderObject *ro) override;
         void draw(RenderObject *ro) override;
-        void release() override;
+        void release(RenderObject *ro) override;
         void keydown(char key) override;
         void keyup(char key) override;  
         void loadLevel(const std::string &filename); 
@@ -30,6 +30,7 @@ namespace game {
         const int TILE_W=16;
         static const int WINDOW_SIZE_W = 1280/16;
         static const int WINDOW_SIZE_H = 720/16;
+        RenderObject *render_object;
     };
 }
 

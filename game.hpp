@@ -153,13 +153,14 @@ namespace game {
         virtual Image loadFont(const std::string &text, int size) = 0;
         virtual unsigned int getTicks() = 0;
         virtual bool keyDown(const Key &c) = 0;
+        virtual void releaseResources() = 0;
     };
 
     struct GameObject {
         virtual ~GameObject() = default;
         virtual void init(RenderObject *ro) = 0;
         virtual void draw(RenderObject *ro) = 0;
-        virtual void release() = 0;
+        virtual void release(RenderObject *ro) = 0;
         virtual void keydown(char key) = 0;
         virtual void keyup(char key) = 0;
     };

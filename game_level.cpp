@@ -23,11 +23,11 @@ namespace game {
         object_images.push_back(ro->loadImage("./img/col5.bmp"));
         object_images.push_back(ro->loadImage("./img/col6.bmp"));
         object_images.push_back(ro->loadImage("./img/tree.bmp"));
-
         loadLevel("levels/level1.lvl");
+        render_object = ro;
     }
 
-    void GameLevel::release() {
+    void GameLevel::release(RenderObject *ro) {
         std::cout << "Level objects release\n";
          if(!objects.empty()) {
             for(auto &i : objects) {
@@ -37,6 +37,7 @@ namespace game {
             }
             objects.erase(objects.begin(), objects.end());
         }
+        ro->releaseResources();
     }
 
     void GameLevel::loadLevel(const std::string &filename) {

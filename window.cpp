@@ -41,6 +41,10 @@ namespace game {
             
         }
 
+        virtual void releaseResources() override {
+            release_images();
+        }
+
         void drawAt(Image image, int x, int y) override {
             SDL_Rect rc = { x, y, surfaces[image]->w, surfaces[image]->h };
             SDL_BlitSurface(surfaces[image], 0, surface, &rc);
@@ -245,7 +249,7 @@ namespace game {
             }
 
         }
-        current_object->release();
+        current_object->release(&render_object);
         return EXIT_SUCCESS;
     }
 }
