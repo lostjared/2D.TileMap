@@ -85,11 +85,16 @@ void MainWindow::paintEvent(QPaintEvent *) {
 
     if(draw_cursor == true) {
         QImage &img = col[tool_window->tile_objects->currentIndex()];
-        paint.drawImage(draw_pos.x(), draw_pos.y(), img);
-        paint.fillRect(QRect(draw_pos.x(), draw_pos.y()-1, img.width(), 1), QColor(qRgb(255, 255, 255)));
-        paint.fillRect(QRect(draw_pos.x(), draw_pos.y()+img.height(), img.width(), 1), QColor(qRgb(255, 255, 255)));
-        paint.fillRect(QRect(draw_pos.x(), draw_pos.y()-1, 1, img.height()), QColor(qRgb(255,255,255)));
-        paint.fillRect(QRect(draw_pos.x()+img.width(), draw_pos.y()-1, 1, img.height()), QColor(qRgb(255,255,255)));
+        int cx = draw_pos.x(), cy = draw_pos.y();
+        int zx = 0, zy = 0;
+        if(game::atPoint(cx, cy, 16, 16, zx, zy)) {
+            cx = zx*16, cy = zy*16;
+            paint.drawImage(cx, cy, img);
+            paint.fillRect(QRect(cx, cy-1, img.width(), 1), QColor(qRgb(255, 255, 255)));
+            paint.fillRect(QRect(cx, cy+img.height(), img.width(), 1), QColor(qRgb(255, 255, 255)));
+            paint.fillRect(QRect(cx, cy-1, 1, img.height()), QColor(qRgb(255,255,255)));
+            paint.fillRect(QRect(cx+img.width(), cy-1, 1, img.height()), QColor(qRgb(255,255,255)));
+        }
     }
 }
 
@@ -109,7 +114,7 @@ void MainWindow::drawLayer1(QPainter & paint) {
             int y = z*16;
             game::Tile *tile = level.at(pos_x+i, pos_y+z);
             if(tile != nullptr) {
-                if(tile->layers[0] > 0 && tile->layers[0] <= 7) {
+                if(tile->layers[0] > 0 && tile->layers[0] <= col.size()) {
                     paint.drawImage(x, y, col[tile->layers[0]-1]);
                 }
             }
