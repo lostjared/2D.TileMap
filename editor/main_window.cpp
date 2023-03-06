@@ -98,14 +98,7 @@ void MainWindow::paintEvent(QPaintEvent *) {
     }
 }
 
-void MainWindow::updateMap(int) {
-    draw_cursor = true;
-    /*
-    if(tool_window->hover_object->isChecked())
-        draw_cursor = true;
-    else
-        draw_cursor = false; */
-        
+void MainWindow::updateMap(int) {        
     update();
 }
 
@@ -140,13 +133,10 @@ void MainWindow::mouseMoveEvent(QMouseEvent *e) {
         setObject(e->pos());
         update();
     } else {
-        if(map_init == true) {
-            draw_cursor = true;
+        if(map_init == true) { 
             cursor_visible = true;
             draw_pos = e->pos();
-        } else {
-            draw_cursor = false;
-        }
+        } 
         update();
     }
 }
