@@ -182,6 +182,26 @@ namespace game {
             } else if(ro->keyDown(Key::KEY_DOWN)) {
                 cam.move(std::min(0.009f, delta), 0.0f, 1.0f);
             } 
+
+            int hx = hero.x + cam.getX();
+            int hy = hero.y + cam.getY();
+
+            if(ro->keyDown(Key::KEY_A)) {
+                hero.jump();
+            }
+
+            hero.proc_jump();
+            if(hero.isJumping() == false) {
+                bool solid = level.checkTileSolid(hx, hy+5);
+                if(!solid) {
+                    if(cam.getY() == 0) {
+                        hero.moveDown();
+                    } else {
+                        cam.move(std::min(0.009f, delta), 0.0f, 1.0f);
+                    }
+                }
+            }
+
         }
 #ifdef DEBUG_MODE
         unsigned int tc = tick / 1000;

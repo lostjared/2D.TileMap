@@ -33,6 +33,7 @@ namespace game {
         void create(int32_t w, int32_t h, const Tile &init_tile);
         Tile *at(int32_t x, int32_t y);
         void output_map(std::ostream &out);
+        bool checkTileSolid(int x, int y);
     protected:
         Tile **tiles;
         bool resizeTiles(int32_t w, int32_t h);

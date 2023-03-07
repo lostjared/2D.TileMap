@@ -191,6 +191,12 @@ namespace game {
                 case Key::KEY_DOWN:
                 if(keys[SDL_SCANCODE_DOWN]) return true;
                 break;
+                case Key::KEY_A:
+                if(keys[SDL_SCANCODE_A]) return true;
+                break;
+                case Key::KEY_S:
+                if(keys[SDL_SCANCODE_S]) return true;
+                break;
                 default:
                 return false;
             }

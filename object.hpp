@@ -48,11 +48,17 @@ namespace game {
         void moveUp();
         void restore();
         void cycle_frame();
+        void jump();
+        void proc_jump();
+        bool isJumping() const;
     protected:
         std::vector<Image> left, right;
         int draw_x = 0, draw_y = 0;
         bool move_right = true;
+        bool jumping = false;
+        int jump_index = 0;
     };
+
 }
 
 

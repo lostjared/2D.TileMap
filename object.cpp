@@ -45,6 +45,8 @@ namespace game {
         y = (720/16)-15;
         draw_x = x*16;
         draw_y = y*16;
+        jumping = false;
+        jump_index = 0;
     }
     
     void Hero::draw(RenderObject *ro, int pos_x, int pos_y) {
@@ -118,8 +120,43 @@ namespace game {
     }
     
     void Hero::moveDown() {
-        
+        cur_frame = 4;
+        draw_y += 16;
+        int xx, yy;
+        if(atPoint(draw_x, draw_y, 16, 16, xx, yy)) {
+            x = xx;
+            y = yy;
+        }        
     }
+
+    void Hero::jump() {
+        if(jumping == false) {
+            jumping = true;
+            cur_frame = 4;
+        }
+    }
+
+    void Hero::proc_jump() {
+        if(jumping == true) {
+            cur_frame = 4;
+            draw_y -= 16;
+            int xx, yy;
+            if(atPoint(draw_x, draw_y, 16, 16, xx, yy)) {
+                x = xx;
+                y = yy;
+            }
+            jump_index += 1;
+            if(jump_index >= 4) {
+                jump_index = 0;
+                jumping = false;
+            }
+        }
+    }
+
+    bool Hero::isJumping() const {
+        return jumping;
+    }
+
     void Hero::moveUp() {
         
     }

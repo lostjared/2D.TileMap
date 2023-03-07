@@ -143,6 +143,16 @@ namespace game {
         return true;
    }
 
+    bool Level::checkTileSolid(int x, int y) {
+        Tile *tile = at(x, y);
+        if(tile != nullptr) {
+            if(tile->solid == 0)
+                return false;
+        }
+        return true;
+    }
+
+
     bool atPoint(int x1, int y1, int w, int h, int &x, int &y) {
         y1 -= 16;
         x1 -= 16;
