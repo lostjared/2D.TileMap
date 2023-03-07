@@ -70,7 +70,7 @@ namespace game {
 
 
     void Hero::release() {
-        
+        cur_frame = 0;
     }
 
     void Hero::moveLeft() {
