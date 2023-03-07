@@ -3,6 +3,8 @@
 #include<cstdint>
 #include<iostream>
 #include<string>
+#include<vector>
+#include"game.hpp"
 
 namespace game {
 
@@ -34,6 +36,7 @@ namespace game {
         Tile *at(int32_t x, int32_t y);
         void output_map(std::ostream &out);
         bool checkTileSolid(int x, int y);
+        bool check(const std::vector<Point> &p);
     protected:
         Tile **tiles;
         bool resizeTiles(int32_t w, int32_t h);

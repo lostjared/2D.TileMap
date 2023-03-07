@@ -3,6 +3,7 @@
 #include<sstream>
 #include<string>
 #include<fstream>
+#include<vector>
 
 namespace game {  
 
@@ -151,6 +152,15 @@ namespace game {
         }
         return true;
     }
+
+    bool Level::check(const std::vector<Point> &p) {
+        for(auto &i : p) {
+            if(checkTileSolid(i.x, i.y))
+                return true;
+        }
+        return false;
+    }
+
 
 
     bool atPoint(int x1, int y1, int w, int h, int &x, int &y) {
