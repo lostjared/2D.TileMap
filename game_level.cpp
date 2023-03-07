@@ -162,7 +162,7 @@ namespace game {
             amt = 0;
             if(ro->keyDown(Key::KEY_RIGHT) && delta < 0.10 && hero.x < ((1280/16)/2)) {
                 bool solid[4];
-                if((level.checkTileSolid(hero.x+2, hero.y) == false && level.checkTileSolid(hero.x+2, hero.y+2) == false && level.checkTileSolid(hero.x+2, hero.y+2) == false) || (level.checkTileSolid(hero.x+3, hero.y) == false && level.checkTileSolid(hero.x+3, hero.y+2) == false && level.checkTileSolid(hero.x+3, hero.y+2) == false)) 
+                if(level.check({Point(hero.x+2, hero.y+3), Point(hero.x+3, hero.y+3)}) == false)
                     hero.moveRight();
                 else {
                     hero.restore();
@@ -173,7 +173,7 @@ namespace game {
                 cam.move(std::min(0.007f, delta), 1.0f, 0.0f);
                 hero.cycle_frame();
             } else if(ro->keyDown(Key::KEY_LEFT) && hero.x >= 0 && cam.getX() == 0) {
-                if(level.check({Point(hero.x, hero.y), Point(hero.x-1, hero.y+2), Point(hero.x-1, hero.y+2)}) == false)
+                if(level.check({Point(hero.x, hero.y)}) == false)
                     hero.moveLeft();
                 else
                     hero.restore();
@@ -205,7 +205,7 @@ namespace game {
                 bool solid;
 
                 if(hero.dir == Direction::LEFT)
-                    solid = level.check({Point(hx, hy+5)});
+                    solid = level.check({Point(hx+1, hy+5)});
                 else if(hero.dir == Direction::RIGHT)
                     solid = level.check({Point(hx, hy+5), Point(hx+1, hy+5)});
 
