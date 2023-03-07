@@ -10,6 +10,7 @@ namespace game {
         render_object = ro;
         delta = 0;
         loadLevel("levels/level1.lvl");
+        hero.init(ro);
     }
 
 // TODO: make load resources from text file
@@ -40,6 +41,17 @@ namespace game {
         object_images.push_back(render_object->loadImage("./img/col5.bmp"));
         object_images.push_back(render_object->loadImage("./img/col6.bmp"));
         object_images.push_back(render_object->loadImage("./img/tree.bmp"));
+
+        const char *hero_filenames[] = {"hero1", "hero2", "hero3", "hero4", "hero_jump1", "hero_shot1", "hero_shot2", "hero_shot3", "hero_shot4", "hero_shot5", 0 };
+        for(int i = 0; hero_filenames[i] != 0; ++i) {
+            std::ostringstream stream;
+            stream << "./img/hero/" << hero_filenames[i] << ".bmp";
+            hero_images_right.push_back(render_object->loadImage(stream.str()));
+            stream.str("");
+            stream << "./img/hero/" << hero_filenames[i] << "_left.bmp";
+            hero_images_left.push_back(render_object->loadImage(stream.str()));
+        }
+        hero.setImages(hero_images_left, hero_images_right);
     }
 
     void GameLevel::release(RenderObject *ro) {
@@ -135,22 +147,41 @@ namespace game {
                     item->draw(ro, xx, yy);
                 }
             }
-        }       
-    
+        }
 
+        hero.draw(ro, cam.getX(), cam.getY());       
+    
         unsigned int tick = ro->getTicks();
         static unsigned int prev_tick = 0;
         delta = float(tick-prev_tick)/1000;
+        unsigned int timeout = tick-prev_tick;
+        static unsigned int amt = 0;
+        amt += timeout;
         prev_tick = tick; 
-        if(ro->keyDown(Key::KEY_RIGHT)) {
-            cam.move(std::min(0.009f, delta), 1.0f, 0.0f);
-        } else if(ro->keyDown(Key::KEY_LEFT)) {
-            cam.move(std::min(0.009f, delta), -1.0f, 0.0f);
-        }
-        if(ro->keyDown(Key::KEY_UP)) {
-            cam.move(std::min(0.009f, delta), 0.0f, -1.0f);
-        } else if(ro->keyDown(Key::KEY_DOWN)) {
-            cam.move(std::min(0.009f, delta), 0.0f, 1.0f);
+        if(amt > 30) {
+            amt = 0;
+            if(ro->keyDown(Key::KEY_RIGHT) && delta < 0.10 && hero.x < ((1280/16)/2)) {
+                hero.moveRight();
+            } else if(ro->keyDown(Key::KEY_RIGHT)) {
+                hero.dir = Direction::RIGHT;
+                cam.move(std::min(0.007f, delta), 1.0f, 0.0f);
+                hero.cycle_frame();
+            } else if(ro->keyDown(Key::KEY_LEFT) && hero.x >= 0 && cam.getX() == 0) {
+                hero.moveLeft();
+            }
+            else if(ro->keyDown(Key::KEY_LEFT)) {
+                hero.dir = Direction::LEFT;
+                cam.move(std::min(0.009f, delta), -1.0f, 0.0f);
+                hero.cycle_frame();
+            } else {
+                hero.restore();
+            }
+        
+            if(ro->keyDown(Key::KEY_UP)) {
+                cam.move(std::min(0.009f, delta), 0.0f, -1.0f);
+            } else if(ro->keyDown(Key::KEY_DOWN)) {
+                cam.move(std::min(0.009f, delta), 0.0f, 1.0f);
+            } 
         }
 #ifdef DEBUG_MODE
         unsigned int tc = tick / 1000;

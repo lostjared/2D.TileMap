@@ -32,6 +32,8 @@ namespace game {
         static const int WINDOW_SIZE_W = 1280/16;
         static const int WINDOW_SIZE_H = 720/16;
         RenderObject *render_object;
+        Hero hero;
+        std::vector<Image> hero_images_right, hero_images_left;
     };
 }
 

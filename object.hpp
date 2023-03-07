@@ -6,6 +6,8 @@
 
 namespace game {
 
+    enum class Direction { LEFT=1, RIGHT, UP, DOWN };
+
     class CObject {
     public:
         CObject() = default;
@@ -17,6 +19,7 @@ namespace game {
         int x = 0,y = 0,cur_frame = 0, type = 0;
         std::vector<Image> frame_data;
         bool active = true;
+        Direction dir;
     };
 
 
@@ -36,12 +39,19 @@ namespace game {
     public:
         Hero() = default;
         void init(RenderObject *ro) override;
+        void setImages(const std::vector<Image> &vl, const std::vector<Image> &vr);
         void draw(RenderObject *ro, int x, int y) override;
         void release() override;
         void moveLeft();
         void moveRight();
         void moveDown();
         void moveUp();
+        void restore();
+        void cycle_frame();
+    protected:
+        std::vector<Image> left, right;
+        int draw_x = 0, draw_y = 0;
+        bool move_right = true;
     };
 }
 
