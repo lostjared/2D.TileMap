@@ -196,7 +196,7 @@ namespace game {
                 cam.move(std::min(0.009f, delta), 0.0f, 1.0f);
             } */
 
-            if(ro->keyDown(Key::KEY_A)) {
+            if(ro->keyDown(Key::KEY_A) && hero.grounded == true) {
                 hero.jump();
             }
 

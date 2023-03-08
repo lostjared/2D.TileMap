@@ -150,7 +150,7 @@ namespace game {
             jump_index += 1;
             cur_frame = 4;
             moveUp();
-            if(jump_index >= 5) {
+            if(jump_index >= 8) {
                 jump_index = 0;
                 grounded = false;
                 jumping = false;
