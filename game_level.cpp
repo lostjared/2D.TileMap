@@ -167,7 +167,7 @@ namespace game {
 
             } else if(ro->keyDown(Key::KEY_RIGHT)) {
                 hero.dir = Direction::RIGHT;
-                if(level.checkRect(Rect(hero.x+(cam.getX()/16)+1, hero.y, 2, 4))) {
+                if(level.checkRect(Rect(hero.x+(cam.getX()/16)+1, hero.y+(cam.getY()/16), 2, 4))) {
                     cam.move(std::min(0.007f, delta), 1.0f, 0.0f);
                     hero.cycle_frame();
                 } else 
