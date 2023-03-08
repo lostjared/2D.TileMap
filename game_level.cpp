@@ -160,14 +160,8 @@ namespace game {
         prev_tick = tick; 
         if(amt > 30) {
             amt = 0;
-            if(ro->keyDown(Key::KEY_RIGHT) && delta < 0.10 && hero.x < ((1280/16)/2)) {
-                bool solid[4];
-                if(level.check({Point(hero.x+2, hero.y+3), Point(hero.x+3, hero.y+3)}) == false)
+            if(ro->keyDown(Key::KEY_RIGHT)  && hero.x < ((1280/16)/2)) {
                     hero.moveRight();
-                else {
-                    hero.restore();
-                }
-
             } else if(ro->keyDown(Key::KEY_RIGHT)) {
                 hero.dir = Direction::RIGHT;
                 cam.move(std::min(0.007f, delta), 1.0f, 0.0f);
@@ -192,6 +186,7 @@ namespace game {
                 cam.move(std::min(0.009f, delta), 0.0f, 1.0f);
             } 
 
+        /*
             int hx = hero.x + cam.getX();
             int hy = hero.y + cam.getY();
 
@@ -216,8 +211,9 @@ namespace game {
                         cam.move(std::min(0.009f, delta), 0.0f, 1.0f);
                     }
                 }
-            }
+            } */
 
+            hero.update();
         }
 #ifdef DEBUG_MODE
         unsigned int tc = tick / 1000;
@@ -232,7 +228,7 @@ namespace game {
             frame_c += 1;
         }
         std::ostringstream frame_count;
-        frame_count << frame_counter << " FPS Camera: X: " << cam.getX() << " - Y: " << cam.getY();
+        frame_count << frame_counter << " FPS Camera: X: " << cam.getX() << " - Y: " << cam.getY() << " HX: "<< hero.x << " HY: " << hero.y;
         ro->printText(arial, 15, 15, frame_count.str(), Color(255,255,255));
 #endif
     }

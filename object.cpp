@@ -77,15 +77,8 @@ namespace game {
 
     void Hero::moveLeft() {
         dir = Direction::LEFT;
-        if(draw_x > 0) {
-            draw_x -= 8;
-            cycle_frame();
-            int xx, yy;
-            if(atPoint(draw_x, draw_y, 16, 16, xx, yy)) {
-                x = xx;
-                y = yy;
-            }
-        }
+        if(moving_ == false)
+            moving_ = true;
     }
 
     void Hero::cycle_frame() {
@@ -106,17 +99,39 @@ namespace game {
 
     void Hero::moveRight() {
         dir = Direction::RIGHT;
-        draw_x += 8;
-        cycle_frame();
-        int xx, yy;
-        if(atPoint(draw_x, draw_y, 16, 16, xx, yy)) {
-            x = xx;
-            y = yy;
+        if(moving_ == false)
+            moving_ = true;
+
+    }
+
+    void Hero::update() {
+        if(moving_ == true) {
+            if(dir == Direction::RIGHT) {
+                draw_x += 8;
+                cycle_frame();
+                moving_index[0] += 1;
+                if(moving_index[0] >= 2) {
+                    moving_index[0] = 0;
+                    moving_ = false;
+                    x += 1;
+                }
+            } else if(dir == Direction::LEFT) {
+                draw_x -= 8;
+                cycle_frame();
+                moving_index[1] += 1;
+                if(moving_index[1] >= 2) {
+                    moving_index[1] = 0;
+                    moving_ = false;
+                    if(x > 0) x -= 1;
+                }
+            }
         }
     }
 
     void Hero::restore() {
           cur_frame = 0;
+          moving_ = false;
+          moving_index[0] = moving_index[1] = 0;
     }
     
     void Hero::moveDown() {
