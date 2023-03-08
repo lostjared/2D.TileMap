@@ -109,12 +109,14 @@ namespace game {
             if(dir == Direction::RIGHT) {
                 draw_x += 8;
                 cycle_frame();
-                if((draw_x % 16) == 0) {
+                moving_index[0] += 1;
+                if(moving_index[0] >= 2) {
+                    moving_index[0] = 0;
                     moving_ = false;
                     x += 1;
                 }
             } else if(dir == Direction::LEFT) {
-                draw_x -= 8;
+                if(x > 0) draw_x -= 8;
                 cycle_frame();
                 moving_index[1] += 1;
                 if(moving_index[1] >= 2) {
@@ -128,8 +130,6 @@ namespace game {
 
     void Hero::restore() {
           cur_frame = 0;
-          moving_ = false;
-          moving_index[0] = moving_index[1] = 0;
     }
     
     void Hero::moveDown() {

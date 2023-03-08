@@ -160,7 +160,7 @@ namespace game {
             amt = 0;
             if(ro->keyDown(Key::KEY_RIGHT)  && hero.x < ((1280/16)/2)) {
                 hero.dir = Direction::RIGHT;
-                if(level.checkRect(Rect(hero.x, hero.y, 3, 4))) 
+                if(level.checkRect(Rect(hero.x+1, hero.y, 2, 4))) 
                     hero.moveRight();
                 else
                     hero.restore();
@@ -171,7 +171,7 @@ namespace game {
                 hero.cycle_frame();
             } else if(ro->keyDown(Key::KEY_LEFT) && hero.x >= 0 && cam.getX() == 0) {
                 hero.dir = Direction::RIGHT;
-                if(level.checkRect(Rect(hero.x-1, hero.y, 3, 4)))
+                if(level.checkRect(Rect(hero.x-1, hero.y, 1, 4)))
                     hero.moveLeft();
                 else {
                     hero.restore();
