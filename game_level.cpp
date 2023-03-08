@@ -183,15 +183,23 @@ namespace game {
                 cam.move(std::min(0.009f, delta), 0.0f, 1.0f);
             } */
 
+            if(ro->keyDown(Key::KEY_A)) {
+                hero.jump();
+            }
+
             int hx = hero.x + cam.getX();
             int hy = hero.y + cam.getY();
 
-
-            if(cam.getY() == 0 && level.check({Point(hx+1, hy+4)}) == false) {
-                hero.moveDown();
+            if(cam.getY() == 0 && hero.isJumping() == false) {
+                if(level.check({Point(hx+1, hy+4)}) == false) {
+                    hero.moveDown();
+                    hero.grounded = false;
+                } else {
+                    hero.grounded = true;
+                } 
             }
-
             hero.update();
+            hero.proc_jump();
         }
 #ifdef DEBUG_MODE
         unsigned int tc = tick / 1000;

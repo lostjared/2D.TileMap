@@ -139,11 +139,24 @@ namespace game {
     }
 
     void Hero::jump() {
-       
+       if(jumping == false) {
+            jumping = true;   
+            jump_index = 0;
+       }
     }
 
     void Hero::proc_jump() {
-
+        if(jumping == true) {
+            jump_index += 1;
+            cur_frame = 4;
+            moveUp();
+            if(jump_index >= 5) {
+                jump_index = 0;
+                grounded = false;
+                jumping = false;
+            }            
+        } else if(grounded == false)
+            cur_frame = 4;
     }
 
     bool Hero::isJumping() const {
@@ -151,7 +164,11 @@ namespace game {
     }
 
     void Hero::moveUp() {
-        
+        if(y > 0) {
+            y -= 1;
+            draw_y -= 16;
+            cur_frame = 4;        
+        }
     }
 
 }
