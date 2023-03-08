@@ -136,7 +136,6 @@ namespace game {
         cur_frame = 4;
         draw_y += 16;
         y ++;
-        cur_frame = 4;
     }
 
     void Hero::jump() {

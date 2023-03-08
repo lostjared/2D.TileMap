@@ -183,6 +183,14 @@ namespace game {
                 cam.move(std::min(0.009f, delta), 0.0f, 1.0f);
             } */
 
+            int hx = hero.x + cam.getX();
+            int hy = hero.y + cam.getY();
+
+
+            if(cam.getY() == 0 && level.check({Point(hx+1, hy+4)}) == false) {
+                hero.moveDown();
+            }
+
             hero.update();
         }
 #ifdef DEBUG_MODE
