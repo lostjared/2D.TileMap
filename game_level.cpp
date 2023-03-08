@@ -167,8 +167,12 @@ namespace game {
 
             } else if(ro->keyDown(Key::KEY_RIGHT)) {
                 hero.dir = Direction::RIGHT;
-                cam.move(std::min(0.007f, delta), 1.0f, 0.0f);
-                hero.cycle_frame();
+                if(level.checkRect(Rect(hero.x+(cam.getX()/16)+1, hero.y, 2, 4))) {
+                    cam.move(std::min(0.007f, delta), 1.0f, 0.0f);
+                    hero.cycle_frame();
+                } else 
+                    hero.restore();
+
             } else if(ro->keyDown(Key::KEY_LEFT) && hero.x >= 0 && cam.getX() == 0) {
                 hero.dir = Direction::RIGHT;
                 if(level.checkRect(Rect(hero.x-1, hero.y, 1, 4)))
