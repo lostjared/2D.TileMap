@@ -200,7 +200,7 @@ namespace game {
             int hy = hero.y + cam.getY();
 
             if(cam.getY() == 0 && hero.isJumping() == false) {
-                if(level.checkPos(Point(hero.x, hero.y)) == true) {
+                if(level.checkRect(Rect(hero.x, hero.y+1, 2, 4)) == true) {
                     hero.moveDown();
                     hero.grounded = false;
                 } else {
