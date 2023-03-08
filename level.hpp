@@ -37,7 +37,9 @@ namespace game {
         void output_map(std::ostream &out);
         bool checkTileSolid(int x, int y);
         bool check(const std::vector<Point> &p);
-    protected:
+        bool checkPos(const Point &p);
+        bool checkRect(const Rect &r);
+   protected:
         Tile **tiles;
         bool resizeTiles(int32_t w, int32_t h);
         void releaseTiles();

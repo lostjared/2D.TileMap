@@ -160,14 +160,23 @@ namespace game {
             amt = 0;
             if(ro->keyDown(Key::KEY_RIGHT)  && hero.x < ((1280/16)/2)) {
                 hero.dir = Direction::RIGHT;
-                hero.moveRight();
+                if(level.checkRect(Rect(hero.x, hero.y, 3, 4))) 
+                    hero.moveRight();
+                else
+                    hero.restore();
+
             } else if(ro->keyDown(Key::KEY_RIGHT)) {
                 hero.dir = Direction::RIGHT;
                 cam.move(std::min(0.007f, delta), 1.0f, 0.0f);
                 hero.cycle_frame();
             } else if(ro->keyDown(Key::KEY_LEFT) && hero.x >= 0 && cam.getX() == 0) {
                 hero.dir = Direction::RIGHT;
-                hero.moveLeft();
+                if(level.checkRect(Rect(hero.x-1, hero.y, 3, 4)))
+                    hero.moveLeft();
+                else {
+                    hero.restore();
+                    hero.dir = Direction::LEFT;
+                }
             }
             else if(ro->keyDown(Key::KEY_LEFT)) {
                 hero.dir = Direction::LEFT;
@@ -191,7 +200,7 @@ namespace game {
             int hy = hero.y + cam.getY();
 
             if(cam.getY() == 0 && hero.isJumping() == false) {
-                if(level.check({Point(hx+1, hy+4)}) == false) {
+                if(level.checkPos(Point(hero.x, hero.y)) == true) {
                     hero.moveDown();
                     hero.grounded = false;
                 } else {

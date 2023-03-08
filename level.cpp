@@ -159,9 +159,24 @@ namespace game {
                 return true;
         }
         return false;
+    }    
+
+    bool Level::checkPos(const Point &p) {
+        return checkRect(Rect(p.x, p.y, 1, 5));
     }
 
-
+    bool Level::checkRect(const Rect &r) {
+        for(int i = r.x; i < r.x+r.w; ++i) {
+            for(int z = r.y; z < r.y+r.h; ++z) {
+                Tile *tile = at(i, z);
+                if(tile != nullptr) {
+                    if(tile->solid == 1)
+                        return false;
+                } else return false;
+            }
+        }
+        return true;
+    }
 
     bool atPoint(int x1, int y1, int w, int h, int &x, int &y) {
         y1 -= 16;
