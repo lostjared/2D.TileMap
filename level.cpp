@@ -179,6 +179,7 @@ namespace game {
     }
 
     bool atPoint(int x1, int y1, int w, int h, int &x, int &y) {
+        /*
         y1 -= 16;
         x1 -= 16;
         for(int i = 0; i < 1280/16; ++i) {
@@ -192,6 +193,11 @@ namespace game {
                 }
             }
         }
+        */
+       x = x1/w;
+       y = y1/h;
+       if(x >= 0 && y >= 0)
+            return true;
         return false;
     }
 
