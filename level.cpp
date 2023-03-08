@@ -179,21 +179,6 @@ namespace game {
     }
 
     bool atPoint(int x1, int y1, int w, int h, int &x, int &y) {
-        /*
-        y1 -= 16;
-        x1 -= 16;
-        for(int i = 0; i < 1280/16; ++i) {
-            for(int z = 0; z < 720/16; ++z) {
-                int cx = i*16;
-                int cy = z*16;
-                if(cx >= x1 && cx <= x1+w && cy >= y1 && cy <= y1+h) {
-                    x = i;
-                    y = z;
-                    return true;
-                }
-            }
-        }
-        */
        x = x1/w;
        y = y1/h;
        if(x >= 0 && y >= 0)
