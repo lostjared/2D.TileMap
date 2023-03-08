@@ -148,9 +148,7 @@ namespace game {
                 }
             }
         }
-
         hero.draw(ro, cam.getX(), cam.getY());       
-    
         unsigned int tick = ro->getTicks();
         static unsigned int prev_tick = 0;
         delta = float(tick-prev_tick)/1000;
@@ -161,16 +159,15 @@ namespace game {
         if(amt > 30) {
             amt = 0;
             if(ro->keyDown(Key::KEY_RIGHT)  && hero.x < ((1280/16)/2)) {
-                    hero.moveRight();
+                hero.dir = Direction::RIGHT;
+                hero.moveRight();
             } else if(ro->keyDown(Key::KEY_RIGHT)) {
                 hero.dir = Direction::RIGHT;
                 cam.move(std::min(0.007f, delta), 1.0f, 0.0f);
                 hero.cycle_frame();
             } else if(ro->keyDown(Key::KEY_LEFT) && hero.x >= 0 && cam.getX() == 0) {
-                if(level.check({Point(hero.x, hero.y)}) == false)
-                    hero.moveLeft();
-                else
-                    hero.restore();
+                hero.dir = Direction::RIGHT;
+                hero.moveLeft();
             }
             else if(ro->keyDown(Key::KEY_LEFT)) {
                 hero.dir = Direction::LEFT;
@@ -179,38 +176,11 @@ namespace game {
             } else {
                 hero.restore();
             }
-        
+        /*
             if(ro->keyDown(Key::KEY_UP)) {
                 cam.move(std::min(0.009f, delta), 0.0f, -1.0f);
             } else if(ro->keyDown(Key::KEY_DOWN)) {
                 cam.move(std::min(0.009f, delta), 0.0f, 1.0f);
-            } 
-
-        /*
-            int hx = hero.x + cam.getX();
-            int hy = hero.y + cam.getY();
-
-            if(ro->keyDown(Key::KEY_A)) {
-                hero.jump();
-            }
-
-            hero.proc_jump();
-            if(hero.isJumping() == false) {
-               
-                bool solid;
-
-                if(hero.dir == Direction::LEFT)
-                    solid = level.check({Point(hx+1, hy+5)});
-                else if(hero.dir == Direction::RIGHT)
-                    solid = level.check({Point(hx, hy+5), Point(hx+1, hy+5)});
-
-                if(!solid ) {
-                    if(cam.getY() == 0) {
-                        hero.moveDown();
-                    } else {
-                        cam.move(std::min(0.009f, delta), 0.0f, 1.0f);
-                    }
-                }
             } */
 
             hero.update();

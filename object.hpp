@@ -52,6 +52,7 @@ namespace game {
         void proc_jump();
         bool isJumping() const;
         void update();
+        bool grounded = false;
     protected:
         std::vector<Image> left, right;
         int draw_x = 0, draw_y = 0;
@@ -60,6 +61,7 @@ namespace game {
         int jump_index = 0;
         bool moving_ = false;
         int moving_index[3] = {0};
+        
     };
 
 }

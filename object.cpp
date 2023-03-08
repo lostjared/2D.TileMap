@@ -109,9 +109,7 @@ namespace game {
             if(dir == Direction::RIGHT) {
                 draw_x += 8;
                 cycle_frame();
-                moving_index[0] += 1;
-                if(moving_index[0] >= 2) {
-                    moving_index[0] = 0;
+                if((draw_x % 16) == 0) {
                     moving_ = false;
                     x += 1;
                 }
@@ -137,35 +135,16 @@ namespace game {
     void Hero::moveDown() {
         cur_frame = 4;
         draw_y += 16;
-        int xx, yy;
-        if(atPoint(draw_x, draw_y, 16, 16, xx, yy)) {
-            x = xx;
-            y = yy;
-        }        
+        y ++;
+        cur_frame = 4;
     }
 
     void Hero::jump() {
-        if(jumping == false) {
-            jumping = true;
-            cur_frame = 4;
-        }
+       
     }
 
     void Hero::proc_jump() {
-        if(jumping == true) {
-            cur_frame = 4;
-            draw_y -= 16;
-            int xx, yy;
-            if(atPoint(draw_x, draw_y, 16, 16, xx, yy)) {
-                x = xx;
-                y = yy;
-            }
-            jump_index += 1;
-            if(jump_index >= 4) {
-                jump_index = 0;
-                jumping = false;
-            }
-        }
+
     }
 
     bool Hero::isJumping() const {
