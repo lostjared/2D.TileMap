@@ -148,7 +148,20 @@ namespace game {
                 }
             }
         }
-        hero.draw(ro, cam.getX(), cam.getY());       
+        int hx = hero.x+(cam.getX()/16);
+        int hy = hero.y+(cam.getY()/16);
+        for(int x = start_col; x < end_col; ++x) {
+            for(int y = start_row; y < end_row; ++y) {
+                int xx = (x - start_col) * tsize + off_x;
+                int yy = (y - start_row) * tsize + off_y;
+                if(hx == x && hy == y) {
+                    hero.draw(ro, xx, yy);
+                    goto out;    
+                }
+            }
+        }       
+        out:
+
         unsigned int tick = ro->getTicks();
         static unsigned int prev_tick = 0;
         delta = float(tick-prev_tick)/1000;
@@ -156,74 +169,9 @@ namespace game {
         static unsigned int amt = 0;
         amt += timeout;
         prev_tick = tick; 
-        if(amt > 30) {
-            amt = 0;
-            int hx = hero.x + (cam.getX()/16);
-            int hy = hero.y + (cam.getY()/16);
+        hx = hero.x + (cam.getX()/16);
+        hy = hero.y + (cam.getY()/16);
 
-            if(ro->keyDown(Key::KEY_RIGHT)  && hx < ((1280/16)/2)) {
-                hero.dir = Direction::RIGHT;
-                if(level.checkRect(Rect(hx+1, hy, 2, 4))) 
-                    hero.moveRight();
-                else
-                    hero.restore();
-
-            } else if(ro->keyDown(Key::KEY_RIGHT)) {
-                hero.dir = Direction::RIGHT;
-                if(level.checkRect(Rect(hx+1, hy, 2, 4))) {
-                    cam.move(std::min(0.007f, delta), 1.0f, 0.0f);
-                    hero.cycle_frame();
-                } else 
-                    hero.restore();
-
-            } else if(ro->keyDown(Key::KEY_LEFT) && hero.x >= 0 && cam.getX() == 0) {
-                hero.dir = Direction::LEFT;
-                if(level.checkRect(Rect(hx-1, hy, 1, 4)))
-                    hero.moveLeft();
-                else {
-                    hero.restore();
-                    hero.dir = Direction::LEFT;
-                }
-            }
-            else if(ro->keyDown(Key::KEY_LEFT)) {
-                hero.dir = Direction::LEFT;
-                if(level.checkRect(Rect(hx-1, hy, 1, 4))) {
-                    cam.move(std::min(0.009f, delta), -1.0f, 0.0f);
-                    hero.cycle_frame();
-                } else {
-                    hero.restore();
-                }
-            } else {
-                hero.restore();
-            }
-
-            if(ro->keyDown(Key::KEY_A) && hero.grounded == true) {
-                hero.jump();
-            }
-
-            hx = hero.x + (cam.getX()/16);
-            hy = hero.y + (cam.getY()/16);
-
-            if(hero.isJumping() == false) {
-                bool solid;
-                solid = level.checkRect(Rect(hx, hy+1, 2, 4));
-                if(solid)  {   
-                    if(hy < ((720/16)/2) || (cam.getY()/16) >= level.height-(720/16)) {
-                        hero.moveDown(true);
-                    }
-                    else {
-                        cam.move(std::min(0.009f, delta), 0.0f, 1.0f);
-                        hero.moveDown(false);
-                    }
-                    hero.grounded = false;
-                } else {
-                    hero.grounded = true;
-                } 
-            }
-
-            hero.update();
-            hero.proc_jump(&level, &cam, delta);
-       }
 #ifdef DEBUG_MODE
         unsigned int tc = tick / 1000;
         static unsigned int pv = 0;

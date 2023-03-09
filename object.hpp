@@ -54,6 +54,7 @@ namespace game {
         void proc_jump(Level *level, Camera *cam, float delta);
         bool isJumping() const;
         void update();
+        void set();
         bool grounded = false;
     protected:
         std::vector<Image> left, right;

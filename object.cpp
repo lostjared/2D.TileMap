@@ -51,13 +51,12 @@ namespace game {
     }
     
     void Hero::draw(RenderObject *ro, int pos_x, int pos_y) {
-
-        assert(cur_frame >= 0 && cur_frame < left.size());
-
         if(dir == Direction::LEFT)
-            ro->drawAt(left[cur_frame], draw_x, draw_y);
+            ro->drawAt(left[cur_frame], pos_x, pos_y);
         else if(dir == Direction::RIGHT)
-            ro->drawAt(right[cur_frame],draw_x, draw_y);
+            ro->drawAt(right[cur_frame],pos_x, pos_y);
+
+        std::cout << x << ":" << pos_x << " " << y << ":" << pos_y << "\n";
 
     }
 
@@ -71,6 +70,10 @@ namespace game {
         std::copy(vr.begin(), vr.end(), std::back_inserter(right));
     }
 
+    void Hero::set() {
+        draw_x = x*16;
+        draw_y = y*16;
+    }
 
     void Hero::release() {
         cur_frame = 0;
