@@ -79,55 +79,16 @@ namespace game {
 
     void Hero::moveLeft() {
         dir = Direction::LEFT;
-        if(moving_ == false)
-            moving_ = true;
     }
 
     void Hero::cycle_frame() {
-      if(move_right == true) {
-            cur_frame ++;
-            if(cur_frame >= 3) {
-                move_right = false;
-                cur_frame = 3;
-            }
-        } else {
-            cur_frame --;
-            if(cur_frame <= 0) {
-                move_right = true;
-                cur_frame = 0;
-            }
-        }
     }
 
     void Hero::moveRight() {
         dir = Direction::RIGHT;
-        if(moving_ == false)
-            moving_ = true;
-
     }
 
     void Hero::update() {
-        if(moving_ == true) {
-            if(dir == Direction::RIGHT) {
-                draw_x += 8;
-                cycle_frame();
-                moving_index[0] += 1;
-                if(moving_index[0] >= 2) {
-                    moving_index[0] = 0;
-                    moving_ = false;
-                    x += 1;
-                }
-            } else if(dir == Direction::LEFT) {
-                if(x > 0) draw_x -= 8;
-                cycle_frame();
-                moving_index[1] += 1;
-                if(moving_index[1] >= 2) {
-                    moving_index[1] = 0;
-                    moving_ = false;
-                    if(x > 0) x -= 1;
-                }
-            }
-        }
     }
 
     void Hero::restore() {
@@ -135,43 +96,14 @@ namespace game {
     }
     
     void Hero::moveDown(bool draw) {
-        cur_frame = 4;
-        if(draw) {
-            draw_y += 16;
-            y += 1;
-        }
-    }
+        
+     }
 
     void Hero::jump() {
-       if(jumping == false) {
-            jumping = true;   
-            jump_index = 0;
-       }
+
     }
 
     void Hero::proc_jump(Level *level, Camera *cam, float delta) {
-        if(jumping == true) {
-            jump_index += 1;
-            cur_frame = 4;
-            if(level->checkRect(Rect(x+(cam->getX()/16), (y+(cam->getY()/16)), 2, 4))) {
-                 if(y > 0) {
-                    if(cam->getY() <= 0) {
-                        draw_y -= 16;
-                        y -= 1;
-                    }
-                    else {
-                        cam->move(std::min(0.009f, delta), 0.0f, -1.0f);
-                    }
-                    cur_frame = 4;        
-                }
-            }
-            if(jump_index >= 14) {
-                jump_index = 0;
-                grounded = false;
-                jumping = false;
-            }            
-        } else if(grounded == false)
-            cur_frame = 4;
     }
 
     bool Hero::isJumping() const {

@@ -148,11 +148,6 @@ namespace game {
                 }
             }
         }
-        int hx = hero.x+(cam.getX()/16);
-        int hy = hero.y+(cam.getY()/16);
-        int xx, yy;
-        cam.cameraXY(hx, hy, xx, yy);
-        hero.draw(ro, xx, yy);
         unsigned int tick = ro->getTicks();
         static unsigned int prev_tick = 0;
         delta = float(tick-prev_tick)/1000;
@@ -160,49 +155,10 @@ namespace game {
         static unsigned int amt = 0;
         amt += timeout;
         prev_tick = tick; 
-        hx = hero.x + cam.getCamX();
-        hy = hero.y + cam.getCamY();
-        bool directions[6];
-        directions[0] = level.checkRect(Rect(hx, hy, 2, 4));
-        directions[1] = level.checkRect(Rect(hx+1, hy, 2, 4));
-        directions[2] = level.checkRect(Rect(hx-1, hy, 2, 4));
-        directions[3] = level.checkRect(Rect(hx, hy+1, 2, 4));
-        directions[4] = level.checkRect(Rect(hx+1, hy+1, 2, 4));
-        directions[5] = level.checkRect(Rect(hx-1, hy+1, 2, 4));
-
-        if(amt > 30) {
-            amt = 0;
-            if(ro->keyDown(Key::KEY_RIGHT)) {
-                hero.dir = Direction::RIGHT;
-                if(directions[1]) {
-                    if(hx < HALF_MAP_W) {
-                        hero.x += 1;
-                    }
-                    else {
-                        cam.move(std::min(0.009f, delta), 1.0f, 0.0f);
-                    }
-                }
-            } else if(ro->keyDown(Key::KEY_LEFT)) {
-                hero.dir = Direction::LEFT;
-                if(directions[2]) {
-                    if(hx > HALF_MAP_W) {
-                        cam.move(std::min(0.009f, delta), -1.0f, 0.0f);
-                    } else {
-                        hero.x -= 1;
-                   }
-                }
-            }
-            else if(directions[3]) {
-                hero.cur_frame = 4;
-                if(hy < HALF_MAP_H) {
-                    hero.moveDown(true);
-                } else {
-                    cam.move(std::min(0.009f, delta), 0.0f, 1.0f);
-                }
-            } else {
-                hero.cur_frame = 0;
-            }
-        } 
+        int xx, yy;
+        cam.cameraXY(hero.x+cam.getCamX(), hero.y+cam.getCamY(), xx, yy);
+        hero.draw(ro, xx, yy);
+      
 
 #ifdef DEBUG_MODE
         unsigned int tc = tick / 1000;
