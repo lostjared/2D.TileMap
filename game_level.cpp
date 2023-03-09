@@ -177,7 +177,7 @@ namespace game {
                     hero.restore();
 
             } else if(ro->keyDown(Key::KEY_LEFT) && hero.x >= 0 && cam.getX() == 0) {
-                hero.dir = Direction::RIGHT;
+                hero.dir = Direction::LEFT;
                 if(level.checkRect(Rect(hx-1, hy, 1, 4)))
                     hero.moveLeft();
                 else {
@@ -187,17 +187,15 @@ namespace game {
             }
             else if(ro->keyDown(Key::KEY_LEFT)) {
                 hero.dir = Direction::LEFT;
-                cam.move(std::min(0.009f, delta), -1.0f, 0.0f);
-                hero.cycle_frame();
+                if(level.checkRect(Rect(hx-1, hy, 1, 4))) {
+                    cam.move(std::min(0.009f, delta), -1.0f, 0.0f);
+                    hero.cycle_frame();
+                } else {
+                    hero.restore();
+                }
             } else {
                 hero.restore();
             }
-        /*
-            if(ro->keyDown(Key::KEY_UP)) {
-                cam.move(std::min(0.009f, delta), 0.0f, -1.0f);
-            } else if(ro->keyDown(Key::KEY_DOWN)) {
-                cam.move(std::min(0.009f, delta), 0.0f, 1.0f);
-            } */
 
             if(ro->keyDown(Key::KEY_A) && hero.grounded == true) {
                 hero.jump();
@@ -207,8 +205,10 @@ namespace game {
             hy = hero.y + (cam.getY()/16);
 
             if(hero.isJumping() == false) {
-                if(level.checkRect(Rect(hx, hy+1, 2, 4)) == true) {
-                    if(hy < ((720/16)/2)) {
+                bool solid;
+                solid = level.checkRect(Rect(hx, hy+1, 2, 4));
+                if(solid)  {   
+                    if(hy < ((720/16)/2) || (cam.getY()/16) >= level.height-(720/16)) {
                         hero.moveDown(true);
                     }
                     else {
@@ -220,6 +220,7 @@ namespace game {
                     hero.grounded = true;
                 } 
             }
+
             hero.update();
             hero.proc_jump(&level, &cam, delta);
        }

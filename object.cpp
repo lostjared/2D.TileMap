@@ -152,8 +152,7 @@ namespace game {
         if(jumping == true) {
             jump_index += 1;
             cur_frame = 4;
-
-            if(level->checkRect(Rect(x+(cam->getX()/16), (y+(cam->getY()/16)), 2, 3))) {
+            if(level->checkRect(Rect(x+(cam->getX()/16), (y+(cam->getY()/16)), 2, 4))) {
                  if(y > 0) {
                     if(cam->getY() <= 0) {
                         draw_y -= 16;
