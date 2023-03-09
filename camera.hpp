@@ -6,7 +6,7 @@
 
 namespace game {
 
- class Camera {
+  class Camera {
     public:
         Camera();
         Camera(int w, int h, int mx, int my);
@@ -23,7 +23,6 @@ namespace game {
         int getWidth() const;
         int getHeight() const;
         void cameraXY(int x, int y, int &xx, int &yy);
-
         void reset();        
         void set(const Camera &c);
 protected:   

@@ -19,6 +19,7 @@ namespace game {
         void keyup(char key) override;  
         void loadLevel(const std::string &filename);
         void loadResources();
+        bool checkPoint(const Point &p);
     protected:    
         Level level;
         Camera cam;

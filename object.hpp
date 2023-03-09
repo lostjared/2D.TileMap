@@ -56,9 +56,9 @@ namespace game {
         void update();
         void set();
         bool grounded = false;
+        int draw_x = 0, draw_y = 0;
     protected:
         std::vector<Image> left, right;
-        int draw_x = 0, draw_y = 0;
         bool move_right = true;
         bool jumping = false;
         int jump_index = 0;

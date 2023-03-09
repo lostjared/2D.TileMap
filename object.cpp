@@ -52,9 +52,9 @@ namespace game {
     
     void Hero::draw(RenderObject *ro, int pos_x, int pos_y) {
         if(dir == Direction::LEFT)
-            ro->drawAt(left[cur_frame], pos_x, pos_y);
+            ro->drawAt(left[cur_frame], draw_x, draw_y);
         else if(dir == Direction::RIGHT)
-            ro->drawAt(right[cur_frame],pos_x, pos_y);
+            ro->drawAt(right[cur_frame],draw_x, draw_y);
 
     }
 
@@ -79,6 +79,10 @@ namespace game {
 
     void Hero::moveLeft() {
         dir = Direction::LEFT;
+        if(moving_ == false) {
+            moving_ = true;
+            moving_index[0] = 0;
+        }
     }
 
     void Hero::cycle_frame() {
@@ -86,9 +90,34 @@ namespace game {
 
     void Hero::moveRight() {
         dir = Direction::RIGHT;
+        if(moving_ == false) {
+            moving_= true;
+            moving_index[1] = 0;
+        }
     }
 
     void Hero::update() {
+        if(moving_ == true) {
+            if(dir == Direction::RIGHT) {
+                moving_index[1] ++;
+                draw_x += 8;
+                if(moving_index[1] >= 2) {
+                    moving_index[1] = 0;
+                    moving_ = false;
+                    x += 1;
+                }
+            } else if(dir == Direction::LEFT) {
+                moving_index[0] ++;
+                if(draw_x > 0) {
+                    draw_x -= 8;
+                }
+                if(moving_index[0] >= 2) {
+                    moving_index[1] = 0;
+                    moving_ = false;
+                    x -= 1;
+                }
+            }
+        }
     }
 
     void Hero::restore() {
@@ -96,7 +125,7 @@ namespace game {
     }
     
     void Hero::moveDown(bool draw) {
-        
+        draw_y += 16;  
      }
 
     void Hero::jump() {

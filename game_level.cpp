@@ -155,10 +155,38 @@ namespace game {
         static unsigned int amt = 0;
         amt += timeout;
         prev_tick = tick; 
+        if(ro->keyDown(Key::KEY_RIGHT)) {
+            if(amt > 10) {
+                if(hero.x < HALF_MAP_W) {
+                    hero.moveRight();
+                    hero.update();
+                } else {
+                     int hx = hero.x+cam.getCamX();
+                     std::cout << "hx: " << hx << " w: "<< level.width << "\n";
+                     if(hx >= level.width-HALF_MAP_W-1) {
+                        if(hero.draw_x < 1280-48) {
+                            hero.moveRight();
+                            hero.update();
+                        }
+                     }
+                       cam.move(std::min(0.009f, delta), 1.0f, 0.0f);
+                }
+            }
+        } else if(ro->keyDown(Key::KEY_LEFT)) {
+                if(amt > 10) {
+                    if(cam.getCamX() == 0 && hero.x > 0) {
+                        hero.moveLeft();
+                        hero.update();
+                    } else {
+                        cam.move(std::min(0.009f, delta), -1.0f, 0.0f);
+                    }
+                }   
+        }
         int xx, yy;
-        cam.cameraXY(hero.x+cam.getCamX(), hero.y+cam.getCamY(), xx, yy);
         hero.draw(ro, xx, yy);
-      
+        if(amt > 10)
+            amt = 0;
+
 
 #ifdef DEBUG_MODE
         unsigned int tc = tick / 1000;
@@ -177,7 +205,11 @@ namespace game {
         ro->printText(arial, 15, 15, frame_count.str(), Color(255,255,255));
 #endif
     }
-     
+
+    bool GameLevel::checkPoint(const Point &p) {
+        return false;
+    }
+
     void GameLevel::keydown(char key) {
 
   

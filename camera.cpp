@@ -58,7 +58,6 @@ namespace game {
         yy = (hy - start_row) * 16 + off_y;       
    }
 
-
    int Camera::getX() const { 
         return x; 
    }

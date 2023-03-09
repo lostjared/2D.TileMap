@@ -161,10 +161,6 @@ namespace game {
         return false;
     }    
 
-    bool Level::checkPos(const Point &p) {
-        return checkRect(Rect(p.x, p.y, 1, 5));
-    }
-
     bool Level::checkRect(const Rect &r) {
         for(int i = r.x; i < r.x+r.w; ++i) {
             for(int z = r.y; z < r.y+r.h; ++z) {
