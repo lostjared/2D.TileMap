@@ -7,6 +7,7 @@
 namespace game {
 
     class Camera;
+    class Level;
 
     enum class Direction { LEFT=1, RIGHT, UP, DOWN };
 
@@ -50,7 +51,7 @@ namespace game {
         void restore();
         void cycle_frame();
         void jump();
-        void proc_jump(Camera *cam, float delta);
+        void proc_jump(Level *level, Camera *cam, float delta);
         bool isJumping() const;
         void update();
         bool grounded = false;

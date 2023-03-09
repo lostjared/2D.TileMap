@@ -148,20 +148,22 @@ namespace game {
        }
     }
 
-    void Hero::proc_jump(Camera *cam, float delta) {
-        
+    void Hero::proc_jump(Level *level, Camera *cam, float delta) {
         if(jumping == true) {
             jump_index += 1;
             cur_frame = 4;
-            if(y > 0) {
-                if(cam->getY() <= 0) {
-                    draw_y -= 16;
-                    y -= 1;
+
+            if(level->checkRect(Rect(x+(cam->getX()/16), (y+(cam->getY()/16)), 2, 3))) {
+                 if(y > 0) {
+                    if(cam->getY() <= 0) {
+                        draw_y -= 16;
+                        y -= 1;
+                    }
+                    else {
+                        cam->move(std::min(0.009f, delta), 0.0f, -1.0f);
+                    }
+                    cur_frame = 4;        
                 }
-                else {
-                    cam->move(std::min(0.009f, delta), 0.0f, -1.0f);
-                }
-                cur_frame = 4;        
             }
             if(jump_index >= 14) {
                 jump_index = 0;
@@ -175,6 +177,4 @@ namespace game {
     bool Hero::isJumping() const {
         return jumping;
     }
-
-
 }

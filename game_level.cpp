@@ -221,7 +221,7 @@ namespace game {
                 } 
             }
             hero.update();
-            hero.proc_jump(&cam, delta);
+            hero.proc_jump(&level, &cam, delta);
        }
 #ifdef DEBUG_MODE
         unsigned int tc = tick / 1000;
