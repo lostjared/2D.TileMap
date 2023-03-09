@@ -162,14 +162,14 @@ namespace game {
                     hero.update();
                 } else {
                      int hx = hero.x+cam.getCamX();
-                     std::cout << "hx: " << hx << " w: "<< level.width << "\n";
                      if(hx >= level.width-HALF_MAP_W-1) {
                         if(hero.draw_x < 1280-48) {
                             hero.moveRight();
                             hero.update();
                         }
-                     }
+                     } else {
                        cam.move(std::min(0.009f, delta), 1.0f, 0.0f);
+                     }
                 }
             }
         } else if(ro->keyDown(Key::KEY_LEFT)) {
