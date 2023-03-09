@@ -6,6 +6,8 @@
 
 namespace game {
 
+    class Camera;
+
     enum class Direction { LEFT=1, RIGHT, UP, DOWN };
 
     class CObject {
@@ -44,12 +46,11 @@ namespace game {
         void release() override;
         void moveLeft();
         void moveRight();
-        void moveDown();
-        void moveUp();
+        void moveDown(bool draw);
         void restore();
         void cycle_frame();
         void jump();
-        void proc_jump();
+        void proc_jump(Camera *cam, float delta);
         bool isJumping() const;
         void update();
         bool grounded = false;

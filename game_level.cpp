@@ -158,16 +158,19 @@ namespace game {
         prev_tick = tick; 
         if(amt > 30) {
             amt = 0;
-            if(ro->keyDown(Key::KEY_RIGHT)  && hero.x < ((1280/16)/2)) {
+            int hx = hero.x + (cam.getX()/16);
+            int hy = hero.y + (cam.getY()/16);
+
+            if(ro->keyDown(Key::KEY_RIGHT)  && hx < ((1280/16)/2)) {
                 hero.dir = Direction::RIGHT;
-                if(level.checkRect(Rect(hero.x+1, hero.y, 2, 4))) 
+                if(level.checkRect(Rect(hx+1, hy, 2, 4))) 
                     hero.moveRight();
                 else
                     hero.restore();
 
             } else if(ro->keyDown(Key::KEY_RIGHT)) {
                 hero.dir = Direction::RIGHT;
-                if(level.checkRect(Rect(hero.x+(cam.getX()/16)+1, hero.y+(cam.getY()/16), 2, 4))) {
+                if(level.checkRect(Rect(hx+1, hy, 2, 4))) {
                     cam.move(std::min(0.007f, delta), 1.0f, 0.0f);
                     hero.cycle_frame();
                 } else 
@@ -175,7 +178,7 @@ namespace game {
 
             } else if(ro->keyDown(Key::KEY_LEFT) && hero.x >= 0 && cam.getX() == 0) {
                 hero.dir = Direction::RIGHT;
-                if(level.checkRect(Rect(hero.x-1, hero.y, 1, 4)))
+                if(level.checkRect(Rect(hx-1, hy, 1, 4)))
                     hero.moveLeft();
                 else {
                     hero.restore();
@@ -200,20 +203,26 @@ namespace game {
                 hero.jump();
             }
 
-            int hx = hero.x + cam.getX();
-            int hy = hero.y + cam.getY();
+            hx = hero.x + (cam.getX()/16);
+            hy = hero.y + (cam.getY()/16);
 
-            if(cam.getY() == 0 && hero.isJumping() == false) {
-                if(level.checkRect(Rect(hero.x, hero.y+1, 2, 4)) == true) {
-                    hero.moveDown();
+            if(hero.isJumping() == false) {
+                if(level.checkRect(Rect(hx, hy+1, 2, 4)) == true) {
+                    if(hy < ((720/16)/2)) {
+                        hero.moveDown(true);
+                    }
+                    else {
+                        cam.move(std::min(0.009f, delta), 0.0f, 1.0f);
+                        hero.moveDown(false);
+                    }
                     hero.grounded = false;
                 } else {
                     hero.grounded = true;
                 } 
             }
             hero.update();
-            hero.proc_jump();
-        }
+            hero.proc_jump(&cam, delta);
+       }
 #ifdef DEBUG_MODE
         unsigned int tc = tick / 1000;
         static unsigned int pv = 0;

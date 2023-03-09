@@ -1,5 +1,6 @@
 #include"object.hpp"
 #include"level.hpp"
+#include"camera.hpp"
 #include<iostream>
 
 namespace game {
@@ -42,7 +43,7 @@ namespace game {
         cur_frame = 0;
         dir = Direction::RIGHT;
         x = 5;
-        y = (720/16)-15;
+        y = (720/16)/2-1;
         draw_x = x*16;
         draw_y = y*16;
         jumping = false;
@@ -132,10 +133,12 @@ namespace game {
           cur_frame = 0;
     }
     
-    void Hero::moveDown() {
+    void Hero::moveDown(bool draw) {
         cur_frame = 4;
-        draw_y += 16;
-        y ++;
+        if(draw) {
+            draw_y += 16;
+            y += 1;
+        }
     }
 
     void Hero::jump() {
@@ -145,11 +148,20 @@ namespace game {
        }
     }
 
-    void Hero::proc_jump() {
+    void Hero::proc_jump(Camera *cam, float delta) {
+        /*
         if(jumping == true) {
             jump_index += 1;
             cur_frame = 4;
-            moveUp();
+            if(y > 0) {
+                y -= 1;
+                if(cam->getY() <= 0) 
+                    draw_y -= 16;
+                else {
+                    cam->move(std::min(0.009f, delta), 0.0f, -1.0f);
+                }
+                cur_frame = 4;        
+            }
             if(jump_index >= 9) {
                 jump_index = 0;
                 grounded = false;
@@ -157,18 +169,12 @@ namespace game {
             }            
         } else if(grounded == false)
             cur_frame = 4;
+        */
     }
 
     bool Hero::isJumping() const {
         return jumping;
     }
 
-    void Hero::moveUp() {
-        if(y > 0) {
-            y -= 1;
-            draw_y -= 16;
-            cur_frame = 4;        
-        }
-    }
 
 }
