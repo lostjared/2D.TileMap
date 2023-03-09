@@ -31,6 +31,8 @@ namespace game {
         const int TILE_W=16;
         static const int WINDOW_SIZE_W = 1280/16;
         static const int WINDOW_SIZE_H = 720/16;
+        static const int HALF_MAP_W = (1280/16)/2;
+        static const int HALF_MAP_H = (720/16)/2;
         RenderObject *render_object;
         Hero hero;
         std::vector<Image> hero_images_right, hero_images_left;

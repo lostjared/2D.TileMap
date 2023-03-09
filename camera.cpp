@@ -52,6 +52,14 @@ namespace game {
    int Camera::getY() const {
         return y; 
    }
+
+   int Camera::getCamX() const {
+          return x/16;
+   }
+
+   int Camera::getCamY() const {
+          return y/16;
+   }   
    
    int Camera::getWidth() const { 
         return width; 

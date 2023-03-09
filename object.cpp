@@ -56,8 +56,6 @@ namespace game {
         else if(dir == Direction::RIGHT)
             ro->drawAt(right[cur_frame],pos_x, pos_y);
 
-        std::cout << x << ":" << pos_x << " " << y << ":" << pos_y << "\n";
-
     }
 
     void Hero::setImages(const std::vector<Image> &vl, const std::vector<Image> &vr) {

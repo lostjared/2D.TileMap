@@ -18,8 +18,11 @@ namespace game {
         void move(float delta, float dx, float dy);
         int getX() const;
         int getY() const;
+        int getCamX() const;
+        int getCamY() const;
         int getWidth() const;
         int getHeight() const;
+
         void reset();        
         void set(const Camera &c);
 protected:   
