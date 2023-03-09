@@ -150,8 +150,8 @@ namespace game {
         }
         int hx = hero.x+(cam.getX()/16);
         int hy = hero.y+(cam.getY()/16);
-        int xx = (hx - start_col) * tsize + off_x;
-        int yy = (hy - start_row) * tsize + off_y;
+        int xx, yy;
+        cam.cameraXY(hx, hy, xx, yy);
         hero.draw(ro, xx, yy);
         unsigned int tick = ro->getTicks();
         static unsigned int prev_tick = 0;

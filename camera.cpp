@@ -45,6 +45,20 @@ namespace game {
         y = std::max(0, std::min(y, max_y));
    }
    
+   void Camera::cameraXY(int hx, int hy, int &xx, int &yy) {
+        int start_col = getX() / 16;
+        int end_col = start_col + (getWidth() / 16);
+        int start_row = getY() / 16;
+        int end_row = start_row + (getHeight() / 16);
+        int cx = getX();
+        int cy = getY();
+        int off_x = -cx + start_col * 16;
+        int off_y = -cy + start_row * 16;
+        xx = (hx - start_col) * 16 + off_x;
+        yy = (hy - start_row) * 16 + off_y;       
+   }
+
+
    int Camera::getX() const { 
         return x; 
    }
@@ -60,7 +74,7 @@ namespace game {
    int Camera::getCamY() const {
           return y/16;
    }   
-   
+
    int Camera::getWidth() const { 
         return width; 
     }
