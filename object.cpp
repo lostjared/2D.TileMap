@@ -48,6 +48,7 @@ namespace game {
         draw_y = y*16;
         jumping = false;
         jump_index = 0;
+        grounded = false;
     }
     
     void Hero::draw(RenderObject *ro, int pos_x, int pos_y) {
@@ -89,7 +90,7 @@ namespace game {
     void Hero::cycle_frame() {
         if(move_right == true) {
             cur_frame ++;
-            if(cur_frame > 3) {
+            if(cur_frame >= 3) {
                 cur_frame = 3;
                 move_right = false;
             }
@@ -112,6 +113,7 @@ namespace game {
     }
 
     void Hero::update(Level *level, Camera *cam) {
+
         if(moving_ == true) {
             if(dir == Direction::RIGHT) {
                 if(scroll_map == false) {
@@ -159,14 +161,41 @@ namespace game {
                 }
             }
         }
+
+        if(grounded == true) {
+            if(scroll_map == false) {
+                draw_y += 8;
+                cur_frame = 4;
+                moving_index[2] ++;
+                if((moving_index[2]%2) == 0) {
+                    moving_index[2] = 0;
+                    cur_frame = 4;
+                    grounded = false;
+                    y += 1;
+                }
+            } else {
+                cur_frame = 4;
+                moving_index[2] ++;
+                if((moving_index[2]%2) == 0) {
+                    moving_index[2] = 0;
+                    cur_frame = 4;
+                    grounded = false;
+                    cam->move(0.5f, 0.0f, 1.0f);
+                }
+            }
+        }        
     }
 
     void Hero::restore() {
           cur_frame = 0;
     }
     
-    void Hero::moveDown(bool draw) {
-        draw_y += 16;  
+    void Hero::moveDown(bool scroll) {
+        if(grounded == false) {
+            grounded = true;
+            moving_index[2] = 0;
+            scroll_map = scroll;
+        }
      }
 
     void Hero::jump() {

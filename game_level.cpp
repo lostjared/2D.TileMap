@@ -152,12 +152,14 @@ namespace game {
         static unsigned int prev_tick = 0;
         delta = float(tick-prev_tick)/1000;
         unsigned int timeout = tick-prev_tick;
-        static unsigned int amt = 0;
+        static unsigned int amt = 0, amt_key = 0;
         amt += timeout;
+        amt_key += timeout;
         prev_tick = tick; 
 
         if(ro->keyDown(Key::KEY_RIGHT)) {
-            if(amt > 1) {
+            hero.dir = Direction::RIGHT;
+            if(amt_key > 25) {
                 if(hero.x < HALF_MAP_W) {
                     hero.moveRight(false);                
                 } else {
@@ -171,7 +173,8 @@ namespace game {
                 }
             }
         } else if(ro->keyDown(Key::KEY_LEFT)) {
-                if(amt > 10) {
+                hero.dir = Direction::LEFT;
+                if(amt_key > 25) {
                     if((cam.getX() == 0 && hero.x > 0 && hero.x <= HALF_MAP_W) || (hero.x > 40 && cam.getX() > level.width-(1280/2))) {
                         hero.moveLeft(false);
                     }  
@@ -179,13 +182,29 @@ namespace game {
                         hero.moveLeft(true);
                     }
                 }   
+        } else {
+            hero.restore();
         }
-
-       
         if(amt > 15) {
+            int hx = hero.x+cam.getCamX();
+            int hy = hero.y+cam.getCamY();
+            bool directions[5];
+            directions[0] = level.checkRect(Rect(hx, hy, 2, 4));
+            directions[1] = level.checkRect(Rect(hx, hy+1, 2, 4));
+
+            if(directions[0]) {
+                if(hero.y < HALF_MAP_H)
+                    hero.moveDown(false);
+                else
+                    hero.moveDown(true);
+
+            }
             amt = 0; 
             hero.update(&level, &cam);           
         }
+
+        if(amt_key > 25)
+            amt_key = 0;
 
         int xx, yy;
         hero.draw(ro, xx, yy);

@@ -63,7 +63,7 @@ namespace game {
         bool jumping = false;
         int jump_index = 0;
         bool moving_ = false;
-        int moving_index[3] = {0};
+        int moving_index[4] = {0};
         bool scroll_map = false;        
     };
 

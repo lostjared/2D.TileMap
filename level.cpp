@@ -162,8 +162,8 @@ namespace game {
     }    
 
     bool Level::checkRect(const Rect &r) {
-        for(int i = r.x; i < r.x+r.w; ++i) {
-            for(int z = r.y; z < r.y+r.h; ++z) {
+        for(int i = r.x; i <= r.x+r.w; ++i) {
+            for(int z = r.y; z <= r.y+r.h; ++z) {
                 Tile *tile = at(i, z);
                 if(tile != nullptr) {
                     if(tile->solid == 1)
