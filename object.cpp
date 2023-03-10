@@ -100,8 +100,8 @@ namespace game {
         if(moving_ == true) {
             if(dir == Direction::RIGHT) {
                 moving_index[1] ++;
-                draw_x += 8;
-                if(moving_index[1] >= 2) {
+                draw_x += 4;
+                if(moving_index[1] >= 4) {
                     moving_index[1] = 0;
                     moving_ = false;
                     x += 1;
@@ -109,9 +109,9 @@ namespace game {
             } else if(dir == Direction::LEFT) {
                 moving_index[0] ++;
                 if(draw_x > 0) {
-                    draw_x -= 8;
+                    draw_x -= 4;
                 }
-                if(moving_index[0] >= 2) {
+                if(moving_index[0] >= 4) {
                     moving_index[1] = 0;
                     moving_ = false;
                     x -= 1;

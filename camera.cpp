@@ -32,7 +32,7 @@ namespace game {
         height = h;
         max_x = mx;
         max_y = my;
-        speed_x = WINDOW_SIZE_WIDTH;
+        speed_x = 16;
         speed_y = speed_x;// WINDOW_SIZE_HEIGHT;
    }
 

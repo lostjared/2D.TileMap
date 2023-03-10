@@ -155,6 +155,7 @@ namespace game {
         static unsigned int amt = 0;
         amt += timeout;
         prev_tick = tick; 
+
         if(ro->keyDown(Key::KEY_RIGHT)) {
             if(amt > 10) {
                 if(hero.x < HALF_MAP_W) {
@@ -167,18 +168,18 @@ namespace game {
                             hero.moveRight();
                             hero.update();
                         }
-                     } else {
-                       cam.move(std::min(0.009f, delta), 1.0f, 0.0f);
-                     }
+                     } else
+                     cam.move(0.4f, 1.0f, 0.0f);
                 }
             }
         } else if(ro->keyDown(Key::KEY_LEFT)) {
                 if(amt > 10) {
-                    if(cam.getCamX() == 0 && hero.x > 0) {
+                    if((cam.getX() == 0 && hero.x > 0 && hero.x <= HALF_MAP_W) || (hero.x > 40 && cam.getX() > level.width-(1280/2))) {
                         hero.moveLeft();
                         hero.update();
-                    } else {
-                        cam.move(std::min(0.009f, delta), -1.0f, 0.0f);
+                    }  
+                    else {
+                        cam.move(0.4f, -1.0f, 0.0f);
                     }
                 }   
         }
