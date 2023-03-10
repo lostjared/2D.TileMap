@@ -45,15 +45,15 @@ namespace game {
         void setImages(const std::vector<Image> &vl, const std::vector<Image> &vr);
         void draw(RenderObject *ro, int x, int y) override;
         void release() override;
-        void moveLeft();
-        void moveRight();
+        void moveLeft(bool scroll);
+        void moveRight(bool scroll);
         void moveDown(bool draw);
         void restore();
         void cycle_frame();
         void jump();
         void proc_jump(Level *level, Camera *cam, float delta);
         bool isJumping() const;
-        void update();
+        void update(Level *level, Camera *cam);
         void set();
         bool grounded = false;
         int draw_x = 0, draw_y = 0;
@@ -64,7 +64,7 @@ namespace game {
         int jump_index = 0;
         bool moving_ = false;
         int moving_index[3] = {0};
-        
+        bool scroll_map = false;        
     };
 
 }

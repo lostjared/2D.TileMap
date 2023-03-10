@@ -157,37 +157,39 @@ namespace game {
         prev_tick = tick; 
 
         if(ro->keyDown(Key::KEY_RIGHT)) {
-            if(amt > 10) {
+            if(amt > 1) {
                 if(hero.x < HALF_MAP_W) {
-                    hero.moveRight();
-                    hero.update();
+                    hero.moveRight(false);                
                 } else {
                      int hx = hero.x+cam.getCamX();
                      if(hx >= level.width-HALF_MAP_W-1) {
                         if(hero.draw_x < 1280-48) {
-                            hero.moveRight();
-                            hero.update();
+                            hero.moveRight(false);
                         }
                      } else
-                     cam.move(0.4f, 1.0f, 0.0f);
+                        hero.moveRight(true);
                 }
             }
         } else if(ro->keyDown(Key::KEY_LEFT)) {
                 if(amt > 10) {
                     if((cam.getX() == 0 && hero.x > 0 && hero.x <= HALF_MAP_W) || (hero.x > 40 && cam.getX() > level.width-(1280/2))) {
-                        hero.moveLeft();
-                        hero.update();
+                        hero.moveLeft(false);
                     }  
                     else {
-                        cam.move(0.4f, -1.0f, 0.0f);
+                        hero.moveLeft(true);
                     }
                 }   
         }
+
+       
+        if(amt > 15) {
+            amt = 0; 
+            hero.update(&level, &cam);           
+        }
+
         int xx, yy;
         hero.draw(ro, xx, yy);
-        if(amt > 10)
-            amt = 0;
-
+        
 
 #ifdef DEBUG_MODE
         unsigned int tc = tick / 1000;

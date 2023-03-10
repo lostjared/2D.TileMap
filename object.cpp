@@ -77,44 +77,85 @@ namespace game {
         cur_frame = 0;
     }
 
-    void Hero::moveLeft() {
+    void Hero::moveLeft(bool scroll) {
         dir = Direction::LEFT;
         if(moving_ == false) {
             moving_ = true;
+            scroll_map = scroll;
             moving_index[0] = 0;
         }
     }
 
     void Hero::cycle_frame() {
+        if(move_right == true) {
+            cur_frame ++;
+            if(cur_frame > 3) {
+                cur_frame = 3;
+                move_right = false;
+            }
+        } else {
+            cur_frame--;
+            if(cur_frame <= 0) {
+                cur_frame = 0;
+                move_right = true;
+            }
+        }
     }
 
-    void Hero::moveRight() {
+    void Hero::moveRight(bool scroll) {
         dir = Direction::RIGHT;
         if(moving_ == false) {
             moving_= true;
+            scroll_map = scroll;
             moving_index[1] = 0;
         }
     }
 
-    void Hero::update() {
+    void Hero::update(Level *level, Camera *cam) {
         if(moving_ == true) {
             if(dir == Direction::RIGHT) {
-                moving_index[1] ++;
-                draw_x += 4;
-                if(moving_index[1] >= 4) {
-                    moving_index[1] = 0;
-                    moving_ = false;
-                    x += 1;
+                if(scroll_map == false) {
+                    draw_x += 4;
+                    cycle_frame();
+
+                    moving_index [1] ++;
+                    if(moving_index[1] >= 4) {
+                        moving_index[1] = 0;
+                        moving_ = false;
+                        x += 1;
+                        cur_frame = 0;
+                    }
+                } else {
+                    cam->move(0.4f, 1.0f, 0.0f);
+                    moving_index[1] ++;
+                    if(moving_index[1] >= 4) {
+                        moving_index[1] = 0;
+                        moving_ = false;
+                    }
+                    cycle_frame();
                 }
+
             } else if(dir == Direction::LEFT) {
-                moving_index[0] ++;
-                if(draw_x > 0) {
+                if(scroll_map == false) {
                     draw_x -= 4;
-                }
-                if(moving_index[0] >= 4) {
-                    moving_index[1] = 0;
-                    moving_ = false;
-                    x -= 1;
+                    cycle_frame();
+                    moving_index [0] ++;
+                    if(moving_index[0] >= 4) {
+                        moving_index[0] = 0;
+                        moving_ = false;
+                        cur_frame = 0;
+                        x -= 1;
+                    }
+                } else {
+                    cam->move(0.4f, -1.0f, 0.0f);
+                    cycle_frame();
+                    moving_index[0] ++;
+                    if(moving_index[0] >= 4) {
+                        moving_index[0] = 0;
+                        moving_ = false;
+                        cur_frame = 0;
+                    }
+                    
                 }
             }
         }
