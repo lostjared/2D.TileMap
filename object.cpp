@@ -82,10 +82,28 @@ namespace game {
         dir = Direction::LEFT;
         if(moving_ == false) {
             moving_ = true;
-            scroll_map = scroll;
+            scroll_map[0] = scroll;
             moving_index[0] = 0;
         }
     }
+
+    void Hero::moveRight(bool scroll) {
+        dir = Direction::RIGHT;
+        if(moving_ == false) {
+            moving_= true;
+            scroll_map[1] = scroll;
+            moving_index[1] = 0;
+        }
+    }
+
+    void Hero::moveDown(bool scroll) {
+        if(grounded == false) {
+            grounded = true;
+            moving_index[2] = 0;
+            scroll_map[2] = scroll;
+        }
+     }
+
 
     void Hero::cycle_frame() {
         if(move_right == true) {
@@ -103,20 +121,11 @@ namespace game {
         }
     }
 
-    void Hero::moveRight(bool scroll) {
-        dir = Direction::RIGHT;
-        if(moving_ == false) {
-            moving_= true;
-            scroll_map = scroll;
-            moving_index[1] = 0;
-        }
-    }
-
     void Hero::update(Level *level, Camera *cam) {
 
         if(moving_ == true) {
             if(dir == Direction::RIGHT) {
-                if(scroll_map == false) {
+                if(scroll_map[1] == false) {
                     draw_x += 4;
                     cycle_frame();
 
@@ -138,7 +147,7 @@ namespace game {
                 }
 
             } else if(dir == Direction::LEFT) {
-                if(scroll_map == false) {
+                if(scroll_map[0] == false) {
                     draw_x -= 4;
                     cycle_frame();
                     moving_index [0] ++;
@@ -160,10 +169,9 @@ namespace game {
                     
                 }
             }
-        }
-
+        } 
         if(grounded == true) {
-            if(scroll_map == false) {
+            if(scroll_map[2] == false) {
                 draw_y += 8;
                 cur_frame = 4;
                 moving_index[2] ++;
@@ -190,13 +198,6 @@ namespace game {
           cur_frame = 0;
     }
     
-    void Hero::moveDown(bool scroll) {
-        if(grounded == false) {
-            grounded = true;
-            moving_index[2] = 0;
-            scroll_map = scroll;
-        }
-     }
 
     void Hero::jump() {
 

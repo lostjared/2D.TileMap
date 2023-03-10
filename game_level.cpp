@@ -158,28 +158,39 @@ namespace game {
         prev_tick = tick; 
 
         if(ro->keyDown(Key::KEY_RIGHT)) {
+
             hero.dir = Direction::RIGHT;
             if(amt_key > 25) {
-                if(hero.x < HALF_MAP_W) {
-                    hero.moveRight(false);                
-                } else {
-                     int hx = hero.x+cam.getCamX();
-                     if(hx >= level.width-HALF_MAP_W-1) {
-                        if(hero.draw_x < 1280-48) {
-                            hero.moveRight(false);
-                        }
-                     } else
-                        hero.moveRight(true);
+                int hx = hero.x+cam.getCamX();
+                int hy = hero.y+cam.getCamY();
+                bool solid = level.checkRect(Rect(hx, hy, 2, 3));
+                if(solid) {
+                    if(hero.x < HALF_MAP_W) {
+                        hero.moveRight(false);                
+                    } else {
+                        int hx = hero.x+cam.getCamX();
+                        if(hx >= level.width-HALF_MAP_W-1) {
+                            if(hero.draw_x < 1280-48) {
+                                hero.moveRight(false);
+                            }
+                        } else
+                            hero.moveRight(true);
+                    }
                 }
             }
         } else if(ro->keyDown(Key::KEY_LEFT)) {
                 hero.dir = Direction::LEFT;
                 if(amt_key > 25) {
-                    if((cam.getX() == 0 && hero.x > 0 && hero.x <= HALF_MAP_W) || (hero.x > 40 && cam.getX() > level.width-(1280/2))) {
-                        hero.moveLeft(false);
-                    }  
-                    else {
-                        hero.moveLeft(true);
+                    int hx = hero.x+cam.getCamX();
+                    int hy = hero.y+cam.getCamY();
+                    bool solid = level.checkRect(Rect(hx-1, hy, 2, 3));
+                    if(solid) {
+                        if((cam.getX() == 0 && hero.x > 0 && hero.x <= HALF_MAP_W) || (hero.x > 40 && cam.getX() > level.width-(1280/2))) {
+                            hero.moveLeft(false);
+                        }  
+                        else {
+                            hero.moveLeft(true);
+                        }
                     }
                 }   
         } else {
