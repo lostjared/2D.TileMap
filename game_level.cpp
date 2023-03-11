@@ -9,7 +9,6 @@ namespace game {
   void GameLevel::init(RenderObject *ro) {
         render_object = ro;
         delta = 0;
-        loadLevel("levels/level1.lvl");
         hero.init(ro);
     }
 
@@ -206,7 +205,7 @@ namespace game {
             if(directions[0]) {
                 if(hero.y < HALF_MAP_H)
                     hero.moveDown(false);
-                else
+                else if(hero.y < level.height-HALF_MAP_H)
                     hero.moveDown(true);
 
             }
