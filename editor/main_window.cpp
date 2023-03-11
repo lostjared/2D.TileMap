@@ -9,6 +9,7 @@
 #include<QFileDialog>
 #include<QMessageBox>
 #include<QProcess>
+#include<QThread>
 
 MainWindow::MainWindow() {
     file_name = "Untitled.lvl";
@@ -49,6 +50,11 @@ MainWindow::MainWindow() {
     connect(file_save_as, SIGNAL(triggered()), this, SLOT(saveFileAs()));
     file_menu->addAction(file_save_as);
 
+    file_exit = new QAction(tr("E&xit"), this);
+    connect(file_exit, SIGNAL(triggered()), this, SLOT(shutdownProgram()));
+    file_menu->addAction(file_exit);
+
+
     level_menu = menuBar()->addMenu(tr("&Level"));
     level_left = new QAction(tr("Scroll Left"));
     connect(level_left, SIGNAL(triggered()), this, SLOT(levelLeft()));
@@ -81,9 +87,19 @@ MainWindow::MainWindow() {
 
 void MainWindow::closeEvent(QCloseEvent *) {
     if(proc_run == true) {
-        proc->kill();
+        proc->terminate();
+        proc->waitForFinished();
         proc_run = false;
     }
+}
+
+void MainWindow::shutdownProgram() {
+    if(proc_run == true) {
+        proc->terminate();
+        proc->waitForFinished();
+        proc_run = false;
+    }
+    QApplication::exit(0);
 }
 
 
