@@ -39,6 +39,7 @@ MainWindow::MainWindow() {
     file_new = new QAction(tr("New Map"), this);
     connect(file_new, SIGNAL(triggered()), this, SLOT(openNewMenu()));
     file_menu->addAction(file_new);
+    file_menu->addSeparator();
     //setMouseTracking(true);
     file_load = new QAction(tr("Open Map"), this);
     connect(file_load, SIGNAL(triggered()), this, SLOT(loadFile()));
@@ -49,6 +50,8 @@ MainWindow::MainWindow() {
     file_save_as = new QAction(tr("Save Map As"), this);
     connect(file_save_as, SIGNAL(triggered()), this, SLOT(saveFileAs()));
     file_menu->addAction(file_save_as);
+
+    file_menu->addSeparator();
 
     file_exit = new QAction(tr("E&xit"), this);
     connect(file_exit, SIGNAL(triggered()), this, SLOT(shutdownProgram()));
@@ -77,6 +80,7 @@ MainWindow::MainWindow() {
     run_settings = new QAction(tr("Run &Settings"));
     connect(run_settings, SIGNAL(triggered()), this, SLOT(runSettings()));
     run_menu->addAction(run_settings);
+    run_menu->addSeparator();
     run_exec = new QAction(tr("&Run"));
     connect(run_exec, SIGNAL(triggered()), this, SLOT(runExec()));
     run_menu->addAction(run_exec);
