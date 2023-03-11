@@ -169,19 +169,17 @@ void MainWindow::drawLayer3(QPainter & /*paint*/) {
 }
 
 void MainWindow::mouseMoveEvent(QMouseEvent *e) {
-    if(e->buttons() & Qt::MouseButton::LeftButton) {
-        setTile(e->pos());
-        update();
-    } else if(e->buttons() & Qt::MouseButton::RightButton) {
-        setObject(e->pos());
-        update();
-    } else {
-        if(map_init == true) { 
+    if(map_init == true) { 
             cursor_visible = true;
             draw_pos = e->pos();
-        } 
-        update();
-    }
+    } 
+    if(e->buttons() & Qt::MouseButton::LeftButton) {
+        setTile(e->pos());
+    } else if(e->buttons() & Qt::MouseButton::RightButton) {
+        setObject(e->pos());
+    } 
+    update();
+    
 }
 
 void MainWindow::mousePressEvent(QMouseEvent *e) {
