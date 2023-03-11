@@ -80,8 +80,9 @@ MainWindow::MainWindow() {
 }
 
 void MainWindow::closeEvent(QCloseEvent *) {
-    if(proc != nullptr) {
+    if(proc_run == true) {
         proc->kill();
+        proc_run = false;
     }
 }
 
@@ -401,19 +402,27 @@ void MainWindow::runSettings() {
     run_window->show();
 }
 
+void MainWindow::procStopped(int, QProcess::ExitStatus) {
+    std::cout << proc->readAllStandardOutput().toStdString();
+    run_exec->setText(tr("&Run"));
+    proc_run = false;
+}
+
 void MainWindow::runExec() {
     saveFile();
     if(file_name != "Untitled.lvl") {
         QString path = run_window->exec_path->text();
-        if(proc == nullptr) {
+        if(proc_run == false) {
             proc = new QProcess(this);
             QStringList args;
             args << file_name;
+            connect(proc, SIGNAL(finished(int,QProcess::ExitStatus)),this,SLOT(procStopped(int, QProcess::ExitStatus)));
             proc->start(path, args);
             run_exec->setText(tr("&Stop"));
+            proc_run = true;
         } else {
             proc->terminate();
-            proc = nullptr;
+            proc_run = false;
             run_exec->setText(tr("&Run"));
         }
     } else {

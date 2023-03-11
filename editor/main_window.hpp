@@ -46,6 +46,9 @@ public slots:
     void updateMap(int);
     void runSettings();
     void runExec();
+
+    void procStopped(int exitcode, QProcess::ExitStatus status);
+
 private:
     QMenu *file_menu, *level_menu, *run_menu;
     QAction *file_new, *file_save,*file_save_as,*file_load;
@@ -65,6 +68,7 @@ private:
     bool cursor_visible;
     QPoint draw_pos;
     QProcess *proc = nullptr;
+    bool proc_run = false;
 };
 
 
