@@ -197,6 +197,9 @@ namespace game {
             hero.restore();
         }
         if(amt > 15) {
+
+            hero.updateDown(&cam);
+
             int hx = hero.x+cam.getCamX();
             int hy = hero.y+cam.getCamY();
             bool directions[5];

@@ -54,6 +54,7 @@ namespace game {
         void proc_jump(Level *level, Camera *cam, float delta);
         bool isJumping() const;
         void update(Level *level, Camera *cam);
+        void updateDown(Camera *cam);
         void set();
         bool grounded = false;
         int draw_x = 0, draw_y = 0;

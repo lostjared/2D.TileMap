@@ -169,8 +169,11 @@ namespace game {
                     
                 }
             }
-        } 
-        if(grounded == true) {
+        }      
+    }
+
+    void Hero::updateDown(Camera *cam) {
+       if(grounded == true) {
             if(scroll_map[2] == false) {
                 draw_y += 8;
                 cur_frame = 4;
@@ -191,7 +194,7 @@ namespace game {
                     cam->move(0.5f, 0.0f, 1.0f);
                 }
             }
-        }        
+        }   
     }
 
     void Hero::restore() {
