@@ -402,6 +402,7 @@ void MainWindow::runSettings() {
 }
 
 void MainWindow::runExec() {
+    saveFile();
     if(file_name != "Untitled.lvl") {
         QString path = run_window->exec_path->text();
         if(proc == nullptr) {
@@ -415,6 +416,11 @@ void MainWindow::runExec() {
             proc = nullptr;
             run_exec->setText(tr("&Run"));
         }
+    } else {
+        QMessageBox msgbox;
+        msgbox.setText("You must create a map");
+        msgbox.setWindowTitle("Error loading map");
+        msgbox.exec();
     }
 }
 
