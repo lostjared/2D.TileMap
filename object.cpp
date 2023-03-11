@@ -43,7 +43,7 @@ namespace game {
         cur_frame = 0;
         dir = Direction::RIGHT;
         x = 5;
-        y = (720/16)/2-1;
+        y = (720/16)/2-4;
         draw_x = x*16;
         draw_y = y*16;
         jumping = false;
@@ -191,7 +191,7 @@ namespace game {
                     moving_index[2] = 0;
                     cur_frame = 4;
                     grounded = false;
-                    cam->move(0.5f, 0.0f, 1.0f);
+                    cam->move(1.0f, 0.0f, 1.0f);
                 }
             }
         }   

@@ -184,7 +184,7 @@ namespace game {
                     int hy = hero.y+cam.getCamY();
                     bool solid = level.checkRect(Rect(hx-1, hy, 2, 3));
                     if(solid) {
-                        if((cam.getX() == 0 && hero.x > 0 && hero.x <= HALF_MAP_W) || (hero.x > 40 && cam.getX() > level.width-(1280/2))) {
+                        if((cam.getX() == 0 && hero.x > 0 && hero.x <= HALF_MAP_W) || hero.x > 40) {
                             hero.moveLeft(false);
                         }  
                         else {
@@ -203,12 +203,24 @@ namespace game {
             directions[0] = level.checkRect(Rect(hx, hy, 2, 4));
             directions[1] = level.checkRect(Rect(hx, hy+1, 2, 4));
             if(directions[0]) {
-                if(hero.y < HALF_MAP_H)
-                    hero.moveDown(false);
-                else if(hero.y < level.height-HALF_MAP_H)
-                    hero.moveDown(true);
 
-            }
+                    if(hero.y < HALF_MAP_H) {
+                        hero.moveDown(false);                
+                    } else {
+                        int hy = hero.y+cam.getCamY();
+                        if(hy >= level.height-HALF_MAP_H-2) {
+                            if(hero.draw_y < 720-64) {
+                                hero.moveDown(false);
+                            }
+                        } else
+                            hero.moveDown(true);
+                    }
+                //if(cam.getY() == 0 && hero.y < HALF_MAP_H || level.height == (720/16))
+                //    hero.moveDown(false);
+
+                std::cout << "cam y: " << cam.getCamY() << "\n";
+                
+            } 
             amt = 0; 
             hero.updateDown(&cam);
         }
