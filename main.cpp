@@ -6,17 +6,23 @@
 int main(int argc, char **argv) {
     int width = 1280-16, height = 720-16;
     std::string def_level = "levels/level1.lvl";
-    if(argc == 2) {
-        def_level = argv[1];
+    switch(argc) {
+        case 2: {
+            def_level = argv[1];
+        }
+        break; 
+        case 3: {
+            width = atoi(argv[1]);
+            height = atoi(argv[2]);
+        } 
+        break;
+        case 4: {
+            def_level = argv[1];
+            width = atoi(argv[2]);
+            height = atoi(argv[3]);
+       } 
+       break;
     }
-    if(argc == 3) {
-        width = atoi(argv[1]);
-        height = atoi(argv[2]);
-    } else if(argc == 4) {
-        def_level = argv[1];
-        width = atoi(argv[2]);
-        height = atoi(argv[3]);
-    } 
     if(!game::Window::createWindow("Game", width, height)) {
         std::cerr << "Error on init.\n";
         return EXIT_FAILURE;
