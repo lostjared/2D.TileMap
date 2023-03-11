@@ -79,8 +79,8 @@ namespace game {
     }
 
     void Hero::moveLeft(bool scroll) {
-        dir = Direction::LEFT;
         if(moving_ == false) {
+            dir = Direction::LEFT;
             moving_ = true;
             scroll_map[0] = scroll;
             moving_index[0] = 0;
@@ -88,8 +88,8 @@ namespace game {
     }
 
     void Hero::moveRight(bool scroll) {
-        dir = Direction::RIGHT;
         if(moving_ == false) {
+            dir = Direction::RIGHT;
             moving_= true;
             scroll_map[1] = scroll;
             moving_index[1] = 0;

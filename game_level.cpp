@@ -157,8 +157,6 @@ namespace game {
         prev_tick = tick; 
 
         if(ro->keyDown(Key::KEY_RIGHT)) {
-
-            hero.dir = Direction::RIGHT;
             if(amt_key > 25) {
                 int hx = hero.x+cam.getCamX();
                 int hy = hero.y+cam.getCamY();
@@ -178,7 +176,6 @@ namespace game {
                 }
             }
         } else if(ro->keyDown(Key::KEY_LEFT)) {
-                hero.dir = Direction::LEFT;
                 if(amt_key > 25) {
                     int hx = hero.x+cam.getCamX();
                     int hy = hero.y+cam.getCamY();
