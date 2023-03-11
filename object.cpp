@@ -187,11 +187,11 @@ namespace game {
             } else {
                 cur_frame = 4;
                 moving_index[2] ++;
+                cam->move(0.5f, 0.0f, 1.0f);
                 if((moving_index[2]%2) == 0) {
                     moving_index[2] = 0;
                     cur_frame = 4;
                     grounded = false;
-                    cam->move(1.0f, 0.0f, 1.0f);
                 }
             }
         }   
