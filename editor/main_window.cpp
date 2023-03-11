@@ -90,6 +90,8 @@ void MainWindow::closeEvent(QCloseEvent *) {
         proc->terminate();
         proc->waitForFinished();
         proc_run = false;
+        delete proc;
+        proc = nullptr;
     }
 }
 
@@ -98,6 +100,8 @@ void MainWindow::shutdownProgram() {
         proc->terminate();
         proc->waitForFinished();
         proc_run = false;
+        delete proc;
+        proc = nullptr;
     }
     QApplication::exit(0);
 }
@@ -434,11 +438,25 @@ void MainWindow::runExec() {
             args << file_name;
             connect(proc, SIGNAL(finished(int,QProcess::ExitStatus)),this,SLOT(procStopped(int, QProcess::ExitStatus)));
             proc->start(path, args);
-            run_exec->setText(tr("&Stop"));
-            proc_run = true;
+            if(proc->waitForStarted()) {
+                run_exec->setText(tr("&Stop"));
+                proc_run = true;
+            }
+            else {
+                run_exec->setText(tr("&Run"));
+                delete proc;
+                proc = nullptr;
+                QMessageBox msgbox;
+                msgbox.setText("Error on execution of map executable");
+                msgbox.setWindowTitle("Error loading map");
+                msgbox.exec();
+            }
         } else {
             proc->terminate();
+            proc->waitForFinished();
             proc_run = false;
+            delete proc;
+            proc = nullptr;
             run_exec->setText(tr("&Run"));
         }
     } else {
