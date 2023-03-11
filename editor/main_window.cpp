@@ -8,7 +8,7 @@
 #include<QKeyEvent>
 #include<QFileDialog>
 #include<QMessageBox>
-#include<thread>
+#include<QProcess>
 
 MainWindow::MainWindow() {
     file_name = "Untitled.lvl";
@@ -78,6 +78,13 @@ MainWindow::MainWindow() {
     setMouseTracking(true);
 
 }
+
+void MainWindow::closeEvent(QCloseEvent *) {
+    if(proc != nullptr) {
+        proc->kill();
+    }
+}
+
 
 void MainWindow::paintEvent(QPaintEvent *) {
     QPainter paint(this);
@@ -397,27 +404,17 @@ void MainWindow::runSettings() {
 void MainWindow::runExec() {
     if(file_name != "Untitled.lvl") {
         QString path = run_window->exec_path->text();
-        QString command;
-        QTextStream stream(&command);
-        stream << path << " " << file_name;
-        hide();
-        tool_window->hide();
-        new_window->hide();
-        run_window->hide();
-        // temporary
-        FILE *fptr = popen(command.toStdString().c_str(), "r");
-        while(!feof(fptr)) {
-            char buffer[256];
-            fgets(buffer, 255, fptr);
-            std::cout << buffer;
+        if(proc == nullptr) {
+            proc = new QProcess(this);
+            QStringList args;
+            args << file_name;
+            proc->start(path, args);
+            run_exec->setText(tr("&Stop"));
+        } else {
+            proc->terminate();
+            proc = nullptr;
+            run_exec->setText(tr("&Run"));
         }
-        pclose(fptr);
-        show();
-        tool_window->show();
-        setFocus();
-        tool_window->setFocus();
-        raise();
-        tool_window->raise();
     }
 }
 

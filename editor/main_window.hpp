@@ -6,6 +6,7 @@
 #include<QAction>
 #include<QVector>
 #include<QPainter>
+#include<QProcess>
 #include"tool_window.hpp"
 #include"new_window.hpp"
 #include"run_window.hpp"
@@ -31,6 +32,7 @@ public:
     void drawLayer1(QPainter &paint);
     void drawLayer2(QPainter &paint);
     void drawLayer3(QPainter &paint);
+    void closeEvent(QCloseEvent *c) override;
 public slots:
     void openNewMenu();
     void saveFile();
@@ -62,6 +64,7 @@ private:
     QString file_name;
     bool cursor_visible;
     QPoint draw_pos;
+    QProcess *proc = nullptr;
 };
 
 
