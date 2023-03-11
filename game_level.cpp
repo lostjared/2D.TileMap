@@ -197,15 +197,12 @@ namespace game {
             hero.restore();
         }
         if(amt > 15) {
-
-            hero.updateDown(&cam);
-
+            hero.update(&cam); 
             int hx = hero.x+cam.getCamX();
             int hy = hero.y+cam.getCamY();
             bool directions[5];
             directions[0] = level.checkRect(Rect(hx, hy, 2, 4));
             directions[1] = level.checkRect(Rect(hx, hy+1, 2, 4));
-
             if(directions[0]) {
                 if(hero.y < HALF_MAP_H)
                     hero.moveDown(false);
@@ -214,7 +211,7 @@ namespace game {
 
             }
             amt = 0; 
-            hero.update(&cam);           
+            hero.updateDown(&cam);
         }
 
         if(amt_key > 25)
