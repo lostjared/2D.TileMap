@@ -8,6 +8,7 @@
 #include<QKeyEvent>
 #include<QFileDialog>
 #include<QMessageBox>
+#include<thread>
 
 MainWindow::MainWindow() {
     file_name = "Untitled.lvl";
@@ -394,7 +395,30 @@ void MainWindow::runSettings() {
 }
 
 void MainWindow::runExec() {
-
+    if(file_name != "Untitled.lvl") {
+        QString path = run_window->exec_path->text();
+        QString command;
+        QTextStream stream(&command);
+        stream << path << " " << file_name;
+        hide();
+        tool_window->hide();
+        new_window->hide();
+        run_window->hide();
+        // temporary
+        FILE *fptr = popen(command.toStdString().c_str(), "r");
+        while(!feof(fptr)) {
+            char buffer[256];
+            fgets(buffer, 255, fptr);
+            std::cout << buffer;
+        }
+        pclose(fptr);
+        show();
+        tool_window->show();
+        setFocus();
+        tool_window->setFocus();
+        raise();
+        tool_window->raise();
+    }
 }
 
 

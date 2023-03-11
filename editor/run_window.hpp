@@ -11,8 +11,6 @@ class RunWindow : public QDialog {
 public:
     RunWindow(QWidget *parent = 0);
     void setMainWindow(MainWindow *m);
-
-protected:
     MainWindow *main_window;
     QLineEdit *exec_path;
 
