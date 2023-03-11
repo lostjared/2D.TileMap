@@ -214,7 +214,7 @@ namespace game {
 
             }
             amt = 0; 
-            hero.update(&level, &cam);           
+            hero.update(&cam);           
         }
 
         if(amt_key > 25)

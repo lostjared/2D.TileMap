@@ -121,7 +121,7 @@ namespace game {
         }
     }
 
-    void Hero::update(Level *level, Camera *cam) {
+    void Hero::update(Camera *cam) {
 
         if(moving_ == true) {
             if(dir == Direction::RIGHT) {
