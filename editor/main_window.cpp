@@ -29,6 +29,10 @@ MainWindow::MainWindow() {
     new_window->setMainWindow(this);
     new_window->hide();
 
+    run_window = new RunWindow(this);
+    run_window->setMainWindow(this);
+    run_window->hide();
+
     file_menu = menuBar()->addMenu(tr("&File"));
     file_new = new QAction(tr("New Map"), this);
     connect(file_new, SIGNAL(triggered()), this, SLOT(openNewMenu()));
@@ -60,8 +64,18 @@ MainWindow::MainWindow() {
     level_down = new QAction(tr("Scroll Down"));
     connect(level_down, SIGNAL(triggered()), this, SLOT(levelDown()));
     level_menu->addAction(level_down);
-    setMouseTracking(true);
     connect(tool_window->hover_object, SIGNAL(stateChanged(int)), this, SLOT(updateMap(int)));
+
+    run_menu = menuBar()->addMenu(tr("&Run"));
+    run_settings = new QAction(tr("Run &Settings"));
+    connect(run_settings, SIGNAL(triggered()), this, SLOT(runSettings()));
+    run_menu->addAction(run_settings);
+    run_exec = new QAction(tr("&Run"));
+    connect(run_exec, SIGNAL(triggered()), this, SLOT(runExec()));
+    run_menu->addAction(run_exec);
+
+    setMouseTracking(true);
+
 }
 
 void MainWindow::paintEvent(QPaintEvent *) {
@@ -374,6 +388,15 @@ void MainWindow::levelRight() {
     updateLabelText();
     update();
 }
+
+void MainWindow::runSettings() {
+    run_window->show();
+}
+
+void MainWindow::runExec() {
+
+}
+
 
 void MainWindow::loadImages() {
     const char *fileNames[] = {  "black.bmp", "bluebrick.bmp", "bluesky.bmp", "brick.bmp", "eblock.bmp", "red_brick.bmp", "sand1.bmp", "sand2.bmp", "snow.bmp", "stone.bmp", "stone2.bmp", "stone3.bmp", "stone4.bmp", "grass.bmp", 0 };

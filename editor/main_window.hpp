@@ -8,6 +8,7 @@
 #include<QPainter>
 #include"tool_window.hpp"
 #include"new_window.hpp"
+#include"run_window.hpp"
 #include "../level.hpp"
 
 const int MAP_WIDTH=1280/16;
@@ -41,13 +42,16 @@ public slots:
     void levelLeft();
     void levelRight();
     void updateMap(int);
+    void runSettings();
+    void runExec();
 private:
-    QMenu *file_menu, *level_menu;
+    QMenu *file_menu, *level_menu, *run_menu;
     QAction *file_new, *file_save,*file_save_as,*file_load;
     QAction *level_left, *level_right, *level_down, *level_up;
+    QAction *run_settings, *run_exec;
     ToolWindow *tool_window;  
     NewWindow *new_window;  
-
+    RunWindow *run_window;
     QVector<QImage> images;
     QVector<QImage> col;
     QVector<game::Tile> tiles; 
