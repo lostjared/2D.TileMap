@@ -200,7 +200,6 @@ namespace game {
             directions[0] = level.checkRect(Rect(hx, hy, 2, 4));
             directions[1] = level.checkRect(Rect(hx, hy+1, 2, 4));
             if(directions[0]) {
-
                     if(hero.y < HALF_MAP_H) {
                         hero.moveDown(false);                
                     } else {
@@ -212,11 +211,6 @@ namespace game {
                         } else
                             hero.moveDown(true);
                     }
-                //if(cam.getY() == 0 && hero.y < HALF_MAP_H || level.height == (720/16))
-                //    hero.moveDown(false);
-
-                std::cout << "cam y: " << cam.getCamY() << "\n";
-                
             } 
             amt = 0; 
             hero.updateDown(&cam);

@@ -110,6 +110,12 @@ void MainWindow::shutdownProgram() {
     QApplication::exit(0);
 }
 
+void MainWindow::readStdout() {
+    if(proc_run) {
+        QString data = proc->readAll();
+        std::cout << data.toStdString() << "\n";
+    }
+}
 
 void MainWindow::paintEvent(QPaintEvent *) {
     QPainter paint(this);
@@ -439,6 +445,7 @@ void MainWindow::runExec() {
             QStringList args;
             args << file_name;
             connect(proc, SIGNAL(finished(int,QProcess::ExitStatus)),this,SLOT(procStopped(int, QProcess::ExitStatus)));
+            connect(proc, SIGNAL(readyReadStandardOutput()), this, SLOT(readStdout()));
             proc->start(path, args);
             if(proc->waitForStarted()) {
                 run_exec->setText(tr("&Stop"));
