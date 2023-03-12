@@ -75,8 +75,8 @@ private:
     const int offset_x = 0;
     const int offset_y = 0;
     #else
-    const int offset_x = 32;
-    const int offset_y = 32;
+    const int offset_x = 0;
+    const int offset_y = 24;
     #endif
 };
 
