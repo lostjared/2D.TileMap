@@ -7,7 +7,6 @@ DebugWindow::DebugWindow(QWidget *parent) : QDialog(parent) {
     text_view->setGeometry(10, 10, 1280-20, 320-20);
     text_view->setReadOnly(true);
     text_view->setStyleSheet("font-size: 18px;");
-    setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
 }
 
 void DebugWindow::Log(const QString &text) {

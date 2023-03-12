@@ -453,7 +453,8 @@ void MainWindow::runExec() {
             args << file_name;
             connect(proc, SIGNAL(finished(int,QProcess::ExitStatus)),this,SLOT(procStopped(int, QProcess::ExitStatus)));
             connect(proc, SIGNAL(readyReadStandardOutput()), this, SLOT(readStdout()));
-            proc->start(path, args);
+            proc->setWorkingDirectory(path+"/");
+            proc->start(path+"/test-game", args);
             if(proc->waitForStarted()) {
                 run_exec->setText(tr("&Stop"));
                 debug_window->Log("editor: Started Level: " + file_name + "\n");
@@ -467,7 +468,7 @@ void MainWindow::runExec() {
                 msgbox.setText("Error on execution of map executable");
                 msgbox.setWindowTitle("Error loading map");
                 msgbox.exec();
-                debug_window->Log("editor: Could not open map executable file: " + path);
+                debug_window->Log("editor: Could not open map executable file: " + path+"/test-game");
             }
         } else {
             proc->terminate();
