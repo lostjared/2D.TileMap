@@ -240,7 +240,7 @@ void MainWindow::keyPressEvent(QKeyEvent *e) {
 void MainWindow::setTile(const QPoint &pos) {
     if(map_init == true) {
         int x,y;
-        if(game::atPoint(pos.x(), pos.y(),16,16,x, y)) {
+        if(game::atPoint(pos.x(), pos.y()-offset_y,16,16,x, y)) {
             game::Tile *tile = level.at(pos_x+x, pos_y+y);
             if(tile != nullptr) {
                 //tile->img = 2;
@@ -273,12 +273,12 @@ void MainWindow::setObject(const QPoint &pos) {
             int width = col[tool_window->tile_objects->currentIndex()].width();
             int height = col[tool_window->tile_objects->currentIndex()].height();
             int px = pos.x();
-            int py = pos.y();
+            int py = pos.y()-offset_y;
             for(int i = 0; i < MAP_WIDTH; ++i) {
                 for(int z = 0; z < MAP_HEIGHT; ++z) {
                     game::Tile *tile = level.at(pos_x+i, pos_y+z);
                     if(tile != nullptr) {
-                        int x = (i*16-16)+offset_x;
+                        int x = (i*16-16);
                         int y = (z*16-16)+offset_y;
                         if(tile->layers[0] > 0) {
                             if(px >= x && px <= x+width && py >= y && py <= y+height) {
