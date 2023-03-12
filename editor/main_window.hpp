@@ -10,6 +10,7 @@
 #include"tool_window.hpp"
 #include"new_window.hpp"
 #include"run_window.hpp"
+#include"debug_window.hpp"
 #include "../level.hpp"
 
 const int MAP_WIDTH=1280/16;
@@ -57,6 +58,7 @@ private:
     ToolWindow *tool_window;  
     NewWindow *new_window;  
     RunWindow *run_window;
+    DebugWindow *debug_window;
     QVector<QImage> images;
     QVector<QImage> col;
     QVector<game::Tile> tiles; 

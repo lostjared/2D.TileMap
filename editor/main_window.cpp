@@ -35,6 +35,10 @@ MainWindow::MainWindow() {
     run_window->setMainWindow(this);
     run_window->hide();
 
+    debug_window = new DebugWindow(this);
+    debug_window->setGeometry(200, 810, 640, 320);
+    debug_window->show();
+
     file_menu = menuBar()->addMenu(tr("&File"));
     file_new = new QAction(tr("New Map"), this);
     connect(file_new, SIGNAL(triggered()), this, SLOT(openNewMenu()));
@@ -86,6 +90,7 @@ MainWindow::MainWindow() {
     run_menu->addAction(run_exec);
 
     setMouseTracking(true);
+    debug_window->Log("Editor initalized..\n");
 
 }
 
