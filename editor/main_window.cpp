@@ -358,6 +358,7 @@ void MainWindow::saveFile() {
                 QMessageBox msgbox;
                 msgbox.setText("Error on load of map");
                 msgbox.setWindowTitle("Error loading map");
+                msgbox.setIcon(QMessageBox::Icon::Warning);
                 msgbox.exec();
             } else {
                 updateTitle();
@@ -374,6 +375,7 @@ void MainWindow::saveFileAs() {
                 QMessageBox msgbox;
                 msgbox.setText("Error on load of map");
                 msgbox.setWindowTitle("Error loading map");
+                msgbox.setIcon(QMessageBox::Icon::Warning);
                 msgbox.exec();
             } else {
                 file_name = filename;
@@ -395,6 +397,7 @@ void MainWindow::loadFile() {
             QMessageBox msgbox;
             msgbox.setText("Could not load map");
             msgbox.setWindowTitle("Error on load");
+            msgbox.setIcon(QMessageBox::Icon::Warning);
             msgbox.exec();
         }
     }
@@ -468,6 +471,7 @@ void MainWindow::runExec() {
                 QMessageBox msgbox;
                 msgbox.setText("Error on execution of map executable");
                 msgbox.setWindowTitle("Error loading map");
+                msgbox.setIcon(QMessageBox::Icon::Warning);
                 msgbox.exec();
                 debug_window->Log("editor: Could not open map executable file: " + path+"/test-game");
             }
@@ -483,6 +487,7 @@ void MainWindow::runExec() {
         QMessageBox msgbox;
         msgbox.setText("You must create a map");
         msgbox.setWindowTitle("Error loading map");
+        msgbox.setIcon(QMessageBox::Icon::Warning);
         msgbox.exec();
     }
 }
