@@ -128,7 +128,6 @@ namespace game {
                 if(scroll_map[1] == false) {
                     draw_x += 4;
                     cycle_frame();
-
                     moving_index [1] ++;
                     if(moving_index[1] >= 4) {
                         moving_index[1] = 0;

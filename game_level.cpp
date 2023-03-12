@@ -153,15 +153,15 @@ namespace game {
         unsigned int timeout = tick-prev_tick;
         static unsigned int amt = 0;
         amt += timeout;
-        prev_tick = tick; 
+        prev_tick = tick;
 
         if(ro->keyDown(Key::KEY_RIGHT)) {
             if(amt > 10) {
                 int hx = hero.x+cam.getCamX();
                 int hy = hero.y+cam.getCamY();
-                bool solid = level.checkRect(Rect(hx, hy, 2, 3));
+                bool solid = level.checkRect(Rect(hx+1, hy, 1, 3));
                 if(solid) {
-                    if(hero.x < HALF_MAP_W) {
+                    if(hero.x <= HALF_MAP_W) {
                         hero.moveRight(false);                
                     } else {
                         int hx = hero.x+cam.getCamX();
