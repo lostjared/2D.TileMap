@@ -4,7 +4,7 @@
 
 NewWindow::NewWindow(game::Level *lvl, QWidget *parent) : QDialog(parent), level{lvl} {
     setFixedSize(640, 320);
-    setWindowTitle(tr("New Map"));
+    setWindowTitle(tr("Create a New Map"));
     page_width1 = new QLineEdit("2", this);
     page_height1 = new QLineEdit("2", this);
 

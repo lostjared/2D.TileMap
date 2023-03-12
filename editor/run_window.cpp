@@ -5,7 +5,7 @@
 
 RunWindow::RunWindow(QWidget *parent) : QDialog(parent) {
     setFixedSize(400, 400);
-
+    setWindowTitle(tr("Run Settings"));
     QLabel *lbl_exec = new QLabel(tr("Path: "), this);
     lbl_exec->setGeometry(10, 10, 50, 20);
     exec_path = new QLineEdit(this);
