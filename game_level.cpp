@@ -216,7 +216,7 @@ namespace game {
             hero.updateDown(&cam);
         }
 
-        if(amt_key > 25)
+        if(amt_key > 15)
             amt_key = 0;
 
         int xx, yy;
