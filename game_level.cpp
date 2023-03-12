@@ -157,7 +157,7 @@ namespace game {
         prev_tick = tick; 
 
         if(ro->keyDown(Key::KEY_RIGHT)) {
-            if(amt_key > 25) {
+            if(amt_key > 15) {
                 int hx = hero.x+cam.getCamX();
                 int hy = hero.y+cam.getCamY();
                 bool solid = level.checkRect(Rect(hx, hy, 2, 3));
@@ -176,7 +176,7 @@ namespace game {
                 }
             }
         } else if(ro->keyDown(Key::KEY_LEFT)) {
-                if(amt_key > 25) {
+                if(amt_key > 15) {
                     int hx = hero.x+cam.getCamX();
                     int hy = hero.y+cam.getCamY();
                     bool solid = level.checkRect(Rect(hx-1, hy, 2, 3));
