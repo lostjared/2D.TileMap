@@ -190,7 +190,8 @@ namespace game {
                     }
                 }   
         } else {
-            hero.restore();
+            if(hero.grounded == false)
+                hero.restore();
         }
         if(amt > 15) {
             hero.update(&cam); 
