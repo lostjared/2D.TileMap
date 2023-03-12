@@ -232,6 +232,7 @@ namespace game {
         while (active) {
             SDL_RenderClear(render_object.ren);          
             SDL_LockTexture(render_object.tex, 0, &render_object.surface->pixels, &render_object.surface->pitch);
+            SDL_FillRect(render_object.surface, 0, 0);
             current_object->draw(&render_object);
             SDL_UnlockTexture(render_object.tex);
             SDL_Rect rc = { 0, 0, render_object.width, render_object.height };
