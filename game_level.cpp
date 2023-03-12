@@ -151,13 +151,12 @@ namespace game {
         static unsigned int prev_tick = 0;
         delta = float(tick-prev_tick)/1000;
         unsigned int timeout = tick-prev_tick;
-        static unsigned int amt = 0, amt_key = 0;
+        static unsigned int amt = 0;
         amt += timeout;
-        amt_key += timeout;
         prev_tick = tick; 
 
         if(ro->keyDown(Key::KEY_RIGHT)) {
-            if(amt_key > 15) {
+            if(amt > 10) {
                 int hx = hero.x+cam.getCamX();
                 int hy = hero.y+cam.getCamY();
                 bool solid = level.checkRect(Rect(hx, hy, 2, 3));
@@ -176,7 +175,7 @@ namespace game {
                 }
             }
         } else if(ro->keyDown(Key::KEY_LEFT)) {
-                if(amt_key > 15) {
+                if(amt > 10) {
                     int hx = hero.x+cam.getCamX();
                     int hy = hero.y+cam.getCamY();
                     bool solid = level.checkRect(Rect(hx-1, hy, 2, 3));
@@ -193,7 +192,7 @@ namespace game {
             if(hero.grounded == false)
                 hero.restore();
         }
-        if(amt > 15) {
+        if(amt > 10) {
             hero.update(&cam); 
             int hx = hero.x+cam.getCamX();
             int hy = hero.y+cam.getCamY();
@@ -217,8 +216,8 @@ namespace game {
             hero.updateDown(&cam);
         }
 
-        if(amt_key > 15)
-            amt_key = 0;
+        if(hero.grounded == true)
+            hero.cur_frame = 4;
 
         int xx, yy;
         hero.draw(ro, xx, yy);
