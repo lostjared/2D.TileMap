@@ -128,7 +128,7 @@ void MainWindow::paintEvent(QPaintEvent *) {
     paint.fillRect(QRect(0, 0, 1280, 720), QColor(255,255,255));
     for(int i = 0; i < MAP_WIDTH; ++i) {
         for(int z = 0; z < MAP_HEIGHT; ++z) {
-            int x = (i*16)+offset_y;
+            int x = (i*16)+offset_x;
             int y = (z*16)+offset_y;
             game::Tile *tile = level.at(pos_x+i, pos_y+z);
             if(map_init == false) {
