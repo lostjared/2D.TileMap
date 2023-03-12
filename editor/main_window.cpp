@@ -15,8 +15,8 @@ MainWindow::MainWindow() {
     file_name = "Untitled.lvl";
     map_init = false;
     pos_x = pos_y = 0;
-    setGeometry(200, 10, 1280, 720);
-    setFixedSize(1280, 720);
+    setGeometry(200, 10, 1280, 720+offset_y);
+    setFixedSize(1280, 720+offset_y);
     setWindowTitle(tr("Editor [Please Create/Open a Map]"));
     loadImages();
 
@@ -91,7 +91,7 @@ MainWindow::MainWindow() {
 
     setMouseTracking(true);
     debug_window->Log("editor: successfully initalized..\n");
-
+    cursor_visible = false;
 }
 
 void MainWindow::closeEvent(QCloseEvent *) {
@@ -128,13 +128,13 @@ void MainWindow::paintEvent(QPaintEvent *) {
     paint.fillRect(QRect(0, 0, 1280, 720), QColor(255,255,255));
     for(int i = 0; i < MAP_WIDTH; ++i) {
         for(int z = 0; z < MAP_HEIGHT; ++z) {
-            int x = i*16;
-            int y = z*16;
+            int x = (i*16)+offset_y;
+            int y = (z*16)+offset_y;
             game::Tile *tile = level.at(pos_x+i, pos_y+z);
             if(map_init == false) {
                 paint.fillRect(QRect(x, y, 15, 15), QColor(0, 0, 0));
             } else {
-                paint.drawImage(i*16, z*16, images[tile->img]);
+                paint.drawImage((i*16)+offset_x, (z*16)+offset_y, images[tile->img]);
             }
         }
     }
@@ -146,8 +146,8 @@ void MainWindow::paintEvent(QPaintEvent *) {
         QImage &img = (tool_window->hover_object->isChecked()) ? col[tool_window->tile_objects->currentIndex()] : images[tool_window->tiles->currentIndex()];
         int cx = draw_pos.x(), cy = draw_pos.y();
         int zx = 0, zy = 0;
-        if(game::atPoint(cx, cy, 16, 16, zx, zy)) {
-            cx = zx*16, cy = zy*16;
+        if(game::atPoint(cx+offset_x, cy+offset_y, 16, 16, zx, zy)) {
+            cx = (zx*16)+offset_x, cy = (zy*16)+offset_y;
             paint.drawImage(cx, cy, img);
             paint.fillRect(QRect(cx, cy-1, img.width(), 1), QColor(qRgb(255, 255, 255)));
             paint.fillRect(QRect(cx, cy+img.height(), img.width(), 1), QColor(qRgb(255, 255, 255)));
@@ -164,8 +164,8 @@ void MainWindow::updateMap(int) {
 void MainWindow::drawLayer1(QPainter & paint) {
     for(int i = 0; i < MAP_WIDTH; ++i) {
         for(int z = 0; z < MAP_HEIGHT; ++z) {
-            int x = i*16;
-            int y = z*16;
+            int x = (i*16)+offset_x;
+            int y = (z*16)+offset_y;
             game::Tile *tile = level.at(pos_x+i, pos_y+z);
             if(tile != nullptr) {
                 if(tile->layers[0] > 0 && tile->layers[0] <= col.size()) {
@@ -240,7 +240,7 @@ void MainWindow::keyPressEvent(QKeyEvent *e) {
 void MainWindow::setTile(const QPoint &pos) {
     if(map_init == true) {
         int x,y;
-        if(game::atPoint(pos.x(), pos.y(),16,16,x, y)) {
+        if(game::atPoint(pos.x()+offset_x, pos.y()+offset_y,16,16,x, y)) {
             game::Tile *tile = level.at(pos_x+x, pos_y+y);
             if(tile != nullptr) {
                 //tile->img = 2;
@@ -278,8 +278,8 @@ void MainWindow::setObject(const QPoint &pos) {
                 for(int z = 0; z < MAP_HEIGHT; ++z) {
                     game::Tile *tile = level.at(pos_x+i, pos_y+z);
                     if(tile != nullptr) {
-                        int x = i*16-16;
-                        int y = z*16-16;
+                        int x = (i*16-16)+offset_x;
+                        int y = (z*16-16)+offset_y;
                         if(tile->layers[0] > 0) {
                             if(px >= x && px <= x+width && py >= y && py <= y+height) {
                                 tile->layers[0] = 0;
@@ -292,7 +292,7 @@ void MainWindow::setObject(const QPoint &pos) {
             return;
         }
         int x,y;
-        if(game::atPoint(pos.x(), pos.y(), 16,16, x, y)) {
+        if(game::atPoint(pos.x()+offset_x, pos.y()+offset_y, 16,16, x, y)) {
             game::Tile *tile = level.at(pos_x+x, pos_y+y);
             if(tile != nullptr) {
                 switch(tool_window->tool->currentIndex()) {

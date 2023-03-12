@@ -71,8 +71,13 @@ private:
     QPoint draw_pos;
     QProcess *proc = nullptr;
     bool proc_run = false;
+    #ifdef __APPLE__
+    const int offset_x = 0;
+    const int offset_y = 0;
+    #else
+    const int offset_x = 32;
+    const int offset_y = 32;
+    #endif
 };
-
-
 
 #endif
