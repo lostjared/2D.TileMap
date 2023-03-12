@@ -10,11 +10,17 @@ DebugWindow::DebugWindow(QWidget *parent) : QDialog(parent) {
     text_view->setStyleSheet("background-color: rgb(0, 0, 0); color: rgb(255, 255, 255); font-size: 18px;");
 }
 
+void DebugWindow::clear() {
+    text_view->setHtml("");
+}
+
 void DebugWindow::Log(const QString &text) {
    QString current;
    current = text_view->toPlainText();
    current += text;
-   text_view->setPlainText(current);
+   current.replace("editor: ", "<span style=\"color: red;\">editor: </span>");
+   current.replace("\n", "<br>");
+   text_view->setHtml(current);
    QTextCursor tmpCursor = text_view->textCursor();
    tmpCursor.movePosition(QTextCursor::End, QTextCursor::MoveAnchor);
    text_view->setTextCursor(tmpCursor);

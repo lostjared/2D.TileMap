@@ -10,6 +10,7 @@ class DebugWindow : public QDialog {
 public:
     DebugWindow(QWidget *parent = 0);
     void Log(const QString &text);
+    void clear();
 protected:
     QTextEdit *text_view;
 };
