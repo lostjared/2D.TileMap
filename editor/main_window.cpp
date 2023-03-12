@@ -36,7 +36,7 @@ MainWindow::MainWindow() {
     run_window->hide();
 
     debug_window = new DebugWindow(this);
-    debug_window->setGeometry(230, 810+offset_y, 640, 320);
+    debug_window->setGeometry(230, 830+offset_y, 640, 320);
     debug_window->show();
 
     file_menu = menuBar()->addMenu(tr("&File"));
