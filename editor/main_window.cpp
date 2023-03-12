@@ -279,7 +279,7 @@ void MainWindow::setObject(const QPoint &pos) {
                     game::Tile *tile = level.at(pos_x+i, pos_y+z);
                     if(tile != nullptr) {
                         int x = (i*16-16);
-                        int y = (z*16-16)-offset_y;
+                        int y = (z*16)-offset_y;
                         if(tile->layers[0] > 0) {
                             if(px >= x && px <= x+width && py >= y && py <= y+height) {
                                 tile->layers[0] = 0;
