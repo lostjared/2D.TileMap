@@ -17,6 +17,7 @@ MainWindow::MainWindow() {
     pos_x = pos_y = 0;
     setGeometry(230, 10, 1280, 720+offset_y);
     setFixedSize(1280, 720+offset_y);
+    setWindowIcon(QIcon(":/images/col1.bmp"));
     setWindowTitle(tr("Editor [Please Create/Open a Map]"));
     loadImages();
 
