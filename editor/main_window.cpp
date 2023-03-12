@@ -90,7 +90,7 @@ MainWindow::MainWindow() {
     run_menu->addAction(run_exec);
 
     setMouseTracking(true);
-    debug_window->Log("Editor initalized..\n");
+    debug_window->Log("editor: successfully initalized..\n");
 
 }
 
@@ -119,6 +119,7 @@ void MainWindow::readStdout() {
     if(proc_run) {
         QString data = proc->readAll();
         std::cout << data.toStdString() << "\n";
+        debug_window->Log(data);
     }
 }
 
@@ -438,6 +439,7 @@ void MainWindow::runSettings() {
 void MainWindow::procStopped(int, QProcess::ExitStatus) {
     std::cout << proc->readAllStandardOutput().toStdString();
     run_exec->setText(tr("&Run"));
+    debug_window->Log("editor: Map successfully exited. ");
     proc_run = false;
 }
 
@@ -454,6 +456,7 @@ void MainWindow::runExec() {
             proc->start(path, args);
             if(proc->waitForStarted()) {
                 run_exec->setText(tr("&Stop"));
+                debug_window->Log("editor: Started Level: " + file_name + "\n");
                 proc_run = true;
             }
             else {
@@ -464,6 +467,7 @@ void MainWindow::runExec() {
                 msgbox.setText("Error on execution of map executable");
                 msgbox.setWindowTitle("Error loading map");
                 msgbox.exec();
+                debug_window->Log("editor: Could not open map executable file: " + path);
             }
         } else {
             proc->terminate();
