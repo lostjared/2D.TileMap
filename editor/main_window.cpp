@@ -146,7 +146,7 @@ void MainWindow::paintEvent(QPaintEvent *) {
         QImage &img = (tool_window->hover_object->isChecked()) ? col[tool_window->tile_objects->currentIndex()] : images[tool_window->tiles->currentIndex()];
         int cx = draw_pos.x(), cy = draw_pos.y();
         int zx = 0, zy = 0;
-        if(game::atPoint(cx, cy, 16, 16, zx, zy)) {
+        if(game::atPoint(cx, cy-offset_y, 16, 16, zx, zy)) {
             cx = (zx*16)+offset_x, cy = (zy*16)+offset_y;
             paint.drawImage(cx, cy, img);
             paint.fillRect(QRect(cx, cy-1, img.width(), 1), QColor(qRgb(255, 255, 255)));
@@ -279,7 +279,7 @@ void MainWindow::setObject(const QPoint &pos) {
                     game::Tile *tile = level.at(pos_x+i, pos_y+z);
                     if(tile != nullptr) {
                         int x = (i*16-16);
-                        int y = (z*16-16)+offset_y;
+                        int y = (z*16-16)-offset_y;
                         if(tile->layers[0] > 0) {
                             if(px >= x && px <= x+width && py >= y && py <= y+height) {
                                 tile->layers[0] = 0;
@@ -292,7 +292,7 @@ void MainWindow::setObject(const QPoint &pos) {
             return;
         }
         int x,y;
-        if(game::atPoint(pos.x()+offset_x, pos.y()+offset_y, 16,16, x, y)) {
+        if(game::atPoint(pos.x(), pos.y()-offset_y, 16,16, x, y)) {
             game::Tile *tile = level.at(pos_x+x, pos_y+y);
             if(tile != nullptr) {
                 switch(tool_window->tool->currentIndex()) {
