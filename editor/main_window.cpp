@@ -146,7 +146,7 @@ void MainWindow::paintEvent(QPaintEvent *) {
         QImage &img = (tool_window->hover_object->isChecked()) ? col[tool_window->tile_objects->currentIndex()] : images[tool_window->tiles->currentIndex()];
         int cx = draw_pos.x(), cy = draw_pos.y();
         int zx = 0, zy = 0;
-        if(game::atPoint(cx+offset_x, cy+offset_y, 16, 16, zx, zy)) {
+        if(game::atPoint(cx, cy, 16, 16, zx, zy)) {
             cx = (zx*16)+offset_x, cy = (zy*16)+offset_y;
             paint.drawImage(cx, cy, img);
             paint.fillRect(QRect(cx, cy-1, img.width(), 1), QColor(qRgb(255, 255, 255)));
@@ -240,7 +240,7 @@ void MainWindow::keyPressEvent(QKeyEvent *e) {
 void MainWindow::setTile(const QPoint &pos) {
     if(map_init == true) {
         int x,y;
-        if(game::atPoint(pos.x()+offset_x, pos.y()+offset_y,16,16,x, y)) {
+        if(game::atPoint(pos.x(), pos.y(),16,16,x, y)) {
             game::Tile *tile = level.at(pos_x+x, pos_y+y);
             if(tile != nullptr) {
                 //tile->img = 2;
