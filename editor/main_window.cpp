@@ -15,7 +15,7 @@ MainWindow::MainWindow() {
     file_name = "Untitled.lvl";
     map_init = false;
     pos_x = pos_y = 0;
-    setGeometry(200, 10, 1280, 720+offset_y);
+    setGeometry(230, 10, 1280, 720+offset_y);
     setFixedSize(1280, 720+offset_y);
     setWindowTitle(tr("Editor [Please Create/Open a Map]"));
     loadImages();
@@ -36,7 +36,7 @@ MainWindow::MainWindow() {
     run_window->hide();
 
     debug_window = new DebugWindow(this);
-    debug_window->setGeometry(200, 810, 640, 320);
+    debug_window->setGeometry(230, 810, 640, 320);
     debug_window->show();
 
     file_menu = menuBar()->addMenu(tr("&File"));
