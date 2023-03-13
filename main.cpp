@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
     game::Window::init_object(&level);
     game::Window::setObject(&level);
     level.loadLevel(def_level);;
-    std::cout << "Level: " << def_level << " loaded.\n";
+    std::cout << "game: Level: " << def_level << " loaded.\n";
     fflush(stdout);
     return game::Window::loop();
 }
