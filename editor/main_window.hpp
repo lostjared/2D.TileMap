@@ -11,6 +11,7 @@
 #include"new_window.hpp"
 #include"run_window.hpp"
 #include"debug_window.hpp"
+#include"gfx_window.hpp"
 #include "../level.hpp"
 
 const int MAP_WIDTH=1280/16;
@@ -50,15 +51,17 @@ public slots:
     void shutdownProgram();
     void procStopped(int exitcode, QProcess::ExitStatus status);
     void readStdout();
+    void levelGraphicsOpen();
 private:
     QMenu *file_menu, *level_menu, *run_menu;
     QAction *file_new, *file_save,*file_save_as,*file_load, *file_exit;
-    QAction *level_left, *level_right, *level_down, *level_up;
+    QAction *level_left, *level_right, *level_down, *level_up, *level_gfx;
     QAction *run_settings, *run_exec;
     ToolWindow *tool_window;  
     NewWindow *new_window;  
     RunWindow *run_window;
     DebugWindow *debug_window;
+    GfxWindow *gfx_window;
     QVector<QImage> images;
     QVector<QImage> col;
     QVector<game::Tile> tiles; 

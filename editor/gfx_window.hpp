@@ -3,10 +3,15 @@
 
 #include<QDialog>
 
+class MainWindow;
+
 class GfxWindow : public QDialog {
     Q_OBJECT
 public:
     GfxWindow(QWidget *parent = 0);
+    void setMainWindow(MainWindow *main);
+protected:
+    MainWindow *main_window;
 
 };
 

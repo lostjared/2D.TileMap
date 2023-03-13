@@ -40,6 +40,11 @@ MainWindow::MainWindow() {
     debug_window->setGeometry(230, 830+offset_y, 640, 320);
     debug_window->show();
 
+    gfx_window = new GfxWindow(this);
+    gfx_window->setMainWindow(this);
+    gfx_window->setGeometry(450, 175, 800, 600);
+    gfx_window->hide();
+
     file_menu = menuBar()->addMenu(tr("&File"));
     file_new = new QAction(tr("New Map"), this);
     connect(file_new, SIGNAL(triggered()), this, SLOT(openNewMenu()));
@@ -80,6 +85,12 @@ MainWindow::MainWindow() {
     connect(level_down, SIGNAL(triggered()), this, SLOT(levelDown()));
     level_menu->addAction(level_down);
     connect(tool_window->hover_object, SIGNAL(stateChanged(int)), this, SLOT(updateMap(int)));
+
+    level_menu->addSeparator();
+
+    level_gfx = new QAction(tr("Level Graphics"));
+    connect(level_gfx, SIGNAL(triggered()), this, SLOT(levelGraphicsOpen()));
+    level_menu->addAction(level_gfx);
 
     run_menu = menuBar()->addMenu(tr("&Run"));
     run_settings = new QAction(tr("Run &Settings"));
@@ -439,6 +450,11 @@ void MainWindow::levelRight() {
     updateLabelText();
     update();
 }
+
+void MainWindow::levelGraphicsOpen() {
+    gfx_window->show();
+}
+
 
 void MainWindow::runSettings() {
     run_window->show();
