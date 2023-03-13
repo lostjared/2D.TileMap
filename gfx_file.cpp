@@ -6,13 +6,14 @@ namespace game {
         table.push_back(item);
      }
      
-     void GfxTable::addIiem(uint32_t index, uint32_t solid, uint32_t obj, const std::string &filename) {
+     void GfxTable::addItem(uint32_t index, uint32_t solid, uint32_t obj, const std::string &filename) {
         table.push_back( {index, solid, obj, filename });
      }
 
-    void GfxTable::buildTable(const std::string &cfg) {
+    bool GfxTable::buildTable(const std::string &cfg) {
         clear();
 
+        return true;
     }
 
     void GfxTable::clear() {

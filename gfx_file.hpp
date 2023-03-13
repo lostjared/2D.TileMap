@@ -22,8 +22,8 @@ namespace game {
     class GfxTable {
     public:
         void addItem(const GfxItem &item);
-        void addIiem(uint32_t index, uint32_t solid, uint32_t obj, const std::string &filename);
-        void buildTable(const std::string &cfg);
+        void addItem(uint32_t index, uint32_t solid, uint32_t obj, const std::string &filename);
+        bool buildTable(const std::string &cfg);
         void clear();
         std::vector<GfxItem> table;
     };
