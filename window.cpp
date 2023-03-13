@@ -24,14 +24,14 @@ namespace game {
          }
 
         void release_images() {
-            for(int i = 0; i < surfaces.size(); ++i) {
+            for(std::vector<SDL_Surface*>::size_type i = 0; i < surfaces.size(); ++i) {
                 SDL_FreeSurface(surfaces[i]);
                 std::cout << "released image index: [" << i << "]\n";
             }
             if(!surfaces.empty())
                 surfaces.erase(surfaces.begin(), surfaces.end());
 
-            for(int i = 0; i< fonts.size(); ++i) {
+            for(std::vector<TTF_Font *>::size_type i = 0; i< fonts.size(); ++i) {
                 TTF_CloseFont(fonts[i]);
                 std::cout << "released font index: [" << i << "]\n";
             }
