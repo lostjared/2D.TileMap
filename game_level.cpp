@@ -3,6 +3,7 @@
 #include<sstream>
 #include<iostream>
 #include<string>
+#include<fstream>
 
 namespace game {
 
@@ -12,7 +13,80 @@ namespace game {
         hero.init(ro);
     }
 
-// TODO: make load resources from text file
+    void GameLevel::loadResources(const std::string &gfx_file) {
+        render_object->releaseResources();
+        arial = render_object->loadFont("./img/arial.ttf", 24);
+
+        if(!images.empty())
+            images.erase(images.begin(), images.end());
+
+        if(!object_images.empty())
+            object_images.erase(object_images.begin(), object_images.end());
+
+        if(!hero_images_left.empty())
+            hero_images_left.erase(hero_images_left.begin(), hero_images_left.end());
+
+        if(!hero_images_right.empty())
+            hero_images_right.erase(hero_images_right.begin(), hero_images_right.end());
+
+        std::fstream file;
+        file.open(gfx_file, std::ios::in | std::ios::binary);
+        if(!file.is_open()) {
+            std::cerr << "Error could not open graphics file: " << gfx_file << "\n";
+            exit(EXIT_FAILURE);
+        }
+
+        uint32_t magic = 0;
+        file.read(reinterpret_cast<char*>(&magic), sizeof(magic));
+
+        if(magic != 0x421) {
+            std::cerr << "Invalid graphics file...\n";
+            exit(EXIT_FAILURE);
+        }
+
+        while(!file.eof()) {
+            uint32_t len;
+            file.read(reinterpret_cast<char*>(&len), sizeof(len));
+            if(file) {
+            char *tmp = new char [len+1];
+            file.read(reinterpret_cast<char*>(tmp), len);
+            tmp[len] = 0;
+            std::string filename;
+            filename = tmp;
+            delete [] tmp;
+            uint32_t index = 0, solid = 0, obj = 0, length = 0;
+            file.read(reinterpret_cast<char*>(&index), sizeof(uint32_t));
+            file.read(reinterpret_cast<char*>(&solid), sizeof(uint32_t));
+            file.read(reinterpret_cast<char*>(&obj), sizeof(uint32_t));
+            file.read(reinterpret_cast<char*>(&length), sizeof(uint32_t));
+            std::cout << "reading file: " << filename  << " of size: " << length << " index: " << index << " solid: " << solid << " obj: " << obj << "\n";
+            char *buffer = new char [ length + 1 ];
+            file.read(buffer, length);
+            // read image
+            Image img = render_object->loadImage(buffer, length, Color(255, 255, 255));
+
+            switch(obj) {
+                case 0:
+                images.push_back(img);
+                break;
+            case 1:
+                object_images.push_back(img);
+                break;
+            case 2:
+                hero_images_right.push_back(img);
+                break;
+            case 3:
+                hero_images_left.push_back(img);
+                break;
+            }
+            //delete [] buffer;
+            }
+        } 
+        hero.setImages(hero_images_left, hero_images_right);
+        file.close();    
+    }
+
+
     void GameLevel::loadResources() {
 
         render_object->releaseResources();
@@ -41,6 +115,14 @@ namespace game {
         object_images.push_back(render_object->loadImage("./img/col6.bmp"));
         object_images.push_back(render_object->loadImage("./img/tree.bmp"));
 
+        if(!hero_images_left.empty())
+            hero_images_left.erase(hero_images_left.begin(), hero_images_left.end());
+
+        if(!hero_images_right.empty())
+            hero_images_right.erase(hero_images_right.begin(), hero_images_right.end());
+         
+
+
         const char *hero_filenames[] = {"hero1", "hero2", "hero3", "hero4", "hero_jump1", "hero_shot1", "hero_shot2", "hero_shot3", "hero_shot4", "hero_shot5", 0 };
         for(int i = 0; hero_filenames[i] != 0; ++i) {
             std::ostringstream stream;
@@ -67,7 +149,7 @@ namespace game {
     }
 
     void GameLevel::loadLevel(const std::string &filename) {
-        loadResources();
+        loadResources("./img/level.gfx");
         if(!level.loadLevel(filename)) {
             std::cerr << "Error loading level..\n";
             exit(0);

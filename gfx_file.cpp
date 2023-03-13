@@ -70,6 +70,10 @@ namespace game {
     }
 
     bool GfxCompress::compress(const GfxTable &t) {
+
+        uint32_t gfx_file = 0x421;
+        file.write(reinterpret_cast<char*>(&gfx_file), sizeof(uint32_t));
+
         for(std::vector<GfxItem>::size_type i = 0; i < t.table.size(); ++i) {
             auto pos = t.table[i].filename.rfind("/");
             std::string id;
@@ -88,7 +92,7 @@ namespace game {
                 std::cerr << "Error could not open file: " << t.table[i].filename << "\n";
                 return false;
             }
-            in_file.seekg(std::ios::end);
+            in_file.seekg(0, std::ios::end);
             uint32_t len = in_file.tellg();
             file.write(reinterpret_cast<char*>(&len), sizeof(uint32_t));
             in_file.seekg(std::ios::beg);
@@ -108,7 +112,7 @@ namespace game {
     }
 
     void GfxCompress::write_string(const std::string &item) {
-        auto len = item.length();
+        uint32_t len = static_cast<uint32_t>(item.length());
         file.write(reinterpret_cast<char*>(&len), sizeof(len));
         file.write(reinterpret_cast<const char*>(item.c_str()), len);
     }

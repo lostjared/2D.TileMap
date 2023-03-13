@@ -18,6 +18,7 @@ namespace game {
         void keydown(char key) override;
         void keyup(char key) override;  
         void loadLevel(const std::string &filename);
+        void loadResources(const std::string &gfx_file);
         void loadResources();
         bool checkPoint(const Point &p);
     protected:    

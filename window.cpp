@@ -103,6 +103,22 @@ namespace game {
             return index;
         }
 
+        Image loadImage(char *buf, int32_t size, const Color &c) override {
+            SDL_RWops *ops = SDL_RWFromMem(buf, size);
+            SDL_Surface *surface = SDL_LoadBMP_RW(ops, 1);
+            if(!surface) {
+                std::cerr << "Error could not load surface from memory \n";
+                SDL_Quit();
+                exit(EXIT_FAILURE);
+            }
+            surfaces.push_back(surface);
+            int index = surfaces.size()-1;
+            setImageColorKey(index, c);
+            std::cout << "loaded image at index: [" << index << "]\n";
+            return index;
+        }
+
+
         void setImageColorKey(Image image, const Color &c) override {
             SDL_SetColorKey(surfaces[image], SDL_TRUE, SDL_MapRGB(surfaces[image]->format, c.r, c.g, c.b));
         }
