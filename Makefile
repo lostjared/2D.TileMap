@@ -1,6 +1,6 @@
 
 
-CXX_FLAGS=-std=c++17 -O2
+CXX_FLAGS=-std=c++17 -O2 -Wall
 SDL_CXXFLAGS= `sdl2-config --cflags`
 SDL_LDFLAGS= `sdl2-config --libs` -lSDL2_ttf
 CPP_FILES := $(wildcard *.cpp)

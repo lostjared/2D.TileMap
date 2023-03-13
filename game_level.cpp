@@ -219,7 +219,7 @@ namespace game {
         if(hero.grounded == true)
             hero.cur_frame = 4;
 
-        int xx, yy;
+        int xx = 0, yy = 0;
         hero.draw(ro, xx, yy);
         
 

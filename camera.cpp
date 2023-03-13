@@ -47,9 +47,7 @@ namespace game {
    
    void Camera::cameraXY(int hx, int hy, int &xx, int &yy) {
         int start_col = getX() / 16;
-        int end_col = start_col + (getWidth() / 16);
         int start_row = getY() / 16;
-        int end_row = start_row + (getHeight() / 16);
         int cx = getX();
         int cy = getY();
         int off_x = -cx + start_col * 16;
