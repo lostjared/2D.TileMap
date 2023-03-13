@@ -47,23 +47,23 @@ namespace game {
 
         void drawAt(Image image, int x, int y) override {
             SDL_Rect rc = { x, y, surfaces[image]->w, surfaces[image]->h };
-            SDL_BlitSurface(surfaces[image], 0, surface, &rc);
+            SDL_BlitSurface(surfaces.at(image), 0, surface, &rc);
         }
 
         void drawAtRect(Image image, int x, int y, int w, int h) override {
             SDL_Rect rc = { x, y, w, h };
-            SDL_BlitSurface(surfaces[image], 0, surface, &rc);
+            SDL_BlitSurface(surfaces.at(image), 0, surface, &rc);
         }
 
         void drawAtRect(Image image, int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2) override {
             SDL_Rect rc = { x1, y1, w1, h1 };
             SDL_Rect rc2 = { x2, y2, w2, h2 };
-            SDL_BlitSurface(surfaces[image], &rc, surface, &rc2);
+            SDL_BlitSurface(surfaces.at(image), &rc, surface, &rc2);
         }
         
         void printText(Font font, int x, int y, const std::string &text, const Color &col) override {
             SDL_Color col_s = { col.r, col.g, col.b };
-            SDL_Surface *surf = TTF_RenderText_Solid(fonts[font], text.c_str(), col_s);
+            SDL_Surface *surf = TTF_RenderText_Solid(fonts.at(font), text.c_str(), col_s);
             SDL_Rect rc = { x, y, surf->w, surf->h };
             SDL_BlitSurface(surf, 0, surface, &rc);
             SDL_FreeSurface(surf);
