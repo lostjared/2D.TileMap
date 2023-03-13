@@ -7,7 +7,7 @@ DebugWindow::DebugWindow(QWidget *parent) : QDialog(parent) {
     text_view = new QTextEdit(this);
     text_view->setGeometry(10, 10, 1280-20, 320-20);
     text_view->setReadOnly(true);
-    text_view->setStyleSheet("background-color: rgb(0, 0, 0); color: rgb(255, 255, 255); font-size: 18px;");
+    text_view->setStyleSheet("background-color: rgb(0, 0, 0); color: rgb(255, 255, 255); font-size: 20px;");
 }
 
 void DebugWindow::clear() {
@@ -19,6 +19,7 @@ void DebugWindow::Log(const QString &text) {
    current = text_view->toPlainText();
    current += text;
    current.replace("editor: ", "<span style=\"color: red;\">editor: </span>");
+   current.replace("game: ", "<span style=\"color: purple;\">game: </span>");
    current.replace("\n", "<br>");
    text_view->setHtml(current);
    QTextCursor tmpCursor = text_view->textCursor();
