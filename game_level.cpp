@@ -79,7 +79,7 @@ namespace game {
                 hero_images_left.push_back(img);
                 break;
             }
-            //delete [] buffer;
+                delete [] buffer;
             }
         } 
         hero.setImages(hero_images_left, hero_images_right);
