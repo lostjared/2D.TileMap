@@ -9,12 +9,12 @@ int main(int argc, char **argv) {
         if(table.buildTable(argv[1])) {
             game::GfxCompress comp;
             if(comp.open(argv[2])) {
-                std::cout << "compressing table: " << argv[1] << "\n";
+                std::cout << "gfx-cmp: Compressing table: " << argv[1] << "\n";
                 if(comp.compress(table)) {
                     comp.close();
-                    std::cout << "success..\n";
+                    std::cout << "gfx-cmp: Success..\n";
                 } else {
-                    std::cout << "failure..\n";
+                    std::cout << "gfx-cmp: Failure..\n";
                 }
             }
         }
@@ -23,9 +23,9 @@ int main(int argc, char **argv) {
         if(ex.open(argv[1])) {
             mkdir(argv[2], S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
             if(ex.extract(argv[2])) {
-                std::cout << "Successflly inflated: " << argv[1] << "\n";
+                std::cout << "gfx-cmp: Successflly Inflated: " << argv[1] << "\n";
             } else {
-                std::cout << "Failed to inflate: " << argv[1] << "\n";
+                std::cout << "gfx-cmp: Failed to Inflate: " << argv[1] << "\n";
             }
         }
     }
