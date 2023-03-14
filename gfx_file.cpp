@@ -174,6 +174,7 @@ namespace game {
                 delete [] buffer;
             }
         } 
+        file.close();
         return true;
     }
 
