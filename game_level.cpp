@@ -48,44 +48,44 @@ namespace game {
             uint32_t len;
             file.read(reinterpret_cast<char*>(&len), sizeof(len));
             if(file) {
-            char *tmp = new char [len+1];
-            file.read(reinterpret_cast<char*>(tmp), len);
-            tmp[len] = 0;
-            std::string filename;
-            filename = tmp;
-            delete [] tmp;
-            uint32_t index = 0, solid = 0, obj = 0, length = 0;
-            file.read(reinterpret_cast<char*>(&index), sizeof(uint32_t));
-            file.read(reinterpret_cast<char*>(&solid), sizeof(uint32_t));
-            file.read(reinterpret_cast<char*>(&obj), sizeof(uint32_t));
-            file.read(reinterpret_cast<char*>(&length), sizeof(uint32_t));
-            std::cout << "reading file: " << filename  << " of size: " << length << " index: " << index << " solid: " << solid << " obj: " << obj << "\n";
-            char *buffer = new char [ length + 1 ];
-            file.read(buffer, length);
-            // read image
-            Image img = render_object->loadImage(buffer, length, Color(255, 255, 255));
+                char *tmp = new char [len+1];
+                file.read(reinterpret_cast<char*>(tmp), len);
+                tmp[len] = 0;
+                std::string filename;
+                filename = tmp;
+                delete [] tmp;
+                uint32_t index = 0, solid = 0, obj = 0, length = 0;
+                file.read(reinterpret_cast<char*>(&index), sizeof(uint32_t));
+                file.read(reinterpret_cast<char*>(&solid), sizeof(uint32_t));
+                file.read(reinterpret_cast<char*>(&obj), sizeof(uint32_t));
+                file.read(reinterpret_cast<char*>(&length), sizeof(uint32_t));
+                std::cout << "reading file: " << filename  << " of size: " << length << " index: " << index << " solid: " << solid << " obj: " << obj << "\n";
+                char *buffer = new char [ length + 1 ];
+                file.read(buffer, length);
+                // read image
+                Image img = render_object->loadImage(buffer, length, Color(255, 255, 255));
 
-            switch(obj) {
-                case 0:
-                images.push_back(img);
-                break;
-            case 1:
-                object_images.push_back(img);
-                break;
-            case 2:
-                hero_images_right.push_back(img);
-                break;
-            case 3:
-                hero_images_left.push_back(img);
-                break;
-            }
+                switch(obj) {
+                    case 0:
+                    images.push_back(img);
+                    break;
+                case 1:
+                    object_images.push_back(img);
+                    break;
+                case 2:
+                    hero_images_right.push_back(img);
+                    break;
+                case 3:
+                    hero_images_left.push_back(img);
+                    break;
+                }
+                
                 delete [] buffer;
             }
         } 
         hero.setImages(hero_images_left, hero_images_right);
         file.close();    
     }
-
 
     void GameLevel::loadResources() {
 
