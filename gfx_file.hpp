@@ -38,6 +38,14 @@ namespace game {
 
         void write_string(const std::string &item);
     };
+
+    class GfxExtract {
+    public:
+        bool open(const std::string &filename);
+        bool extract(const std::string &directory);
+    protected:
+        std::fstream file;
+    };
 }
 
 

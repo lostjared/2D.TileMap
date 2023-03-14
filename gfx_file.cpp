@@ -123,6 +123,59 @@ namespace game {
         file.write(reinterpret_cast<const char*>(item.c_str()), len);
     }
 
+    bool GfxExtract::open(const std::string &filename) {
+        file.open(filename, std::ios::in | std::ios::binary);
+        if(!file.is_open())
+            return false;
+        uint32_t magic = 0;
+        file.read(reinterpret_cast<char*>(&magic), sizeof(magic));
+        if(magic != 0x421) {
+            file.close();
+            return false;
+        }
+        return true;
+    }
+    
+    bool GfxExtract::extract(const std::string &directory) {
+
+        if(!file.is_open())
+            return false;
+
+        while(!file.eof()) {
+            uint32_t len;
+            file.read(reinterpret_cast<char*>(&len), sizeof(len));
+            if(file) {
+                char *tmp = new char [len+1];
+                file.read(reinterpret_cast<char*>(tmp), len);
+                tmp[len] = 0;
+                std::string filename;
+                filename = tmp;
+                delete [] tmp;
+                std::string path;
+                path = directory + "/";
+                path += filename;
+                uint32_t index = 0, solid = 0, obj = 0, length = 0;
+                file.read(reinterpret_cast<char*>(&index), sizeof(uint32_t));
+                file.read(reinterpret_cast<char*>(&solid), sizeof(uint32_t));
+                file.read(reinterpret_cast<char*>(&obj), sizeof(uint32_t));
+                file.read(reinterpret_cast<char*>(&length), sizeof(uint32_t));
+                std::cout << "reading file: " << filename  << " of size: " << length << " index: " << index << " solid: " << solid << " obj: " << obj << "\n";
+                char *buffer = new char [ length + 1 ];
+                file.read(buffer, length);
+                std::fstream fout;
+                fout.open(path, std::ios::out | std::ios::binary);
+                if(!fout.is_open()) {
+                    std::cerr << "Error extracting could not open file: " << path << "\n";
+                    return false;
+                }
+                fout.write(buffer, length);
+                fout.close();
+                std::cout << "wrote: " << path << "\n";
+                delete [] buffer;
+            }
+        } 
+        return true;
+    }
 
 }
 
