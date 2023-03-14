@@ -66,15 +66,21 @@ namespace game {
 
     bool GfxCompress::open(const std::string &text) {
         file.open(text, std::ios::out | std::ios::binary);
-        return file.is_open();
+
+        if(!file.is_open())
+            return false;
+
+        uint32_t gfx_file = 0x421;
+        file.write(reinterpret_cast<char*>(&gfx_file), sizeof(uint32_t));
+        return true;     
     }
 
     bool GfxCompress::compress(const GfxTable &t) {
 
-        uint32_t gfx_file = 0x421;
-        file.write(reinterpret_cast<char*>(&gfx_file), sizeof(uint32_t));
+        if(!file.is_open())
+            return false;
 
-        for(std::vector<GfxItem>::size_type i = 0; i < t.table.size(); ++i) {
+         for(std::vector<GfxItem>::size_type i = 0; i < t.table.size(); ++i) {
             auto pos = t.table[i].filename.rfind("/");
             std::string id;
             if(pos == std::string::npos) 
