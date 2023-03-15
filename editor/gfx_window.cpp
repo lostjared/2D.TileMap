@@ -1,10 +1,20 @@
 #include"gfx_window.hpp"
 #include"main_window.hpp"
+#include<QLabel>
 
 GfxWindow::GfxWindow(QWidget *parent) : QDialog(parent) {
-    setFixedSize(800, 600);
+    setFixedSize(400, 600);
     setWindowTitle("Graphics");
     setWindowIcon(QIcon(":/images/col3.bmp"));
+    QLabel *lbl_type = new QLabel(tr("Image Type:"), this);
+    lbl_type->setGeometry(10, 10, 75, 20);
+    image_type = new QComboBox(this);
+    image_type->setGeometry(80, 10, 300, 25);
+    image_type->addItem(tr("Tile"));
+    image_type->addItem(tr("Object"));
+    image_type->setCurrentIndex(0);
+    image_list = new QListView(this);
+    image_list->setGeometry(10, 50, 380, 300);
 }
 
 void GfxWindow::setMainWindow(MainWindow *main) {

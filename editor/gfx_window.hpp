@@ -2,6 +2,8 @@
 #define _GFX_WINDOW_H__
 
 #include<QDialog>
+#include<QComboBox>
+#include<QListView>
 
 class MainWindow;
 
@@ -12,6 +14,8 @@ public:
     void setMainWindow(MainWindow *main);
 protected:
     MainWindow *main_window;
+    QComboBox *image_type;
+    QListView *image_list;
 
 };
 
