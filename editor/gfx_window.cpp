@@ -22,9 +22,25 @@ GfxWindow::GfxWindow(QWidget *parent) : QDialog(parent) {
     image_build = new QPushButton(tr("Export"), this);
     image_build->setGeometry(400-10-60, 360, 60, 25);
 
-
+    connect(image_add, SIGNAL(clicked()), this, SLOT(addFile()));
+    connect(image_remove, SIGNAL(clicked()), this, SLOT(rmvFile()));
+    connect(image_build, SIGNAL(clicked()), this, SLOT(exportFile()));
+    
 }
 
 void GfxWindow::setMainWindow(MainWindow *main) {
     main_window = main;
 }
+
+void GfxWindow::addFile() {
+
+}
+
+void GfxWindow::rmvFile() {
+
+}
+
+void GfxWindow::exportFile() {
+
+}
+    

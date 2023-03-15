@@ -13,6 +13,12 @@ class GfxWindow : public QDialog {
 public:
     GfxWindow(QWidget *parent = 0);
     void setMainWindow(MainWindow *main);
+
+public slots:
+    void addFile();
+    void rmvFile();
+    void exportFile();
+    
 protected:
     MainWindow *main_window;
     QComboBox *image_type;
