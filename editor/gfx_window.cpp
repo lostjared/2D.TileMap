@@ -1,6 +1,7 @@
 #include"gfx_window.hpp"
 #include"main_window.hpp"
 #include<QLabel>
+#include<QListWidgetItem>
 
 GfxWindow::GfxWindow(QWidget *parent) : QDialog(parent) {
     setFixedSize(400, 400);
@@ -13,12 +14,14 @@ GfxWindow::GfxWindow(QWidget *parent) : QDialog(parent) {
     image_type->addItem(tr("Tile"));
     image_type->addItem(tr("Object"));
     image_type->setCurrentIndex(0);
-    image_list = new QListView(this);
+    image_list = new QListWidget(this);
     image_list->setGeometry(10, 50, 380, 300);
     image_add = new QPushButton(tr("+"), this);
     image_add->setGeometry(10,360,50, 25);
     image_remove = new QPushButton(tr("-"), this);
     image_remove->setGeometry(65,360,50,25);
+    image_solid = new QCheckBox(tr("Solid"), this);
+    image_solid->setGeometry(65+50+5,360,50,25);
     image_build = new QPushButton(tr("Export"), this);
     image_build->setGeometry(400-10-60, 360, 60, 25);
 

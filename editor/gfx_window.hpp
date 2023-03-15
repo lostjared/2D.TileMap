@@ -3,8 +3,9 @@
 
 #include<QDialog>
 #include<QComboBox>
-#include<QListView>
+#include<QListWidget>
 #include<QPushButton>
+#include<QCheckBox>
 
 class MainWindow;
 
@@ -22,7 +23,8 @@ public slots:
 protected:
     MainWindow *main_window;
     QComboBox *image_type;
-    QListView *image_list;
+    QListWidget *image_list;
+    QCheckBox *image_solid;
     QPushButton *image_add, *image_remove, *image_build;
 
 };
