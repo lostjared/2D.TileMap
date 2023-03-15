@@ -237,6 +237,12 @@ namespace game {
         amt += timeout;
         prev_tick = tick;
 
+        if(ro->keyDown(Key::KEY_A)) {
+            if(amt > 10) {
+                hero.jump();
+            }
+        }
+
         if(ro->keyDown(Key::KEY_RIGHT)) {
             if(amt > 10) {
                 int hx = hero.x+cam.getCamX();

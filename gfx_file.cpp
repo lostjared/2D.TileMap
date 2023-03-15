@@ -17,7 +17,6 @@ namespace game {
         file.open(cfg, std::ios::in);
         if(!file.is_open())
             return false;
-
         int type = 0;
         while(!file.eof()) {
             std::string line;
@@ -52,8 +51,6 @@ namespace game {
                 }
             }
         }
-
-
         file.close();
         return true;
     }
