@@ -3,7 +3,7 @@
 #include<QLabel>
 
 GfxWindow::GfxWindow(QWidget *parent) : QDialog(parent) {
-    setFixedSize(400, 600);
+    setFixedSize(400, 400);
     setWindowTitle("Graphics");
     setWindowIcon(QIcon(":/images/col3.bmp"));
     QLabel *lbl_type = new QLabel(tr("Image Type:"), this);
@@ -15,6 +15,14 @@ GfxWindow::GfxWindow(QWidget *parent) : QDialog(parent) {
     image_type->setCurrentIndex(0);
     image_list = new QListView(this);
     image_list->setGeometry(10, 50, 380, 300);
+    image_add = new QPushButton(tr("+"), this);
+    image_add->setGeometry(10,360,50, 25);
+    image_remove = new QPushButton(tr("-"), this);
+    image_remove->setGeometry(65,360,50,25);
+    image_build = new QPushButton(tr("Export"), this);
+    image_build->setGeometry(400-10-60, 360, 60, 25);
+
+
 }
 
 void GfxWindow::setMainWindow(MainWindow *main) {

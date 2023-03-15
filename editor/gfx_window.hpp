@@ -4,6 +4,7 @@
 #include<QDialog>
 #include<QComboBox>
 #include<QListView>
+#include<QPushButton>
 
 class MainWindow;
 
@@ -16,6 +17,7 @@ protected:
     MainWindow *main_window;
     QComboBox *image_type;
     QListView *image_list;
+    QPushButton *image_add, *image_remove, *image_build;
 
 };
 
