@@ -14,21 +14,7 @@ namespace game {
     }
 
     void GameLevel::loadResources(const std::string &gfx_file) {
-        render_object->releaseResources();
-        arial = render_object->loadFont("./img/arial.ttf", 24);
-
-        if(!images.empty())
-            images.erase(images.begin(), images.end());
-
-        if(!object_images.empty())
-            object_images.erase(object_images.begin(), object_images.end());
-
-        if(!hero_images_left.empty())
-            hero_images_left.erase(hero_images_left.begin(), hero_images_left.end());
-
-        if(!hero_images_right.empty())
-            hero_images_right.erase(hero_images_right.begin(), hero_images_right.end());
-
+    
         std::fstream file;
         file.open(gfx_file, std::ios::in | std::ios::binary);
         if(!file.is_open()) {
@@ -132,7 +118,6 @@ namespace game {
             stream << "./img/hero/" << hero_filenames[i] << "_left.bmp";
             hero_images_left.push_back(render_object->loadImage(stream.str()));
         }
-        hero.setImages(hero_images_left, hero_images_right);
     }
 
     void GameLevel::release(RenderObject *ro) {
@@ -149,7 +134,28 @@ namespace game {
     }
 
     void GameLevel::loadLevel(const std::string &filename) {
+
+        render_object->releaseResources();
+        arial = render_object->loadFont("./img/arial.ttf", 24);
+
+       if(!images.empty())
+            images.erase(images.begin(), images.end());
+
+        if(!object_images.empty())
+            object_images.erase(object_images.begin(), object_images.end());
+
+        if(!hero_images_left.empty())
+            hero_images_left.erase(hero_images_left.begin(), hero_images_left.end());
+
+        if(!hero_images_right.empty())
+            hero_images_right.erase(hero_images_right.begin(), hero_images_right.end());
+
+
         loadResources("./img/level.gfx");
+        loadResources("./img/hero.gfx");
+
+        hero.setImages(hero_images_left, hero_images_right);
+
         if(!level.loadLevel(filename)) {
             std::cerr << "Error loading level..\n";
             exit(0);
