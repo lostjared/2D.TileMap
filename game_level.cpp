@@ -30,6 +30,8 @@ namespace game {
             exit(EXIT_FAILURE);
         }
 
+        std::cout << "Loading resource file: " << gfx_file << "\n";
+
         while(!file.eof()) {
             uint32_t len;
             file.read(reinterpret_cast<char*>(&len), sizeof(len));
