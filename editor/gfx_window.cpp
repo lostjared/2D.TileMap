@@ -1,8 +1,10 @@
 #include"gfx_window.hpp"
 #include"main_window.hpp"
+#include"../gfx_file.hpp"
 #include<QLabel>
 #include<QListWidgetItem>
 #include<QFileDialog>
+#include<QMessageBox>
 
 GfxWindow::GfxWindow(QWidget *parent) : QDialog(parent) {
     setFixedSize(400, 400);
@@ -88,6 +90,35 @@ void GfxWindow::rmvFile() {
 }
 
 void GfxWindow::exportFile() {
+    QString outfile = QFileDialog::getSaveFileName(this, "Export File", "", "Gfx Files (*.gfx)");
+    if(outfile != "") {
 
+        game::GfxTable table;
+        for(int i = 0; i < tile_list.size(); ++i) {
+            std::string text = tile_list[i].toStdString();
+            std::string solid, file;
+            auto pos = text.rfind(":");
+            solid = text.substr(pos+1, text.length());
+            file = text.substr(0, pos);
+            table.addItem(i, atoi(solid.c_str()), 0, file);
+        }
+        for(int i = 0; i < object_list.size(); ++i) {
+            std::string text = object_list[i].toStdString();
+            table.addItem(i, 0, 1, text);
+        }
+
+        game::GfxCompress cmp;
+        if(cmp.open(outfile.toStdString())) {
+            if(cmp.compress(table)) {
+                cmp.close();
+            } else {
+                QMessageBox msgbox;
+                msgbox.setText(tr("Could not write file error"));
+                msgbox.setWindowTitle(tr("Error"));
+                msgbox.setIcon(QMessageBox::Icon::Warning);
+                msgbox.exec();
+            }
+        }
+    }
 }
     
