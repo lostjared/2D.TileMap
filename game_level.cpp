@@ -26,11 +26,11 @@ namespace game {
         file.read(reinterpret_cast<char*>(&magic), sizeof(magic));
 
         if(magic != 0x421) {
-            std::cerr << "Invalid graphics file...\n";
+            std::cerr << "game: Invalid resource file...\n";
             exit(EXIT_FAILURE);
         }
 
-        std::cout << "Loading resource file: " << gfx_file << "\n";
+        std::cout << "game: Loading resource file: " << gfx_file << "\n";
 
         while(!file.eof()) {
             uint32_t len;
@@ -76,7 +76,7 @@ namespace game {
     }
 
     void GameLevel::loadResources() {
-
+        /*
         render_object->releaseResources();
 
         if(!images.empty())
@@ -119,7 +119,7 @@ namespace game {
             stream.str("");
             stream << "./img/hero/" << hero_filenames[i] << "_left.bmp";
             hero_images_left.push_back(render_object->loadImage(stream.str()));
-        }
+        }*/
     }
 
     void GameLevel::release(RenderObject *ro) {
