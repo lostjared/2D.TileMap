@@ -110,6 +110,11 @@ void GfxWindow::exportFile() {
         game::GfxCompress cmp;
         if(cmp.open(outfile.toStdString())) {
             if(cmp.compress(table)) {
+                QMessageBox msgbox;
+                msgbox.setText(tr("Successfully wrote file"));
+                msgbox.setWindowTitle(tr("Sucess"));
+                msgbox.setIcon(QMessageBox::Icon::Information);
+                msgbox.exec();
                 cmp.close();
             } else {
                 QMessageBox msgbox;
