@@ -71,7 +71,6 @@ namespace game {
                 delete [] buffer;
             }
         } 
-        hero.setImages(hero_images_left, hero_images_right);
         file.close();    
     }
 
@@ -119,7 +118,11 @@ namespace game {
             stream.str("");
             stream << "./img/hero/" << hero_filenames[i] << "_left.bmp";
             hero_images_left.push_back(render_object->loadImage(stream.str()));
-        }*/
+        }
+      
+        hero.setImages(hero_images_left, hero_images_right);
+      
+        */
     }
 
     void GameLevel::release(RenderObject *ro) {
