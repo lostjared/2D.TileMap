@@ -55,17 +55,17 @@ namespace game {
 
                 switch(obj) {
                     case 0:
-                    images.push_back(img);
-                    break;
-                case 1:
-                    object_images.push_back(img);
-                    break;
-                case 2:
-                    hero_images_right.push_back(img);
-                    break;
-                case 3:
-                    hero_images_left.push_back(img);
-                    break;
+                        images.push_back(img);
+                        break;
+                    case 1:
+                        object_images.push_back(img);
+                        break;
+                    case 2:
+                        hero_images_right.push_back(img);
+                        break;
+                    case 3:
+                        hero_images_left.push_back(img);
+                        break;
                 }
                 
                 delete [] buffer;
