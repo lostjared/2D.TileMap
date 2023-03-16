@@ -20,7 +20,25 @@ NewWindow::NewWindow(game::Level *lvl, QWidget *parent) : QDialog(parent), level
     page_create = new QPushButton(tr("Create"), this);
     page_create->setGeometry(640-125, 320-35, 100, 25);
     connect(page_create, SIGNAL(clicked()), this, SLOT(createMap()));
+
+    QLabel *gfx_lbl = new QLabel(tr("Gfx File: "), this);
+    gfx_lbl->setGeometry(25, 55, 75, 25);
+    gfx_box = new QComboBox(this);
+    gfx_box->setGeometry(75, 55, 200, 25);
+
+    gfx_box->addItem("level.gfx");
+    gfx_box->setCurrentIndex(0);
+
+    page_new_gfx = new QPushButton(tr("New"), this);
+    page_new_gfx->setGeometry(285, 55, 50, 25);
+    connect(page_new_gfx, SIGNAL(clicked()), this, SLOT(createNewGfx()));
+
 }
+
+void NewWindow::createNewGfx() {
+    main_window->showGfx();
+}
+
 
 void NewWindow::setMainWindow(MainWindow *w) {
     main_window = w;

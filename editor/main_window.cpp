@@ -546,3 +546,7 @@ void MainWindow::loadImages() {
     }
     col.append(QImage(":/images/tree.png"));
 }
+
+void MainWindow::showGfx() {
+    gfx_window->show();
+}

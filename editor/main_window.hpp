@@ -35,6 +35,7 @@ public:
     void drawLayer2(QPainter &paint);
     void drawLayer3(QPainter &paint);
     void closeEvent(QCloseEvent *c) override;
+    void showGfx();
 public slots:
     void openNewMenu();
     void saveFile();
