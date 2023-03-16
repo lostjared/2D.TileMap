@@ -2,6 +2,7 @@
 #include"main_window.hpp"
 #include<QLabel>
 #include<QListWidgetItem>
+#include<QFileDialog>
 
 GfxWindow::GfxWindow(QWidget *parent) : QDialog(parent) {
     setFixedSize(400, 400);
@@ -28,6 +29,7 @@ GfxWindow::GfxWindow(QWidget *parent) : QDialog(parent) {
     connect(image_add, SIGNAL(clicked()), this, SLOT(addFile()));
     connect(image_remove, SIGNAL(clicked()), this, SLOT(rmvFile()));
     connect(image_build, SIGNAL(clicked()), this, SLOT(exportFile()));
+    connect(image_type, SIGNAL(currentIndexChanged(int)), this, SLOT(setIndex(int)));
     
 }
 
@@ -35,8 +37,50 @@ void GfxWindow::setMainWindow(MainWindow *main) {
     main_window = main;
 }
 
-void GfxWindow::addFile() {
+void GfxWindow::updateList() {
 
+    image_list->clear();
+
+    switch(image_type->currentIndex()) {
+        case 0:
+        for(int i = 0; i < tile_list.size(); ++i) {
+            image_list->addItem(tile_list[i]);
+        }
+        break;
+        case 1:
+        for(int i = 0; i < object_list.size(); ++i) {
+            image_list->addItem(object_list[i]);
+        }
+        break;
+    }
+}
+
+void GfxWindow::setIndex(int) {
+    updateList();    
+}
+
+void GfxWindow::addFile() {
+    QString filename = QFileDialog::getOpenFileName(this, "Add Image", "", "Bitmaps (*.bmp)");
+    if(filename != "") {
+        QString text;
+        QTextStream stream(&text);
+        stream << filename << ":";
+        if(image_solid->isChecked() == true) {
+            stream << "1";
+        } else {
+            stream << "0";
+        }
+        switch(image_type->currentIndex()) {
+            case 0:
+                tile_list.append(text);
+                 break;
+            case 1:
+                object_list.append(text);
+                break;
+        }
+
+        updateList();
+    }
 }
 
 void GfxWindow::rmvFile() {

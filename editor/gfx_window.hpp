@@ -14,11 +14,13 @@ class GfxWindow : public QDialog {
 public:
     GfxWindow(QWidget *parent = 0);
     void setMainWindow(MainWindow *main);
+    void updateList();
 
 public slots:
     void addFile();
     void rmvFile();
     void exportFile();
+    void setIndex(int index);
     
 protected:
     MainWindow *main_window;
@@ -26,6 +28,7 @@ protected:
     QListWidget *image_list;
     QCheckBox *image_solid;
     QPushButton *image_add, *image_remove, *image_build;
+    QStringList tile_list, object_list;
 
 };
 
