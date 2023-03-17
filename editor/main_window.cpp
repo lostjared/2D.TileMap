@@ -407,6 +407,9 @@ void MainWindow::saveFileAs() {
 }
 
 void MainWindow::loadFile() {
+
+    debug_window->Log("editor: Select Level File, Graphics File, and extraction location\n");
+
     QString filename = QFileDialog::getOpenFileName(nullptr, tr("Save File"), "", tr("LVL (*.lvl)"));
     if(filename != "") {
 
