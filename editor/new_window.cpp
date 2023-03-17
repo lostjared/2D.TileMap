@@ -3,6 +3,7 @@
 #include<QLabel>
 #include<QFileDialog>
 #include<QMessageBox>
+#include<QDir>
 
 NewWindow::NewWindow(game::Level *lvl, QWidget *parent) : QDialog(parent), level{lvl} {
     setFixedSize(640, 320);
@@ -28,7 +29,7 @@ NewWindow::NewWindow(game::Level *lvl, QWidget *parent) : QDialog(parent), level
     gfx_box = new QComboBox(this);
     gfx_box->setGeometry(75, 55, 200, 25);
 
-    gfx_box->addItem("level.gfx");
+    gfx_box->addItem(QDir::currentPath() + "/../img/level.gfx");
     gfx_box->setCurrentIndex(0);
 
     page_new_gfx = new QPushButton(tr("New"), this);
@@ -74,6 +75,9 @@ void NewWindow::createMap() {
     int width = page_width1->text().toInt();
     int height = page_height1->text().toInt();
     level->create(1280/16 * width, 720/16 * height, game::Tile{});
-    main_window->createdNewMap();
+
+    if(main_window->loadGfx(gfx_box->currentText(), extract_dir->text())) {
+        main_window->createdNewMap();
+    } 
     hide();
 }

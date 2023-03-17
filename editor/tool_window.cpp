@@ -9,6 +9,7 @@ ToolWindow::ToolWindow(QWidget *parent) : QDialog(parent) {
     lbl_tile->setGeometry(20, 65, 75, 20);
     tiles = new QComboBox(this);
     tiles->setGeometry(10, 90, 120, 25);
+    /*
     const char *fileNames[] = {  "black.bmp", "bluebrick.bmp", "bluesky.bmp", "brick.bmp", "eblock.bmp", "red_brick.bmp", "sand1.bmp", "sand2.bmp", "snow.bmp", "stone.bmp", "stone2.bmp", "stone3.bmp", "stone4.bmp", "grass.bmp", 0 };
     for(uint8_t i = 0; fileNames[i] != 0; ++i) {
         QString fn;
@@ -18,7 +19,7 @@ ToolWindow::ToolWindow(QWidget *parent) : QDialog(parent) {
         tiles->addItem(fileNames[i]);
         tiles->setItemData(i,pix,Qt::DecorationRole);
     }
-    tiles->setCurrentIndex(1);
+    tiles->setCurrentIndex(1);*/
     QLabel *lbl_tool = new QLabel(tr("Tool: "), this);
     lbl_tool->setGeometry(20, 10, 75, 20);
     tool = new QComboBox(this);
@@ -63,6 +64,7 @@ ToolWindow::ToolWindow(QWidget *parent) : QDialog(parent) {
     tile_objects = new QComboBox(this);
     tile_objects->setGeometry(10, 145, 120, 25);
 
+    /*
     for(int i = 1; i <= 6; ++i) {
         QString text;
         QTextStream stream(&text);
@@ -78,6 +80,7 @@ ToolWindow::ToolWindow(QWidget *parent) : QDialog(parent) {
     QPixmap img(":/images/tree.png");
     QPixmap img_s = img.scaled(16,16,Qt::IgnoreAspectRatio);
     tile_objects->setItemData(6, img_s, Qt::DecorationRole);
+    */
     hover_object = new QCheckBox(tr("Object Cursor"), this);
     hover_object->setGeometry(20, 180, 125, 20);
 }

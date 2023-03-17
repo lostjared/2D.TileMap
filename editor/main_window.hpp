@@ -7,6 +7,7 @@
 #include<QVector>
 #include<QPainter>
 #include<QProcess>
+#include<vector>
 #include"tool_window.hpp"
 #include"new_window.hpp"
 #include"run_window.hpp"
@@ -36,7 +37,7 @@ public:
     void drawLayer3(QPainter &paint);
     void closeEvent(QCloseEvent *c) override;
     void showGfx();
-    void loadGfx(const std::string &file);
+    bool loadGfx(const QString &filename, const QString &dir);
 public slots:
     void openNewMenu();
     void saveFile();
@@ -64,9 +65,9 @@ private:
     RunWindow *run_window;
     DebugWindow *debug_window;
     GfxWindow *gfx_window;
-    QVector<QImage> images;
-    QVector<QImage> col;
-    QVector<game::Tile> tiles; 
+    std::vector<QImage> images;
+    std::vector<QImage> col;
+    std::vector<game::Tile> tiles; 
     void loadImages();
     game::Level level;
     bool map_init;
@@ -76,6 +77,9 @@ private:
     QPoint draw_pos;
     QProcess *proc = nullptr;
     bool proc_run = false;
+    bool reset_window = false;
+    QVector<QImage> img, obj;
+
     #ifdef __APPLE__
     const int offset_x = 0;
     const int offset_y = 0;

@@ -10,6 +10,7 @@
 #include<QMessageBox>
 #include<QProcess>
 #include<QThread>
+#include "../gfx_file.hpp"
 
 MainWindow::MainWindow() {
     file_name = "Untitled.lvl";
@@ -137,8 +138,10 @@ void MainWindow::readStdout() {
 }
 
 void MainWindow::paintEvent(QPaintEvent *) {
+
     QPainter paint(this);
     paint.fillRect(QRect(0, 0, 1280, 720), QColor(255,255,255));
+
     for(int i = 0; i < MAP_WIDTH; ++i) {
         for(int z = 0; z < MAP_HEIGHT; ++z) {
             int x = (i*16)+offset_x;
@@ -147,7 +150,8 @@ void MainWindow::paintEvent(QPaintEvent *) {
             if(map_init == false) {
                 paint.fillRect(QRect(x, y, 15, 15), QColor(0, 0, 0));
             } else {
-                paint.drawImage((i*16)+offset_x, (z*16)+offset_y, images[tile->img], 0, 0, 16, 16);
+                if(images.size()>0 && tile->img < images.size())
+                   paint.drawImage((i*16)+offset_x, (z*16)+offset_y, images[tile->img], 0, 0, 16, 16);
             }
         }
     }
@@ -156,16 +160,19 @@ void MainWindow::paintEvent(QPaintEvent *) {
     drawLayer3(paint);
 
     if(cursor_visible == true) {
-        QImage &img = (tool_window->hover_object->isChecked()) ? col[tool_window->tile_objects->currentIndex()] : images[tool_window->tiles->currentIndex()];
-        int cx = draw_pos.x(), cy = draw_pos.y();
-        int zx = 0, zy = 0;
-        if(game::atPoint(cx, cy-offset_y, 16, 16, zx, zy)) {
-            cx = (zx*16)+offset_x, cy = (zy*16)+offset_y;
-            paint.drawImage(cx, cy, img);
-            paint.fillRect(QRect(cx, cy-1, img.width(), 1), QColor(qRgb(255, 255, 255)));
-            paint.fillRect(QRect(cx, cy+img.height(), img.width(), 1), QColor(qRgb(255, 255, 255)));
-            paint.fillRect(QRect(cx, cy-1, 1, img.height()), QColor(qRgb(255,255,255)));
-            paint.fillRect(QRect(cx+img.width(), cy-1, 1, img.height()), QColor(qRgb(255,255,255)));
+        
+        if(images.size()>0) {
+            QImage &img = (tool_window->hover_object->isChecked()) ? col[tool_window->tile_objects->currentIndex()] : images[tool_window->tiles->currentIndex()];
+            int cx = draw_pos.x(), cy = draw_pos.y();
+            int zx = 0, zy = 0;
+            if(game::atPoint(cx, cy-offset_y, 16, 16, zx, zy)) {
+                cx = (zx*16)+offset_x, cy = (zy*16)+offset_y;
+                paint.drawImage(cx, cy, img);
+                paint.fillRect(QRect(cx, cy-1, img.width(), 1), QColor(qRgb(255, 255, 255)));
+                paint.fillRect(QRect(cx, cy+img.height(), img.width(), 1), QColor(qRgb(255, 255, 255)));
+                paint.fillRect(QRect(cx, cy-1, 1, img.height()), QColor(qRgb(255,255,255)));
+                paint.fillRect(QRect(cx+img.width(), cy-1, 1, img.height()), QColor(qRgb(255,255,255)));
+            }
         }
     }
 }
@@ -402,6 +409,35 @@ void MainWindow::saveFileAs() {
 void MainWindow::loadFile() {
     QString filename = QFileDialog::getOpenFileName(nullptr, tr("Save File"), "", tr("LVL (*.lvl)"));
     if(filename != "") {
+
+        QString gfx_file = QFileDialog::getOpenFileName(this, tr("Select gfx File"), tr("GFX (*.gfx)"));
+
+        if(gfx_file == "") {
+            QMessageBox msgbox;
+            msgbox.setText(tr("You must select the graphics file you used with your map"));
+            msgbox.setWindowTitle(tr("Select Graphics file"));
+            msgbox.setWindowIcon(QIcon(":/images.col1.bmp"));
+            msgbox.setIcon(QMessageBox::Icon::Warning);
+            msgbox.exec();
+            return;
+        }
+
+        QString dir = QFileDialog::getExistingDirectory(this, "Select Extraction Directory", "");
+
+        if(dir == "") {
+            QMessageBox msgbox;
+            msgbox.setText(tr("You must select the graphics file extraction location"));
+            msgbox.setWindowTitle(tr("Select Graphics location"));
+            msgbox.setWindowIcon(QIcon(":/images.col1.bmp"));
+            msgbox.setIcon(QMessageBox::Icon::Warning);
+            msgbox.exec();
+            return;
+        }
+
+        if(!loadGfx(gfx_file, dir)) {
+            return ;
+        }
+
         if(level.loadLevel(filename.toStdString())) {
             createdNewMap();
             file_name = filename;
@@ -517,6 +553,7 @@ void MainWindow::runExec() {
 
 
 void MainWindow::loadImages() {
+    /*
     const char *fileNames[] = {  "black.bmp", "bluebrick.bmp", "bluesky.bmp", "brick.bmp", "eblock.bmp", "red_brick.bmp", "sand1.bmp", "sand2.bmp", "snow.bmp", "stone.bmp", "stone2.bmp", "stone3.bmp", "stone4.bmp", "grass.bmp", 0 };
     for(uint8_t i = 0; fileNames[i] != 0; ++i) {
         QString fn;
@@ -544,20 +581,109 @@ void MainWindow::loadImages() {
         }
         col.append(img_t);
     }
-    col.append(QImage(":/images/tree.png"));
+    col.append(QImage(":/images/tree.png")); */
 }
 
 void MainWindow::showGfx() {
     gfx_window->show();
 }
 
-void MainWindow::loadGfx(const std::string &filename) {
+bool MainWindow::loadGfx(const QString &filename, const QString &dir) {
 
-    // TODO:
-    // open gfx file
-    // extract contents
-    // load images 
-    // add to menus/toolbox
-    // initalize tiles
+    game::GfxTable table;
+    game::GfxExtract extract;
+
+    if(extract.open(filename.toStdString())) {
+        if(extract.extract(table, dir.toStdString())) {
+            debug_window->Log("editor: Extracted to dir: " + dir + "\n");
+            // load graphics
+            if(!images.empty())
+                images.erase(images.begin(), images.end());
+
+            if(!col.empty()) 
+                col.erase(col.begin(), col.end());
+
+            if(!tiles.empty())
+                tiles.erase(tiles.begin(), tiles.end());
+
+            tool_window->tiles->clear();
+            tool_window->tile_objects->clear();
+
+            int index[2] = {0};
+
+            for(std::vector<game::GfxItem>::size_type i = 0; i < table.table.size(); ++i) {
+                QString text;
+                QTextStream stream(&text);
+                stream << dir << "/" << table.table[i].filename.c_str();
+                uint8_t s = table.table[i].solid;
+                switch(table.table[i].obj) {
+                    case 0: {
+                        QImage img(text);
+                        images.push_back(img);
+                        QString output;
+                        QTextStream out(&output);
+                        out << "Loaded: " << text << " size: " << img.width() << "x" << img.height() << "\n";
+                        tiles.push_back(game::Tile{0, s, static_cast<uint8_t>(i)});
+                        tool_window->tiles->addItem(table.table[i].filename.c_str());
+                        QPixmap pix(text);
+                        QPixmap img_s = pix.scaled(16,16,Qt::IgnoreAspectRatio);
+                        tool_window->tiles->setItemData(index[0]++, img_s, Qt::DecorationRole);
+    
+                        debug_window->Log(output);
+                    }
+                    break;
+                    case 1: {
+                        QImage img(text);
+                        QImage img_t = img.convertToFormat(QImage::Format_ARGB32);
+                        for(int i = 0; i < img.width(); ++i) {
+                            for(int z = 0; z < img.height(); ++z) {
+                                if(img_t.pixel(i, z) == qRgb(255, 255, 255)) {
+                                    img_t.setPixel(i, z, qRgba(0, 0, 0, 0));
+                                }
+                            }
+                        }
+                        col.push_back(img_t);
+                        QString output;
+                        QTextStream out(&output);
+                        out << "Loaded: " << text << " size: " << img.width() << "x" << img.height() << "\n";
+                        debug_window->Log(output);
+                        QPixmap pix(text);
+                        QPixmap img_s = pix.scaled(16,16,Qt::IgnoreAspectRatio);
+                        tool_window->tile_objects->addItem(table.table[i].filename.c_str());
+                        tool_window->tile_objects->setItemData(index[1]++, img_s, Qt::DecorationRole);
+                    }
+                    break;
+                }
+            }
+
+            QString txt;
+            QTextStream st(&txt);
+            st << "Loaded: " << images.size() << " tiles\nLoaded: " << col.size() << " objects\n";
+            debug_window->Log(txt);
+
+            
+
+            update();
+        }
+        else {
+            QMessageBox msgbox;
+            msgbox.setText("Error opening resource file");
+            msgbox.setWindowTitle("Error opening file");
+            msgbox.setIcon(QMessageBox::Icon::Warning);
+            msgbox.exec();
+            debug_window->Log("editor: Failed to extract resource file: " + filename + "\n");
+            return false;
+        }
+    } else {
+        QMessageBox msgbox;
+        msgbox.setText("Error opening resource file");
+        msgbox.setWindowTitle("Error opening file");
+        msgbox.setIcon(QMessageBox::Icon::Warning);
+        msgbox.exec();
+        debug_window->Log("editor: Failed to open resource file: " + filename + "\n");
+        return false;
+    }
+
+    return true;
     
 }
