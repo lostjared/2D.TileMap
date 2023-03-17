@@ -513,7 +513,7 @@ void MainWindow::runExec() {
         if(proc_run == false) {
             proc = new QProcess(this);
             QStringList args;
-            args << file_name;
+            args << file_name << graphics_file;
             connect(proc, SIGNAL(finished(int,QProcess::ExitStatus)),this,SLOT(procStopped(int, QProcess::ExitStatus)));
             connect(proc, SIGNAL(readyReadStandardOutput()), this, SLOT(readStdout()));
             proc->setWorkingDirectory(path+"/");
@@ -663,9 +663,7 @@ bool MainWindow::loadGfx(const QString &filename, const QString &dir) {
             QTextStream st(&txt);
             st << "Loaded: " << images.size() << " tiles\nLoaded: " << col.size() << " objects\n";
             debug_window->Log(txt);
-
-            
-
+            graphics_file = filename;            
             update();
         }
         else {

@@ -133,7 +133,7 @@ namespace game {
         return true;
     }
     
-    bool GfxExtract::extract(const std::string &directory) {
+    bool GfxExtract::extract(GfxTable &table, const std::string &directory) {
 
         if(!file.is_open())
             return false;
@@ -157,6 +157,7 @@ namespace game {
                 file.read(reinterpret_cast<char*>(&obj), sizeof(uint32_t));
                 file.read(reinterpret_cast<char*>(&length), sizeof(uint32_t));
                 std::cout << "reading file: " << filename  << " of size: " << length << " index: " << index << " solid: " << solid << " obj: " << obj << "\n";
+                table.addItem(index, solid, obj, filename);
                 char *buffer = new char [ length + 1 ];
                 file.read(buffer, length);
                 std::fstream fout;

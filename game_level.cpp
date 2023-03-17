@@ -138,7 +138,7 @@ namespace game {
         ro->releaseResources();
     }
 
-    void GameLevel::loadLevel(const std::string &filename) {
+    void GameLevel::loadLevel(const std::string &filename, const std::string &gfx_) {
 
         render_object->releaseResources();
         arial = render_object->loadFont("./img/arial.ttf", 24);
@@ -156,7 +156,7 @@ namespace game {
             hero_images_right.erase(hero_images_right.begin(), hero_images_right.end());
 
 
-        loadResources("./img/level.gfx");
+        loadResources(gfx_);
         loadResources("./img/hero.gfx");
 
         hero.setImages(hero_images_left, hero_images_right);

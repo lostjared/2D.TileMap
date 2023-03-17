@@ -72,7 +72,7 @@ private:
     game::Level level;
     bool map_init;
     int pos_x, pos_y;
-    QString file_name;
+    QString file_name, graphics_file;
     bool cursor_visible;
     QPoint draw_pos;
     QProcess *proc = nullptr;
