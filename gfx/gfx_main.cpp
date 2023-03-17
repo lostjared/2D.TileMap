@@ -20,9 +20,10 @@ int main(int argc, char **argv) {
         }
     } else if(argc == 4 && std::string(argv[3]) == "-e") {
         game::GfxExtract ex;
+        game::GfxTable table;
         if(ex.open(argv[1])) {
             mkdir(argv[2], S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
-            if(ex.extract(argv[2])) {
+            if(ex.extract(table, argv[2])) {
                 std::cout << "gfx-cmp: Successflly Inflated: " << argv[1] << "\n";
             } else {
                 std::cout << "gfx-cmp: Failed to Inflate: " << argv[1] << "\n";
