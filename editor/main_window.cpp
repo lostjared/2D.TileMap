@@ -147,7 +147,7 @@ void MainWindow::paintEvent(QPaintEvent *) {
             if(map_init == false) {
                 paint.fillRect(QRect(x, y, 15, 15), QColor(0, 0, 0));
             } else {
-                paint.drawImage((i*16)+offset_x, (z*16)+offset_y, images[tile->img]);
+                paint.drawImage((i*16)+offset_x, (z*16)+offset_y, images[tile->img], 0, 0, 16, 16);
             }
         }
     }
