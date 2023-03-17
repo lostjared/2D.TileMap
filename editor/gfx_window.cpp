@@ -62,25 +62,26 @@ void GfxWindow::setIndex(int) {
 }
 
 void GfxWindow::addFile() {
-    QString filename = QFileDialog::getOpenFileName(this, "Add Image", "", "Bitmaps (*.bmp)");
-    if(filename != "") {
-        QString text;
-        QTextStream stream(&text);
-        stream << filename << ":";
-        if(image_solid->isChecked() == true) {
-            stream << "1";
-        } else {
-            stream << "0";
+    QStringList filename = QFileDialog::getOpenFileNames(this, "Add Image", "", "Bitmaps (*.bmp)");
+    if(filename.size() > 0) {
+        for(int i = 0; i < filename.size(); ++i) {
+            QString text;
+            QTextStream stream(&text);
+            stream << filename[i] << ":";
+            if(image_solid->isChecked() == true) {
+                stream << "1";
+            } else {
+                stream << "0";
+            }
+            switch(image_type->currentIndex()) {
+                case 0:
+                    tile_list.append(text);
+                     break;
+                case 1:
+                    object_list.append(text);
+                    break;
+            }
         }
-        switch(image_type->currentIndex()) {
-            case 0:
-                tile_list.append(text);
-                 break;
-            case 1:
-                object_list.append(text);
-                break;
-        }
-
         updateList();
     }
 }
