@@ -91,20 +91,27 @@ void GfxWindow::rmvFile() {
 
 void GfxWindow::exportFile() {
     QString outfile = QFileDialog::getSaveFileName(this, "Export File", "", "Gfx Files (*.gfx)");
+
+    static auto toTextSolid = [](const std::string &text, int &solid, std::string &file) {
+            auto pos = text.rfind(":");
+            solid = atoi(text.substr(pos+1, text.length()).c_str());
+            file = text.substr(0, pos);
+    };
+
     if(outfile != "") {
 
         game::GfxTable table;
         for(int i = 0; i < tile_list.size(); ++i) {
-            std::string text = tile_list[i].toStdString();
-            std::string solid, file;
-            auto pos = text.rfind(":");
-            solid = text.substr(pos+1, text.length());
-            file = text.substr(0, pos);
-            table.addItem(i, atoi(solid.c_str()), 0, file);
+            int solid;
+            std::string file;
+            toTextSolid(tile_list[i].toStdString(), solid, file);
+            table.addItem(i, solid, 0, file);
         }
         for(int i = 0; i < object_list.size(); ++i) {
-            std::string text = object_list[i].toStdString();
-            table.addItem(i, 0, 1, text);
+            int solid;
+            std::string file;
+            toTextSolid(object_list[i].toStdString(), solid, file);
+            table.addItem(i, solid, 1, file);
         }
 
         game::GfxCompress cmp;
