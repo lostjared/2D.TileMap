@@ -5,7 +5,7 @@
 #include<QLineEdit>
 #include<QPushButton>
 #include<QComboBox>
-
+#include<QLabel>
 #include "../level.hpp"
 
 class MainWindow;
@@ -18,6 +18,7 @@ public:
 public slots:
     void createMap();   
     void createNewGfx();
+    void setDirectory();
 private:
     QLineEdit *page_width1, *page_height1;
     QPushButton *page_create;
@@ -25,6 +26,8 @@ private:
     MainWindow *main_window;
     QComboBox *gfx_box;
     QPushButton *page_new_gfx;
+    QPushButton *page_extract_dir;
+    QLabel *extract_dir;
 
 };
 

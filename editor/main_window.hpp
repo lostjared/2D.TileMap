@@ -36,6 +36,7 @@ public:
     void drawLayer3(QPainter &paint);
     void closeEvent(QCloseEvent *c) override;
     void showGfx();
+    void loadGfx(const std::string &file);
 public slots:
     void openNewMenu();
     void saveFile();

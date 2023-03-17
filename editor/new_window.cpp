@@ -1,6 +1,8 @@
 #include"new_window.hpp"
 #include"main_window.hpp"
 #include<QLabel>
+#include<QFileDialog>
+#include<QMessageBox>
 
 NewWindow::NewWindow(game::Level *lvl, QWidget *parent) : QDialog(parent), level{lvl} {
     setFixedSize(640, 320);
@@ -32,6 +34,14 @@ NewWindow::NewWindow(game::Level *lvl, QWidget *parent) : QDialog(parent), level
     page_new_gfx = new QPushButton(tr("New"), this);
     page_new_gfx->setGeometry(285, 55, 50, 25);
     connect(page_new_gfx, SIGNAL(clicked()), this, SLOT(createNewGfx()));
+    
+    extract_dir = new QLabel(tr("Set Extract Dir: "), this);
+    extract_dir->setGeometry(285+50+10+40+5, 55, 640-(285+50+10+40+5)-20, 25);
+
+    page_extract_dir = new QPushButton(tr("Dir"), this);
+    page_extract_dir->setGeometry(285+50+10, 55, 40, 25);
+
+    connect(page_extract_dir, SIGNAL(clicked()), this, SLOT(setDirectory()));
 
 }
 
@@ -39,12 +49,28 @@ void NewWindow::createNewGfx() {
     main_window->showGfx();
 }
 
+void NewWindow::setDirectory() {
+    QString dir = QFileDialog::getExistingDirectory(this, "Directory", "");
+    if(dir != "") {
+        extract_dir->setText(dir);
+    }    
+}
 
 void NewWindow::setMainWindow(MainWindow *w) {
     main_window = w;
 }
 
 void NewWindow::createMap() {
+
+    if(extract_dir->text() == tr("Set Extract Dir: ")) {
+        QMessageBox msgbox;
+        msgbox.setText("You must set directory extract path, click the Dir button");
+        msgbox.setWindowTitle("Must set path");
+        msgbox.setIcon(QMessageBox::Icon::Warning);
+        msgbox.exec();
+        return;
+    }
+
     int width = page_width1->text().toInt();
     int height = page_height1->text().toInt();
     level->create(1280/16 * width, 720/16 * height, game::Tile{});

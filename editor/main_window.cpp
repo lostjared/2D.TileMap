@@ -550,3 +550,14 @@ void MainWindow::loadImages() {
 void MainWindow::showGfx() {
     gfx_window->show();
 }
+
+void MainWindow::loadGfx(const std::string &filename) {
+
+    // TODO:
+    // open gfx file
+    // extract contents
+    // load images 
+    // add to menus/toolbox
+    // initalize tiles
+    
+}
