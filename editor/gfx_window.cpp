@@ -153,7 +153,7 @@ void GfxWindow::loadGfxFile() {
                     for(std::vector<game::GfxItem>::size_type i = 0; i < table.table.size(); i++) {
                         QString text;
                         QTextStream stream(&text);
-                        stream << edir << "/" << table.table[i].filename.c_str();
+                        stream << edir << "/" << table.table[i].filename.c_str() << ":" << table.table[i].solid;
                         switch(table.table[i].obj) {
                             case 0:
                             tile_list.append(text);
@@ -165,7 +165,7 @@ void GfxWindow::loadGfxFile() {
                     }
                     updateList();
                     main_window->setNewGfx(infile);
-                    main_window->debug_window->Log(tr("Extracted to dir: ") + edir);
+                    main_window->debug_window->Log(tr("Extracted to dir: ") + edir + "\n");
                 }
             }
         }
