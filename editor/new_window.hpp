@@ -15,6 +15,7 @@ class NewWindow : public QDialog {
 public:
     NewWindow(game::Level *lvl, QWidget *parent);
     void setMainWindow(MainWindow *w);
+    QComboBox *gfx_box;
 public slots:
     void createMap();   
     void createNewGfx();
@@ -24,7 +25,6 @@ private:
     QPushButton *page_create;
     game::Level *level; 
     MainWindow *main_window;
-    QComboBox *gfx_box;
     QPushButton *page_new_gfx;
     QPushButton *page_extract_dir;
     QLabel *extract_dir;

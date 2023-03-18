@@ -38,6 +38,7 @@ public:
     void closeEvent(QCloseEvent *c) override;
     void showGfx();
     bool loadGfx(const QString &filename, const QString &dir);
+    void setNewGfx(const QString &filename);
 public slots:
     void openNewMenu();
     void saveFile();

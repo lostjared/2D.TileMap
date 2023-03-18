@@ -688,3 +688,8 @@ bool MainWindow::loadGfx(const QString &filename, const QString &dir) {
     return true;
     
 }
+
+void MainWindow::setNewGfx(const QString &filename) {
+    new_window->gfx_box->addItem(filename);
+    new_window->gfx_box->setCurrentIndex(new_window->gfx_box->count()-1);
+}

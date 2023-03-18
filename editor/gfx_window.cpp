@@ -124,6 +124,9 @@ void GfxWindow::exportFile() {
                 msgbox.setIcon(QMessageBox::Icon::Information);
                 msgbox.exec();
                 cmp.close();
+                main_window->setNewGfx(outfile);
+                //main_window->new_window->gfx_box->addItem(outfile);
+                //main_window->new_window->gfx_box->setCurrentIndex()
             } else {
                 QMessageBox msgbox;
                 msgbox.setText(tr("Could not write file error"));
