@@ -21,13 +21,14 @@ public slots:
     void rmvFile();
     void exportFile();
     void setIndex(int index);
+    void loadGfxFile();
     
 protected:
     MainWindow *main_window;
     QComboBox *image_type;
     QListWidget *image_list;
     QCheckBox *image_solid;
-    QPushButton *image_add, *image_remove, *image_build;
+    QPushButton *image_add, *image_remove, *image_build, *image_open;
     QStringList tile_list, object_list;
 
 };

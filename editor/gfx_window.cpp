@@ -27,12 +27,14 @@ GfxWindow::GfxWindow(QWidget *parent) : QDialog(parent) {
     image_solid->setGeometry(65+50+5,360,50,25);
     image_build = new QPushButton(tr("Export"), this);
     image_build->setGeometry(400-10-60, 360, 60, 25);
+    image_open = new QPushButton(tr("Open"), this);
+    image_open->setGeometry(400-10-60-60-5, 360, 60, 25);
 
     connect(image_add, SIGNAL(clicked()), this, SLOT(addFile()));
     connect(image_remove, SIGNAL(clicked()), this, SLOT(rmvFile()));
     connect(image_build, SIGNAL(clicked()), this, SLOT(exportFile()));
     connect(image_type, SIGNAL(currentIndexChanged(int)), this, SLOT(setIndex(int)));
-    
+    connect(image_open, SIGNAL(clicked()), this, SLOT(loadGfxFile()));
 }
 
 void GfxWindow::setMainWindow(MainWindow *main) {
@@ -62,7 +64,7 @@ void GfxWindow::setIndex(int) {
 }
 
 void GfxWindow::addFile() {
-    QStringList filename = QFileDialog::getOpenFileNames(this, "Add Image", "", "Bitmaps (*.bmp)");
+    QStringList filename = QFileDialog::getOpenFileNames(this, tr("Add Image"), "", "Bitmaps (*.bmp)");
     if(filename.size() > 0) {
         for(int i = 0; i < filename.size(); ++i) {
             QString text;
@@ -91,7 +93,7 @@ void GfxWindow::rmvFile() {
 }
 
 void GfxWindow::exportFile() {
-    QString outfile = QFileDialog::getSaveFileName(this, "Export File", "", "Gfx Files (*.gfx)");
+    QString outfile = QFileDialog::getSaveFileName(this, tr("Export File"), "", "Gfx Files (*.gfx)");
 
     static auto toTextSolid = [](const std::string &text, int &solid, std::string &file) {
             auto pos = text.rfind(":");
@@ -125,8 +127,6 @@ void GfxWindow::exportFile() {
                 msgbox.exec();
                 cmp.close();
                 main_window->setNewGfx(outfile);
-                //main_window->new_window->gfx_box->addItem(outfile);
-                //main_window->new_window->gfx_box->setCurrentIndex()
             } else {
                 QMessageBox msgbox;
                 msgbox.setText(tr("Could not write file error"));
@@ -137,4 +137,38 @@ void GfxWindow::exportFile() {
         }
     }
 }
-    
+
+void GfxWindow::loadGfxFile() {
+    QString infile = QFileDialog::getOpenFileName(this, tr("Open Graphics File"), "", "Gfx Files (*.gfx)");
+    if(infile != "") {
+
+        QString edir = QFileDialog::getExistingDirectory(this, tr("Extract Directory"), "");
+        if(edir != "") {
+            game::GfxTable table;
+            game::GfxExtract extract;
+            if(extract.open(infile.toStdString())) {
+                if(extract.extract(table, edir.toStdString())) {
+                    tile_list.clear();
+                    object_list.clear();
+                    for(std::vector<game::GfxItem>::size_type i = 0; i < table.table.size(); i++) {
+                        QString text;
+                        QTextStream stream(&text);
+                        stream << edir << "/" << table.table[i].filename.c_str();
+                        switch(table.table[i].obj) {
+                            case 0:
+                            tile_list.append(text);
+                            break;
+                            case 1:
+                            object_list.append(text);
+                            break;
+                        }
+                    }
+                    updateList();
+                    main_window->setNewGfx(infile);
+                    main_window->debug_window->Log(tr("Extracted to dir: ") + edir);
+                }
+            }
+        }
+
+    }
+}

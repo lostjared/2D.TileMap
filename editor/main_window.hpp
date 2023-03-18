@@ -39,6 +39,8 @@ public:
     void showGfx();
     bool loadGfx(const QString &filename, const QString &dir);
     void setNewGfx(const QString &filename);
+
+    DebugWindow *debug_window;
 public slots:
     void openNewMenu();
     void saveFile();
@@ -64,7 +66,6 @@ private:
     ToolWindow *tool_window;  
     NewWindow *new_window;  
     RunWindow *run_window;
-    DebugWindow *debug_window;
     GfxWindow *gfx_window;
     std::vector<QImage> images;
     std::vector<QImage> col;
