@@ -10,7 +10,7 @@ GfxWindow::GfxWindow(QWidget *parent) : QDialog(parent) {
     setFixedSize(400, 400);
     setWindowTitle("Graphics");
     setWindowIcon(QIcon(":/images/col3.bmp"));
-    QLabel *lbl_type = new QLabel(tr("Image Type:"), this);
+    QLabel *lbl_type = new QLabel(tr("Type:"), this);
     lbl_type->setGeometry(10, 10, 75, 20);
     image_type = new QComboBox(this);
     image_type->setGeometry(80, 10, 300, 25);
@@ -24,7 +24,7 @@ GfxWindow::GfxWindow(QWidget *parent) : QDialog(parent) {
     image_remove = new QPushButton(tr("-"), this);
     image_remove->setGeometry(65,360,50,25);
     image_solid = new QCheckBox(tr("Solid"), this);
-    image_solid->setGeometry(65+50+5,360,50,25);
+    image_solid->setGeometry(65+50+5,360,60,25);
     image_build = new QPushButton(tr("Export"), this);
     image_build->setGeometry(400-10-60, 360, 60, 25);
     image_open = new QPushButton(tr("Open"), this);
