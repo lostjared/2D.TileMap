@@ -249,13 +249,14 @@ namespace game {
         prev_tick = tick;
 
         if(ro->keyDown(Key::KEY_A)) {
-            if(amt > 10) {
-                hero.jump();
+            if(amt > 25) {
+                if(hero.falling == false) 
+                    hero.jump();
             }
         }
 
         if(ro->keyDown(Key::KEY_RIGHT)) {
-            if(amt > 10) {
+            if(amt > 25) {
                 int hx = hero.x+cam.getCamX();
                 int hy = hero.y+cam.getCamY();
                 bool solid = level.checkRect(Rect(hx+1, hy, 1, 3));
@@ -268,22 +269,28 @@ namespace game {
                             if(hero.draw_x < 1280-48) {
                                 hero.moveRight(false);
                             }
-                        } else
+                        } else {
                             hero.moveRight(true);
+                            hero.draw_x = hero.x*16;
+                            hero.draw_y = hero.y*16;
+                        }
                     }
                 }
             }
         } else if(ro->keyDown(Key::KEY_LEFT)) {
-                if(amt > 10) {
+                if(amt > 25) {
                     int hx = hero.x+cam.getCamX();
                     int hy = hero.y+cam.getCamY();
-                    bool solid = level.checkRect(Rect(hx-1, hy, 2, 3));
+                    bool solid = level.checkRect(Rect(hx-1, hy, 1, 3));
+                    hero.dir = Direction::LEFT;
                     if(solid) {
                         if((cam.getX() == 0 && hero.x > 0 && hero.x <= HALF_MAP_W) || hero.x > 40) {
                             hero.moveLeft(false);
                         }  
                         else {
                             hero.moveLeft(true);
+                            hero.draw_x = hero.x*16;
+                            hero.draw_y = hero.y*16;
                         }
                     }
                 }   
@@ -291,14 +298,15 @@ namespace game {
             if(hero.grounded == false)
                 hero.restore();
         }
-        if(amt > 10) {
+        if(amt > 25) {
             hero.update(&cam); 
             int hx = hero.x+cam.getCamX();
             int hy = hero.y+cam.getCamY();
             bool directions[5];
-            directions[0] = level.checkRect(Rect(hx, hy, 2, 4));
+            directions[0] = level.checkRect(Rect(hx, hy, 1, 4));
             directions[1] = level.checkRect(Rect(hx, hy+1, 2, 4));
             if(directions[0]) {
+                    hero.falling = true;
                     if(hero.y < HALF_MAP_H) {
                         hero.moveDown(false);                
                     } else {
@@ -310,12 +318,14 @@ namespace game {
                         } else
                             hero.moveDown(true);
                     }
+            } else {
+                hero.falling = false;
             } 
             amt = 0; 
-            hero.updateDown(&cam);
+            hero.updateDown(&level, &cam);
         }
 
-        if(hero.grounded == true)
+        if(hero.grounded == true || hero.falling == true)
             hero.cur_frame = 4;
 
         int xx = 0, yy = 0;

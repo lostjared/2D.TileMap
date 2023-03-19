@@ -48,24 +48,28 @@ namespace game {
         void moveLeft(bool scroll);
         void moveRight(bool scroll);
         void moveDown(bool draw);
+        void moveUp(bool scroll, Camera *cam);
         void restore();
         void cycle_frame();
         void jump();
-        void proc_jump(Level *level, Camera *cam, float delta);
+        void proc_jump(Level *level, Camera *cam);
         bool isJumping() const;
         void update(Camera *cam);
-        void updateDown(Camera *cam);
+        void updateDown(Level *level, Camera *cam);
         void set();
         bool grounded = false;
+        bool falling = false;  
         int draw_x = 0, draw_y = 0;
     protected:
         std::vector<Image> left, right;
         bool move_right = true;
         bool jumping = false;
-        int jump_index = 0;
+        int jump_index = 0, jump_height[2] ={0};
         bool moving_ = false;
         int moving_index[4] = {0};
-        bool scroll_map[4] =  {false};        
+        bool scroll_map[5] =  {false};  
+           
+    
     };
 
 }

@@ -126,19 +126,19 @@ namespace game {
         if(moving_ == true) {
             if(dir == Direction::RIGHT) {
                 if(scroll_map[1] == false) {
-                    draw_x += 4;
+                    draw_x += 8;
                     cycle_frame();
                     moving_index [1] ++;
-                    if(moving_index[1] >= 4) {
+                    if(moving_index[1] >= 2) {
                         moving_index[1] = 0;
                         moving_ = false;
                         x += 1;
                         cur_frame = 0;
                     }
                 } else {
-                    cam->move(0.4f, 1.0f, 0.0f);
+                    cam->move(0.5f, 1.0f, 0.0f);
                     moving_index[1] ++;
-                    if(moving_index[1] >= 4) {
+                    if(moving_index[1] >= 2 && (cam->getX()%16)==0) {
                         moving_index[1] = 0;
                         moving_ = false;
                     }
@@ -147,20 +147,20 @@ namespace game {
 
             } else if(dir == Direction::LEFT) {
                 if(scroll_map[0] == false) {
-                    draw_x -= 4;
+                    draw_x -= 8;
                     cycle_frame();
                     moving_index [0] ++;
-                    if(moving_index[0] >= 4) {
+                    if(moving_index[0] >= 2) {
                         moving_index[0] = 0;
                         moving_ = false;
                         cur_frame = 0;
                         x -= 1;
                     }
                 } else {
-                    cam->move(0.4f, -1.0f, 0.0f);
+                    cam->move(0.5f, -1.0f, 0.0f);
                     cycle_frame();
                     moving_index[0] ++;
-                    if(moving_index[0] >= 4) {
+                    if(moving_index[0] >= 1 && (cam->getX()%16==0)) {
                         moving_index[0] = 0;
                         moving_ = false;
                         cur_frame = 0;
@@ -171,8 +171,45 @@ namespace game {
         }      
     }
 
-    void Hero::updateDown(Camera *cam) {
-       if(grounded == true) {
+    void Hero::updateDown(Level *level, Camera *cam) {
+
+        
+        if(jumping == true) {
+            bool dir[3];
+            int hx = x+cam->getCamX();
+            int hy = y+cam->getCamY();
+
+            dir[0] = level->checkRect(Rect(hx, hy-1, 1, 3));
+            if(dir[0] == false) {
+                jumping = false;
+                grounded = false;
+                falling = true;
+                return;
+            }
+        }
+
+        if(jumping == true) {
+            if(cam->getCamY() == 0) {
+                moveUp(false, cam);
+                jump_height[0] ++;
+                if((jump_height[0]%5) == 0) {
+                    jump_height[0] = 0;
+                    jumping = false;
+                    grounded = false;
+                    falling = true;
+                }
+            }
+            else {
+                moveUp(true, cam);
+                jump_height[1] ++;
+                if(jump_height[1]%10== 0) {
+                    jump_height[1] = 0;
+                    jumping = false;
+                    grounded = false;
+                    falling = true;
+                }
+            } 
+        } else if(grounded == true) {
             if(scroll_map[2] == false) {
                 draw_y += 8;
                 cur_frame = 4;
@@ -193,19 +230,32 @@ namespace game {
                     grounded = false;
                 }
             }
-        }   
+        } 
     }
 
     void Hero::restore() {
           cur_frame = 0;
     }
-    
 
+    void Hero::moveUp(bool scroll, Camera *cam) {
+        if(scroll == false) {
+            draw_y -= 16;
+            cur_frame = 4;
+             y --;
+        } else {
+            cam->move(1.0f, 0.0f, -1.0f);
+            cur_frame = 4;
+        }
+    }
     void Hero::jump() {
-
+        if(jumping == false && grounded == false) {
+            jumping = true;
+            jump_index = 0;
+        }
     }
 
-    void Hero::proc_jump(Level *level, Camera *cam, float delta) {
+    void Hero::proc_jump(Level *level, Camera *cam) {
+
     }
 
     bool Hero::isJumping() const {
