@@ -13,14 +13,34 @@ namespace game {
          SDL_Renderer *ren = NULL;
          std::vector<SDL_Surface *> surfaces;
          std::vector<TTF_Font *> fonts;
+         std::vector<SDL_Joystick *> joysticks;
          SDL_Texture *tex = NULL;
          SDL_Surface *surface = NULL;
          int width = 0, height = 0;
              
          ~SDL_RenderObject() {
             release_images();
+            release_joysticks();
             TTF_Quit();
             SDL_Quit();
+         }
+
+         void release_joysticks() {
+            for(std::vector<SDL_Joystick *>::size_type i = 0; i < joysticks.size(); ++i) {
+                std::cout << "game:  Closing: " << SDL_JoystickName(joysticks[i]) << "\n";
+                SDL_JoystickClose(joysticks[i]);
+            }
+         }
+
+         void init_joysticks() {
+
+            for(int i = 0; i < SDL_NumJoysticks(); ++i) {
+                SDL_Joystick *stick = SDL_JoystickOpen(i);
+                if(stick != NULL) {
+                    std::cout << "game: Openeed Joystick: " << SDL_JoystickName(stick) << "\n";
+                    joysticks.push_back(stick);
+                }
+            }
          }
 
         void release_images() {
@@ -142,7 +162,7 @@ namespace game {
         }
 
         bool init(const std::string &text, int w, int h) {
-            if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+            if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK) < 0) {
                 std::cerr << "Error initaliziing SDL\n";
                 return false;
             }
@@ -182,6 +202,8 @@ namespace game {
                 return false;
             }
 
+            init_joysticks();
+
             width = w;
             height = h;
             srand(static_cast<unsigned int>(time(0)));
@@ -216,6 +238,11 @@ namespace game {
                 default:
                 return false;
             }
+
+            for(std::vector<SDL_Joystick *>::size_type i = 0; i < joysticks.size(); ++i) {
+
+            }
+
             return false;
         }
 
