@@ -240,7 +240,24 @@ namespace game {
             }
 
             for(std::vector<SDL_Joystick *>::size_type i = 0; i < joysticks.size(); ++i) {
-
+                if(c == Key::KEY_A && SDL_JoystickGetButton(joysticks[i], 0)) {
+                    return true;
+                }
+                if(c == Key::KEY_S && SDL_JoystickGetButton(joysticks[i], 1)) {
+                    return true;
+                }
+                if(c == Key::KEY_LEFT && SDL_JoystickGetAxis(joysticks[i], 0) < -200) {
+                    return true;
+                }
+                if(c == Key::KEY_RIGHT && SDL_JoystickGetAxis(joysticks[i], 0) > 200) {
+                    return true;
+                }
+                if(c == Key::KEY_UP && SDL_JoystickGetAxis(joysticks[i], 1) > -200) {
+                    return true;
+                }
+                if(c == Key::KEY_DOWN && SDL_JoystickGetAxis(joysticks[i], 1) > 200) {
+                    return true;
+                }
             }
 
             return false;
