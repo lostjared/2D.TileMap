@@ -201,7 +201,10 @@ namespace game {
                 }
             }
             else {
-                moveUp(true, cam);
+                if(y > 22)
+                    moveUp(false, cam);
+                else
+                    moveUp(true, cam);
                 jump_height[0] ++;
                 if(jump_height[0]%10== 0) {
                     jump_height[0] = 0;

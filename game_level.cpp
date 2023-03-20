@@ -249,14 +249,14 @@ namespace game {
         prev_tick = tick;
 
         if(ro->keyDown(Key::KEY_A)) {
-            if(amt > 25) {
+            if(amt > 20) {
                 if(hero.falling == false) 
                     hero.jump();
             }
         }
 
         if(ro->keyDown(Key::KEY_RIGHT)) {
-            if(amt > 25) {
+            if(amt > 20) {
                 int hx = hero.x+cam.getCamX();
                 int hy = hero.y+cam.getCamY();
                 bool solid = level.checkRect(Rect(hx+1, hy, 1, 3));
@@ -281,7 +281,7 @@ namespace game {
                 }
             }
         } else if(ro->keyDown(Key::KEY_LEFT)) {
-                if(amt > 25) {
+                if(amt > 20) {
                     int hx = hero.x+cam.getCamX();
                     int hy = hero.y+cam.getCamY();
                     bool solid = level.checkRect(Rect(hx-1, hy, 1, 3));
@@ -304,7 +304,7 @@ namespace game {
             if(hero.grounded == false)
                 hero.restore();
         }
-        if(amt > 25) {
+        if(amt > 20) {
             hero.update(&cam); 
             int hx = hero.x+cam.getCamX();
             int hy = hero.y+cam.getCamY();
