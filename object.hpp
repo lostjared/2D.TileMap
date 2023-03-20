@@ -60,7 +60,6 @@ namespace game {
         bool grounded = false;
         bool falling = false;  
         int draw_x = 0, draw_y = 0;
-    protected:
         std::vector<Image> left, right;
         bool move_right = true;
         bool jumping = false;

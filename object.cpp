@@ -184,6 +184,7 @@ namespace game {
                 jumping = false;
                 grounded = false;
                 falling = true;
+                jump_height[0] = jump_height[1] = 0;
                 return;
             }
         }
@@ -192,7 +193,7 @@ namespace game {
             if(cam->getCamY() == 0) {
                 moveUp(false, cam);
                 jump_height[0] ++;
-                if((jump_height[0]%5) == 0) {
+                if((jump_height[0]%10) == 0) {
                     jump_height[0] = 0;
                     jumping = false;
                     grounded = false;
@@ -201,9 +202,9 @@ namespace game {
             }
             else {
                 moveUp(true, cam);
-                jump_height[1] ++;
-                if(jump_height[1]%10== 0) {
-                    jump_height[1] = 0;
+                jump_height[0] ++;
+                if(jump_height[0]%10== 0) {
+                    jump_height[0] = 0;
                     jumping = false;
                     grounded = false;
                     falling = true;

@@ -326,6 +326,7 @@ namespace game {
                     }
             } else {
                 hero.falling = false;
+                hero.jump_height[0] = hero.jump_height[1] = 0;
             } 
             amt = 0; 
             hero.updateDown(&level, &cam);
