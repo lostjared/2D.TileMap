@@ -160,7 +160,7 @@ namespace game {
                     cam->move(0.5f, -1.0f, 0.0f);
                     cycle_frame();
                     moving_index[0] ++;
-                    if(moving_index[0] >= 1 && (cam->getX()%16==0)) {
+                    if(moving_index[0] >= 2 && (cam->getX()%16==0)) {
                         moving_index[0] = 0;
                         moving_ = false;
                         cur_frame = 0;
@@ -224,7 +224,7 @@ namespace game {
                 cur_frame = 4;
                 moving_index[2] ++;
                 cam->move(0.5f, 0.0f, 1.0f);
-                if((moving_index[2]%2) == 0) {
+                if((moving_index[2]%2) == 0 && (cam->getY()%16)==0) {
                     moving_index[2] = 0;
                     cur_frame = 4;
                     grounded = false;
