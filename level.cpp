@@ -118,6 +118,9 @@ namespace game {
         if(tiles == nullptr) return false;
         uint32_t type = 0x420;
         out.write(reinterpret_cast<char*>(&type), sizeof(type));
+        uint32_t name_len = static_cast<uint32_t>(level_name.length());
+        out.write(reinterpret_cast<char*>(&name_len), sizeof(name_len));
+        out.write(reinterpret_cast<const char*>(level_name.c_str()), name_len);
         out.write(reinterpret_cast<char*>(&width), sizeof(width));
         out.write(reinterpret_cast<char*>(&height), sizeof(height));
         for(int i = 0; i < width; ++i) {
@@ -132,6 +135,14 @@ namespace game {
         uint32_t type = 0;
         in.read(reinterpret_cast<char*>(&type), sizeof(type));
         if(type != 0x420) return false;
+        char *tmp;
+        uint32_t name_len = 0;
+        in.read(reinterpret_cast<char*>(&name_len), sizeof(name_len));
+        tmp = new char [ name_len + 1 ];
+        in.read(reinterpret_cast<char*>(tmp), name_len);
+        tmp[name_len] = 0;
+        level_name = tmp;
+        delete [] tmp;
         releaseTiles();
         in.read(reinterpret_cast<char*>(&width), sizeof(width));
         in.read(reinterpret_cast<char*>(&height), sizeof(height));
@@ -172,6 +183,14 @@ namespace game {
             }
         }
         return true;
+    }
+
+    void Level::setLevelName(const std::string &name) {
+         level_name = name;
+    }
+  
+    std::string Level::getLevelName() const {
+        return level_name;  
     }
 
     bool atPoint(int x1, int y1, int w, int h, int &x, int &y) {

@@ -17,7 +17,7 @@ namespace game {
         Tile& operator=(Tile &&tile) = default;
         uint8_t color = 0;
         uint8_t solid = 0;
-        uint8_t img = 0;
+        uint32_t img = 0;
         uint8_t layers[3] = {0};
         void set(const Tile &tile);
         void setTile(const Tile &tile);
@@ -29,6 +29,8 @@ namespace game {
     public:
         Level();
         ~Level();
+        void setLevelName(const std::string &name);
+        std::string getLevelName() const;
         bool loadLevel(const std::string &filename);
         bool saveLevel(const std::string &filename);
         int32_t width, height;
@@ -44,6 +46,7 @@ namespace game {
         void releaseTiles();
         bool serialize(std::ostream &out);
         bool unserialize(std::istream &in);
+        std::string level_name = "Untitled Level";
     };
 }
 

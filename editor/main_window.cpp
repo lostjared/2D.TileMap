@@ -341,7 +341,7 @@ void MainWindow::createdNewMap() {
 void MainWindow::updateTitle() {
     QString title;
     QTextStream stream(&title);
-    stream << file_name << " - Map [" << level.width << "x" << level.height << "]";
+    stream << file_name << " - Map [" << level.width << "x" << level.height << "] - " << level.getLevelName().c_str();
     setWindowTitle(title);
 }
 
