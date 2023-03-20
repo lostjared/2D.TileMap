@@ -44,6 +44,13 @@ NewWindow::NewWindow(game::Level *lvl, QWidget *parent) : QDialog(parent), level
 
     connect(page_extract_dir, SIGNAL(clicked()), this, SLOT(setDirectory()));
 
+    QLabel *lbl_pg_name = new QLabel(tr("Level Name: "), this);
+    lbl_pg_name->setGeometry(25, 100, 100, 25);
+
+    page_name = new QLineEdit(this);
+    page_name->setText(tr("Untitled Level"));
+    page_name->setGeometry(105, 100, 200, 25);
+
 }
 
 void NewWindow::createNewGfx() {
@@ -74,8 +81,9 @@ void NewWindow::createMap() {
 
     int width = page_width1->text().toInt();
     int height = page_height1->text().toInt();
+    QString levelName = page_name->text();
+    level->setLevelName(levelName.toStdString());
     level->create(1280/16 * width, 720/16 * height, game::Tile{});
-
     if(main_window->loadGfx(gfx_box->currentText(), extract_dir->text())) {
         main_window->createdNewMap();
     } 
