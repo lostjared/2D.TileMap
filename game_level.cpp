@@ -275,6 +275,9 @@ namespace game {
                             hero.draw_y = hero.y*16;
                         }
                     }
+                } else {
+                    if(hero.falling == false)
+                        hero.cur_frame = 0;
                 }
             }
         } else if(ro->keyDown(Key::KEY_LEFT)) {
@@ -292,6 +295,9 @@ namespace game {
                             hero.draw_x = hero.x*16;
                             hero.draw_y = hero.y*16;
                         }
+                    } else {
+                        if(hero.falling == false)
+                            hero.cur_frame = 0;
                     }
                 }   
         } else {
