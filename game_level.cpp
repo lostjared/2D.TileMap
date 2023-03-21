@@ -138,7 +138,7 @@ namespace game {
         ro->releaseResources();
     }
 
-    void GameLevel::loadLevel(const std::string &filename, const std::string &gfx_) {
+    void GameLevel::loadLevel(const std::string &filename, const std::string &gfx_, const std::string &background) {
 
         render_object->releaseResources();
         arial = render_object->loadFont("./img/arial.ttf", 24);
@@ -166,7 +166,7 @@ namespace game {
             exit(0);
         }
         
-        bg_img = render_object->loadImage("img/backgrounds/bg2.bmp");        
+        bg_img = render_object->loadImage(background);        
 
         int max_x = level.width * 16 - WINDOW_SIZE_WIDTH -1;
         int max_y = level.height * 16 - WINDOW_SIZE_HEIGHT -1;

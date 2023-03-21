@@ -49,7 +49,14 @@ NewWindow::NewWindow(game::Level *lvl, QWidget *parent) : QDialog(parent), level
 
     page_name = new QLineEdit(this);
     page_name->setText(tr("Untitled Level"));
-    page_name->setGeometry(105, 100, 200, 25);
+    page_name->setGeometry(125, 100, 200, 25);
+
+    QLabel *lbl_bg_name = new QLabel(tr("Background: "), this);
+    lbl_bg_name->setGeometry(25, 140, 120, 25);
+
+    page_background = new QLineEdit(this);
+    page_background->setText(QDir::currentPath() + "/../img/backgrounds/bg1.bmp");
+    page_background->setGeometry(125, 140, 200, 25);
 
 }
 
@@ -84,7 +91,7 @@ void NewWindow::createMap() {
     QString levelName = page_name->text();
     level->setLevelName(levelName.toStdString());
     level->create(1280/16 * width, 720/16 * height, game::Tile{});
-    if(main_window->loadGfx(gfx_box->currentText(), extract_dir->text())) {
+    if(main_window->loadGfx(gfx_box->currentText(), extract_dir->text(), page_background->text())) {
         main_window->createdNewMap();
     } 
     hide();

@@ -29,6 +29,7 @@ private:
     QPushButton *page_extract_dir;
     QLabel *extract_dir;
     QLineEdit *page_name;
+    QLineEdit *page_background;
 
 };
 

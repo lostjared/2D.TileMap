@@ -418,9 +418,10 @@ void MainWindow::saveFileAs() {
     }
 }
 
+// TODO: Replace with Open Dialog window
 void MainWindow::loadFile() {
 
-    debug_window->Log("editor: Select Level File, Graphics File, and extraction location\n");
+    debug_window->Log("editor: Select Level File, Graphics File, Extraction location, and background bitmap\n");
 
     QString filename = QFileDialog::getOpenFileName(nullptr, tr("Save File"), "", tr("LVL (*.lvl)"));
     if(filename != "") {
@@ -431,7 +432,7 @@ void MainWindow::loadFile() {
             QMessageBox msgbox;
             msgbox.setText(tr("You must select the graphics file you used with your map"));
             msgbox.setWindowTitle(tr("Select Graphics file"));
-            msgbox.setWindowIcon(QIcon(":/images.col1.bmp"));
+            msgbox.setWindowIcon(QIcon(":/images/col1.bmp"));
             msgbox.setIcon(QMessageBox::Icon::Warning);
             msgbox.exec();
             return;
@@ -443,13 +444,25 @@ void MainWindow::loadFile() {
             QMessageBox msgbox;
             msgbox.setText(tr("You must select the graphics file extraction location"));
             msgbox.setWindowTitle(tr("Select Graphics location"));
-            msgbox.setWindowIcon(QIcon(":/images.col1.bmp"));
+            msgbox.setWindowIcon(QIcon(":/images/col1.bmp"));
             msgbox.setIcon(QMessageBox::Icon::Warning);
             msgbox.exec();
             return;
         }
 
-        if(!loadGfx(gfx_file, dir)) {
+        QString background = QFileDialog::getOpenFileName(this, tr("Select background"), tr("Background Image (*.bmp)"));
+
+        if(background == "") {
+            QMessageBox msgbox;
+            msgbox.setText(tr("You must select a background image"));
+            msgbox.setWindowTitle(tr("Select Background"));
+            msgbox.setWindowIcon(QIcon(":/images/col2.bmp"));
+            msgbox.setIcon(QMessageBox::Icon::Warning);
+            msgbox.exec();
+            return;
+        }
+
+        if(!loadGfx(gfx_file, dir, background)) {
             return ;
         }
 
@@ -525,7 +538,7 @@ void MainWindow::runExec() {
         if(proc_run == false) {
             proc = new QProcess(this);
             QStringList args;
-            args << file_name << graphics_file;
+            args << file_name << graphics_file << background_file;
             connect(proc, SIGNAL(finished(int,QProcess::ExitStatus)),this,SLOT(procStopped(int, QProcess::ExitStatus)));
             connect(proc, SIGNAL(readyReadStandardOutput()), this, SLOT(readStdout()));
             proc->setWorkingDirectory(path+"/");
@@ -603,8 +616,9 @@ void MainWindow::showGfx() {
     gfx_window->show();
 }
 
-bool MainWindow::loadGfx(const QString &filename, const QString &dir) {
+bool MainWindow::loadGfx(const QString &filename, const QString &dir, const QString &background) {
 
+    background_file = background;
     game::GfxTable table;
     game::GfxExtract extract;
 

@@ -39,7 +39,7 @@ public:
     void drawLayer3(QPainter &paint);
     void closeEvent(QCloseEvent *c) override;
     void showGfx();
-    bool loadGfx(const QString &filename, const QString &dir);
+    bool loadGfx(const QString &filename, const QString &dir, const QString &background);
     void setNewGfx(const QString &filename);
 
     DebugWindow *debug_window;
@@ -80,7 +80,7 @@ private:
     game::Level level;
     bool map_init;
     int pos_x, pos_y;
-    QString file_name, graphics_file;
+    QString file_name, graphics_file, background_file;
     bool cursor_visible;
     QPoint draw_pos;
     QProcess *proc = nullptr;
