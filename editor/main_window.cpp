@@ -46,6 +46,13 @@ MainWindow::MainWindow() {
     gfx_window->setGeometry(450, 175, 800, 600);
     gfx_window->hide();
 
+    open_window = new OpenWindow(this);
+    open_window->setMainWindow(this);
+    open_window->hide();
+
+    about_window = new AboutWindow(this);
+    about_window->hide();
+
     file_menu = menuBar()->addMenu(tr("&File"));
     file_new = new QAction(tr("New Map"), this);
     connect(file_new, SIGNAL(triggered()), this, SLOT(openNewMenu()));
