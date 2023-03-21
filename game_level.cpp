@@ -291,7 +291,6 @@ namespace game {
                     int hx = hero.x+cam.getCamX();
                     int hy = hero.y+cam.getCamY();
                     bool solid = level.checkRect(Rect(hx-1, hy, 1, 3));
-                    hero.dir = Direction::LEFT;
                     if(solid) {
                         if((cam.getX() == 0 && hero.x > 0 && hero.x <= HALF_MAP_W) || hero.x > 40) {
                             hero.moveLeft(false);

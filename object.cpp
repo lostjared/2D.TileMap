@@ -79,7 +79,7 @@ namespace game {
     }
 
     void Hero::moveLeft(bool scroll) {
-        if(moving_ == false) {
+       if(moving_ == false) {
             dir = Direction::LEFT;
             moving_ = true;
             scroll_map[0] = scroll;
@@ -108,8 +108,8 @@ namespace game {
     void Hero::cycle_frame() {
         if(move_right == true) {
             cur_frame ++;
-            if(cur_frame >= 3) {
-                cur_frame = 3;
+            if(cur_frame >= 2) {
+                cur_frame = 2;
                 move_right = false;
             }
         } else {
@@ -137,12 +137,12 @@ namespace game {
                     }
                 } else {
                     cam->move(0.5f, 1.0f, 0.0f);
+                    cycle_frame();
                     moving_index[1] ++;
                     if(moving_index[1] >= 2 && (cam->getX()%16)==0) {
                         moving_index[1] = 0;
                         moving_ = false;
                     }
-                    cycle_frame();
                 }
 
             } else if(dir == Direction::LEFT) {
