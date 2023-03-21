@@ -60,11 +60,13 @@ public slots:
     void procStopped(int exitcode, QProcess::ExitStatus status);
     void readStdout();
     void levelGraphicsOpen();
+    void showAbout();
 private:
-    QMenu *file_menu, *level_menu, *run_menu;
+    QMenu *file_menu, *level_menu, *run_menu, *help_menu;
     QAction *file_new, *file_save,*file_save_as,*file_load, *file_exit;
     QAction *level_left, *level_right, *level_down, *level_up, *level_gfx;
     QAction *run_settings, *run_exec;
+    QAction *help_about;
     ToolWindow *tool_window;  
     NewWindow *new_window;  
     RunWindow *run_window;

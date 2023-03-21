@@ -109,6 +109,11 @@ MainWindow::MainWindow() {
     connect(run_exec, SIGNAL(triggered()), this, SLOT(runExec()));
     run_menu->addAction(run_exec);
 
+    help_menu = menuBar()->addMenu(tr("&Help"));
+    help_about = new QAction(tr("&About"));
+    connect(help_about, SIGNAL(triggered()), this, SLOT(showAbout()));
+    help_menu->addAction(help_about);    
+
     setMouseTracking(true);
     debug_window->clear();
     debug_window->Log("editor: successfully initalized..\n");
@@ -699,4 +704,8 @@ bool MainWindow::loadGfx(const QString &filename, const QString &dir) {
 void MainWindow::setNewGfx(const QString &filename) {
     new_window->gfx_box->addItem(filename);
     new_window->gfx_box->setCurrentIndex(new_window->gfx_box->count()-1);
+}
+
+void MainWindow::showAbout() {
+    about_window->show();
 }
