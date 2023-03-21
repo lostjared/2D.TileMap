@@ -12,6 +12,7 @@ namespace game {
          SDL_Window *window = NULL;
          SDL_Renderer *ren = NULL;
          std::vector<SDL_Surface *> surfaces;
+         std::vector<SDL_Texture *> textures;
          std::vector<TTF_Font *> fonts;
          std::vector<SDL_Joystick *> joysticks;
          SDL_Texture *tex = NULL;
@@ -58,7 +59,12 @@ namespace game {
 
             if(!fonts.empty()) 
                 fonts.erase(fonts.begin(), fonts.end());
-            
+
+            for(std::vector<SDL_Texture *>::size_type i = 0; i < textures.size(); ++i) {
+               SDL_DestroyTexture(textures[i]);
+            }
+            if(!textures.empty())
+                textures.erase(textures.begin(), textures.end());
         }
 
         virtual void releaseResources() override {
@@ -105,6 +111,26 @@ namespace game {
             printText(font, p.x, p.y, text, col);
         }
 
+       Texture loadTexture(const std::string &text) override {
+            SDL_Surface *surf = SDL_LoadBMP(text.c_str());
+            if(!surf) {
+                std::cerr << "Error creating surface from: " << text << "\n";
+                exit(EXIT_FAILURE);
+            }
+            SDL_Texture *t = SDL_CreateTextureFromSurface(ren, surf);
+            if(!t) {
+                std::cerr << "Error creating texture...\n";
+                exit(EXIT_FAILURE);
+            }
+            textures.push_back(t);
+            return textures.size()-1;
+       }
+
+       void drawTextureAtRect(Texture tex, const Rect &r) override {
+            SDL_Rect rc = { r.x, r.y, r.w, r.h };
+            SDL_RenderCopy(ren, textures.at(tex), 0, &rc);
+       }
+
         Image loadImage(const std::string &text) override {
            return loadImage(text, Color(255,255,255));
         }
@@ -113,7 +139,6 @@ namespace game {
             SDL_Surface *surface = SDL_LoadBMP(text.c_str());
             if(!surface) {
                 std::cerr << "Error could not load surface: " << text << "\n";
-                SDL_Quit();
                 exit(EXIT_FAILURE);
             }
             surfaces.push_back(surface);
@@ -128,7 +153,6 @@ namespace game {
             SDL_Surface *surface = SDL_LoadBMP_RW(ops, 1);
             if(!surface) {
                 std::cerr << "Error could not load surface from memory \n";
-                SDL_Quit();
                 exit(EXIT_FAILURE);
             }
             surfaces.push_back(surface);
@@ -147,8 +171,6 @@ namespace game {
             TTF_Font *font = TTF_OpenFont(text.c_str(), size);
             if(!font) {
                 std::cerr << "Error could not load font: " << text << "\n" << SDL_GetError() << "\n";
-                TTF_Quit();
-                SDL_Quit();
                 exit(EXIT_FAILURE);
             }
             fonts.push_back(font);
@@ -166,21 +188,17 @@ namespace game {
                 std::cerr << "Error initaliziing SDL\n";
                 return false;
             }
-
+            
             TTF_Init();
 
             window = SDL_CreateWindow(text.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, w, h, SDL_WINDOW_SHOWN);
             if(!window) {
                 std::cerr << "Error creating window: " << SDL_GetError() << "...\n";
-                TTF_Quit();
-                SDL_Quit();
                 return false;
             }
             ren = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
             if(!ren) {
                 std::cerr << "Error creating Renderer: " << SDL_GetError() << "\n";
-                TTF_Quit();
-                SDL_Quit();
                 return false;
             }
 
@@ -188,8 +206,6 @@ namespace game {
 
             if(!tex) {
                 std::cerr << "Could not create texture: " << SDL_GetError() << "\n";
-                TTF_Quit();
-                SDL_Quit();
                 return false;
             }
 
@@ -197,8 +213,6 @@ namespace game {
 
             if(!surface) {
                 std::cerr << "Could not create main surface: " << SDL_GetError() << "\n";
-                TTF_Quit();
-                SDL_Quit();
                 return false;
             }
 

@@ -136,12 +136,14 @@ namespace game {
 
     using Font = int;
     using Image = int;
+    using Texture = int;
 
     struct RenderObject {
         virtual ~RenderObject() = default;
         virtual void drawAt(Image image, int x, int y) = 0;
         virtual void drawAt(Image image, const Point &p) = 0;
         virtual void drawAtRect(Image image, const Rect &r) = 0;
+        virtual void drawTextureAtRect(Texture tex, const Rect &r) = 0;
         virtual void drawAtRect(Image image, const Rect &src, const Rect &dst) = 0;
         virtual void printText(Font font, const Point &p, const std::string &text, const Color &col) = 0;
         virtual void drawAtRect(Image image, int x, int y, int w, int h) = 0;
@@ -150,6 +152,7 @@ namespace game {
         virtual Image loadImage(const std::string &text) = 0;
         virtual Image loadImage(const std::string &text, const Color &c) = 0;
         virtual Image loadImage(char *buf, int32_t size, const Color &c) = 0;
+        virtual Texture loadTexture(const std::string &text) = 0;
         virtual void setImageColorKey(Image image, const Color &c) = 0;
         virtual Image loadFont(const std::string &text, int size) = 0;
         virtual unsigned int getTicks() = 0;

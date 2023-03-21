@@ -165,6 +165,9 @@ namespace game {
             std::cerr << "Error loading level..\n";
             exit(0);
         }
+        
+        bg_img = render_object->loadImage("img/backgrounds/bg2.bmp");        
+
         int max_x = level.width * 16 - WINDOW_SIZE_WIDTH -1;
         int max_y = level.height * 16 - WINDOW_SIZE_HEIGHT -1;
         tsize = 16;
@@ -215,6 +218,8 @@ namespace game {
         int off_x = -cx + start_col * tsize;
         int off_y = -cy + start_row * tsize;
 
+        ro->drawAt(bg_img, 0, 0);
+
         // draw background
         for(int x = start_col; x < end_col; ++x) {
             for(int y = start_row; y < end_row; ++y) {
@@ -222,6 +227,7 @@ namespace game {
                 if(tile != nullptr && tile->img != 0) {
                     int xx = (x - start_col) * tsize + off_x;
                     int yy = (y - start_row) * tsize + off_y;
+                    if(tile->img != 0)
                     ro->drawAt(images[tile->img], xx, yy);                 
                 }
             }
