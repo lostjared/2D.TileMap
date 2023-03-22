@@ -348,6 +348,7 @@ void MainWindow::createdNewMap() {
     tool_window->camera_y->setSliderPosition(0);
     map_init = true;
     update();
+    debug_window->Log(tr("editor: Created new map.\n"));
 }
 
 void MainWindow::updateTitle() {
@@ -394,6 +395,7 @@ void MainWindow::saveFile() {
                 msgbox.exec();
             } else {
                 updateTitle();
+                debug_window->Log(tr("editor: Saved level.\n"));
             }
     }
 }
@@ -412,6 +414,7 @@ void MainWindow::saveFileAs() {
                 msgbox.exec();
             } else {
                 file_name = filename;
+                debug_window->Log(tr("editor: Saved level as: ") + file_name + "\n");
                 updateTitle();
             }
         }
