@@ -19,9 +19,10 @@ public slots:
     void openBg();
     void openDir();
     void openFunc();
+    void openCancel();
 protected:
     MainWindow *main_window;
-    QPushButton *open_level, *open_gfx, *open_bg, *open_dir, *open_func;
+    QPushButton *open_level, *open_gfx, *open_bg, *open_dir, *open_func, *open_cancel;
     QComboBox *open_gfx_box, *open_bg_box;
     QLabel *lbl_lvl, *lbl_dir;
     QString level_file, level_dir;

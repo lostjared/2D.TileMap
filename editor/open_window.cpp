@@ -5,7 +5,9 @@
 #include<QMessageBox>
 
 OpenWindow::OpenWindow(QWidget *parent) : QDialog(parent) {
-    setFixedSize(320, 200);
+    setFixedSize(320, 185);
+    setWindowTitle("Open Level");
+    setWindowIcon(QIcon(":/images/brick.bmp"));
     lbl_lvl = new QLabel(tr("Level: "), this);
     lbl_lvl->setGeometry(10, 10, 320-70, 25);
     QLabel *lbl_gfx = new QLabel(tr("Graphics: "), this);
@@ -32,11 +34,14 @@ OpenWindow::OpenWindow(QWidget *parent) : QDialog(parent) {
     open_func->setGeometry(320-75, 150, 65, 25);
     open_dir = new QPushButton(tr(".."), this);
     open_dir->setGeometry(320-55, 100, 45, 25);
+    open_cancel = new QPushButton(tr("Cancel"),this);
+    open_cancel->setGeometry(320-55-85-10, 150, 65, 25);
     connect(open_level, SIGNAL(clicked()), this, SLOT(openLevel()));
     connect(open_gfx, SIGNAL(clicked()), this, SLOT(openGfx()));
     connect(open_bg, SIGNAL(clicked()), this, SLOT(openBg()));
     connect(open_dir, SIGNAL(clicked()), this, SLOT(openDir()));
     connect(open_func, SIGNAL(clicked()), this, SLOT(openFunc()));
+    connect(open_cancel, SIGNAL(clicked()), this, SLOT(openCancel()));
 }
 
 void OpenWindow::setMainWindow(MainWindow *main) {
@@ -92,4 +97,8 @@ void OpenWindow::openFunc() {
     if(main_window->loadLevelFile(level_file, open_gfx_box->currentText(), open_bg_box->currentText(), level_dir)) {
         hide();
     }
+}
+
+void OpenWindow::openCancel() {
+    hide();
 }
