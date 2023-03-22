@@ -2,7 +2,7 @@
 #include<QLabel>
 
 AboutWindow::AboutWindow(QWidget *parent) : QDialog(parent) {
-    setFixedSize(320, 120);
+    setFixedSize(350, 120);
     setWindowTitle(tr("About"));
     QLabel *lbl_img = new QLabel(this);
     lbl_img->setGeometry(25, 25, 64, 64);
