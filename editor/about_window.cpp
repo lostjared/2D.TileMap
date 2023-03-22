@@ -1,9 +1,11 @@
 #include"about_window.hpp"
 #include<QLabel>
+#include<QIcon>
 
 AboutWindow::AboutWindow(QWidget *parent) : QDialog(parent) {
     setFixedSize(350, 120);
     setWindowTitle(tr("About"));
+    setWindowIcon(QIcon(":/images/bluebrick.bmp"));
     QLabel *lbl_img = new QLabel(this);
     lbl_img->setGeometry(25, 25, 64, 64);
     lbl_img->setPixmap(QPixmap(":/images/brick.bmp").scaled(QSize(64, 64)));
