@@ -41,7 +41,7 @@ public:
     void showGfx();
     bool loadGfx(const QString &filename, const QString &dir, const QString &background);
     void setNewGfx(const QString &filename);
-
+    bool loadLevelFile(const QString &filename, const QString &gfx_file, const QString &background, const QString &dir);
     DebugWindow *debug_window;
 public slots:
     void openNewMenu();

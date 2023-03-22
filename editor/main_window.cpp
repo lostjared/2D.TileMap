@@ -420,67 +420,33 @@ void MainWindow::saveFileAs() {
 
 // TODO: Replace with Open Dialog window
 void MainWindow::loadFile() {
-
     debug_window->Log("editor: Select Level File, Graphics File, Extraction location, and background bitmap\n");
-
-    QString filename = QFileDialog::getOpenFileName(nullptr, tr("Save File"), "", tr("LVL (*.lvl)"));
-    if(filename != "") {
-
-        QString gfx_file = QFileDialog::getOpenFileName(this, tr("Select gfx File"), tr("GFX (*.gfx)"));
-
-        if(gfx_file == "") {
-            QMessageBox msgbox;
-            msgbox.setText(tr("You must select the graphics file you used with your map"));
-            msgbox.setWindowTitle(tr("Select Graphics file"));
-            msgbox.setWindowIcon(QIcon(":/images/col1.bmp"));
-            msgbox.setIcon(QMessageBox::Icon::Warning);
-            msgbox.exec();
-            return;
-        }
-
-        QString dir = QFileDialog::getExistingDirectory(this, "Select Extraction Directory", "");
-
-        if(dir == "") {
-            QMessageBox msgbox;
-            msgbox.setText(tr("You must select the graphics file extraction location"));
-            msgbox.setWindowTitle(tr("Select Graphics location"));
-            msgbox.setWindowIcon(QIcon(":/images/col1.bmp"));
-            msgbox.setIcon(QMessageBox::Icon::Warning);
-            msgbox.exec();
-            return;
-        }
-
-        QString background = QFileDialog::getOpenFileName(this, tr("Select background"), tr("Background Image (*.bmp)"));
-
-        if(background == "") {
-            QMessageBox msgbox;
-            msgbox.setText(tr("You must select a background image"));
-            msgbox.setWindowTitle(tr("Select Background"));
-            msgbox.setWindowIcon(QIcon(":/images/col2.bmp"));
-            msgbox.setIcon(QMessageBox::Icon::Warning);
-            msgbox.exec();
-            return;
-        }
-
-        if(!loadGfx(gfx_file, dir, background)) {
-            return ;
-        }
-
-        if(level.loadLevel(filename.toStdString())) {
-            createdNewMap();
-            file_name = filename;
-            updateTitle();
-            update();
-        } else {
-            QMessageBox msgbox;
-            msgbox.setText("Could not load map");
-            msgbox.setWindowTitle("Error on load");
-            msgbox.setIcon(QMessageBox::Icon::Warning);
-            msgbox.setWindowIcon(QIcon(":/images/col1.bmp"));
-            msgbox.exec();
-        }
-    }
+    open_window->show();
 }
+
+bool MainWindow::loadLevelFile(const QString &filename, const QString &gfx_file, const QString &background, const QString &dir) {
+
+    if(!loadGfx(gfx_file, dir, background)) {
+        return false;
+    }
+
+    if(level.loadLevel(filename.toStdString())) {
+        createdNewMap();
+        file_name = filename;
+        updateTitle();
+        update();
+    } else {
+        QMessageBox msgbox;
+        msgbox.setText("Could not load map");
+        msgbox.setWindowTitle("Error on load");
+        msgbox.setIcon(QMessageBox::Icon::Warning);
+        msgbox.setWindowIcon(QIcon(":/images/col1.bmp"));
+        msgbox.exec();
+        return false;
+    }
+    return true;
+}
+
 
 void MainWindow::levelUp() {
    if(pos_y > 0) pos_y--;
