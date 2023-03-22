@@ -494,7 +494,7 @@ void MainWindow::runSettings() {
 void MainWindow::procStopped(int, QProcess::ExitStatus) {
     std::cout << proc->readAllStandardOutput().toStdString();
     run_exec->setText(tr("&Run"));
-    debug_window->Log("editor: Map successfully exited. ");
+    debug_window->Log("editor: Map successfully exited.\n");
     proc_run = false;
 }
 
