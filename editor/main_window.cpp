@@ -425,11 +425,9 @@ void MainWindow::loadFile() {
 }
 
 bool MainWindow::loadLevelFile(const QString &filename, const QString &gfx_file, const QString &background, const QString &dir) {
-
     if(!loadGfx(gfx_file, dir, background)) {
         return false;
     }
-
     if(level.loadLevel(filename.toStdString())) {
         createdNewMap();
         file_name = filename;
