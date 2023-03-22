@@ -23,8 +23,14 @@ GfxWindow::GfxWindow(QWidget *parent) : QDialog(parent) {
     image_add->setGeometry(10,360,50, 25);
     image_remove = new QPushButton(tr("-"), this);
     image_remove->setGeometry(65,360,50,25);
-    image_solid = new QCheckBox(tr("Solid"), this);
-    image_solid->setGeometry(65+50+5,360,60,25);
+    image_solid = new QComboBox(this);
+    image_solid->setGeometry(65+50+5,360,120,25);
+
+    image_solid->addItem(tr("Clear"));
+    image_solid->addItem(tr("Solid"));
+    image_solid->addItem(tr("Kill"));
+    image_solid->addItem(tr("Complete"));
+
     image_build = new QPushButton(tr("Export"), this);
     image_build->setGeometry(400-10-60, 360, 60, 25);
     image_open = new QPushButton(tr("Open"), this);
@@ -69,12 +75,7 @@ void GfxWindow::addFile() {
         for(int i = 0; i < filename.size(); ++i) {
             QString text;
             QTextStream stream(&text);
-            stream << filename[i] << ":";
-            if(image_solid->isChecked() == true) {
-                stream << "1";
-            } else {
-                stream << "0";
-            }
+            stream << filename[i] << ":" << image_solid->currentIndex();
             switch(image_type->currentIndex()) {
                 case 0:
                     tile_list.append(text);

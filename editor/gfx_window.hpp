@@ -27,7 +27,7 @@ protected:
     MainWindow *main_window;
     QComboBox *image_type;
     QListWidget *image_list;
-    QCheckBox *image_solid;
+    QComboBox *image_solid;
     QPushButton *image_add, *image_remove, *image_build, *image_open;
     QStringList tile_list, object_list;
 
