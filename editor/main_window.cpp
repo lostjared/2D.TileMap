@@ -190,10 +190,17 @@ void MainWindow::paintEvent(QPaintEvent *) {
             if(game::atPoint(cx, cy-offset_y, 16, 16, zx, zy)) {
                 cx = (zx*16)+offset_x, cy = (zy*16)+offset_y;
                 paint.drawImage(cx, cy, img);
-                paint.fillRect(QRect(cx, cy-1, img.width(), 1), QColor(qRgb(255, 255, 255)));
-                paint.fillRect(QRect(cx, cy+img.height(), img.width(), 1), QColor(qRgb(255, 255, 255)));
-                paint.fillRect(QRect(cx, cy-1, 1, img.height()), QColor(qRgb(255,255,255)));
-                paint.fillRect(QRect(cx+img.width(), cy-1, 1, img.height()), QColor(qRgb(255,255,255)));
+                int im_width = img.width();
+                int im_height = img.height();
+
+                if(tool_window->hover_object->isChecked() == false) {
+                    im_width = pen_x * 16;
+                    im_height = pen_y * 16;
+                }
+                paint.fillRect(QRect(cx, cy-1, im_width, 1), QColor(qRgb(255, 255, 255)));
+                paint.fillRect(QRect(cx, cy+im_height, im_width, 1), QColor(qRgb(255, 255, 255)));
+                paint.fillRect(QRect(cx, cy-1, 1, im_height), QColor(qRgb(255,255,255)));
+                paint.fillRect(QRect(cx+im_width, cy-1, 1, im_height), QColor(qRgb(255,255,255)));
             }
         }
     }
@@ -287,11 +294,31 @@ void MainWindow::setTile(const QPoint &pos) {
             if(tile != nullptr) {
                 //tile->img = 2;
                 switch(tool_window->tool->currentIndex()) {
-                    case 0:
-                        tile->setTile(tiles[tool_window->tiles->currentIndex()]);
+                    case 0: {
+                        int pos_start_x = pos_x+x;
+                        int pos_start_y = pos_y+y;
+                        for(int i = pos_start_x; i < pos_start_x+pen_x; ++i) {
+                            for(int z = pos_start_y; z < pos_start_y+pen_y; ++z) {
+                                game::Tile *tile = level.at(i, z);
+                                if(tile != nullptr) {
+                                    tile->setTile(tiles[tool_window->tiles->currentIndex()]);
+                                }
+                            }
+                        }
+                    }
                     break;
-                    case 1:
-                        tile->setTile(tiles[0]);
+                    case 1: {
+                        int pos_start_x = pos_x+x;
+                        int pos_start_y = pos_y+y;
+                        for(int i = pos_start_x; i < pos_start_x+pen_x; ++i) {
+                            for(int z = pos_start_y; z < pos_start_y+pen_y; ++z) {
+                                game::Tile *tile = level.at(i, z);
+                                if(tile != nullptr) {
+                                    tile->setTile(tiles[0]);
+                                }
+                            }
+                        }
+                    }
                     break;
                     case 2:
                        for(int i = pos_x; i < pos_x+(1280/16) && i < level.width; ++i) {
