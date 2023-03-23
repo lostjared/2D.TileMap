@@ -708,4 +708,8 @@ void MainWindow::openPref() {
 void MainWindow::setPenSize(int px, int py) {
     pen_x = px;
     pen_y = py;
+    QString text;
+    QTextStream stream(&text);
+    stream << tr("editor: Set Pencil Size: ") << pen_x << ", " << pen_y << "\n";
+    debug_window->Log(text);
 }

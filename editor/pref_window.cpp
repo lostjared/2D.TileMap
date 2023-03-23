@@ -12,7 +12,7 @@ PrefWindow::PrefWindow(QWidget *parent) : QDialog(parent) {
     QLabel *lbl_h = new QLabel(tr("Pencil height: "), this);
     lbl_h->setGeometry(10, 40, 100, 25);
     pref_pen_h = new QLineEdit(this);
-    pref_pen_h->setText("0");
+    pref_pen_h->setText("1");
     pref_pen_h->setGeometry(110, 40, 50, 25);
     pref_save = new QPushButton(tr("Save"), this);
     pref_save->setGeometry(320-70, 240-35, 60, 25);
@@ -27,7 +27,7 @@ void PrefWindow::setMainWindow(MainWindow *m) {
 void PrefWindow::saveDetails() {
     int px = pref_pen_w->text().toInt();
     int py = pref_pen_h->text().toInt();
-    if(px == 0 || (px == 0 && py == 0)) {
+    if(px == 0 ||  py == 0) {
         QMessageBox box;
         box.setText(tr("Invalid Pencil Size"));
         box.setWindowTitle(tr("invalid size"));
