@@ -53,6 +53,10 @@ MainWindow::MainWindow() {
     about_window = new AboutWindow(this);
     about_window->hide();
 
+    pref_window = new PrefWindow(this);
+    pref_window->setMainWindow(this);
+    pref_window->hide();
+
     file_menu = menuBar()->addMenu(tr("&File"));
     file_new = new QAction(tr("New Map"), this);
     connect(file_new, SIGNAL(triggered()), this, SLOT(openNewMenu()));
@@ -69,6 +73,12 @@ MainWindow::MainWindow() {
     connect(file_save_as, SIGNAL(triggered()), this, SLOT(saveFileAs()));
     file_menu->addAction(file_save_as);
 
+    file_menu->addSeparator();
+    file_pref = new QAction(tr("Preferences"), this);
+
+    connect(file_pref, SIGNAL(triggered()), this, SLOT(openPref()));
+
+    file_menu->addAction(file_pref);
     file_menu->addSeparator();
 
     file_exit = new QAction(tr("E&xit"), this);
@@ -689,4 +699,13 @@ void MainWindow::setNewGfx(const QString &filename) {
 
 void MainWindow::showAbout() {
     about_window->show();
+}
+
+void MainWindow::openPref() {
+    pref_window->show();
+}
+
+void MainWindow::setPenSize(int px, int py) {
+    pen_x = px;
+    pen_y = py;
 }

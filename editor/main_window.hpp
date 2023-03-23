@@ -15,6 +15,7 @@
 #include"gfx_window.hpp"
 #include"open_window.hpp"
 #include"about_window.hpp"
+#include"pref_window.hpp"
 #include "../level.hpp"
 
 const int MAP_WIDTH=1280/16;
@@ -42,6 +43,7 @@ public:
     bool loadGfx(const QString &filename, const QString &dir, const QString &background);
     void setNewGfx(const QString &filename);
     bool loadLevelFile(const QString &filename, const QString &gfx_file, const QString &background, const QString &dir);
+    void setPenSize(int px, int py);
     DebugWindow *debug_window;
 public slots:
     void openNewMenu();
@@ -61,9 +63,10 @@ public slots:
     void readStdout();
     void levelGraphicsOpen();
     void showAbout();
+    void openPref();
 private:
     QMenu *file_menu, *level_menu, *run_menu, *help_menu;
-    QAction *file_new, *file_save,*file_save_as,*file_load, *file_exit;
+    QAction *file_new, *file_save,*file_save_as,*file_load, *file_pref, *file_exit;
     QAction *level_left, *level_right, *level_down, *level_up, *level_gfx;
     QAction *run_settings, *run_exec;
     QAction *help_about;
@@ -73,6 +76,7 @@ private:
     GfxWindow *gfx_window;
     OpenWindow *open_window;
     AboutWindow *about_window;
+    PrefWindow *pref_window;
     std::vector<QImage> images;
     std::vector<QImage> col;
     std::vector<game::Tile> tiles; 
@@ -87,6 +91,7 @@ private:
     bool proc_run = false;
     bool reset_window = false;
     QVector<QImage> img, obj;
+    int pen_x = 1, pen_y = 0;
 
     #ifdef __APPLE__
     const int offset_x = 0;
