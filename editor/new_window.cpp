@@ -9,8 +9,12 @@ NewWindow::NewWindow(game::Level *lvl, QWidget *parent) : QDialog(parent), level
     setFixedSize(640, 320);
     setWindowTitle(tr("Create a New Map"));
     setWindowIcon(QIcon(":/images/col2.bmp"));
-    page_width1 = new QLineEdit("2", this);
-    page_height1 = new QLineEdit("2", this);
+    page_width1 = new QSpinBox(this);
+    page_height1 = new QSpinBox(this);
+    page_width1->setValue(2);
+    page_height1->setValue(2);
+    page_width1->setMinimum(1);
+    page_height1->setMinimum(1);
 
     QLabel *lbl_width = new QLabel(tr("Width: "), this);
     QLabel *lbl_height = new QLabel(tr("Height: "), this);
@@ -86,8 +90,8 @@ void NewWindow::createMap() {
         return;
     }
 
-    int width = page_width1->text().toInt();
-    int height = page_height1->text().toInt();
+    int width = page_width1->value();
+    int height = page_height1->value();
     QString levelName = page_name->text();
     level->setLevelName(levelName.toStdString());
     level->create(1280/16 * width, 720/16 * height, game::Tile{});

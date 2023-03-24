@@ -6,6 +6,7 @@
 #include<QPushButton>
 #include<QComboBox>
 #include<QLabel>
+#include<QSpinBox>
 #include "../level.hpp"
 
 class MainWindow;
@@ -21,7 +22,7 @@ public slots:
     void createNewGfx();
     void setDirectory();
 private:
-    QLineEdit *page_width1, *page_height1;
+    QSpinBox *page_width1, *page_height1;
     QPushButton *page_create;
     game::Level *level; 
     MainWindow *main_window;
