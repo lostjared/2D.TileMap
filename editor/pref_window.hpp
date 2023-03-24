@@ -6,6 +6,7 @@
 #include<QLabel>
 #include<QLineEdit>
 #include<QPushButton>
+#include<QSpinBox>
 
 class MainWindow;
 
@@ -20,7 +21,7 @@ public slots:
 protected:
     MainWindow *main_window;
 
-    QLineEdit *pref_pen_w, *pref_pen_h;
+    QSpinBox *pref_pen_w, *pref_pen_h;
     QPushButton *pref_save;
 };
 
