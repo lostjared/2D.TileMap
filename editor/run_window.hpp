@@ -3,6 +3,7 @@
 
 #include<QDialog>
 #include<QLineEdit>
+#include<QComboBox>
 
 class MainWindow;
 
@@ -13,6 +14,7 @@ public:
     void setMainWindow(MainWindow *m);
     MainWindow *main_window;
     QLineEdit *exec_path;
+    QComboBox *exec_res;
 
 };
 

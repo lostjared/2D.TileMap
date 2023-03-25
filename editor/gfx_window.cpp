@@ -130,6 +130,7 @@ void GfxWindow::exportFile() {
                 main_window->setNewGfx(outfile);
                 main_window->debug_window->Log("editor: Exported file to: " + outfile + "\n");
             } else {
+                main_window->debug_window->Log("editor: Error could not save file...\n");
                 QMessageBox msgbox;
                 msgbox.setText(tr("Could not write file error"));
                 msgbox.setWindowTitle(tr("Error"));
