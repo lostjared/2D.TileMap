@@ -546,7 +546,19 @@ void MainWindow::runExec() {
         if(proc_run == false) {
             proc = new QProcess(this);
             QStringList args;
+            static game::Point p[] = { game::Point(640, 360), game::Point(1280, 720), game::Point(1920, 1080), game::Point(3840, 2160) };
             args << file_name << graphics_file << background_file;
+
+            if(run_window->exec_res->currentIndex() != 1) { 
+                QString coord_str;
+                QTextStream stream(&coord_str);
+                stream << p[run_window->exec_res->currentIndex()].x;
+                args << coord_str;
+                coord_str = "";
+                stream << p[run_window->exec_res->currentIndex()].y;
+                args << coord_str; 
+           }
+
             connect(proc, SIGNAL(finished(int,QProcess::ExitStatus)),this,SLOT(procStopped(int, QProcess::ExitStatus)));
             connect(proc, SIGNAL(readyReadStandardOutput()), this, SLOT(readStdout()));
             proc->setWorkingDirectory(path+"/");
