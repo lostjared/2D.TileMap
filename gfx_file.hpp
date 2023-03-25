@@ -43,6 +43,7 @@ namespace game {
     public:
         bool open(const std::string &filename);
         bool extract(GfxTable &table, const std::string &directory);
+        bool list(GfxTable &table);
     protected:
         std::fstream file;
     };

@@ -29,6 +29,14 @@ int main(int argc, char **argv) {
                 std::cout << "gfx-cmp: Failed to Inflate: " << argv[1] << "\n";
             }
         }
+    } else if(argc == 3 && std::string(argv[2]) == "-l") {
+        game::GfxExtract ex;
+        game::GfxTable table;
+        if(ex.open(argv[1])) {
+            if(ex.list(table)) {
+                std::cout << "successfully listed: " << table.table.size() << " items.\n";
+            }
+        }
     }
     else {
         std::cout << "use:\n" << argv[0] << " table.cfg output.gfx -c\nor:\n" << argv[0] << "file.gfx direcotry -e\n";
