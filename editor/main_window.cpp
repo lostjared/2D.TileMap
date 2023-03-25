@@ -385,7 +385,10 @@ void MainWindow::createdNewMap() {
     tool_window->camera_y->setSliderPosition(0);
     map_init = true;
     update();
-    debug_window->Log(tr("editor: Created new map.\n"));
+    QString txt;
+    QTextStream stream(&txt);
+    stream << tr("editor: Created new map: [") << level.width << "x" << level.height << "]\n";
+    debug_window->Log(txt);
 }
 
 void MainWindow::updateTitle() {
