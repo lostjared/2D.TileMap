@@ -197,9 +197,7 @@ namespace game {
                 file.read(reinterpret_cast<char*>(&obj), sizeof(uint32_t));
                 file.read(reinterpret_cast<char*>(&length), sizeof(uint32_t));
                 table.addItem(index, solid, obj, filename);
-                char *buffer = new char [ length + 1 ];
                 file.seekg(length, std::ios::cur);
-                delete [] buffer;
             }
         } 
         file.close();
