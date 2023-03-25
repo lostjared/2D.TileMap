@@ -558,7 +558,13 @@ void MainWindow::runExec() {
                 stream << p[run_window->exec_res->currentIndex()].y;
                 args << coord_str; 
            }
-
+           QString command_string;
+           QTextStream command(&command_string);
+           command << path+"/test-game ";
+           for(int i = 0; i < args.size(); ++i) {
+                 command << args[i] << " ";
+           
+           }
             connect(proc, SIGNAL(finished(int,QProcess::ExitStatus)),this,SLOT(procStopped(int, QProcess::ExitStatus)));
             connect(proc, SIGNAL(readyReadStandardOutput()), this, SLOT(readStdout()));
             proc->setWorkingDirectory(path+"/");
@@ -566,6 +572,7 @@ void MainWindow::runExec() {
             if(proc->waitForStarted()) {
                 run_exec->setText(tr("&Stop"));
                 debug_window->clear();
+                debug_window->Log(tr("editor: Command: ") + command_string + "\n");
                 debug_window->Log("editor: Started Level: " + file_name + "\n");
                 proc_run = true;
             }
