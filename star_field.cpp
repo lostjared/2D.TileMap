@@ -11,7 +11,7 @@ namespace game {
             stars.erase(stars.begin(), stars.end());
 
          for(int i = 0; i < num_stars; ++i) {
-            stars.push_back({rand()%1280-20, rand()%720-20, rand()%2, rand()%3});
+            stars.push_back({rand()%1280-20, rand()%720-20, rand()%4, rand()%3});
         }
     }
     

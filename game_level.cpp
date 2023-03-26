@@ -173,6 +173,8 @@ namespace game {
             std::vector<Image> stars;
             stars.push_back(render_object->loadImage("./img/backgrounds/star1.bmp", Color(0, 0, 0)));
             stars.push_back(render_object->loadImage("./img/backgrounds/star2.bmp", Color(0, 0, 0)));
+            stars.push_back(render_object->loadImage("./img/backgrounds/star3.bmp", Color(0, 0, 0)));
+            stars.push_back(render_object->loadImage("./img/backgrounds/star4.bmp", Color(0, 0, 0)));
             field.setImages(stars);
             field.init(75);
             field_enabled = true;
