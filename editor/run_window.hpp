@@ -13,7 +13,7 @@ public:
     RunWindow(QWidget *parent = 0);
     void setMainWindow(MainWindow *m);
     MainWindow *main_window;
-    QLineEdit *exec_path;
+    QLineEdit *exec_path, *exec_bg;
     QComboBox *exec_res;
 
 };

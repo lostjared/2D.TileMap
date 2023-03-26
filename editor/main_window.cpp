@@ -546,7 +546,7 @@ void MainWindow::runExec() {
             proc = new QProcess(this);
             QStringList args;
             static game::Point p[] = { game::Point(640, 360), game::Point(1280, 720), game::Point(1920, 1080), game::Point(3840, 2160) };
-            args << file_name << graphics_file << background_file;
+            args << file_name << graphics_file << run_window->exec_bg->text();
 
             if(run_window->exec_res->currentIndex() != 1) { 
                 QString coord_str;
@@ -612,6 +612,7 @@ void MainWindow::showGfx() {
 bool MainWindow::loadGfx(const QString &filename, const QString &dir, const QString &background) {
 
     background_file = background;
+    run_window->exec_bg->setText(background_file);
     game::GfxTable table;
     game::GfxExtract extract;
 

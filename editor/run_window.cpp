@@ -22,6 +22,11 @@ RunWindow::RunWindow(QWidget *parent) : QDialog(parent) {
     exec_res->addItem("1920x1080");
     exec_res->addItem("3840x2160");
     exec_res->setCurrentIndex(1);
+    QLabel *lbl_bg = new QLabel(tr("Background: "), this);
+    lbl_bg->setGeometry(10, 80, 100, 25);
+    exec_bg = new QLineEdit(this);
+    exec_bg->setGeometry(100, 80, 400-115, 25);
+    exec_bg->setText(QDir::currentPath() + "/../img/backgrounds/bg1.bmp");
 }
 
 void RunWindow::setMainWindow(MainWindow *main) {
