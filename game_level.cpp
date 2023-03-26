@@ -230,9 +230,9 @@ namespace game {
 
         int off_x = -cx + start_col * tsize;
         int off_y = -cy + start_row * tsize;
-
-        if(field_enabled == true) {
-            ro->drawAt(bg_img, 0, 0);
+        ro->drawAt(bg_img, 0, 0);
+        
+        if(field_enabled == true) {  
             field.draw(ro);
         }
 
