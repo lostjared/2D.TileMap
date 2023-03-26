@@ -5,7 +5,7 @@
 #include"level.hpp"
 #include"game.hpp"
 #include"object.hpp"
-
+#include"star_field.hpp"
 #include<vector>
 
 namespace game {
@@ -38,6 +38,8 @@ namespace game {
         static const int HALF_MAP_H = (720/16)/2;
         RenderObject *render_object;
         Hero hero;
+        bool field_enabled = false;
+        StarField field;
         std::vector<Image> hero_images_right, hero_images_left;
     };
 }

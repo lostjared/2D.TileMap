@@ -168,6 +168,19 @@ namespace game {
         
         bg_img = render_object->loadImage(background);        
 
+
+        if(background.find("bg1.bmp") != std::string::npos) {
+            std::vector<Image> stars;
+            stars.push_back(render_object->loadImage("./img/backgrounds/star1.bmp", Color(0, 0, 0)));
+            stars.push_back(render_object->loadImage("./img/backgrounds/star2.bmp", Color(0, 0, 0)));
+            field.setImages(stars);
+            field.init(75);
+            field_enabled = true;
+        } else {
+            field_enabled = false;
+        }
+
+
         int max_x = level.width * 16 - WINDOW_SIZE_WIDTH -1;
         int max_y = level.height * 16 - WINDOW_SIZE_HEIGHT -1;
         tsize = 16;
@@ -218,7 +231,11 @@ namespace game {
         int off_x = -cx + start_col * tsize;
         int off_y = -cy + start_row * tsize;
 
-        ro->drawAt(bg_img, 0, 0);
+        if(field_enabled == true) {
+            ro->drawAt(bg_img, 0, 0);
+            field.draw(ro);
+        }
+
 
         // draw background
         for(int x = start_col; x < end_col; ++x) {
@@ -253,6 +270,10 @@ namespace game {
         static unsigned int amt = 0;
         amt += timeout;
         prev_tick = tick;
+
+        if(amt > 20) {
+            field.proc();
+        }
 
         if(ro->keyDown(Key::KEY_A)) {
             if(amt > 20) {
