@@ -20,7 +20,6 @@ MainWindow::MainWindow() {
     setFixedSize(1280, 720+offset_y);
     setWindowIcon(QIcon(":/images/col1.bmp"));
     setWindowTitle(tr("Editor [Please Create/Open a Map]"));
-    loadImages();
 
     tool_window = new ToolWindow(this);
     tool_window->setGeometry(10, 10, 150, 480);
@@ -606,39 +605,6 @@ void MainWindow::runExec() {
     }
 }
 
-
-void MainWindow::loadImages() {
-    /*
-    const char *fileNames[] = {  "black.bmp", "bluebrick.bmp", "bluesky.bmp", "brick.bmp", "eblock.bmp", "red_brick.bmp", "sand1.bmp", "sand2.bmp", "snow.bmp", "stone.bmp", "stone2.bmp", "stone3.bmp", "stone4.bmp", "grass.bmp", 0 };
-    for(uint8_t i = 0; fileNames[i] != 0; ++i) {
-        QString fn;
-        QTextStream stream(&fn);
-        stream << ":/images/" << fileNames[i];
-        images.append(QImage(fn));
-        tiles.append(game::Tile{0, 1, i});
-    }
-
-    tiles[0].solid = 0;
-    tiles[2].solid = 0;
-
-    for(int i = 1; i <= 6; ++i) {
-        QString text;
-        QTextStream stream(&text);
-        stream << ":/images/col" << i << ".bmp";
-        QImage img(text);
-        QImage img_t = img.convertToFormat(QImage::Format_ARGB32);
-        for(int i = 0; i < img.width(); ++i) {
-            for(int z = 0; z < img.height(); ++z) {
-                if(img_t.pixel(i, z) == qRgb(255, 255, 255)) {
-                    img_t.setPixel(i, z, qRgba(0, 0, 0, 0));
-                }
-            }
-        }
-        col.append(img_t);
-    }
-    col.append(QImage(":/images/tree.png")); */
-}
-
 void MainWindow::showGfx() {
     gfx_window->show();
 }
@@ -678,7 +644,7 @@ bool MainWindow::loadGfx(const QString &filename, const QString &dir, const QStr
                         images.push_back(img);
                         QString output;
                         QTextStream out(&output);
-                        out << "Loaded: " << text << " size: " << img.width() << "x" << img.height() << "\n";
+                        out << "editor: Loaded: " << text << " size: " << img.width() << "x" << img.height() << "\n";
                         tiles.push_back(game::Tile{0, s, static_cast<uint8_t>(i)});
                         tool_window->tiles->addItem(table.table[i].filename.c_str());
                         QPixmap pix(text);
@@ -701,7 +667,7 @@ bool MainWindow::loadGfx(const QString &filename, const QString &dir, const QStr
                         col.push_back(img_t);
                         QString output;
                         QTextStream out(&output);
-                        out << "Loaded: " << text << " size: " << img.width() << "x" << img.height() << "\n";
+                        out << "editor: Loaded: " << text << " size: " << img.width() << "x" << img.height() << "\n";
                         debug_window->Log(output);
                         QPixmap pix(text);
                         QPixmap img_s = pix.scaled(16,16,Qt::IgnoreAspectRatio);

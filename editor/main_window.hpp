@@ -80,7 +80,6 @@ private:
     std::vector<QImage> images;
     std::vector<QImage> col;
     std::vector<game::Tile> tiles; 
-    void loadImages();
     game::Level level;
     bool map_init;
     int pos_x, pos_y;
