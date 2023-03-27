@@ -136,7 +136,18 @@ void MainWindow::closeEvent(QCloseEvent *) {
         proc_run = false;
         delete proc;
         proc = nullptr;
-    }
+    } else if(map_init == true) {
+        QMessageBox msgbox;
+        msgbox.setWindowTitle("Do you wish to save?");
+        msgbox.setText("Do you wish to save before exit?");
+        msgbox.setIcon(QMessageBox::Icon::Question);
+        msgbox.setStandardButtons(QMessageBox::Yes);
+        msgbox.addButton(QMessageBox::No);
+        msgbox.setDefaultButton(QMessageBox::Yes);
+        if(msgbox.exec() == QMessageBox::Yes) {
+            saveFile();
+        }
+   }
 }
 
 void MainWindow::shutdownProgram() {
@@ -146,7 +157,19 @@ void MainWindow::shutdownProgram() {
         proc_run = false;
         delete proc;
         proc = nullptr;
-    }
+    } else if(map_init == true) {
+        QMessageBox msgbox;
+        msgbox.setWindowTitle("Do you wish to save?");
+        msgbox.setText("Do you wish to save before exit?");
+        msgbox.setIcon(QMessageBox::Icon::Question);
+        msgbox.setStandardButtons(QMessageBox::Yes);
+        msgbox.addButton(QMessageBox::No);
+        msgbox.setDefaultButton(QMessageBox::Yes);
+        if(msgbox.exec() == QMessageBox::Yes) {
+            saveFile();
+        }
+   }
+
     QApplication::exit(0);
 }
 
