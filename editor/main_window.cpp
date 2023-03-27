@@ -715,6 +715,7 @@ void MainWindow::setNewGfx(const QString &filename) {
 }
 
 void MainWindow::showAbout() {
+    debug_window->Log("editor: written by Jared Bruni.\n");
     about_window->show();
 }
 
