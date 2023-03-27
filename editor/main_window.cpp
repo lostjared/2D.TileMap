@@ -681,7 +681,7 @@ bool MainWindow::loadGfx(const QString &filename, const QString &dir, const QStr
 
             QString txt;
             QTextStream st(&txt);
-            st << "Loaded: " << images.size() << " tiles\nLoaded: " << col.size() << " objects\n";
+            st << "editor: Loaded: " << images.size() << " tiles\neditor: Loaded: " << col.size() << " objects\n";
             debug_window->Log(txt);
             graphics_file = filename;            
             update();
