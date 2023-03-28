@@ -6,6 +6,7 @@
 #include<QListWidget>
 #include<QPushButton>
 #include<QCheckBox>
+#include<QSpinBox>
 
 class MainWindow;
 
@@ -25,11 +26,12 @@ public slots:
     
 protected:
     MainWindow *main_window;
+    QSpinBox *image_index;
     QComboBox *image_type;
     QListWidget *image_list;
     QComboBox *image_solid;
     QPushButton *image_add, *image_remove, *image_build, *image_open;
-    QStringList tile_list, object_list;
+    QStringList tile_list, object_list, other_list;
 
 };
 

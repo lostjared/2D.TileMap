@@ -16,6 +16,7 @@ GfxWindow::GfxWindow(QWidget *parent) : QDialog(parent) {
     image_type->setGeometry(80, 10, 300, 25);
     image_type->addItem(tr("Tile"));
     image_type->addItem(tr("Object"));
+    image_type->addItem(tr("Other"));
     image_type->setCurrentIndex(0);
     image_list = new QListWidget(this);
     image_list->setGeometry(10, 50, 380, 300);
@@ -24,7 +25,7 @@ GfxWindow::GfxWindow(QWidget *parent) : QDialog(parent) {
     image_remove = new QPushButton(tr("-"), this);
     image_remove->setGeometry(65,360,50,25);
     image_solid = new QComboBox(this);
-    image_solid->setGeometry(65+50+5,360,120,25);
+    image_solid->setGeometry(65+50+5,360,85,25);
 
     image_solid->addItem(tr("Clear"));
     image_solid->addItem(tr("Solid"));
@@ -41,6 +42,12 @@ GfxWindow::GfxWindow(QWidget *parent) : QDialog(parent) {
     connect(image_build, SIGNAL(clicked()), this, SLOT(exportFile()));
     connect(image_type, SIGNAL(currentIndexChanged(int)), this, SLOT(setIndex(int)));
     connect(image_open, SIGNAL(clicked()), this, SLOT(loadGfxFile()));
+
+    image_index = new QSpinBox(this);
+    image_index->setValue(0);
+    image_index->setMinimum(0);
+    image_index->setGeometry(400-10-60-60-5-55, 360, 40, 25);
+
 }
 
 void GfxWindow::setMainWindow(MainWindow *main) {
@@ -60,6 +67,11 @@ void GfxWindow::updateList() {
         case 1:
         for(int i = 0; i < object_list.size(); ++i) {
             image_list->addItem(object_list[i]);
+        }
+        break;
+        case 2:
+        for(int i = 0; i < other_list.size(); ++i) {
+            image_list->addItem(other_list[i]);
         }
         break;
     }
@@ -82,6 +94,9 @@ void GfxWindow::addFile() {
                      break;
                 case 1:
                     object_list.append(text);
+                    break;
+                case 2:
+                    other_list.append(text);
                     break;
             }
         }
@@ -116,6 +131,12 @@ void GfxWindow::exportFile() {
             std::string file;
             toTextSolid(object_list[i].toStdString(), solid, file);
             table.addItem(i, solid, 1, file);
+        }
+        for(int i = 0; i < other_list.size(); ++i) {
+            int solid;
+            std::string file;
+            toTextSolid(other_list[i].toStdString(), solid, file);
+            table.addItem(i, solid, image_index->value(), file);
         }
 
         game::GfxCompress cmp;
