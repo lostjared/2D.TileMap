@@ -30,11 +30,13 @@ namespace game {
                     type = 2;
                 } else if(line == "[hero:left]") {
                     type = 3;
-                } else {
+                } else if(line == "[bg1]") {
+                    type = 4;    
+                 } else {
                     std::string tokens[3];
                     auto pos = line.find(":");
                     if(pos == std::string::npos) {
-                        std::cerr << "missing colon on type: " << type << "\n";
+                        std::cerr << "missing colon 1 on type: " << type << "\n";
                         return false;
                     }
                     tokens[0] = line.substr(0, pos);
@@ -42,7 +44,7 @@ namespace game {
                     right = line.substr(pos+1, line.length());
                     pos = right.find(":");
                     if(pos == std::string::npos) {
-                        std::cerr << "missing colon on type: " << type << "\n";
+                        std::cerr << "missing colon 2 on type: " << type << "\n";
                         return false;
                     }
                     tokens[1] = right.substr(0, pos);

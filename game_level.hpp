@@ -40,6 +40,7 @@ namespace game {
         Hero hero;
         bool field_enabled = false;
         StarField field;
+        std::vector<Image> stars;
         std::vector<Image> hero_images_right, hero_images_left;
     };
 }

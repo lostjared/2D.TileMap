@@ -29,7 +29,7 @@ namespace game {
     }
     
     void StarField::proc() {
-
+        if(images.size() == 0) return;
         static int index = 0;
         ++index;
 

@@ -66,6 +66,9 @@ namespace game {
                     case 3:
                         hero_images_left.push_back(img);
                         break;
+                    case 4:
+                        stars.push_back(img);
+                        break;
                 }
                 
                 delete [] buffer;
@@ -168,13 +171,11 @@ namespace game {
         
         bg_img = render_object->loadImage(background);        
 
-
         if(background.find("bg1.bmp") != std::string::npos) {
-            std::vector<Image> stars;
-            stars.push_back(render_object->loadImage("./img/backgrounds/star1.bmp", Color(0, 0, 0)));
-            stars.push_back(render_object->loadImage("./img/backgrounds/star2.bmp", Color(0, 0, 0)));
-            stars.push_back(render_object->loadImage("./img/backgrounds/star3.bmp", Color(0, 0, 0)));
-            stars.push_back(render_object->loadImage("./img/backgrounds/star4.bmp", Color(0, 0, 0)));
+            if(!stars.empty())
+                stars.erase(stars.begin(), stars.end());
+
+            loadResources("./img/bg1.gfx");
             field.setImages(stars);
             field.init(75);
             field_enabled = true;
