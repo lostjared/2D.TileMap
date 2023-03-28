@@ -106,6 +106,21 @@ void GfxWindow::addFile() {
 
 void GfxWindow::rmvFile() {
 
+    int index = image_list->currentRow();
+
+    switch(image_type->currentIndex()) {
+        case 0:
+            tile_list.remove(index);
+        break;
+        case 1:
+            object_list.remove(index);
+        break;
+        case 2:
+            other_list.remove(index);
+        break;
+    }
+
+    updateList();
 }
 
 void GfxWindow::exportFile() {
@@ -184,6 +199,9 @@ void GfxWindow::loadGfxFile() {
                             break;
                             case 1:
                             object_list.append(text);
+                            break;
+                            default:
+                            other_list.append(text);
                             break;
                         }
                     }
