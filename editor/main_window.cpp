@@ -58,17 +58,21 @@ MainWindow::MainWindow() {
 
     file_menu = menuBar()->addMenu(tr("&File"));
     file_new = new QAction(tr("New Map"), this);
+    file_new->setShortcut(tr("Ctrl+N"));
     connect(file_new, SIGNAL(triggered()), this, SLOT(openNewMenu()));
     file_menu->addAction(file_new);
     file_menu->addSeparator();
     //setMouseTracking(true);
     file_load = new QAction(tr("Open Map"), this);
+    file_load->setShortcut(tr("Ctrl+O"));
     connect(file_load, SIGNAL(triggered()), this, SLOT(loadFile()));
     file_menu->addAction(file_load);
     file_save = new QAction(tr("Save Map"), this);
+    file_save->setShortcut(tr("Ctr+S"));
     connect(file_save, SIGNAL(triggered()), this, SLOT(saveFile()));
     file_menu->addAction(file_save);
     file_save_as = new QAction(tr("Save Map As"), this);
+    file_save_as->setShortcut(tr("Ctrl+A"));
     connect(file_save_as, SIGNAL(triggered()), this, SLOT(saveFileAs()));
     file_menu->addAction(file_save_as);
 
@@ -107,14 +111,17 @@ MainWindow::MainWindow() {
 
     level_gfx = new QAction(tr("Level Graphics"));
     connect(level_gfx, SIGNAL(triggered()), this, SLOT(levelGraphicsOpen()));
+    level_gfx->setShortcut(tr("Ctrl+G"));
     level_menu->addAction(level_gfx);
 
     run_menu = menuBar()->addMenu(tr("&Run"));
     run_settings = new QAction(tr("Run &Settings"));
+    run_settings->setShortcut(tr("Ctrl+E"));
     connect(run_settings, SIGNAL(triggered()), this, SLOT(runSettings()));
     run_menu->addAction(run_settings);
     run_menu->addSeparator();
     run_exec = new QAction(tr("&Run"));
+    run_exec->setShortcut(tr("Ctrl+R"));
     connect(run_exec, SIGNAL(triggered()), this, SLOT(runExec()));
     run_menu->addAction(run_exec);
 
