@@ -67,7 +67,7 @@ namespace game {
                         hero_images_left.push_back(img);
                         break;
                     case 4:
-                        stars.push_back(img);
+                        stars.push_back(render_object->loadImage(buffer, length, Color(0, 0, 0)));
                         break;
                 }
                 
@@ -177,7 +177,7 @@ namespace game {
 
             loadResources("./img/bg1.gfx");
             field.setImages(stars);
-            field.init(75);
+            field.init(40);
             field_enabled = true;
         } else {
             field_enabled = false;
