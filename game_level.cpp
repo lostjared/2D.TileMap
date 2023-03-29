@@ -177,7 +177,7 @@ namespace game {
 
             loadResources("./img/bg1.gfx");
             field.setImages(stars);
-            field.init(40);
+            field.init(25);
             field_enabled = true;
         } else {
             field_enabled = false;
