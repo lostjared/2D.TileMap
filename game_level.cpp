@@ -78,54 +78,7 @@ namespace game {
     }
 
     void GameLevel::loadResources() {
-        /*
-        render_object->releaseResources();
-
-        if(!images.empty())
-            images.erase(images.begin(), images.end());
-
-        const char *fileNames[] = {  "black.bmp", "bluebrick.bmp", "bluesky.bmp", "brick.bmp", "eblock.bmp", "red_brick.bmp", "sand1.bmp", "sand2.bmp", "snow.bmp", "stone.bmp", "stone2.bmp", "stone3.bmp", "stone4.bmp", "grass.bmp", 0 };
-        for(uint8_t i = 0; fileNames[i] != 0; ++i) {
-            std::ostringstream stream;
-            stream << "./img/" << fileNames[i];
-            int img = render_object->loadImage(stream.str());
-            images.push_back(img);
-        }
-
-        arial = render_object->loadFont("./img/arial.ttf", 24);
-
-        if(!object_images.empty())
-            object_images.erase(object_images.begin(), object_images.end());
-            
-        object_images.push_back(render_object->loadImage("./img/col1.bmp"));
-        object_images.push_back(render_object->loadImage("./img/col2.bmp"));
-        object_images.push_back(render_object->loadImage("./img/col3.bmp"));
-        object_images.push_back(render_object->loadImage("./img/col4.bmp"));
-        object_images.push_back(render_object->loadImage("./img/col5.bmp"));
-        object_images.push_back(render_object->loadImage("./img/col6.bmp"));
-        object_images.push_back(render_object->loadImage("./img/tree.bmp"));
-
-        if(!hero_images_left.empty())
-            hero_images_left.erase(hero_images_left.begin(), hero_images_left.end());
-
-        if(!hero_images_right.empty())
-            hero_images_right.erase(hero_images_right.begin(), hero_images_right.end());
-         
-
-
-        const char *hero_filenames[] = {"hero1", "hero2", "hero3", "hero4", "hero_jump1", "hero_shot1", "hero_shot2", "hero_shot3", "hero_shot4", "hero_shot5", 0 };
-        for(int i = 0; hero_filenames[i] != 0; ++i) {
-            std::ostringstream stream;
-            stream << "./img/hero/" << hero_filenames[i] << ".bmp";
-            hero_images_right.push_back(render_object->loadImage(stream.str()));
-            stream.str("");
-            stream << "./img/hero/" << hero_filenames[i] << "_left.bmp";
-            hero_images_left.push_back(render_object->loadImage(stream.str()));
-        }
-      
-        hero.setImages(hero_images_left, hero_images_right);
-      
-        */
+        
     }
 
     void GameLevel::release(RenderObject *ro) {
