@@ -91,6 +91,7 @@ private:
     bool reset_window = false;
     QVector<QImage> img, obj;
     int pen_x = 1, pen_y = 1;
+    bool modified = false;
 
     #ifdef __APPLE__
     const int offset_x = 0;

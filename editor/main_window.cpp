@@ -88,7 +88,6 @@ MainWindow::MainWindow() {
     connect(file_exit, SIGNAL(triggered()), this, SLOT(shutdownProgram()));
     file_menu->addAction(file_exit);
 
-
     level_menu = menuBar()->addMenu(tr("&Level"));
     level_left = new QAction(tr("Scroll Left"));
     connect(level_left, SIGNAL(triggered()), this, SLOT(levelLeft()));
@@ -143,7 +142,7 @@ void MainWindow::closeEvent(QCloseEvent *) {
         proc_run = false;
         delete proc;
         proc = nullptr;
-    } else if(map_init == true) {
+    } else if(modified == true && map_init == true) {
         QMessageBox msgbox;
         msgbox.setWindowTitle("Do you wish to save?");
         msgbox.setText("Do you wish to save before exit?");
@@ -164,7 +163,7 @@ void MainWindow::shutdownProgram() {
         proc_run = false;
         delete proc;
         proc = nullptr;
-    } else if(map_init == true) {
+    } else if(modified == true && map_init == true) {
         QMessageBox msgbox;
         msgbox.setWindowTitle("Do you wish to save?");
         msgbox.setText("Do you wish to save before exit?");
@@ -317,6 +316,7 @@ void MainWindow::keyPressEvent(QKeyEvent *e) {
 
 void MainWindow::setTile(const QPoint &pos) {
     if(map_init == true) {
+        modified = true;
         int x,y;
         if(game::atPoint(pos.x(), pos.y()-offset_y,16,16,x, y)) {
             game::Tile *tile = level.at(pos_x+x, pos_y+y);
@@ -367,6 +367,7 @@ void MainWindow::setTile(const QPoint &pos) {
 
 void MainWindow::setObject(const QPoint &pos) {
     if(map_init == true) {
+        modified = true;
         if(tool_window->tool->currentIndex() == 1) {
             int width = col[tool_window->tile_objects->currentIndex()].width();
             int height = col[tool_window->tile_objects->currentIndex()].height();
@@ -418,6 +419,7 @@ void MainWindow::createdNewMap() {
     QTextStream stream(&txt);
     stream << tr("editor: Created new map: [") << level.width << "x" << level.height << "]\n";
     debug_window->Log(txt);
+    modified = false;
 }
 
 void MainWindow::updateTitle() {
@@ -466,6 +468,7 @@ void MainWindow::saveFile() {
             } else {
                 updateTitle();
                 debug_window->Log(tr("editor: Saved level.\n"));
+                modified = false;
             }
     }
 }
@@ -486,6 +489,7 @@ void MainWindow::saveFileAs() {
                 file_name = filename;
                 debug_window->Log(tr("editor: Saved level as: ") + file_name + "\n");
                 updateTitle();
+                modified = false;
             }
         }
     }
@@ -515,6 +519,7 @@ bool MainWindow::loadLevelFile(const QString &filename, const QString &gfx_file,
         msgbox.exec();
         return false;
     }
+    modified = false;
     return true;
 }
 
