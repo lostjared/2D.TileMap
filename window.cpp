@@ -42,6 +42,10 @@ namespace game {
                     joysticks.push_back(stick);
                 }
             }
+
+            if(joysticks.size() == 0)
+                std::cout << "game: No Joysticks found.\n";
+                
          }
 
         void release_images() {
