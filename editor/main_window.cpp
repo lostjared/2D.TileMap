@@ -124,6 +124,12 @@ MainWindow::MainWindow() {
     connect(run_exec, SIGNAL(triggered()), this, SLOT(runExec()));
     run_menu->addAction(run_exec);
 
+    view_menu = menuBar()->addMenu(tr("&View"));
+    view_show_tool = new QAction(tr("Show ToolBox"));
+    connect(view_show_tool, SIGNAL(triggered()), this, SLOT(showTool()));
+
+    view_menu->addAction(view_show_tool);
+
     help_menu = menuBar()->addMenu(tr("&Help"));
     help_about = new QAction(tr("&About"));
     connect(help_about, SIGNAL(triggered()), this, SLOT(showAbout()));
@@ -763,4 +769,8 @@ void MainWindow::setPenSize(int px, int py) {
     QTextStream stream(&text);
     stream << tr("editor: Set Pencil Size: ") << pen_x << ", " << pen_y << "\n";
     debug_window->Log(text);
+}
+
+void MainWindow::showTool() {
+    tool_window->show();
 }

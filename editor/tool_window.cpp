@@ -5,6 +5,7 @@ ToolWindow::ToolWindow(QWidget *parent) : QDialog(parent) {
     setFixedSize(150, 480);
     setWindowTitle(tr("Toolbox"));
     setWindowFlag(Qt::Tool);
+    
     QLabel *lbl_tile = new QLabel(tr("Tiles: "), this);
     lbl_tile->setGeometry(20, 65, 75, 20);
     tiles = new QComboBox(this);
