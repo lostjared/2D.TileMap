@@ -20,6 +20,8 @@
 
 const int MAP_WIDTH=1280/16;
 const int MAP_HEIGHT=720/16;
+const int MAP_W = 1280;
+const int HAP_H = 720;
 
 class MainWindow : public QMainWindow {
     Q_OBJECT

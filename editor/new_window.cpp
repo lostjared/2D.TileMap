@@ -94,7 +94,7 @@ void NewWindow::createMap() {
     int height = page_height1->value();
     QString levelName = page_name->text();
     level->setLevelName(levelName.toStdString());
-    level->create(1280/16 * width, 720/16 * height, game::Tile{});
+    level->create(MAP_WIDTH * width, MAP_HEIGHT * height, game::Tile{});
     if(main_window->loadGfx(gfx_box->currentText(), extract_dir->text(), page_background->text())) {
         main_window->createdNewMap();
     } 
