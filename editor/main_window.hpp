@@ -44,6 +44,7 @@ public:
     void setNewGfx(const QString &filename);
     bool loadLevelFile(const QString &filename, const QString &gfx_file, const QString &background, const QString &dir);
     void setPenSize(int px, int py);
+    void askSave();
     DebugWindow *debug_window;
 public slots:
     void openNewMenu();

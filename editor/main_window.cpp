@@ -143,16 +143,7 @@ void MainWindow::closeEvent(QCloseEvent *) {
         delete proc;
         proc = nullptr;
     } else if(modified == true && map_init == true) {
-        QMessageBox msgbox;
-        msgbox.setWindowTitle("Do you wish to save?");
-        msgbox.setText("Do you wish to save before exit?");
-        msgbox.setIcon(QMessageBox::Icon::Question);
-        msgbox.setStandardButtons(QMessageBox::Yes);
-        msgbox.addButton(QMessageBox::No);
-        msgbox.setDefaultButton(QMessageBox::Yes);
-        if(msgbox.exec() == QMessageBox::Yes) {
-            saveFile();
-        }
+        askSave();
    }
 }
 
@@ -164,19 +155,23 @@ void MainWindow::shutdownProgram() {
         delete proc;
         proc = nullptr;
     } else if(modified == true && map_init == true) {
-        QMessageBox msgbox;
-        msgbox.setWindowTitle("Do you wish to save?");
-        msgbox.setText("Do you wish to save before exit?");
-        msgbox.setIcon(QMessageBox::Icon::Question);
-        msgbox.setStandardButtons(QMessageBox::Yes);
-        msgbox.addButton(QMessageBox::No);
-        msgbox.setDefaultButton(QMessageBox::Yes);
-        if(msgbox.exec() == QMessageBox::Yes) {
-            saveFile();
-        }
-   }
-
+        askSave();
+    }
     QApplication::exit(0);
+}
+
+void MainWindow::askSave() {
+    QMessageBox msgbox;
+    msgbox.setWindowTitle("Do you wish to save?");
+    msgbox.setText("Do you wish to save?");
+    msgbox.setIcon(QMessageBox::Icon::Question);
+    msgbox.setStandardButtons(QMessageBox::Yes);
+    msgbox.addButton(QMessageBox::No);
+    msgbox.setDefaultButton(QMessageBox::Yes);
+    if(msgbox.exec() == QMessageBox::Yes) {
+        saveFile();
+        modified = false;
+    }
 }
 
 void MainWindow::readStdout() {
@@ -405,7 +400,7 @@ void MainWindow::setObject(const QPoint &pos) {
 }
 
 
-void MainWindow::createdNewMap() {
+void MainWindow::createdNewMap() { 
     updateTitle();
     tool_window->camera_x->setMinimum(0);
     tool_window->camera_x->setMaximum(level.width-(1280/16));
@@ -450,6 +445,9 @@ void MainWindow::updateLabelText() {
 
 
 void MainWindow::openNewMenu() {
+     if(modified == true) {
+        askSave();
+    }
     new_window->show();
 }
 
