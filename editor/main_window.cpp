@@ -90,18 +90,22 @@ MainWindow::MainWindow() {
 
     level_menu = menuBar()->addMenu(tr("&Level"));
     level_left = new QAction(tr("Scroll Left"));
+    level_left->setShortcut(tr("Ctrl+Left"));
     connect(level_left, SIGNAL(triggered()), this, SLOT(levelLeft()));
     level_menu->addAction(level_left);
 
     level_right = new QAction(tr("Scroll Right"));
+    level_right->setShortcut(tr("Ctrl+Right"));
     connect(level_right, SIGNAL(triggered()), this, SLOT(levelRight()));
     level_menu->addAction(level_right);
 
     level_up = new QAction(tr("Scroll Up"));
+    level_up->setShortcut(tr("Ctrl+Up"));
     connect(level_up, SIGNAL(triggered()), this, SLOT(levelUp()));
     level_menu->addAction(level_up);
 
     level_down = new QAction(tr("Scroll Down"));
+    level_down->setShortcut(tr("Ctrl+Down"));
     connect(level_down, SIGNAL(triggered()), this, SLOT(levelDown()));
     level_menu->addAction(level_down);
     connect(tool_window->hover_object, SIGNAL(stateChanged(int)), this, SLOT(updateMap(int)));
