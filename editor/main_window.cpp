@@ -126,6 +126,7 @@ MainWindow::MainWindow() {
 
     view_menu = menuBar()->addMenu(tr("&View"));
     view_show_tool = new QAction(tr("Show ToolBox"));
+    view_show_tool->setShortcut(tr("Ctrl+T"));
     connect(view_show_tool, SIGNAL(triggered()), this, SLOT(showTool()));
 
     view_menu->addAction(view_show_tool);
