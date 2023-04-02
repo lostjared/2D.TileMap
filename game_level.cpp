@@ -368,6 +368,9 @@ namespace game {
         frame_count << frame_counter << " FPS Camera: X: " << cam.getX() << " - Y: " << cam.getY() << " HX: "<< hero.x << " HY: " << hero.y;
         ro->printText(arial, 15, 15, frame_count.str(), Color(255,255,255));
 #endif
+        std::ostringstream score_stream;
+        score_stream << "Lives: " << lives << " Score: " << score; 
+        ro->printText(arial, 25, 50, score_stream.str(), Color(255, 255, 255));
     }
 
     bool GameLevel::checkPoint(const Point &p) {
