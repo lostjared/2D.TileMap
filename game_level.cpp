@@ -274,6 +274,9 @@ namespace game {
                     int hy = hero.y+cam.getCamY();
                     bool solid = level.checkRect(Rect(hx-1, hy, 1, 3));
                     if(solid) {
+                        if(hero.falling == true && level.check({Point{hx-1, hy+4}})) {
+
+                        } else
                         if((cam.getX() == 0 && hero.x > 0 && hero.x <= HALF_MAP_W) || hero.x > 40) {
                             hero.moveLeft(false);
                         }  
