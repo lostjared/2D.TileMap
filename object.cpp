@@ -40,6 +40,10 @@ namespace game {
     }
 
     void Hero::init(RenderObject *ro) {
+        reset();
+    }
+
+    void Hero::reset() {
         cur_frame = 0;
         dir = Direction::RIGHT;
         x = 5;

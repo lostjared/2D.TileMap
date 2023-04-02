@@ -21,6 +21,7 @@ namespace game {
         void loadResources(const std::string &gfx_file);
         void loadResources();
         bool checkPoint(const Point &p);
+        void resetLevel();
     protected:    
         Level level;
         Camera cam;

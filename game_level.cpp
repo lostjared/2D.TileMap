@@ -13,6 +13,13 @@ namespace game {
         hero.init(ro);
     }
 
+    void GameLevel::resetLevel() {
+        cam.reset();
+        hero.reset();
+
+        // reset items / objects
+    }
+
     void GameLevel::loadResources(const std::string &gfx_file) {
     
         std::fstream file;

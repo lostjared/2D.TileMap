@@ -45,6 +45,7 @@ namespace game {
         void setImages(const std::vector<Image> &vl, const std::vector<Image> &vr);
         void draw(RenderObject *ro, int x, int y) override;
         void release() override;
+        void reset();
         void moveLeft(bool scroll);
         void moveRight(bool scroll);
         void moveDown(bool draw);

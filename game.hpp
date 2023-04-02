@@ -132,7 +132,7 @@ namespace game {
 
     using Point = TPoint<int32_t>;
 
-    enum class Key { KEY_LEFT=1, KEY_RIGHT, KEY_UP, KEY_DOWN, KEY_A, KEY_S };
+    enum class Key { KEY_LEFT=1, KEY_RIGHT, KEY_UP, KEY_DOWN, KEY_A, KEY_S, KEY_R };
 
     using Font = int;
     using Image = int;
