@@ -243,7 +243,12 @@ namespace game {
                 int hx = hero.x+cam.getCamX();
                 int hy = hero.y+cam.getCamY();
                 bool solid = level.checkRect(Rect(hx+1, hy, 1, 3));
-                if(solid) {
+
+                if(solid) {     
+
+                    if(hero.falling == true && level.check({Point{hx+2, hy+4}})) {
+                        
+                    } else 
                     if(hero.x <= HALF_MAP_W) {
                         hero.moveRight(false);                
                     } else {
