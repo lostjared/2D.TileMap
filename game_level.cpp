@@ -301,6 +301,17 @@ namespace game {
             if(hero.grounded == false)
                 hero.restore();
         }
+
+#ifdef DEBUG_MODE
+
+    if(amt > 20) {
+        if(ro->keyDown(Key::KEY_R)) {
+            resetLevel();
+        }
+    }
+
+#endif
+
         if(amt > 20) {
             hero.update(&cam); 
             int hx = hero.x+cam.getCamX();
@@ -337,6 +348,7 @@ namespace game {
         
 
 #ifdef DEBUG_MODE
+
         unsigned int tc = tick / 1000;
         static unsigned int pv = 0;
         static unsigned int frame_c = 0;
