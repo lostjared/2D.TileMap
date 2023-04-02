@@ -22,11 +22,17 @@ namespace game {
          ~SDL_RenderObject() {
             release_images();
             release_joysticks();
+            std::cout << "game: SDL2 Shtudown...\n";
             TTF_Quit();
             SDL_Quit();
          }
 
          void release_joysticks() {
+
+            if(joysticks.size() == 0) {
+                std::cout << "game: No joysticks to shutdown...\n";
+            }
+
             for(std::vector<SDL_Joystick *>::size_type i = 0; i < joysticks.size(); ++i) {
                 std::cout << "game:  Closing: " << SDL_JoystickName(joysticks[i]) << "\n";
                 SDL_JoystickClose(joysticks[i]);
