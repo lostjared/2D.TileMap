@@ -7,16 +7,25 @@
 
 namespace game {
 
-  void GameLevel::init(RenderObject *ro) {
+    void GameLevel::init(RenderObject *ro) {
         render_object = ro;
         delta = 0;
         hero.init(ro);
+        newGame();
+    }
+
+    void GameLevel::newGame() {
+        score = 0;
+        lives = 10;
     }
 
     void GameLevel::resetLevel() {
         cam.reset();
         hero.reset();
-
+        lives --;
+        if(lives <= 0) {
+            // game over
+        }
         // reset items / objects
     }
 

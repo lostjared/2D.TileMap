@@ -22,6 +22,7 @@ namespace game {
         void loadResources();
         bool checkPoint(const Point &p);
         void resetLevel();
+        void newGame();
     protected:    
         Level level;
         Camera cam;
@@ -43,6 +44,7 @@ namespace game {
         StarField field;
         std::vector<Image> stars;
         std::vector<Image> hero_images_right, hero_images_left;
+        int score, lives;
     };
 }
 
