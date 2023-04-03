@@ -23,6 +23,8 @@ namespace game {
         bool checkPoint(const Point &p);
         void resetLevel();
         void newGame();
+        int hX() const;
+        int hY() const;
     protected:    
         Level level;
         Camera cam;

@@ -14,6 +14,15 @@ namespace game {
         newGame();
     }
 
+    int GameLevel::hX() const {
+        return hero.x + cam.getCamX();
+    }
+     
+    int GameLevel::hY() const {
+        return hero.y + cam.getCamY();
+    }
+
+
     void GameLevel::newGame() {
         score = 0;
         lives = 10;
@@ -311,7 +320,7 @@ namespace game {
                 hero.restore();
         }
 
-        if(level.checkRectForType(Rect(hero.x+cam.getCamX(), hero.y+cam.getCamY(), 2, 4), 2)) {
+        if(level.checkRectForType(Rect(hX(), hY(), 2, 4), 2)) {
             resetLevel();
         }
 
@@ -369,7 +378,7 @@ namespace game {
             frame_c += 1;
         }
         std::ostringstream frame_count;
-        frame_count << frame_counter << " FPS Camera: X: " << cam.getX() << " - Y: " << cam.getY() << " HX: "<< hero.x << " HY: " << hero.y;
+        frame_count << frame_counter << " FPS Camera: X: " << cam.getX() << " - Y: " << cam.getY() << " HX: "<< hero.x << "/" << hX() << " HY: " << hero.y << "/" << hY();
         ro->printText(arial, 15, 15, frame_count.str(), Color(255,255,255));
 #endif
         std::ostringstream score_stream;
