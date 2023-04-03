@@ -216,7 +216,7 @@ namespace game {
                 if(tile != nullptr && tile->img != 0) {
                     int xx = (x - start_col) * tsize + off_x;
                     int yy = (y - start_row) * tsize + off_y;
-                    if(tile->img != 0)
+                    if(tile->solid != 2 && tile->solid != 3)
                     ro->drawAt(images[tile->img], xx, yy);                 
                 }
             }
@@ -309,6 +309,10 @@ namespace game {
         } else {
             if(hero.grounded == false)
                 hero.restore();
+        }
+
+        if(level.checkRectForType(Rect(hero.x+cam.getCamX(), hero.y+cam.getCamY(), 2, 4), 2)) {
+            resetLevel();
         }
 
 #ifdef DEBUG_MODE
