@@ -40,6 +40,7 @@ namespace game {
         bool checkTileSolid(int x, int y);
         bool check(const std::vector<Point> &p);
         bool checkRect(const Rect &r);
+        bool checkRectForType(const Rect &r, int type);
    protected:
         Tile **tiles;
         bool resizeTiles(int32_t w, int32_t h);

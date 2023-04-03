@@ -185,6 +185,20 @@ namespace game {
         return true;
     }
 
+    bool Level::checkRectForType(const Rect &r, int type) {
+        for(int i = r.x; i <= r.x+r.w; ++i) {
+            for(int z = r.y; z <= r.y+r.h; ++z) {
+                Tile *tile = at(i, z);
+                if(tile != nullptr) {
+                    if(tile->solid == type)
+                        return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
     void Level::setLevelName(const std::string &name) {
          level_name = name;
     }
