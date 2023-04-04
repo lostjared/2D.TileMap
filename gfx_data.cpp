@@ -11,6 +11,7 @@ namespace game {
 
         if(magic != 0x421) {
             std::cerr << "game: Invalid resource file...\n";
+            close();
             return false;
         }
 
