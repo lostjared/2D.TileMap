@@ -17,6 +17,7 @@ namespace game {
         GfxData() = default;
         bool open(const std::string &filename);
         bool load(RenderObject *ro, const Color &c);
+        void close();
     protected:
         std::vector<GfxImage> gfx;
         std::fstream file;

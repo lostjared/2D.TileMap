@@ -16,6 +16,11 @@ namespace game {
 
         return true;   
     }
+
+    void GfxData::close() {
+        file.close();
+    }
+
     bool GfxData::load(RenderObject *ro, const Color &c) {    
         if(!file.is_open())
             return false;
@@ -42,7 +47,7 @@ namespace game {
                 delete [] buffer;
             }
        }
-       file.close();
+       close();
        return true;
     }
 
