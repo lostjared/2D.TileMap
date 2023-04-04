@@ -6,6 +6,8 @@
 #include"game.hpp"
 #include"object.hpp"
 #include"star_field.hpp"
+#include"gfx_data.hpp"
+
 #include<vector>
 
 namespace game {

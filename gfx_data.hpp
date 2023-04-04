@@ -9,7 +9,7 @@
 namespace game {
 
     struct GfxImage {
-        int image;
+        Image image;
     };
 
     class GfxData {
