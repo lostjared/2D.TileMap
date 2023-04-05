@@ -3,8 +3,10 @@
 namespace game {
     bool GfxData::open(const std::string &filename) {
         file.open(filename, std::ios::in | std::ios::binary);
-        if(!file.is_open())
+        if(!file.is_open()) {
+            std::cout << "game: Error could not open resource file: " << filename << "\n";
             return false;
+        }
 
         uint32_t magic = 0;
         file.read(reinterpret_cast<char*>(&magic), sizeof(magic));

@@ -19,7 +19,7 @@ namespace game {
         bool load(RenderObject *ro, const Color &c);
         
         template<typename F>
-        bool load(RenderObject *ro, const Color &c, F f) {
+        bool load(RenderObject *ro, F f) {
             if(!file.is_open())
                 return false;
                 while(!file.eof()) {
@@ -39,8 +39,7 @@ namespace game {
                         file.read(reinterpret_cast<char*>(&length), sizeof(uint32_t));
                         char *buffer = new char [ length + 1 ];
                         file.read(buffer, length);
-                        Image img = ro->loadImage(buffer, length, c);
-                        f(obj, img);     
+                        f(obj, buffer, length);     
                         delete [] buffer;
                     }
             }

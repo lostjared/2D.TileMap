@@ -1,4 +1,5 @@
 #include"game_level.hpp"
+#include"gfx_data.hpp"
 #include"window_const.hpp"
 #include<sstream>
 #include<iostream>
@@ -38,68 +39,29 @@ namespace game {
         // reset items / objects
     }
 
-    void GameLevel::loadResources(const std::string &gfx_file) {
-    
-        std::fstream file;
-        file.open(gfx_file, std::ios::in | std::ios::binary);
-        if(!file.is_open()) {
-            std::cerr << "Error could not open graphics file: " << gfx_file << "\n";
-            exit(EXIT_FAILURE);
-        }
-
-        uint32_t magic = 0;
-        file.read(reinterpret_cast<char*>(&magic), sizeof(magic));
-
-        if(magic != 0x421) {
-            std::cerr << "game: Invalid resource file...\n";
-            exit(EXIT_FAILURE);
-        }
-
-        std::cout << "game: Loading resource file: " << gfx_file << "\n";
-
-        while(!file.eof()) {
-            uint32_t len;
-            file.read(reinterpret_cast<char*>(&len), sizeof(len));
-            if(file) {
-                char *tmp = new char [len+1];
-                file.read(reinterpret_cast<char*>(tmp), len);
-                tmp[len] = 0;
-                std::string filename;
-                filename = tmp;
-                delete [] tmp;
-                uint32_t index = 0, solid = 0, obj = 0, length = 0;
-                file.read(reinterpret_cast<char*>(&index), sizeof(uint32_t));
-                file.read(reinterpret_cast<char*>(&solid), sizeof(uint32_t));
-                file.read(reinterpret_cast<char*>(&obj), sizeof(uint32_t));
-                file.read(reinterpret_cast<char*>(&length), sizeof(uint32_t));
-                std::cout << "reading file: " << filename  << " of size: " << length << " index: " << index << " solid: " << solid << " obj: " << obj << "\n";
-                char *buffer = new char [ length + 1 ];
-                file.read(buffer, length);
-                // read image
-                Image img = render_object->loadImage(buffer, length, Color(255, 255, 255));
-
-                switch(obj) {
-                    case 0:
-                        images.push_back(img);
-                        break;
-                    case 1:
-                        object_images.push_back(img);
-                        break;
-                    case 2:
-                        hero_images_right.push_back(img);
-                        break;
-                    case 3:
-                        hero_images_left.push_back(img);
-                        break;
-                    case 4:
-                        stars.push_back(render_object->loadImage(buffer, length, Color(0, 0, 0)));
-                        break;
-                }
-                
-                delete [] buffer;
+    void GameLevel::loadResources(const std::string &gfx_file) {  
+            GfxData data;
+            if(data.open(gfx_file)) {
+                data.load(render_object, [&](int obj, char *buffer, int size) {
+                    switch(obj) {
+                        case 0:
+                            images.push_back(render_object->loadImage(buffer, size, Color(255, 255, 255)));
+                            break;
+                        case 1:
+                            object_images.push_back(render_object->loadImage(buffer, size, Color(255, 255, 255)));
+                            break;
+                        case 2:
+                            hero_images_right.push_back(render_object->loadImage(buffer, size, Color(255, 255, 255)));
+                            break;
+                        case 3:
+                            hero_images_left.push_back(render_object->loadImage(buffer, size, Color(255, 255, 255)));
+                            break;
+                        case 4:
+                            stars.push_back(render_object->loadImage(buffer, size, Color(0,0,0)));
+                            break;
+                    }
+                });
             }
-        } 
-        file.close();    
     }
 
     void GameLevel::loadResources() {
