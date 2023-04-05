@@ -41,7 +41,9 @@ namespace game {
 
     void GameLevel::loadResources(const std::string &gfx_file) {  
             GfxData data;
+
             if(data.open(gfx_file)) {
+                std::cout << "game: Opened resource file: " << gfx_file << "\n";
                 data.load(render_object, [&](int obj, char *buffer, int size) {
                     switch(obj) {
                         case 0:
@@ -61,6 +63,9 @@ namespace game {
                             break;
                     }
                 });
+            } else {
+                std::cout << "game: Could not open resource file: " << gfx_file << "....\n";
+                exit(EXIT_FAILURE);
             }
     }
 
