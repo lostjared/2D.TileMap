@@ -19,7 +19,7 @@ namespace game {
         bool load(RenderObject *ro, const Color &c);
         
         template<typename F>
-        bool load(RenderObject *ro, F f) {
+        bool load(F f) {
             if(!file.is_open())
                 return false;
                 while(!file.eof()) {

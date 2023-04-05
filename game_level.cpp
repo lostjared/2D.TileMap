@@ -41,10 +41,9 @@ namespace game {
 
     void GameLevel::loadResources(const std::string &gfx_file) {  
             GfxData data;
-
             if(data.open(gfx_file)) {
                 std::cout << "game: Opened resource file: " << gfx_file << "\n";
-                data.load(render_object, [&](int obj, char *buffer, int size) {
+                data.load([&](int obj, char *buffer, int size) {
                     switch(obj) {
                         case 0:
                             images.push_back(render_object->loadImage(buffer, size, Color(255, 255, 255)));
