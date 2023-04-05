@@ -15,6 +15,7 @@ class PrefWindow : public QDialog {
 public:
     PrefWindow(QWidget *parent = 0);
     void setMainWindow(MainWindow *m);
+    void setMaxSize(int sx, int sy);
 public slots:
     void saveDetails();
     

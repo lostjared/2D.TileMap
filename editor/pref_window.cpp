@@ -9,7 +9,6 @@ PrefWindow::PrefWindow(QWidget *parent) : QDialog(parent) {
     pref_pen_w = new QSpinBox(this);
     pref_pen_w->setValue(1);
     pref_pen_w->setMinimum(1);
-
     pref_pen_w->setGeometry(110,10,100,20);
     QLabel *lbl_h = new QLabel(tr("Pencil height: "), this);
     lbl_h->setGeometry(10, 40, 100, 25);
@@ -24,6 +23,13 @@ PrefWindow::PrefWindow(QWidget *parent) : QDialog(parent) {
 
 void PrefWindow::setMainWindow(MainWindow *m) {
     main_window = m;
+}
+
+void PrefWindow::setMaxSize(int sx, int sy) {
+    pref_pen_w->setMinimum(1);
+    pref_pen_w->setMaximum(sx);
+    pref_pen_h->setMinimum(1);
+    pref_pen_h->setMaximum(sy);
 }
 
 

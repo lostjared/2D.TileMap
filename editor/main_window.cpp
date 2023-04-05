@@ -433,6 +433,7 @@ void MainWindow::updateTitle() {
     QTextStream stream(&title);
     stream << file_name << " - Map [" << level.width << "x" << level.height << "] - " << level.getLevelName().c_str();
     setWindowTitle(title);
+    pref_window->setMaxSize(level.width, level.height);
 
 }
 
