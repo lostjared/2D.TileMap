@@ -629,7 +629,7 @@ void MainWindow::runExec() {
                 msgbox.setIcon(QMessageBox::Icon::Warning);
                 msgbox.setWindowIcon(QIcon(":/images/col1.bmp"));
                 msgbox.exec();
-                debug_window->Log("editor: Could not open map executable file: " + path+"/test-game");
+                debug_window->Log("editor: Could not open map executable file: " + path+"/test-game\n");
             }
         } else {
             proc->terminate();
