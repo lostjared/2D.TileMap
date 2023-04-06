@@ -210,7 +210,6 @@ namespace game {
             if(scroll_map[2] == false) {
                 draw_y += 16;
                 cur_frame = 4;
-                moving_index[2] = 0;
                 grounded = false;
                 y += 1;
             } else {
