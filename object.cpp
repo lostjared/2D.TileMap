@@ -111,7 +111,7 @@ namespace game {
 
     void Hero::cycle_frame() {
        cur_frame++;
-       if(cur_frame > 3)
+       if(cur_frame > 2)
             cur_frame = 0;
     }
 
