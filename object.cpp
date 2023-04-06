@@ -103,7 +103,6 @@ namespace game {
     void Hero::moveDown(bool scroll) {
         if(grounded == false) {
             grounded = true;
-            moving_index[2] = 0;
             scroll_map[2] = scroll;
         }
      }
@@ -209,24 +208,15 @@ namespace game {
             } 
         } else if(grounded == true) {
             if(scroll_map[2] == false) {
-                draw_y += 8;
+                draw_y += 16;
                 cur_frame = 4;
-                moving_index[2] ++;
-                if((moving_index[2]%2) == 0) {
-                    moving_index[2] = 0;
-                    cur_frame = 4;
-                    grounded = false;
-                    y += 1;
-                }
+                moving_index[2] = 0;
+                grounded = false;
+                y += 1;
             } else {
                 cur_frame = 4;
-                moving_index[2] ++;
-                cam->move(0.5f, 0.0f, 1.0f);
-                if((moving_index[2]%2) == 0 && (cam->getY()%16)==0) {
-                    moving_index[2] = 0;
-                    cur_frame = 4;
-                    grounded = false;
-                }
+                cam->move(1.0f, 0.0f, 1.0f);
+                grounded = false;
             }
         } 
     }
