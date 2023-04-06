@@ -110,19 +110,9 @@ namespace game {
 
 
     void Hero::cycle_frame() {
-        if(move_right == true) {
-            cur_frame ++;
-            if(cur_frame >= 2) {
-                cur_frame = 2;
-                move_right = false;
-            }
-        } else {
-            cur_frame--;
-            if(cur_frame <= 0) {
-                cur_frame = 0;
-                move_right = true;
-            }
-        }
+       cur_frame++;
+       if(cur_frame > 3)
+            cur_frame = 0;
     }
 
     void Hero::update(Camera *cam) {

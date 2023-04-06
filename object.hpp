@@ -67,9 +67,9 @@ namespace game {
         int jump_index = 0, jump_height[2] ={0};
         bool moving_ = false;
         int moving_index[4] = {0};
-        bool scroll_map[5] =  {false};  
-           
-    
+        bool scroll_map[5] =  {false}; 
+        int walk_frames[8] = { 0, 1, 2, 3, 2, 1, 0 }; 
+        int walk_frame = 0;
     };
 
 }
