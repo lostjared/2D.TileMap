@@ -166,7 +166,6 @@ namespace game {
 
     void Hero::updateDown(Level *level, Camera *cam) {
 
-        
         if(jumping == true) {
             bool dir[3];
             int hx = x+cam->getCamX();

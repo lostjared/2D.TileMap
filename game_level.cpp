@@ -290,13 +290,6 @@ namespace game {
             resetLevel();
         }
 
-#ifdef DEBUG_MODE
-    if(amt > 20) {
-        if(ro->keyDown(Key::KEY_R)) {
-            resetLevel();
-        }
-    }
-#endif
         if(amt > 20) {
             hero.update(&cam); 
             int hx = hero.x+cam.getCamX();
@@ -357,8 +350,10 @@ namespace game {
     }
 
     void GameLevel::keydown(char key) {
-
-  
+#ifdef DEBUG_MODE
+        if(key == 'r' || key == 'R')
+            resetLevel();
+#endif
     }
      
     void GameLevel::keyup(char key) {
