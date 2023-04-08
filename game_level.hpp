@@ -21,7 +21,6 @@ namespace game {
         void keyup(char key) override;  
         void loadLevel(const std::string &filename, const std::string &gfx_file, const std::string &background);
         void loadResources(const std::string &gfx_file);
-        void loadResources();
         bool checkPoint(const Point &p);
         void resetLevel();
         void newGame();

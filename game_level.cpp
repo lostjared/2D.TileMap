@@ -68,10 +68,6 @@ namespace game {
             }
     }
 
-    void GameLevel::loadResources() {
-        
-    }
-
     void GameLevel::release(RenderObject *ro) {
         std::cout << "Level objects release\n";
          if(!objects.empty()) {
