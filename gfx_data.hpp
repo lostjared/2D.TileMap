@@ -23,7 +23,6 @@ namespace game {
             if(!file.is_open()) {
                 return false;
             }
-
             while(!file.eof()) {
                 uint32_t len;
                 file.read(reinterpret_cast<char*>(&len), sizeof(len));

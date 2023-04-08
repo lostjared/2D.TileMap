@@ -7,16 +7,13 @@ namespace game {
             std::cout << "game: Error could not open resource file: " << filename << "\n";
             return false;
         }
-
         uint32_t magic = 0;
         file.read(reinterpret_cast<char*>(&magic), sizeof(magic));
-
         if(magic != 0x421) {
             std::cerr << "game: Invalid resource file...\n";
             close();
             return false;
         }
-
         return true;   
     }
 
@@ -25,9 +22,9 @@ namespace game {
     }
 
     bool GfxData::load(RenderObject *ro, const Color &c) {    
-        if(!file.is_open())
+        if(!file.is_open()) {
             return false;
-
+        }
         while(!file.eof()) {
             uint32_t len;
             file.read(reinterpret_cast<char*>(&len), sizeof(len));
