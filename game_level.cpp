@@ -284,10 +284,8 @@ namespace game {
 
         if(level.checkRectForType(Rect(hX(), hY(), 2, 4), 2)) {
             resetLevel();
-        }
-        if(level.checkRectForType(Rect(hX(), hY(), 2, 4), 3)) {
+        } else if(level.checkRectForType(Rect(hX(), hY(), 2, 4), 3)) {
             // complete level
-            
         }
 
         if(amt > 20) {
