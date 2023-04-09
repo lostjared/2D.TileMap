@@ -227,6 +227,10 @@ namespace game {
                 if(hero.falling == false) 
                     hero.jump();
             }
+        } else if(ro->keyDown(Key::KEY_S)) {
+            if(amt > 20) {
+                hero.fire();
+            }
         }
 
         if(ro->keyDown(Key::KEY_RIGHT)) {

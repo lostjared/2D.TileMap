@@ -240,6 +240,10 @@ namespace game {
         }
     }
 
+    void Hero::fire() {
+        
+    }
+
     void Hero::proc_jump(Level *level, Camera *cam) {
 
     }

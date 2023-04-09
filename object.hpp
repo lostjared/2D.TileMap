@@ -53,6 +53,7 @@ namespace game {
         void restore();
         void cycle_frame();
         void jump();
+        void fire();
         void proc_jump(Level *level, Camera *cam);
         bool isJumping() const;
         void update(Camera *cam);
