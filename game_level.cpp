@@ -39,6 +39,10 @@ namespace game {
         // reset items / objects
     }
 
+    void GameLevel::nextLevel() {
+        
+    }
+
     void GameLevel::loadResources(const std::string &gfx_file) {  
             GfxData data;
             if(data.open(gfx_file)) {
@@ -285,7 +289,7 @@ namespace game {
         if(level.checkRectForType(Rect(hX(), hY(), 2, 4), 2)) {
             resetLevel();
         } else if(level.checkRectForType(Rect(hX(), hY(), 2, 4), 3)) {
-            // complete level
+            nextLevel();
         }
 
         if(amt > 20) {
