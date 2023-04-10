@@ -1,4 +1,5 @@
 #include"particles.hpp"
+#include"game.hpp"
 
 namespace game {
 
@@ -6,4 +7,16 @@ namespace game {
         particles.push_back( { x,y,type,dir } );
     }
 
+    void ParticleEmiter::setImages(const std::vector<int> &v) {
+        if(!images.empty()) {
+            images.erase(images.begin(), images.end());
+        }
+
+        std::copy(v.begin(), v.end(), std::back_inserter(images));
+    }
+
+
+    void ParticleEmiter::draw(RenderObject *ro) {
+
+    }
 }
