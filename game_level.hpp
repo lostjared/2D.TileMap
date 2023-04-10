@@ -7,6 +7,7 @@
 #include"object.hpp"
 #include"star_field.hpp"
 #include"gfx_data.hpp"
+#include"particles.hpp"
 
 #include<vector>
 
@@ -46,6 +47,7 @@ namespace game {
         Hero hero;
         bool field_enabled = false;
         StarField field;
+        ParticleEmiter emiter;
         std::vector<Image> stars;
         std::vector<Image> hero_images_right, hero_images_left;
         int score, lives;
