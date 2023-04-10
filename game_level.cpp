@@ -235,111 +235,110 @@ namespace game {
 
         if(hero.shot == false) {
 
-        if(ro->keyDown(Key::KEY_RIGHT)) {
-            if(amt > 20) {
-                int hx = hero.x+cam.getCamX();
-                int hy = hero.y+cam.getCamY();
-                bool solid = level.checkRect(Rect(hx+1, hy, 1, 3));
-
-                if(solid) {     
-
-                    if(hero.falling == true && level.check({Point{hx+2, hy+4}})) {
-                        
-                    } else 
-                    if(hero.x <= HALF_MAP_W) {
-                        hero.moveRight(false);                
-                    } else {
-                        int hx = hero.x+cam.getCamX();
-                        if(hx >= level.width-HALF_MAP_W-1) {
-                            if(hero.draw_x < 1280-48) {
-                                hero.moveRight(false);
-                            }
-                        } else {
-                            hero.moveRight(true);
-                            hero.draw_x = hero.x*16;
-                            hero.draw_y = hero.y*16;
-                        }
-                    }
-                } else {
-                    if(hero.falling == false)
-                        hero.cur_frame = 0;
-                }
-            }
-        } else if(ro->keyDown(Key::KEY_LEFT)) {
+           if(ro->keyDown(Key::KEY_RIGHT)) {
                 if(amt > 20) {
                     int hx = hero.x+cam.getCamX();
                     int hy = hero.y+cam.getCamY();
-                    bool solid = level.checkRect(Rect(hx-1, hy, 1, 3));
-                    if(solid) {
-                        if(hero.falling == true && level.check({Point{hx-1, hy+4}})) {
+                    bool solid = level.checkRect(Rect(hx+1, hy, 1, 3));
 
-                        } else
-                        if((cam.getX() == 0 && hero.x > 0 && hero.x <= HALF_MAP_W) || hero.x > 40) {
-                            hero.moveLeft(false);
-                        }  
-                        else {
-                            hero.moveLeft(true);
-                            hero.draw_x = hero.x*16;
-                            hero.draw_y = hero.y*16;
+                    if(solid) {     
+
+                        if(hero.falling == true && level.check({Point{hx+2, hy+4}})) {
+                        
+                        } else 
+                        if(hero.x <= HALF_MAP_W) {
+                            hero.moveRight(false);                
+                        } else {
+                            int hx = hero.x+cam.getCamX();
+                            if(hx >= level.width-HALF_MAP_W-1) {
+                                if(hero.draw_x < 1280-48) {
+                                    hero.moveRight(false);
+                                }
+                            } else {
+                                hero.moveRight(true);
+                                hero.draw_x = hero.x*16;
+                                hero.draw_y = hero.y*16;
+                            }
                         }
                     } else {
                         if(hero.falling == false)
                             hero.cur_frame = 0;
                     }
-                }   
-        } else {
-            if(hero.grounded == false)
-                hero.restore();
-        }
-
-        if(level.checkRectForType(Rect(hX(), hY(), 2, 4), 2)) {
-            resetLevel();
-        } else if(level.checkRectForType(Rect(hX(), hY(), 2, 4), 3)) {
-            nextLevel();
-        }
-
-        if(amt > 20) {
-            hero.update(&cam); 
-            int hx = hero.x+cam.getCamX();
-            int hy = hero.y+cam.getCamY();
-            bool directions[5];
-            directions[0] = level.checkRect(Rect(hx, hy, 1, 4));
-            directions[1] = level.checkRect(Rect(hx, hy+1, 2, 4));
-            if(directions[0]) {
-                    hero.falling = true;
-                    if(hero.y < HALF_MAP_H) {
-                        hero.moveDown(false);                
-                    } else {
+                }
+            } else if(ro->keyDown(Key::KEY_LEFT)) {
+                    if(amt > 20) {
+                        int hx = hero.x+cam.getCamX();
                         int hy = hero.y+cam.getCamY();
-                        if(hy >= level.height-HALF_MAP_H-2) {
-                            if(hero.draw_y < 720-64) {
-                                hero.moveDown(false);
+                        bool solid = level.checkRect(Rect(hx-1, hy, 1, 3));
+                        if(solid) {
+                            if(hero.falling == true && level.check({Point{hx-1, hy+4}})) {
+
+                            } else
+                            if((cam.getX() == 0 && hero.x > 0 && hero.x <= HALF_MAP_W) || hero.x > 40) {
+                                hero.moveLeft(false);
+                            }  
+                            else {
+                                hero.moveLeft(true);
+                                hero.draw_x = hero.x*16;
+                                hero.draw_y = hero.y*16;
                             }
-                        } else
-                            hero.moveDown(true);
-                    }
+                        } else {
+                            if(hero.falling == false)
+                                hero.cur_frame = 0;
+                        }
+                    }   
             } else {
-                hero.falling = false;
-                hero.jump_height[0] = hero.jump_height[1] = 0;
-            } 
-            amt = 0; 
-            hero.updateDown(&level, &cam);
-        }
+                if(hero.grounded == false)
+                    hero.restore();
+            }
 
-        if(hero.grounded == true || hero.falling == true)
-            hero.cur_frame = 4;
+            if(level.checkRectForType(Rect(hX(), hY(), 2, 4), 2)) {
+                resetLevel();
+            } else if(level.checkRectForType(Rect(hX(), hY(), 2, 4), 3)) {
+                nextLevel();
+            }
 
-        } else {
-            if(amt > 50) {
-                hero.cur_frame ++;
-                if(hero.cur_frame >= 8) {
-                    hero.shot = false;
+            if(amt > 20) {
+                hero.update(&cam); 
+                int hx = hero.x+cam.getCamX();
+                int hy = hero.y+cam.getCamY();
+                bool directions[5];
+                directions[0] = level.checkRect(Rect(hx, hy, 1, 4));
+                directions[1] = level.checkRect(Rect(hx, hy+1, 2, 4));
+                if(directions[0]) {
+                        hero.falling = true;
+                        if(hero.y < HALF_MAP_H) {
+                            hero.moveDown(false);                
+                        } else {
+                            int hy = hero.y+cam.getCamY();
+                            if(hy >= level.height-HALF_MAP_H-2) {
+                                if(hero.draw_y < 720-64) {
+                                    hero.moveDown(false);
+                                }
+                            } else
+                                hero.moveDown(true);
+                        }
+                } else {
+                    hero.falling = false;
+                    hero.jump_height[0] = hero.jump_height[1] = 0;
+                } 
+                amt = 0; 
+                hero.updateDown(&level, &cam);
+            }
+
+            if(hero.grounded == true || hero.falling == true)
+                hero.cur_frame = 4;
+
+            } else {
+                if(amt > 50) {
+                    hero.cur_frame ++;
+                    if(hero.cur_frame >= 8) {
+                        hero.shot = false;
                 // release
                 }
-                amt = 0;
+                 amt = 0;
             }
         }
-
         int xx = 0, yy = 0;
         hero.draw(ro, xx, yy);
         
