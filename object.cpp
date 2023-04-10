@@ -83,6 +83,7 @@ namespace game {
     }
 
     void Hero::moveLeft(bool scroll) {
+
        if(moving_ == false) {
             dir = Direction::LEFT;
             moving_ = true;
@@ -92,6 +93,7 @@ namespace game {
     }
 
     void Hero::moveRight(bool scroll) {
+
         if(moving_ == false) {
             dir = Direction::RIGHT;
             moving_= true;
@@ -101,6 +103,7 @@ namespace game {
     }
 
     void Hero::moveDown(bool scroll) {
+
         if(grounded == false) {
             grounded = true;
             scroll_map[2] = scroll;
@@ -234,6 +237,7 @@ namespace game {
         }
     }
     void Hero::jump() {
+
         if(jumping == false && grounded == false) {
             jumping = true;
             jump_index = 0;
@@ -241,7 +245,11 @@ namespace game {
     }
 
     void Hero::fire() {
-        
+
+       if(jumping == false && falling == false && shot == false) {
+            shot = true;
+            cur_frame = 5;
+       } 
     }
 
     void Hero::proc_jump(Level *level, Camera *cam) {

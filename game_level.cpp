@@ -233,6 +233,8 @@ namespace game {
             }
         }
 
+        if(hero.shot == false) {
+
         if(ro->keyDown(Key::KEY_RIGHT)) {
             if(amt > 20) {
                 int hx = hero.x+cam.getCamX();
@@ -326,6 +328,17 @@ namespace game {
 
         if(hero.grounded == true || hero.falling == true)
             hero.cur_frame = 4;
+
+        } else {
+            if(amt > 50) {
+                hero.cur_frame ++;
+                if(hero.cur_frame >= 8) {
+                    hero.shot = false;
+                // release
+                }
+                amt = 0;
+            }
+        }
 
         int xx = 0, yy = 0;
         hero.draw(ro, xx, yy);
