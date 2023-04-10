@@ -330,7 +330,7 @@ namespace game {
                 hero.cur_frame = 4;
 
             } else {
-                if(amt > 50) {
+                if(amt > 100) {
                     hero.cur_frame ++;
                     if(hero.cur_frame >= 8) {
                         hero.shot = false;
