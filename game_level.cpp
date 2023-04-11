@@ -108,6 +108,13 @@ namespace game {
 
         hero.setImages(hero_images_left, hero_images_right);
 
+        if(!shot.empty()) 
+            shot.erase(shot.begin(), shot.end());
+
+        shot.push_back(render_object->loadImage("./img/shot.bmp"));
+
+        emiter.setImages(shot);
+
         if(!level.loadLevel(filename)) {
             std::cerr << "Error loading level..\n";
             exit(0);

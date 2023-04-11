@@ -50,6 +50,7 @@ namespace game {
         ParticleEmiter emiter;
         std::vector<Image> stars;
         std::vector<Image> hero_images_right, hero_images_left;
+        std::vector<Image> shot;
         int score, lives;
     };
 }
