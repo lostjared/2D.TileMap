@@ -173,6 +173,25 @@ namespace game {
         }
     }
 
+    void GameLevel::procParticles() {
+        for(auto i = emiter.particles.begin(); i != emiter.particles.end(); ++i) {
+            if(i->dir == 0) {
+                if(i->x > 0) i->x--;
+                if(level.checkRect(Rect(i->x, i->y, 1, 1)) == false) {
+                    emiter.particles.erase(i);
+                    break;
+                }
+            }
+            else{
+                if(i->x < level.width) i->x++;
+                if(level.checkRect(Rect(i->x, i->y, 1, 1)) == false) {
+                    emiter.particles.erase(i);
+                    break;
+                }
+            }
+        }
+    }
+
     void GameLevel::draw(RenderObject *ro) {
         int start_col = cam.getX() / tsize;
         int end_col = start_col + (cam.getWidth() / tsize);
@@ -217,6 +236,24 @@ namespace game {
                 }
             }
         }
+
+
+        // draw particles
+        for(int x = start_col; x < end_col; ++x) {
+            for(int y = start_row; y < end_row; ++y) {
+                Tile *tile = level.at(x, y);
+                if(tile != nullptr) {
+                    int xx = (x - start_col) * tsize + off_x;
+                    int yy = (y - start_row) * tsize + off_y;
+                    for(auto &i : emiter.particles) {
+                        if(i.x == x && i.y == y) {
+                            ro->drawAt(shot[0], xx, yy);                 
+                        }
+                    }
+                }
+            }
+        }    
+
         unsigned int tick = ro->getTicks();
         static unsigned int prev_tick = 0;
         delta = float(tick-prev_tick)/1000;
@@ -238,6 +275,11 @@ namespace game {
             if(amt > 20) {
                 hero.fire();
             }
+        }
+
+
+        if(amt > 20) {
+            procParticles();
         }
 
         if(hero.shot == false) {
@@ -341,7 +383,12 @@ namespace game {
                     hero.cur_frame ++;
                     if(hero.cur_frame >= 8) {
                         hero.shot = false;
-                // release
+
+                    if(hero.dir == Direction::RIGHT)
+                        emiter.addParticle(hX()+2,hY()+1, 0, 1);
+                    else
+                        emiter.addParticle(hX()-1,hY()+1, 0, 0);
+
                 }
                  amt = 0;
             }

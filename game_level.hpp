@@ -28,6 +28,7 @@ namespace game {
         void newGame();
         int hX() const;
         int hY() const;
+        void procParticles();
     protected:    
         Level level;
         Camera cam;
