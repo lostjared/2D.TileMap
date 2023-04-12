@@ -351,7 +351,7 @@ namespace game {
                 int hx = hero.x+cam.getCamX();
                 int hy = hero.y+cam.getCamY();
                 bool directions[5];
-                directions[0] = level.checkRect(Rect(hx, hy, 1, 4));
+                directions[0] = level.checkRect(Rect(hx, hy+1, 1, 3));
                 directions[1] = level.checkRect(Rect(hx, hy+1, 2, 4));
                 if(directions[0]) {
                         hero.falling = true;
