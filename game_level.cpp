@@ -247,7 +247,7 @@ namespace game {
                     int yy = (y - start_row) * tsize + off_y;
                     for(auto &i : emiter.particles) {
                         if(i.x == x && i.y == y) {
-                            ro->drawAt(shot[0], xx, yy);                 
+                            ro->drawAt(shot[i.type], xx, yy);                 
                         }
                     }
                 }
@@ -292,8 +292,7 @@ namespace game {
 
                     if(solid) {     
 
-                        if(hero.falling == true && level.check({Point{hx+2, hy+4}})) {
-                        
+                        if(hero.falling == true && level.check({Point{hx+2, hy+4}, Point{hx+2, hy}, Point{hx+1, hy}})) {
                         } else 
                         if(hero.x <= HALF_MAP_W) {
                             hero.moveRight(false);                
@@ -320,7 +319,7 @@ namespace game {
                         int hy = hero.y+cam.getCamY();
                         bool solid = level.checkRect(Rect(hx-1, hy, 1, 3));
                         if(solid) {
-                            if(hero.falling == true && level.check({Point{hx-1, hy+4}})) {
+                            if(hero.falling == true && level.check({Point{hx-1, hy+4}, Point{hx-1, hy}})) {
 
                             } else
                             if((cam.getX() == 0 && hero.x > 0 && hero.x <= HALF_MAP_W) || hero.x > 40) {
@@ -385,9 +384,9 @@ namespace game {
                         hero.shot = false;
 
                     if(hero.dir == Direction::RIGHT)
-                        emiter.addParticle(hX()+2,hY()+1, 0, 1);
+                        emiter.addParticle(hX()+2,hY()+2, 0, 1);
                     else
-                        emiter.addParticle(hX()-1,hY()+1, 0, 0);
+                        emiter.addParticle(hX()-1,hY()+2, 0, 0);
 
                 }
                  amt = 0;
