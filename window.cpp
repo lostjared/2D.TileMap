@@ -198,7 +198,7 @@ namespace game {
                 std::cerr << "Error initaliziing SDL\n";
                 return false;
             }
-            
+            srand(static_cast<unsigned int>(time(0))); 
             TTF_Init();
 
             window = SDL_CreateWindow(text.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, w, h, SDL_WINDOW_SHOWN);
@@ -230,7 +230,6 @@ namespace game {
 
             width = w;
             height = h;
-            srand(static_cast<unsigned int>(time(0)));
             return true;
         }
 
