@@ -13,8 +13,4 @@ namespace game {
         }
         std::copy(v.begin(), v.end(), std::back_inserter(images));
     }
-
-    void ParticleEmiter::draw(RenderObject *ro) {
-
-    }
 }

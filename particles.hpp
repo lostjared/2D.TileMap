@@ -18,8 +18,9 @@ namespace game {
         ParticleEmiter() = default;
         void setImages(const std::vector<int> &v);
         void addParticle(int x, int y, int type, int dir);
-        void draw(RenderObject *ro);
-        std::list<Particle> particles;  
+        
+        std::list<Particle> particles;
+        protected:  
         std::vector<int> images;  
     };
 
