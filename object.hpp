@@ -47,8 +47,10 @@ namespace game {
         void draw(RenderObject *ro, int x, int y) override;
         void release() override; 
         void setImages(const std::vector<Image> &l, const std::vector<Image> &r); 
+        void reset();
     protected:
         std::vector<Image> g_img_l, g_img_r;
+        int start_x, start_y;
     };
 
     class Hero : public CObject {

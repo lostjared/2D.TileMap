@@ -43,6 +43,15 @@ namespace game {
         x = xx;
         y = yy;
         type = t;
+        start_x = xx;
+        start_y = yy;
+        active = true;
+    }
+
+    void Enemy::reset() {
+        x = start_x;
+        y = start_y;
+        active = true;
     }
 
     void Enemy::setImages(const std::vector<Image> &l, const std::vector<Image> &r) {
