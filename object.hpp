@@ -38,6 +38,15 @@ namespace game {
         int item_amount = 0;
     };
 
+
+    class Enemy : public CObject {
+    public:
+        Enemy() = default;
+        void init(RenderObject *ro) override;
+        void draw(RenderObject *ro, int x, int y) override;
+        void release() override;  
+    };
+
     class Hero : public CObject {
     public:
         Hero() = default;

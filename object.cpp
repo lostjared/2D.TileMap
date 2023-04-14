@@ -39,6 +39,18 @@ namespace game {
 
     }
 
+    void Enemy::init(RenderObject *ro) {
+
+    }
+
+    void Enemy::draw(RenderObject *ro, int x, int y) {
+
+    }
+    
+    void Enemy::release() {
+
+    }
+
     void Hero::init(RenderObject *ro) {
         reset();
     }
