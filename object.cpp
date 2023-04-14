@@ -46,12 +46,20 @@ namespace game {
         start_x = xx;
         start_y = yy;
         active = true;
+        draw_x = start_x*16;
+        draw_y = start_y*16;
+        dir = Direction::LEFT;
+        cur_ani = 0;
     }
 
     void Enemy::reset() {
         x = start_x;
         y = start_y;
         active = true;
+        draw_x = start_x*16;
+        draw_y = start_y*16;
+        dir = Direction::LEFT;
+        cur_ani = 0;
     }
 
     void Enemy::setImages(const std::vector<Image> &l, const std::vector<Image> &r) {
@@ -70,7 +78,13 @@ namespace game {
     }
 
     void Enemy::draw(RenderObject *ro, int x, int y) {
-
+        if(active == true) {
+            if(dir == Direction::LEFT) {
+                ro->drawAt(g_img_l[cur_ani], draw_x, draw_y);
+            } else {
+                ro->drawAt(g_img_r[cur_ani], draw_x, draw_y);
+            }         
+        }
     }
     
     void Enemy::release() {

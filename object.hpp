@@ -51,6 +51,8 @@ namespace game {
     protected:
         std::vector<Image> g_img_l, g_img_r;
         int start_x, start_y;
+        int draw_x, draw_y;
+        int cur_ani;
     };
 
     class Hero : public CObject {
