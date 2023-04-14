@@ -42,9 +42,13 @@ namespace game {
     class Enemy : public CObject {
     public:
         Enemy() = default;
+        Enemy(int x, int y, int type);
         void init(RenderObject *ro) override;
         void draw(RenderObject *ro, int x, int y) override;
-        void release() override;  
+        void release() override; 
+        void setImages(const std::vector<Image> &l, const std::vector<Image> &r); 
+    protected:
+        std::vector<Image> g_img_l, g_img_r;
     };
 
     class Hero : public CObject {

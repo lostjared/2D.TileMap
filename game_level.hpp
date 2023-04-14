@@ -35,6 +35,8 @@ namespace game {
         std::vector<Image> images;
         std::vector<CObject *> objects;
         std::vector<Image> object_images;
+        std::vector<Image> g_img_r;
+        std::vector<Image> g_img_l;
         Image bg_img;
         Font arial;
         int tsize;

@@ -39,6 +39,23 @@ namespace game {
 
     }
 
+    Enemy::Enemy(int xx, int yy, int t) {
+        x = xx;
+        y = yy;
+        type = t;
+    }
+
+    void Enemy::setImages(const std::vector<Image> &l, const std::vector<Image> &r) {
+        if(!g_img_l.empty()) {
+            g_img_l.erase(g_img_l.begin(), g_img_l.end());
+        }
+        if(!g_img_r.empty()) {
+            g_img_r.erase(g_img_r.begin(), g_img_r.end());
+        }
+        std::copy(l.begin(), l.end(), std::back_inserter(g_img_l));
+        std::copy(r.begin(), r.end(), std::back_inserter(g_img_r));
+    }
+    
     void Enemy::init(RenderObject *ro) {
 
     }
