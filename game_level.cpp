@@ -168,11 +168,11 @@ namespace game {
                         }
                         break;
                         case 8: {
-                            Enemy *e = new Enemy(i, z, 8);
+                            /*Enemy *e = new Enemy(i, z, 8);
                             e->setImages(g_img_l, g_img_r);
                             objects.push_back(e);
                             int index = objects.size()-1;
-                            tile->layers[1] = index;
+                            tile->layers[1] = index;*/
                         } 
                         break;
                     }
