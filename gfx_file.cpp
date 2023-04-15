@@ -18,6 +18,7 @@ namespace game {
         if(!file.is_open())
             return false;
         int type = 0;
+        int line_num = 0;
         while(!file.eof()) {
             std::string line;
             std::getline(file, line);
@@ -40,7 +41,7 @@ namespace game {
                     std::string tokens[3];
                     auto pos = line.find(":");
                     if(pos == std::string::npos) {
-                        std::cerr << "missing colon 1 on type: " << type << "\n";
+                        std::cerr << "missing colon 1 on type: " << type << " on line: " << line_num << "\n";
                         return false;
                     }
                     tokens[0] = line.substr(0, pos);
@@ -48,7 +49,7 @@ namespace game {
                     right = line.substr(pos+1, line.length());
                     pos = right.find(":");
                     if(pos == std::string::npos) {
-                        std::cerr << "missing colon 2 on type: " << type << "\n";
+                        std::cerr << "missing colon 2 on type: " << type << " on line: " << line_num <<"\n";
                         return false;
                     }
                     tokens[1] = right.substr(0, pos);
@@ -56,6 +57,7 @@ namespace game {
                     addItem(atoi(tokens[0].c_str()), atoi(tokens[1].c_str()), type, tokens[2]);
                 }
             }
+            line_num++;
         }
         file.close();
         return true;

@@ -64,6 +64,12 @@ namespace game {
                         case 4:
                             stars.push_back(render_object->loadImage(buffer, size, Color(0,0,0)));
                             break;
+                        case 5:
+                            g_img_r.push_back(render_object->loadImage(buffer, size, Color(255,255,255)));
+                            break;
+                        case 6:
+                            g_img_l.push_back(render_object->loadImage(buffer, size, Color(255,255,255)));
+                            break;
                     }
                 });
             } else {
@@ -105,6 +111,7 @@ namespace game {
 
         loadResources(gfx_);
         loadResources("./img/hero.gfx");
+        loadResources("./img/enemy1.gfx");
 
         hero.setImages(hero_images_left, hero_images_right);
 
