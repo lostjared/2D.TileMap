@@ -32,7 +32,11 @@ namespace game {
                     type = 3;
                 } else if(line == "[bg1]") {
                     type = 4;    
-                 } else {
+                 } else if(line == "[e:right]") {
+                    type = 5;
+                 } else if(line == "[e:left]") {
+                    type = 6;
+                } else {
                     std::string tokens[3];
                     auto pos = line.find(":");
                     if(pos == std::string::npos) {
