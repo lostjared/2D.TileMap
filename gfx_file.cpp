@@ -37,7 +37,17 @@ namespace game {
                     type = 5;
                  } else if(line == "[e:left]") {
                     type = 6;
-                } else {
+                } else if(line.find("#") != std::string::npos) {
+                    auto pos = line.find("#");
+                    std::string right;
+                    right = line.substr(pos+1, line.length()-1);
+                    type = atoi(right.c_str());
+                    if(type <= 6) {
+                        std::cerr << "Error invalid type..\n";
+                    }
+                    std::cout << "Setting custom type: " << type << " on line: " << line_num << "\n";
+                } 
+                else {
                     std::string tokens[3];
                     auto pos = line.find(":");
                     if(pos == std::string::npos) {
