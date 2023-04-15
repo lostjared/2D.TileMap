@@ -25,5 +25,6 @@
 <file>images/col6.bmp</file>
 <file>images/grass.bmp</file>
 <file>images/tree.png</file>
+<file>images/char.png</file>
 </qresource>
 </RCC>
