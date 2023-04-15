@@ -67,4 +67,13 @@ ToolWindow::ToolWindow(QWidget *parent) : QDialog(parent) {
 
     hover_object = new QCheckBox(tr("Object Cursor"), this);
     hover_object->setGeometry(20, 180, 125, 20);
+
+    QLabel *lbl_e = new QLabel(tr("Chars"), this);
+    lbl_e->setGeometry(20, 340, 75, 25);
+
+    char_objects = new QComboBox(this);
+    char_objects->setGeometry(10, 340+25, 120, 25);
+
+    char_objects->addItem(tr("Enemy #1"));
+
 }

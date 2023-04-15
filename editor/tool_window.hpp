@@ -16,6 +16,7 @@ public:
     QComboBox *tiles;
     QComboBox *tool;
     QComboBox *tile_objects;
+    QComboBox *char_objects;
     QScrollBar *camera_x, *camera_y;
     QLabel *lbl_x, *lbl_y;
     QCheckBox *hover_object;
