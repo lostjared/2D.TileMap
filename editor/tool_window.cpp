@@ -33,6 +33,7 @@ ToolWindow::ToolWindow(QWidget *parent) : QDialog(parent) {
     tool->setItemData(0, QPixmap(":/images/pencil.png"), Qt::DecorationRole);
     tool->setItemData(1, QPixmap(":/images/eraser.png"), Qt::DecorationRole);
     tool->setItemData(2, QPixmap(":/images/bucket.png"), Qt::DecorationRole);
+    tool->setItemData(3, QPixmap(":/images/char.png"), Qt::DecorationRole);
 
     QLabel *cam_img = new QLabel(this);
     cam_img->setPixmap(QPixmap(":/images/camera.png"));
