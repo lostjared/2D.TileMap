@@ -28,6 +28,7 @@ ToolWindow::ToolWindow(QWidget *parent) : QDialog(parent) {
     tool->addItem("Pencil");
     tool->addItem("Eraser");
     tool->addItem("Fill");
+    tool->addItem("Character");
     tool->setCurrentIndex(0);
     tool->setItemData(0, QPixmap(":/images/pencil.png"), Qt::DecorationRole);
     tool->setItemData(1, QPixmap(":/images/eraser.png"), Qt::DecorationRole);
