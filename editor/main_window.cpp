@@ -341,7 +341,7 @@ void MainWindow::setTile(const QPoint &pos) {
                             }
                         }
                     }
-                    break;
+                        break;
                     case 1: {
                         int pos_start_x = pos_x+x;
                         int pos_start_y = pos_y+y;
@@ -354,7 +354,7 @@ void MainWindow::setTile(const QPoint &pos) {
                             }
                         }
                     }
-                    break;
+                        break;
                     case 2:
                        for(int i = pos_x; i < pos_x+(1280/16) && i < level.width; ++i) {
                             for(int z = pos_y; z < pos_y+(720/16) && z < level.height; ++z) {
@@ -364,7 +364,14 @@ void MainWindow::setTile(const QPoint &pos) {
                                 }
                             }
                         }
-                    break;
+                        break;
+                    case 3: {
+                        game::Tile *tile = level.at(pos_x+x, pos_y+y);
+                        if(tile != nullptr) {
+                            tile->layers[2] = 1+tool_window->char_objects->currentIndex();
+                        }
+                    }
+                        break;
                 }
             } 
         }
@@ -402,7 +409,7 @@ void MainWindow::setObject(const QPoint &pos) {
             if(tile != nullptr) {
                 switch(tool_window->tool->currentIndex()) {
                     case 0:
-                        tile->layers[0] = tool_window->tile_objects->currentIndex()+1;
+                        tile->layers[2] = tool_window->tile_objects->currentIndex()+1;
                     break;
                 }
             } 
