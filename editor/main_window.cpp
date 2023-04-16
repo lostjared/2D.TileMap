@@ -409,7 +409,7 @@ void MainWindow::setObject(const QPoint &pos) {
             if(tile != nullptr) {
                 switch(tool_window->tool->currentIndex()) {
                     case 0:
-                        tile->layers[2] = tool_window->tile_objects->currentIndex()+1;
+                        tile->layers[0] = tool_window->tile_objects->currentIndex()+1;
                     break;
                 }
             } 
