@@ -251,7 +251,9 @@ void MainWindow::drawLayer1(QPainter & paint) {
             int y = (z*16)+offset_y;
             game::Tile *tile = level.at(pos_x+i, pos_y+z);
             if(tile != nullptr) {
-                if(tile->layers[0] > 0 && tile->layers[0] <= col.size()) {
+                if(tile->layers[2] > 0) {
+
+                } else if(tile->layers[0] > 0 && tile->layers[0] <= col.size()) {
                     paint.drawImage(x, y, col[tile->layers[0]-1]);
                 }
             }
