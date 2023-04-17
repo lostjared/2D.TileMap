@@ -84,6 +84,7 @@ private:
     PrefWindow *pref_window;
     std::vector<QImage> images;
     std::vector<QImage> col;
+    std::vector<QImage> en;
     std::vector<game::Tile> tiles; 
     game::Level level;
     bool map_init;
