@@ -21,6 +21,8 @@ MainWindow::MainWindow() {
     setWindowIcon(QIcon(":/images/col1.bmp"));
     setWindowTitle(tr("Editor [Please Create/Open a Map]"));
 
+    en.push_back(QImage(":/images/char.png"));
+
     tool_window = new ToolWindow(this);
     tool_window->setGeometry(10, 10, 150, 480);
     tool_window->show(); 
@@ -252,7 +254,7 @@ void MainWindow::drawLayer1(QPainter & paint) {
             game::Tile *tile = level.at(pos_x+i, pos_y+z);
             if(tile != nullptr) {
                 if(tile->layers[2] > 0) {
-
+                    paint.drawImage(x, y, en[tile->layers[2]-1]);
                 } else if(tile->layers[0] > 0 && tile->layers[0] <= col.size()) {
                     paint.drawImage(x, y, col[tile->layers[0]-1]);
                 }
