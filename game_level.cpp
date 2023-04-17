@@ -174,14 +174,14 @@ namespace game {
                             tile->layers[1] = index;
                         }
                         break;
-                        case 8: {
-                            /*Enemy *e = new Enemy(i, z, 8);
-                            e->setImages(g_img_l, g_img_r);
-                            objects.push_back(e);
-                            int index = objects.size()-1;
-                            tile->layers[1] = index;*/
-                        } 
-                        break;
+                    }
+                    if(tile->layers[2] > 0) {
+                        /*
+                        Enemy *e = new Enemy(i, z, tile->layers[2]);
+                        e->setImages(g_img_l, g_img_r);   
+                        objects.push_back(e);
+                        int index = objects.size()-1;
+                        tile->layers[1] = index;*/
                     }
                 }
             }
