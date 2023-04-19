@@ -1,3 +1,4 @@
+#define VERSION_INFO "v0.1.0"
 #include<iostream>
 #include<string>
 #include<sys/stat.h>
@@ -62,6 +63,7 @@ int main(int argc, char **argv) {
         }
     }
     else {
+        std::cout << argv[0] << " " << VERSION_INFO << "\n";
         std::cout << "use:\n" << argv[0] << " [-c compress], [-e extract], [-l list] -i input -o output\n";
     }
     return 0;
