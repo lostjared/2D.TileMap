@@ -32,12 +32,12 @@ int main(int argc, char **argv) {
         if(table.buildTable(input)) {
             game::GfxCompress comp;
             if(comp.open(output)) {
-                std::cout << "gfx-cmp: Compressing table: " << argv[1] << "\n";
+                std::cout << argv[0] << ": Compressing table: " << argv[1] << "\n";
                 if(comp.compress(table)) {
                     comp.close();
-                    std::cout << "gfx-cmp: Success..\n";
+                    std::cout << argv[0] << ": Success...\n";
                 } else {
-                    std::cout << "gfx-cmp: Failure..\n";
+                    std::cout << argv[0] << ": Failure...\n";
                 }
             }
         }
@@ -47,9 +47,9 @@ int main(int argc, char **argv) {
         if(ex.open(input)) {
             mkdir(output.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
             if(ex.extract(table, output)) {
-                std::cout << "gfx-cmp: Successflly Inflated: " << argv[1] << "\n";
+                std::cout << argv[0] << ": Successflly Inflated: " << argv[1] << "\n";
             } else {
-                std::cout << "gfx-cmp: Failed to Inflate: " << argv[1] << "\n";
+                std::cout << argv[0] << ": Failed to Inflate: " << argv[1] << "\n";
             }
         }
     } else if(mode == 3 && input.length() > 0) {
@@ -57,12 +57,12 @@ int main(int argc, char **argv) {
         game::GfxTable table;
         if(ex.open(input)) {
             if(ex.list(table)) {
-                std::cout << "successfully listed: " << table.table.size() << " items.\n";
+                std::cout << argv[0] << ": Successfully Listed: " << table.table.size() << " Items.\n";
             }
         }
     }
     else {
-        std::cout << "use:\n" << argv[0] << " [-c compress], [-e extract], [-l list] [-i input] [-o output]\n";
+        std::cout << "use:\n" << argv[0] << " [-c compress], [-e extract], [-l list] -i input -o output\n";
     }
     return 0;
 }
