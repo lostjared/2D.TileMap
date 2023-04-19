@@ -5,31 +5,28 @@
 #include<unistd.h>
 
 int main(int argc, char **argv) {
-
         int opt = 0;
         int mode = 0;
         std::string input, output;
-
         while((opt = getopt(argc, argv, "leci:o:")) != -1) {
             switch(opt) {
-                case 'c':
+            case 'c':
                 mode = 1;
                 break;
-                case 'e':
+            case 'e':
                 mode = 2;
                 break;
-                case 'l':
+            case 'l':
                 mode = 3;
                 break;
-                case 'i':
+            case 'i':
                 input = optarg;
                 break;
-                case 'o':
+            case 'o':
                 output = optarg;
                 break;
-            }
-         }
-
+        }
+    }
     if(mode == 1 && input.length() > 0 && output.length() > 0) {
         game::GfxTable table;
         if(table.buildTable(input)) {
@@ -65,7 +62,7 @@ int main(int argc, char **argv) {
         }
     }
     else {
-        std::cout << "use:\n" << argv[0] << " [-c -e -l] [-i input] [-o output]\n";
+        std::cout << "use:\n" << argv[0] << " [-c compress], [-e extract], [-l list] [-i input] [-o output]\n";
     }
     return 0;
 }
