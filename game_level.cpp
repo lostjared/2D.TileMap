@@ -291,10 +291,13 @@ namespace game {
             }
         }
 
-
         if(amt > 20) {
             procParticles();
+            for(int i = 0; i < objects.size(); ++i) {
+                objects[i]->logic(&level);
+            }
         }
+
 
         if(hero.shot == false) {
 

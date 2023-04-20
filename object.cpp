@@ -39,6 +39,11 @@ namespace game {
 
     }
 
+    void Item::logic(Level *level) {
+
+    }
+   
+
     Enemy::Enemy(int xx, int yy, int t) {
         x = xx;
         y = yy;
@@ -318,4 +323,9 @@ namespace game {
     bool Hero::isJumping() const {
         return jumping;
     }
+
+   void Hero::logic(Level *level) {
+    
+   }
+   
 }
