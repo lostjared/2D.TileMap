@@ -94,6 +94,10 @@ namespace game {
 
     }
 
+    void Enemy::logic(Level *level) {
+
+    }
+
     void Hero::init(RenderObject *ro) {
         reset();
     }
