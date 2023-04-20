@@ -23,6 +23,7 @@ namespace game {
         std::vector<Image> frame_data;
         bool active = true;
         Direction dir;
+        int otype = 0;
     };
 
 

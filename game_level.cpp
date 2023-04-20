@@ -176,12 +176,11 @@ namespace game {
                         break;
                     }
                     if(tile->layers[2] > 0) {
-                        /*
                         Enemy *e = new Enemy(i, z, tile->layers[2]);
                         e->setImages(g_img_l, g_img_r);   
                         objects.push_back(e);
                         int index = objects.size()-1;
-                        tile->layers[1] = index;*/
+                        tile->layers[1] = index;
                     }
                 }
             }
@@ -242,7 +241,7 @@ namespace game {
         for(int x = start_col-16; x < end_col; ++x) {
             for(int y = start_row-16; y < end_row; ++y) {
                 Tile *tile = level.at(x, y);
-                if(tile != nullptr && tile->layers[0] > 0 && tile->layers[0] <= 7) {
+                if(tile != nullptr && ((tile->layers[0] > 0 && tile->layers[0] <= 7) || (tile->layers[2] > 0))) {
                     int xx = (x - start_col) * tsize + off_x;
                     int yy = (y - start_row) * tsize + off_y;
                     //Item *item = dynamic_cast<Item *>(objects[tile->layers[1]]);
