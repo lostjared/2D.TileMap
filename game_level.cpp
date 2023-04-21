@@ -244,11 +244,28 @@ namespace game {
                 if(tile != nullptr && ((tile->layers[0] > 0 && tile->layers[0] <= 7) || (tile->layers[2] > 0))) {
                     int xx = (x - start_col) * tsize + off_x;
                     int yy = (y - start_row) * tsize + off_y;
-                    //Item *item = dynamic_cast<Item *>(objects[tile->layers[1]]);
                     CObject *item = objects[tile->layers[1]];
-                    item->draw(ro, xx, yy);
+                    if(item->otype == 0)
+                        item->draw(ro, xx, yy);
                 }
             }
+        }
+
+        for(int q = 0; q < objects.size(); ++q) {
+        done:   
+                if(objects[q]->otype == 1) {
+                    for(int x = start_col-16; x < end_col; ++x) {
+                        for(int y = start_row-16; y < end_row; ++y) {
+                            if(objects[q]->x == x && objects[q]->y == y) {
+                                int xx = (x - start_col) * tsize + off_x;
+                                int yy = (y - start_row) * tsize + off_y;
+                                objects[q]->draw(ro, xx, yy);
+                                ++q;
+                                goto done;
+                            }
+                        }
+                    }
+                }
         }
 
 

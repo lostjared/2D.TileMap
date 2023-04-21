@@ -100,7 +100,10 @@ namespace game {
     }
 
     void Enemy::logic(Level *level) {
-
+        if(level->checkRect(Rect(x, y+1, 1, 3))) {
+            y++;
+            std::cout << "HERE\n";
+        }
     }
 
     void Hero::init(RenderObject *ro) {
