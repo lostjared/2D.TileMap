@@ -155,6 +155,23 @@ namespace game {
         return true;
    }
 
+    bool Level::checkType(const Point &p, int type) {
+        Tile *tile = at(p.x, p.y);
+        if(tile != nullptr) {
+            if(tile->solid == type)
+                return true;
+        }
+        return false;
+    }
+    
+    bool Level::checkTypes(const std::vector<Point> &p, int type) {
+        for(auto &i : p) {
+            if(checkType(i, type) == false)
+                return false;
+        }
+        return true;
+    }
+
     bool Level::checkTileSolid(int x, int y) {
         Tile *tile = at(x, y);
         if(tile != nullptr) {
