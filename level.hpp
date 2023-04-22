@@ -38,6 +38,7 @@ namespace game {
         Tile *at(int32_t x, int32_t y);
         void output_map(std::ostream &out);
         bool checkTileSolid(int x, int y);
+        bool checkSolid(const Point &p);
         bool check(const std::vector<Point> &p);
         bool checkRect(const Rect &r);
         bool checkRectForType(const Rect &r, int type);

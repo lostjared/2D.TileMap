@@ -164,6 +164,11 @@ namespace game {
         return true;
     }
 
+    bool Level::checkSolid(const Point &p) {
+        return checkTileSolid(p.x, p.y);
+    }
+
+
     bool Level::check(const std::vector<Point> &p) {
         for(auto &i : p) {
             if(checkTileSolid(i.x, i.y))

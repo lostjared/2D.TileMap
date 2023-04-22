@@ -102,7 +102,14 @@ namespace game {
     void Enemy::logic(Level *level) {
         if(level->checkRect(Rect(x, y+1, 1, 3))) {
             y++;
+            return;
         }
+        if(dir == Direction::LEFT) {
+            if(level->check({Point{x-1, y+3}})) {
+                
+            }            
+        }
+
     }
 
     void Hero::init(RenderObject *ro) {
