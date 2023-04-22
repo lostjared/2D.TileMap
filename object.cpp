@@ -105,11 +105,10 @@ namespace game {
             return;
         }
         if(dir == Direction::LEFT) {
-            if(level->check({Point{x-1, y+3}})) {
-                
-            }            
-        }
+            
+        } else {
 
+        }
     }
 
     void Hero::init(RenderObject *ro) {
