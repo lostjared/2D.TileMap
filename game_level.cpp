@@ -315,7 +315,7 @@ namespace game {
         }
 
         if(amt_object > 40) {
-            for(int i = 0; i < objects.size(); ++i) {
+            for(std::vector<CObject *>::size_type i = 0; i < objects.size(); ++i) {
                 objects[i]->logic(&level);
             }
             amt_object = 0;
