@@ -217,12 +217,13 @@ namespace game {
 
         int off_x = -cx + start_col * tsize;
         int off_y = -cy + start_row * tsize;
+        // draw background image
         ro->drawAt(bg_img, 0, 0);
         
+        // draw field
         if(field_enabled == true) {  
             field.draw(ro);
         }
-
 
         // draw background
         for(int x = start_col; x < end_col; ++x) {
@@ -250,7 +251,7 @@ namespace game {
                 }
             }
         }
-
+        // draw enemies
         for(std::vector<CObject *>::size_type q = 0; q < objects.size(); ++q) {
         done:   
                 if(objects[q]->otype == 1) {
@@ -267,8 +268,6 @@ namespace game {
                     }
                 }
         }
-
-
         // draw particles
         for(int x = start_col; x < end_col; ++x) {
             for(int y = start_row; y < end_row; ++y) {
@@ -434,7 +433,8 @@ namespace game {
         }
         int xx = 0, yy = 0;
         hero.draw(ro, xx, yy);
-        
+
+// draw debug strings        
 #ifdef DEBUG_MODE
         unsigned int tc = tick / 1000;
         static unsigned int pv = 0;
