@@ -21,6 +21,9 @@ namespace game {
         active = true; 
     }
 
+    void Item::reset() {
+        
+    }
     
     void Item::init(RenderObject *ro) {
 

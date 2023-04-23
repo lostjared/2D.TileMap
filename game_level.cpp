@@ -37,6 +37,9 @@ namespace game {
             // game over
         }
         // reset items / objects
+        for(std::vector<CObject *>::size_type i = 0; i < objects.size(); ++i) {
+            objects[i]->reset();
+        }
     }
 
     void GameLevel::nextLevel() {
@@ -321,7 +324,7 @@ namespace game {
             }
             amt_object = 0;
         }
-        
+
         // input and movement of hero object on screen
         if(hero.shot == false) {
            if(ro->keyDown(Key::KEY_RIGHT)) {
