@@ -251,7 +251,7 @@ namespace game {
             }
         }
 
-        for(int q = 0; q < objects.size(); ++q) {
+        for(std::vector<CObject *>::size_type q = 0; q < objects.size(); ++q) {
         done:   
                 if(objects[q]->otype == 1) {
                     for(int x = start_col-16; x < end_col; ++x) {
