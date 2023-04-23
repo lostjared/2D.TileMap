@@ -290,7 +290,9 @@ namespace game {
         delta = float(tick-prev_tick)/1000;
         unsigned int timeout = tick-prev_tick;
         static unsigned int amt = 0;
+        static unsigned int amt_object = 0;
         amt += timeout;
+        amt_object += timeout;
         prev_tick = tick;
 
         if(amt > 20) {
@@ -310,9 +312,13 @@ namespace game {
 
         if(amt > 20) {
             procParticles();
+        }
+
+        if(amt_object > 40) {
             for(int i = 0; i < objects.size(); ++i) {
                 objects[i]->logic(&level);
             }
+            amt_object = 0;
         }
 
 

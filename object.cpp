@@ -105,9 +105,26 @@ namespace game {
             return;
         }
         if(dir == Direction::LEFT) {
-            
+           if(level->checkType(Point{x-1, y+3}, 0) && level->checkType(Point{x-1, y+4}, 1)) {
+                x--;
+                cur_ani++;
+                if(cur_ani >= 5)
+                    cur_ani = 0;
+           } else {
+                dir = Direction::RIGHT;
+                cur_ani = 0;
+           }
         } else {
+            if(level->checkType(Point{x+1, y+3}, 0) && level->checkType(Point{x+1, y+4}, 1)) {
+                x++;
+                cur_ani++;
+                if(cur_ani >= 5)
+                    cur_ani = 0;
 
+            } else {
+                dir = Direction::LEFT;
+                cur_ani = 0;
+            }
         }
     }
 
