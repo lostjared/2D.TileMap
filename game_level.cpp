@@ -23,7 +23,6 @@ namespace game {
         return hero.y + cam.getCamY();
     }
 
-
     void GameLevel::newGame() {
         score = 0;
         lives = 10;
@@ -170,7 +169,7 @@ namespace game {
                         case 5:
                         case 6:
                         case 7: {
-                            Item *item = new Item(i, z, 1, tile->layers[0]-1, 10+(tile->layers[0]*5));
+                            Item *item = new Item(i, z, 0, tile->layers[0]-1, 10+(tile->layers[0]*5));
                             item->setImages(object_images);
                             objects.push_back(item);
                             int index = objects.size()-1;
