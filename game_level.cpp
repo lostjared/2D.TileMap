@@ -310,19 +310,20 @@ namespace game {
         }
 
         if(amt > 20) {
+            // process the particles 
             procParticles();
         }
 
         if(amt_object > 40) {
+            // process game object's logic
             for(std::vector<CObject *>::size_type i = 0; i < objects.size(); ++i) {
                 objects[i]->logic(&level);
             }
             amt_object = 0;
         }
-
-
+        
+        // input and movement of hero object on screen
         if(hero.shot == false) {
-
            if(ro->keyDown(Key::KEY_RIGHT)) {
                 if(amt > 20) {
                     int hx = hero.x+cam.getCamX();
