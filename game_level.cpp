@@ -152,6 +152,7 @@ namespace game {
         if(!objects.empty()) {
             for(auto &i : objects) {
                 i->release();
+                std::cout << "released game object: " << i->type << "\n";
                 delete i;
             }
             objects.erase(objects.begin(), objects.end());
