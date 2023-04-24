@@ -468,7 +468,7 @@ namespace game {
         ro->printText(arial, 15, 15, frame_count.str(), Color(255,255,255));
 #endif
         std::ostringstream score_stream;
-        score_stream << "Lives: " << lives << " Score: " << score; 
+        score_stream << level.getLevelName() << " - Lives: " << lives << " Score: " << score; 
         ro->printText(arial, 25, 50, score_stream.str(), Color(255, 255, 255));
     }
 

@@ -228,8 +228,6 @@ namespace game {
         return true;
     }
 
-
-
     void Level::setLevelName(const std::string &name) {
          level_name = name;
     }
