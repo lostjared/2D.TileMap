@@ -8,6 +8,7 @@
 
 namespace game {
 
+    // initalize the game render object
     void GameLevel::init(RenderObject *ro) {
         render_object = ro;
         delta = 0;
@@ -15,19 +16,24 @@ namespace game {
         newGame();
     }
 
+
+    // hero X location
     int GameLevel::hX() const {
         return hero.x + cam.getCamX();
     }
-     
+
+    // hero Y location     
     int GameLevel::hY() const {
         return hero.y + cam.getCamY();
     }
 
+    // new game
     void GameLevel::newGame() {
         score = 0;
         lives = 10;
     }
 
+    // reset the level
     void GameLevel::resetLevel() {
         cam.reset();
         hero.reset();
@@ -41,10 +47,12 @@ namespace game {
         }
     }
 
+    // increment to next level
     void GameLevel::nextLevel() {
         
     }
 
+    // load level resources from gfx file
     void GameLevel::loadResources(const std::string &gfx_file) {  
             GfxData data;
             if(data.open(gfx_file)) {
@@ -80,6 +88,7 @@ namespace game {
             }
     }
 
+    // release the level objects/resources
     void GameLevel::release(RenderObject *ro) {
         std::cout << "Level objects release\n";
          if(!objects.empty()) {
@@ -93,6 +102,7 @@ namespace game {
         ro->releaseResources();
     }
 
+    // load the level
     void GameLevel::loadLevel(const std::string &filename, const std::string &gfx_, const std::string &background) {
 
         render_object->releaseResources();
@@ -190,6 +200,7 @@ namespace game {
         }
     }
 
+    // process particles on screen
     void GameLevel::procParticles() {
         for(auto i = emiter.particles.begin(); i != emiter.particles.end(); ++i) {
             if(i->dir == 0) {
@@ -209,6 +220,7 @@ namespace game {
         }
     }
 
+    // draw the level
     void GameLevel::draw(RenderObject *ro) {
         int start_col = cam.getX() / tsize;
         int end_col = start_col + (cam.getWidth() / tsize);
@@ -464,6 +476,7 @@ namespace game {
         return false;
     }
 
+    // key press down
     void GameLevel::keydown(char key) {
 #ifdef DEBUG_MODE
         if(key == 'r' || key == 'R')
@@ -471,6 +484,7 @@ namespace game {
 #endif
     }
      
+    // key press up
     void GameLevel::keyup(char key) {
 
     }        
