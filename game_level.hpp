@@ -8,7 +8,6 @@
 #include"star_field.hpp"
 #include"gfx_data.hpp"
 #include"particles.hpp"
-
 #include<vector>
 
 namespace game {

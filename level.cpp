@@ -220,6 +220,15 @@ namespace game {
         return false;
     }
 
+    bool Level::checkRectsForType(const std::vector<Rect> &v, int type) {
+        for(auto &i : v) {
+            if(!checkRectForType(i, type))
+                return false;
+        }
+        return true;
+    }
+
+
 
     void Level::setLevelName(const std::string &name) {
          level_name = name;
