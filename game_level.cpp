@@ -219,7 +219,8 @@ namespace game {
             }
             for(std::vector<CObject *>::size_type o = 0; o < objects.size(); ++o) {
                 if(objects[o]->otype == 1 && PointInRect(Point(i->x, i->y), Rect(objects[o]->x, objects[o]->y, 2, 3))) {
-                    //objects[o]->death();   
+                    objects[o]->death();  
+                    emiter.particles.erase(i); 
                 }
             }
         }

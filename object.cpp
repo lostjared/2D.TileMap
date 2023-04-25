@@ -45,6 +45,10 @@ namespace game {
     void Item::logic(Level *level) {
 
     }
+
+    void Item::death() {
+
+    }
    
 
     Enemy::Enemy(int xx, int yy, int t) {
@@ -129,6 +133,11 @@ namespace game {
                 cur_ani = 0;
             }
         }
+    }
+
+    void Enemy::death() {
+        /// draw death
+        active = false;
     }
 
     void Hero::init(RenderObject *ro) {
@@ -342,6 +351,10 @@ namespace game {
             shot = true;
             cur_frame = 5;
        } 
+    }
+
+    void Hero::death() {
+
     }
 
     void Hero::proc_jump(Level *level, Camera *cam) {

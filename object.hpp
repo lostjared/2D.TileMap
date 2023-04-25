@@ -21,6 +21,7 @@ namespace game {
         virtual void release() = 0;
         virtual void logic(Level *level) = 0;
         virtual void reset() = 0;
+        virtual void death() = 0;
    
         int x = 0,y = 0,cur_frame = 0, type = 0;
         std::vector<Image> frame_data;
@@ -39,6 +40,7 @@ namespace game {
         void release() override;
         void logic(Level *level) override;   
         void reset() override;
+        void death() override;
         int grab();
         int item_type = 0;
         int item_amount = 0;
@@ -55,6 +57,7 @@ namespace game {
         void setImages(const std::vector<Image> &l, const std::vector<Image> &r); 
         void reset() override;
         void logic(Level *level) override;
+        void death() override;
     protected:
         std::vector<Image> g_img_l, g_img_r;
         int start_x, start_y;
@@ -70,6 +73,7 @@ namespace game {
         void draw(RenderObject *ro, int x, int y) override;
         void release() override;
         void logic(Level *level) override;
+        void death() override;
         void reset() override;
         void moveLeft(bool scroll);
         void moveRight(bool scroll);
@@ -84,7 +88,6 @@ namespace game {
         void update(Camera *cam);
         void updateDown(Level *level, Camera *cam);
         void set();
-
         bool grounded = false;
         bool falling = false;  
         int draw_x = 0, draw_y = 0;
