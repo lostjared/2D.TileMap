@@ -53,6 +53,8 @@ namespace game {
         bool unserialize(std::istream &in);
         std::string level_name = "Untitled Level";
     };
+
+    bool PointInRect(const Point &p, const Rect &r);
 }
 
 #endif

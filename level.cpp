@@ -244,4 +244,11 @@ namespace game {
         return false;
     }
 
+    bool PointInRect(const Point &p, const Rect &r) {
+        if(p.x >= r.x && p.x <= r.x+r.w && p.y >= r.y && p.y <= r.y+r.h)
+            return true;
+        return false;
+    }
+
+
 }
