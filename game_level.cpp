@@ -311,7 +311,7 @@ namespace game {
                     resetLevel();
                 }
             } else if(objects[i]->otype == 0 && objects[i]->active) {
-                if(PointInRect(Point(hX(), hY()), Rect(objects[i]->x, objects[i]->y,2, 2))) {
+                if(PointInRect(Point(hX(), hY()), Rect(objects[i]->x, objects[i]->y, 2, 2))) {
                     objects[i]->active = false;
                     Item *item = dynamic_cast<Item *>(objects[i]);
                     score += item->item_amount;
