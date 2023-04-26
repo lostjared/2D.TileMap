@@ -221,7 +221,7 @@ namespace game {
                 if(objects[o]->otype == 1 && PointInRect(Point(i->x, i->y), Rect(objects[o]->x, objects[o]->y, 2, 3))) {
                     objects[o]->death();  
                     emiter.particles.erase(i); 
-                }
+                } 
             }
         }
     }
@@ -304,6 +304,14 @@ namespace game {
                 }
             }
         }    
+
+        for(std::vector<CObject *>::size_type i = 0; i < objects.size(); ++i) {
+            if(objects[i]->otype == 1 && objects[i]->active) {
+                if(PointInRect(Point(hX(), hY()), Rect(objects[i]->x, objects[i]->y, 2, 3))) {
+                    resetLevel();
+                }
+            }
+        }
 
         unsigned int tick = ro->getTicks();
         static unsigned int prev_tick = 0;
