@@ -313,7 +313,7 @@ namespace game {
                 }
             } else if(objects[i]->otype == 0 && objects[i]->active) {
                 if(PointInRect(Point(hX(), hY()), Rect(objects[i]->x, objects[i]->y, 2, 2))) {
-                    try {
+                     try {
                         Item *item = dynamic_cast<Item *>(objects[i]);
                         if(item->item_type < 6) {
                             objects[i]->active = false;

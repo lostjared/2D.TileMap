@@ -63,6 +63,7 @@ namespace game {
         int start_x, start_y;
         int draw_x, draw_y;
         int cur_ani;
+        bool die = false;
     };
 
     class Hero : public CObject {

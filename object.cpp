@@ -107,6 +107,17 @@ namespace game {
     }
 
     void Enemy::logic(Level *level) {
+
+        if(die == true) {
+            cur_ani++;
+            if(cur_ani >= 10) {
+                die = false;
+                active = false;
+                cur_ani = 0;
+            }
+            return;
+        }
+
         if(level->checkRect(Rect(x, y+1, 1, 3))) {
             y++;
             return;
@@ -137,7 +148,10 @@ namespace game {
 
     void Enemy::death() {
         /// draw death
-        active = false;
+        if(die == false) {
+            die = true;   
+            cur_ani = 6;
+        }
     }
 
     void Hero::init(RenderObject *ro) {
