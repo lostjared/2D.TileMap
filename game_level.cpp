@@ -305,6 +305,7 @@ namespace game {
             }
         }    
 
+        // check rectangles
         for(std::vector<CObject *>::size_type i = 0; i < objects.size(); ++i) {
             if(objects[i]->otype == 1 && objects[i]->active) {
                 if(PointInRect(Point(hX(), hY()), Rect(objects[i]->x, objects[i]->y, 2, 3))) {
@@ -312,9 +313,11 @@ namespace game {
                 }
             } else if(objects[i]->otype == 0 && objects[i]->active) {
                 if(PointInRect(Point(hX(), hY()), Rect(objects[i]->x, objects[i]->y, 2, 2))) {
-                    objects[i]->active = false;
                     Item *item = dynamic_cast<Item *>(objects[i]);
-                    score += item->item_amount;
+                    if(item->item_type < 6) {
+                        objects[i]->active = false;
+                        score += item->item_amount;
+                    }
                 }
             }
         }
