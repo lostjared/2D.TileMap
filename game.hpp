@@ -153,6 +153,7 @@ namespace game {
         virtual Image loadImage(const std::string &text) = 0;
         virtual Image loadImage(const std::string &text, const Color &c) = 0;
         virtual Image loadImage(char *buf, int32_t size, const Color &c) = 0;
+        virtual Size imageSize(Image img) = 0;
         virtual Texture loadTexture(const std::string &text) = 0;
         virtual void setImageColorKey(Image image, const Color &c) = 0;
         virtual Image loadFont(const std::string &text, int size) = 0;

@@ -136,6 +136,14 @@ namespace game {
             return textures.size()-1;
        }
 
+      virtual Size imageSize(Image img) override {
+          if(img >= 0 && img < surfaces.size()) {
+            return Size(surfaces[img]->w, surfaces[img]->h);
+          }        
+          return Size(0, 0);
+      }
+
+
        void drawTextureAtRect(Texture tex, const Rect &r) override {
             SDL_Rect rc = { r.x, r.y, r.w, r.h };
             SDL_RenderCopy(ren, textures.at(tex), 0, &rc);
