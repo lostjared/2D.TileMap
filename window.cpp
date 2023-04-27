@@ -137,7 +137,7 @@ namespace game {
        }
 
       virtual Size imageSize(Image img) override {
-          if(img >= 0 && img < surfaces.size()) {
+          if(img >= 0 && img < static_cast<int>(surfaces.size())) {
             return Size(surfaces[img]->w, surfaces[img]->h);
           }        
           return Size(0, 0);
