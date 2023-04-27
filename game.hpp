@@ -131,6 +131,7 @@ namespace game {
     TPoint<T>::TPoint(T xx, T yy) : x{xx}, y{yy} {}
 
     using Point = TPoint<int32_t>;
+    using Size = TPoint<uint32_t>;
 
     enum class Key { KEY_LEFT=1, KEY_RIGHT, KEY_UP, KEY_DOWN, KEY_A, KEY_S, KEY_R };
 
