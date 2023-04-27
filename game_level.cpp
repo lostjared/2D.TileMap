@@ -221,7 +221,7 @@ namespace game {
                 if(objects[o]->otype == 1 && PointInRect(Point(i->x, i->y), Rect(objects[o]->x, objects[o]->y, 2, 3))) {
                     objects[o]->death();  
                     emiter.particles.erase(i); 
-                    break;
+                    return;
                 } 
             }
         }
