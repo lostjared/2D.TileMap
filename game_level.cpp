@@ -31,6 +31,7 @@ namespace game {
     void GameLevel::newGame() {
         score = 0;
         lives = 10;
+        items = 0;
     }
 
     // reset the level
@@ -313,12 +314,15 @@ namespace game {
                     resetLevel();
                 }
             } else if(objects[i]->otype == 0 && objects[i]->active) {
+                // todo: redo this
                 if(PointInRect(Point(hX(), hY()), Rect(objects[i]->x, objects[i]->y, 2, 2)) || PointInRect(Point(hX()+1, hY()), Rect(objects[i]->x, objects[i]->y, 2, 2)) || PointInRect(Point(hX()-1, hY()), Rect(objects[i]->x, objects[i]->y, 2, 2))) {
                      try {
                         Item *item = dynamic_cast<Item *>(objects[i]);
                         if(item->item_type < 6) {
                             objects[i]->active = false;
                             score += item->item_amount;
+                            items += 1;
+                            break;
                         }
                     } catch(...) {
                         std::cout << "game: cast error\n";
@@ -496,7 +500,7 @@ namespace game {
         ro->printText(arial, 15, 15, frame_count.str(), Color(255,255,255));
 #endif
         std::ostringstream score_stream;
-        score_stream << level.getLevelName() << " - Lives: " << lives << " Score: " << score; 
+        score_stream << level.getLevelName() << " - Lives: " << lives << " Score: " << score << " Items: " << items; 
         ro->printText(arial, 25, 50, score_stream.str(), Color(255, 255, 255));
     }
 

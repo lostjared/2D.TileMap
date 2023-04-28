@@ -53,7 +53,7 @@ namespace game {
         std::vector<Image> stars;
         std::vector<Image> hero_images_right, hero_images_left;
         std::vector<Image> shot;
-        int score, lives;
+        int score, lives, items;
     };
 }
 
