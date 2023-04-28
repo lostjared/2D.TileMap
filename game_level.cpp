@@ -207,14 +207,14 @@ namespace game {
                 if(i->x > 0) i->x--;
                 if(level.checkRect(Rect(i->x, i->y, 1, 1)) == false) {
                     emiter.particles.erase(i);
-                    break;
+                    return;
                 }
             }
             else{
                 if(i->x < level.width) i->x++;
                 if(level.checkRect(Rect(i->x, i->y, 1, 1)) == false) {
                     emiter.particles.erase(i);
-                    break;
+                    return;
                 }
             }
             for(std::vector<CObject *>::size_type o = 0; o < objects.size(); ++o) {
