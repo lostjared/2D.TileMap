@@ -668,10 +668,12 @@ void MainWindow::runExec() {
     }
 }
 
+// show gfx window
 void MainWindow::showGfx() {
     gfx_window->show();
 }
 
+// load graphics file
 bool MainWindow::loadGfx(const QString &filename, const QString &dir, const QString &background) {
 
     background_file = background;
@@ -772,20 +774,24 @@ bool MainWindow::loadGfx(const QString &filename, const QString &dir, const QStr
     
 }
 
+// set a new gfx window
 void MainWindow::setNewGfx(const QString &filename) {
     new_window->gfx_box->addItem(filename);
     new_window->gfx_box->setCurrentIndex(new_window->gfx_box->count()-1);
 }
 
+// show about window
 void MainWindow::showAbout() {
     debug_window->Log("editor: written by Jared Bruni.\n");
     about_window->show();
 }
 
+// open preferences
 void MainWindow::openPref() {
     pref_window->show();
 }
 
+// set cursor pen size in 16x16 tiles
 void MainWindow::setPenSize(int px, int py) {
     pen_x = px;
     pen_y = py;
@@ -795,6 +801,7 @@ void MainWindow::setPenSize(int px, int py) {
     debug_window->Log(text);
 }
 
+// show tool window
 void MainWindow::showTool() {
     tool_window->show();
 }
