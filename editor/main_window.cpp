@@ -159,7 +159,7 @@ void MainWindow::closeEvent(QCloseEvent *) {
         askSave();
    }
 }
-
+// shutdown the program
 void MainWindow::shutdownProgram() {
     if(proc_run == true) {
         proc->terminate();
@@ -172,7 +172,7 @@ void MainWindow::shutdownProgram() {
     }
     QApplication::exit(0);
 }
-
+// ask to save
 void MainWindow::askSave() {
     QMessageBox msgbox;
     msgbox.setWindowTitle("Do you wish to save?");
@@ -186,7 +186,7 @@ void MainWindow::askSave() {
         modified = false;
     }
 }
-
+// read from standard output on QProcess
 void MainWindow::readStdout() {
     if(proc_run) {
         QString data = proc->readAll();
@@ -195,6 +195,7 @@ void MainWindow::readStdout() {
     }
 }
 
+// paint the window to screen
 void MainWindow::paintEvent(QPaintEvent *) {
 
     QPainter paint(this);
@@ -242,10 +243,12 @@ void MainWindow::paintEvent(QPaintEvent *) {
     }
 }
 
+// update the map
 void MainWindow::updateMap(int) {        
     update();
 }
 
+// draw layer 1
 void MainWindow::drawLayer1(QPainter & paint) {
     for(int i = 0; i < MAP_WIDTH; ++i) {
         for(int z = 0; z < MAP_HEIGHT; ++z) {
@@ -323,7 +326,7 @@ void MainWindow::keyPressEvent(QKeyEvent *e) {
     update();
 }
 
-
+// set the tile from mouse event
 void MainWindow::setTile(const QPoint &pos) {
     if(map_init == true) {
         modified = true;
@@ -382,6 +385,7 @@ void MainWindow::setTile(const QPoint &pos) {
     }
 }
 
+// set object triggered by mouse event
 void MainWindow::setObject(const QPoint &pos) {
     if(map_init == true) {
         modified = true;
@@ -421,7 +425,7 @@ void MainWindow::setObject(const QPoint &pos) {
     }   
 }
 
-
+// created a new map
 void MainWindow::createdNewMap() { 
     updateTitle();
     tool_window->camera_x->setMinimum(0);
@@ -439,6 +443,7 @@ void MainWindow::createdNewMap() {
     modified = false;
 }
 
+// update title
 void MainWindow::updateTitle() {
     QString title;
     QTextStream stream(&title);
