@@ -312,6 +312,7 @@ namespace game {
             if(objects[i]->otype == 1 && objects[i]->active) {
                 if(PointInRect(Point(hX(), hY()), Rect(objects[i]->x, objects[i]->y, 2, 3))) {
                     resetLevel();
+                    break;
                 }
             } else if(objects[i]->otype == 0 && objects[i]->active) {
                 // todo: redo this
