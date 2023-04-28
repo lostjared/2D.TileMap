@@ -453,7 +453,7 @@ void MainWindow::updateTitle() {
 
 }
 
-
+// camera scroll bar changed
 void MainWindow::cameraChanged(int) {
     pos_x = tool_window->camera_x->sliderPosition();
     pos_y = tool_window->camera_y->sliderPosition();
@@ -461,6 +461,7 @@ void MainWindow::cameraChanged(int) {
     update();
 }
 
+// update labels
 void MainWindow::updateLabelText() {
     QString lbl;
     QTextStream stream(&lbl);
@@ -471,14 +472,14 @@ void MainWindow::updateLabelText() {
     tool_window->lbl_y->setText(lbl);
 }
 
-
+// open new menu
 void MainWindow::openNewMenu() {
      if(modified == true) {
         askSave();
     }
     new_window->show();
 }
-
+// save file to disk
 void MainWindow::saveFile() {
 
     if(file_name == "Untitled.lvl")
@@ -498,8 +499,7 @@ void MainWindow::saveFile() {
             }
     }
 }
-
-
+// save file as
 void MainWindow::saveFileAs() {
     if(map_init == true) {
         QString filename = QFileDialog::getSaveFileName(nullptr, tr("Save File"), "", tr("LVL (*.lvl)"));
@@ -527,6 +527,7 @@ void MainWindow::loadFile() {
     open_window->show();
 }
 
+// load level file from disk
 bool MainWindow::loadLevelFile(const QString &filename, const QString &gfx_file, const QString &background, const QString &dir) {
     if(!loadGfx(gfx_file, dir, background)) {
         return false;
@@ -549,14 +550,14 @@ bool MainWindow::loadLevelFile(const QString &filename, const QString &gfx_file,
     return true;
 }
 
-
+// scroll level  - up
 void MainWindow::levelUp() {
    if(pos_y > 0) pos_y--;
     tool_window->camera_y->setSliderPosition(pos_y);
     updateLabelText();
     update();
 }
- 
+// scroll level  - down 
 void MainWindow::levelDown() {
     if(pos_y < level.height - (720/16))
         pos_y++;
@@ -565,7 +566,7 @@ void MainWindow::levelDown() {
     updateLabelText();
     update();
 }
-
+// scroll level  - left
 void MainWindow::levelLeft() {
     if(pos_x > 0)
         pos_x--;
@@ -574,7 +575,7 @@ void MainWindow::levelLeft() {
     updateLabelText();
     update();
 }
-
+// scroll level  - right
 void MainWindow::levelRight() {
     if(pos_x < level.width - (1280/16))
         pos_x++;
@@ -582,23 +583,24 @@ void MainWindow::levelRight() {
     updateLabelText();
     update();
 }
-
+// show level graphics window
 void MainWindow::levelGraphicsOpen() {
     gfx_window->show();
 }
 
-
+// show run settings
 void MainWindow::runSettings() {
     run_window->show();
 }
 
+// process stopped
 void MainWindow::procStopped(int, QProcess::ExitStatus) {
     std::cout << proc->readAllStandardOutput().toStdString();
     run_exec->setText(tr("&Run"));
     debug_window->Log("editor: Map successfully exited.\n");
     proc_run = false;
 }
-
+// run test executable with map
 void MainWindow::runExec() {
     saveFile();
     if(file_name != "Untitled.lvl") {
