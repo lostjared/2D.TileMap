@@ -12,6 +12,7 @@
 #include<QThread>
 #include "../gfx_file.hpp"
 
+// constructor - (window init)
 MainWindow::MainWindow() {
     file_name = "Untitled.lvl";
     map_init = false;
@@ -147,7 +148,7 @@ MainWindow::MainWindow() {
     debug_window->Log("editor: successfully initalized..\n");
     cursor_visible = false;
 }
-
+// close event
 void MainWindow::closeEvent(QCloseEvent *) {
     if(proc_run == true) {
         proc->terminate();
@@ -274,6 +275,7 @@ void MainWindow::drawLayer3(QPainter & /*paint*/) {
 
 }
 
+// mouse move event
 void MainWindow::mouseMoveEvent(QMouseEvent *e) {
     if(map_init == true) { 
             cursor_visible = true;
@@ -288,6 +290,7 @@ void MainWindow::mouseMoveEvent(QMouseEvent *e) {
     
 }
 
+// mouse press event
 void MainWindow::mousePressEvent(QMouseEvent *e) {
     if(e->button() == Qt::MouseButton::LeftButton) {
         setTile(e->pos());
@@ -298,11 +301,13 @@ void MainWindow::mousePressEvent(QMouseEvent *e) {
     }
 }
 
+// mouse leave event
 void MainWindow::leaveEvent(QEvent *) {
    cursor_visible = false;
    update();
 }
 
+// key press event
 void MainWindow::keyPressEvent(QKeyEvent *e) {
     switch(e->key()) {
         case Qt::Key::Key_Left:
