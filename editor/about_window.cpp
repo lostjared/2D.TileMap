@@ -1,7 +1,7 @@
 #include"about_window.hpp"
 #include<QLabel>
 #include<QIcon>
-
+// About Window constructor - (init)
 AboutWindow::AboutWindow(QWidget *parent) : QDialog(parent) {
     setFixedSize(350, 120);
     setWindowTitle(tr("About"));

@@ -1,5 +1,5 @@
 #include"debug_window.hpp"
-
+// Debug Window constructor - (init)
 DebugWindow::DebugWindow(QWidget *parent) : QDialog(parent) {
     setFixedSize(1280, 320);
     setWindowFlag(Qt::Tool);
@@ -10,10 +10,11 @@ DebugWindow::DebugWindow(QWidget *parent) : QDialog(parent) {
     text_view->setStyleSheet("background-color: rgb(0, 0, 0); color: rgb(255, 255, 255); font-size: 20px;");
 }
 
+// clear the debug window
 void DebugWindow::clear() {
     text_view->setHtml("");
 }
-
+// add Log message to debug window
 void DebugWindow::Log(const QString &text) {
    QString current;
    current = text_view->toPlainText();

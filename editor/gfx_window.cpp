@@ -5,7 +5,7 @@
 #include<QListWidgetItem>
 #include<QFileDialog>
 #include<QMessageBox>
-
+// GfxWindow constructor - (init)
 GfxWindow::GfxWindow(QWidget *parent) : QDialog(parent) {
     setFixedSize(400, 400);
     setWindowTitle("Graphics");
@@ -50,10 +50,11 @@ GfxWindow::GfxWindow(QWidget *parent) : QDialog(parent) {
 
 }
 
+// set MainWindow parent
 void GfxWindow::setMainWindow(MainWindow *main) {
     main_window = main;
 }
-
+// update the list of items
 void GfxWindow::updateList() {
 
     image_list->clear();
@@ -77,10 +78,11 @@ void GfxWindow::updateList() {
     }
 }
 
+// set new index
 void GfxWindow::setIndex(int) {
     updateList();    
 }
-
+// add file to list
 void GfxWindow::addFile() {
     QStringList filename = QFileDialog::getOpenFileNames(this, tr("Add Image"), "", "Bitmaps (*.bmp)");
     if(filename.size() > 0) {
@@ -103,7 +105,7 @@ void GfxWindow::addFile() {
         updateList();
     }
 }
-
+// remove file
 void GfxWindow::rmvFile() {
 
     int index = image_list->currentRow();
@@ -122,7 +124,7 @@ void GfxWindow::rmvFile() {
 
     updateList();
 }
-
+// export file to disk (concaat)
 void GfxWindow::exportFile() {
     QString outfile = QFileDialog::getSaveFileName(this, tr("Export File"), "", "Gfx Files (*.gfx)");
 
@@ -177,6 +179,7 @@ void GfxWindow::exportFile() {
     }
 }
 
+// load gfx file to temporary directory
 void GfxWindow::loadGfxFile() {
     QString infile = QFileDialog::getOpenFileName(this, tr("Open Graphics File"), "", "Gfx Files (*.gfx)");
     if(infile != "") {
