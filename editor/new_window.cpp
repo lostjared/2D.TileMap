@@ -4,7 +4,7 @@
 #include<QFileDialog>
 #include<QMessageBox>
 #include<QDir>
-
+// new window constructor - (init)
 NewWindow::NewWindow(game::Level *lvl, QWidget *parent) : QDialog(parent), level{lvl} {
     setFixedSize(640, 320);
     setWindowTitle(tr("Create a New Map"));
@@ -63,22 +63,23 @@ NewWindow::NewWindow(game::Level *lvl, QWidget *parent) : QDialog(parent), level
     page_background->setGeometry(125, 140, 200, 25);
 
 }
-
+// create a new gfx file show gfx window
 void NewWindow::createNewGfx() {
     main_window->showGfx();
 }
 
+// set directory
 void NewWindow::setDirectory() {
     QString dir = QFileDialog::getExistingDirectory(this, "Directory", "");
     if(dir != "") {
         extract_dir->setText(dir);
     }    
 }
-
+// set main window
 void NewWindow::setMainWindow(MainWindow *w) {
     main_window = w;
 }
-
+// create map
 void NewWindow::createMap() {
 
     if(extract_dir->text() == tr("Set Extract Dir: ")) {
