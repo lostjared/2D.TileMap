@@ -2,6 +2,7 @@
 #include"main_window.hpp"
 #include<QMessageBox>
 
+// preferences window constructor - (init)
 PrefWindow::PrefWindow(QWidget *parent) : QDialog(parent) {
     setFixedSize(320, 240);
     QLabel *lbl_txt = new QLabel(tr("Pencil width: "), this);
@@ -22,11 +23,11 @@ PrefWindow::PrefWindow(QWidget *parent) : QDialog(parent) {
     pref_save->setGeometry(320-70, 240-35, 60, 25);
     connect(pref_save, SIGNAL(clicked()), this, SLOT(saveDetails()));
 }
-
+// set main window parent
 void PrefWindow::setMainWindow(MainWindow *m) {
     main_window = m;
 }
-
+// set max size 
 void PrefWindow::setMaxSize(int sx, int sy) {
     pref_pen_w->setMinimum(1);
     pref_pen_w->setMaximum(sx);
@@ -34,7 +35,7 @@ void PrefWindow::setMaxSize(int sx, int sy) {
     pref_pen_h->setMaximum(sy);
 }
 
-
+// save 
 void PrefWindow::saveDetails() {
     int px = pref_pen_w->value();
     int py = pref_pen_h->value();
