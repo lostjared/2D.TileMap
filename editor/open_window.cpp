@@ -3,7 +3,7 @@
 #include<QDir>
 #include<QFileDialog>
 #include<QMessageBox>
-
+// open window constructor - (init)
 OpenWindow::OpenWindow(QWidget *parent) : QDialog(parent) {
     setFixedSize(320, 185);
     setWindowTitle("Open Level");
@@ -44,11 +44,12 @@ OpenWindow::OpenWindow(QWidget *parent) : QDialog(parent) {
     connect(open_cancel, SIGNAL(clicked()), this, SLOT(openCancel()));
 }
 
+// set main window
 void OpenWindow::setMainWindow(MainWindow *main) {
     main_window = main;
 }
 
-
+// open level
 void OpenWindow::openLevel() {
     QString lvl_name = QFileDialog::getOpenFileName(this, "Open Level", "", "Level Files (*.lvl)");
     if(lvl_name != "") {
@@ -56,7 +57,7 @@ void OpenWindow::openLevel() {
         level_file = lvl_name;
     }
 }
-
+// open - select gfx file
 void OpenWindow::openGfx() {
 
     QString gfx_file = QFileDialog::getOpenFileName(this, "Open GFX File", "", "GFX Files (*.gfx)");
@@ -66,7 +67,7 @@ void OpenWindow::openGfx() {
     }
 
 }
-
+// open - select bg file
 void OpenWindow::openBg() {
     QString bg_file = QFileDialog::getOpenFileName(this, "Open bitmap", "", "Bitmaps (*.bmp)");
     if(bg_file != "") {
@@ -74,7 +75,7 @@ void OpenWindow::openBg() {
         open_bg_box->setCurrentIndex(open_bg_box->count()-1);
     }
 }
-
+// open - select dir
 void OpenWindow::openDir() {
     QString d = QFileDialog::getExistingDirectory(this, "Open Extract Directory", "");
     if(d != "") {
@@ -82,7 +83,7 @@ void OpenWindow::openDir() {
         level_dir = d;
     }
 }
-
+// open level map
 void OpenWindow::openFunc() {
 
     if(level_dir == "" || level_file == "") {
@@ -98,7 +99,7 @@ void OpenWindow::openFunc() {
         hide();
     }
 }
-
+// cancel
 void OpenWindow::openCancel() {
     hide();
 }
