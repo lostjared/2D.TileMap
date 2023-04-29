@@ -1,6 +1,7 @@
 #include"tool_window.hpp"
 #include<QLabel>
 
+// tool window - constructor (init)
 ToolWindow::ToolWindow(QWidget *parent) : QDialog(parent) {
     setFixedSize(150, 480);
     setWindowTitle(tr("Toolbox"));

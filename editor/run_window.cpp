@@ -3,6 +3,7 @@
 #include<QLabel>
 #include<QDir>
 
+// run window constructor - (init)
 RunWindow::RunWindow(QWidget *parent) : QDialog(parent) {
     setFixedSize(400, 400);
     setWindowTitle(tr("Run Settings"));
@@ -28,7 +29,7 @@ RunWindow::RunWindow(QWidget *parent) : QDialog(parent) {
     exec_bg->setGeometry(100, 80, 400-115, 25);
     exec_bg->setText(QDir::currentPath() + "/../img/backgrounds/bg1.bmp");
 }
-
+// set main window parent
 void RunWindow::setMainWindow(MainWindow *main) {
     main_window = main;
 }
