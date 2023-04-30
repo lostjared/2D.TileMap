@@ -2,15 +2,17 @@
 
 namespace game {
 
+    // gfx table add item to list
      void GfxTable::addItem(const GfxItem &item) {
         table.push_back(item);
      }
-     
+     // gfx table add item with parameters to list
      void GfxTable::addItem(uint32_t index, uint32_t solid, uint32_t obj, const std::string &filename) {
         std::cout << filename << " of type: " << obj << "\n";
         table.push_back( {index, solid, obj, filename });
      }
 
+    // build table from text file
     bool GfxTable::buildTable(const std::string &cfg) {
         clear();
         std::fstream file;
@@ -73,12 +75,14 @@ namespace game {
         return true;
     }
 
+    // clear table
     void GfxTable::clear() {
         if(!table.empty()) {
             table.erase(table.begin(), table.end());
         }
     }
 
+    // compress ( concat ) table 
     bool GfxCompress::open(const std::string &text) {
         file.open(text, std::ios::out | std::ios::binary);
 
@@ -90,6 +94,7 @@ namespace game {
         return true;     
     }
 
+    // concat table 
     bool GfxCompress::compress(const GfxTable &t) {
 
         if(!file.is_open())
@@ -126,18 +131,20 @@ namespace game {
         }
         return true;
     }
-     
-     
+
+    // close files     
     void GfxCompress::close() {
         file.close();
     }
 
+    // write string to stream
     void GfxCompress::write_string(const std::string &item) {
         uint32_t len = static_cast<uint32_t>(item.length());
         file.write(reinterpret_cast<char*>(&len), sizeof(len));
         file.write(reinterpret_cast<const char*>(item.c_str()), len);
     }
 
+    // open file to extract
     bool GfxExtract::open(const std::string &filename) {
         file.open(filename, std::ios::in | std::ios::binary);
         if(!file.is_open())
@@ -150,7 +157,8 @@ namespace game {
         }
         return true;
     }
-    
+
+    // extract to location    
     bool GfxExtract::extract(GfxTable &table, const std::string &directory) {
 
         if(!file.is_open())
@@ -193,7 +201,7 @@ namespace game {
         file.close();
         return true;
     }
-
+    // list to gfx table
     bool GfxExtract::list(GfxTable &table) {
 
         if(!file.is_open())
