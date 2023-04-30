@@ -199,7 +199,7 @@ namespace game {
         return checkTileSolid(p.x, p.y);
     }
 
-
+    // check solid from multiple points
     bool Level::check(const std::vector<Point> &p) {
         for(auto &i : p) {
             if(checkTileSolid(i.x, i.y))
@@ -208,6 +208,7 @@ namespace game {
         return false;
     }    
 
+    // check if rect contains a solid
     bool Level::checkRect(const Rect &r) {
         for(int i = r.x; i <= r.x+r.w; ++i) {
             for(int z = r.y; z <= r.y+r.h; ++z) {
@@ -221,6 +222,7 @@ namespace game {
         return true;
     }
 
+    // check if rect contains a type
     bool Level::checkRectForType(const Rect &r, int type) {
         for(int i = r.x; i <= r.x+r.w; ++i) {
             for(int z = r.y; z <= r.y+r.h; ++z) {
@@ -234,6 +236,7 @@ namespace game {
         return false;
     }
 
+    // check multiple rects for type
     bool Level::checkRectsForType(const std::vector<Rect> &v, int type) {
         for(auto &i : v) {
             if(!checkRectForType(i, type))
@@ -242,14 +245,17 @@ namespace game {
         return true;
     }
 
+    // set level name
     void Level::setLevelName(const std::string &name) {
          level_name = name;
     }
   
+    // get level name
     std::string Level::getLevelName() const {
         return level_name;  
     }
 
+    // at Point
     bool atPoint(int x1, int y1, int w, int h, int &x, int &y) {
        x = x1/w;
        y = y1/h;
@@ -258,6 +264,7 @@ namespace game {
         return false;
     }
 
+    // is Point in Rect?
     bool PointInRect(const Point &p, const Rect &r) {
         if(p.x >= r.x && p.x <= r.x+r.w && p.y >= r.y && p.y <= r.y+r.h)
             return true;
