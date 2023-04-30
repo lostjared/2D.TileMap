@@ -7,22 +7,24 @@
 
 namespace game {  
 
+    // tile copy constructor
     Tile::Tile(const Tile &tile) {
         set(tile);
     }
 
-    
+    // tile constructor
     Tile::Tile(uint8_t c, uint8_t s, uint8_t i) : color{c}, solid{s}, img{i} {
         layers[0] = 0;
         layers[1] = 0;
         layers[2] = 0;
     }
 
+    // tile assignment operator
     Tile& Tile::operator=(const Tile &tile) {
         set(tile);
         return *this;
     }
-   
+    // set tile with another tile
     void Tile::set(const Tile &tile) { 
         color = tile.color;
         img = tile.img;
@@ -31,21 +33,24 @@ namespace game {
         layers[1] = tile.layers[1];
         layers[2] = tile.layers[2];
     }
-
+    // set tile
     void Tile::setTile(const Tile &tile) {
         color = tile.color;
         img = tile.img;
         solid = tile.solid;
     }
 
+   // level default constructor
    Level::Level() : width{0}, height{0}, tiles{nullptr} {
 
    }
 
+    // level destructor
     Level::~Level() {
         releaseTiles();
     }
 
+    // load level
     bool Level::loadLevel(const std::string &filename) {
         std::fstream file;
         file.open(filename, std::ios::in | std::ios::binary);
@@ -53,7 +58,7 @@ namespace game {
             return false;
         return unserialize(file);
     }
-
+    // save level
     bool Level::saveLevel(const std::string &filename) {
         std::fstream file;
         file.open(filename, std::ios::out | std::ios::binary);
@@ -62,6 +67,7 @@ namespace game {
         return serialize(file);
     }
 
+    // create new map
     void Level::create(int32_t w, int32_t h, const Tile &init_tile) {
         resizeTiles(w, h);
         for(int i = 0; i < w; ++i) {
@@ -71,13 +77,14 @@ namespace game {
         }
     }
 
+    // tile at location x,y
     Tile *Level::at(int32_t x, int32_t y) {
         if(x >= 0 && x < width && y >= 0 && y < height) {
             return &tiles[x][y];
         }
         return nullptr;
     }
-
+    // output map to stdout
     void Level::output_map(std::ostream &out) {
         if(width == 0 || height == 0 || tiles == nullptr) {
             out << "[empty map]\n";
@@ -93,6 +100,7 @@ namespace game {
         }
     }
 
+    // resize tiles
     bool Level::resizeTiles(int32_t w, int32_t h) {
         releaseTiles();
         width = w;
@@ -104,6 +112,7 @@ namespace game {
         return true;
     }
 
+    // release the tiles
     void Level::releaseTiles() {
         if(tiles != nullptr && width != 0) {
             for(int i = 0; i < width; ++i) {
@@ -114,6 +123,7 @@ namespace game {
         }
     }
 
+    // serialize - save to stream
    bool Level::serialize(std::ostream &out) {
         if(tiles == nullptr) return false;
         uint32_t type = 0x420;
@@ -130,7 +140,7 @@ namespace game {
         }
         return true;
    }
-   
+   // unserialize - construct from stream
    bool Level::unserialize(std::istream &in) {
         uint32_t type = 0;
         in.read(reinterpret_cast<char*>(&type), sizeof(type));
@@ -155,6 +165,7 @@ namespace game {
         return true;
    }
 
+    // check Type
     bool Level::checkType(const Point &p, int type) {
         Tile *tile = at(p.x, p.y);
         if(tile != nullptr) {
@@ -164,6 +175,7 @@ namespace game {
         return false;
     }
     
+    // check multiple types
     bool Level::checkTypes(const std::vector<Point> &p, int type) {
         for(auto &i : p) {
             if(checkType(i, type) == false)
@@ -172,6 +184,7 @@ namespace game {
         return true;
     }
 
+    // check tile solid
     bool Level::checkTileSolid(int x, int y) {
         Tile *tile = at(x, y);
         if(tile != nullptr) {
@@ -181,6 +194,7 @@ namespace game {
         return true;
     }
 
+    // check solid from Point
     bool Level::checkSolid(const Point &p) {
         return checkTileSolid(p.x, p.y);
     }
