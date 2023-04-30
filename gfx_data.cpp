@@ -1,6 +1,7 @@
 #include"gfx_data.hpp"
 
 namespace game {
+    // open GfxData object with filename to gfx file
     bool GfxData::open(const std::string &filename) {
         file.open(filename, std::ios::in | std::ios::binary);
         if(!file.is_open()) {
@@ -17,10 +18,12 @@ namespace game {
         return true;   
     }
 
+    // close gfxData object
     void GfxData::close() {
         file.close();
     }
 
+    // after open load with render object / color
     bool GfxData::load(RenderObject *ro, const Color &c) {    
         if(!file.is_open()) {
             return false;
