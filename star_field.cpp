@@ -1,10 +1,12 @@
 #include"star_field.hpp"
 
 namespace game {
+    // starfield constructor
     StarField::StarField() {
        
     }
 
+    // initalize star field with number of total stars
     void StarField::init(int num_stars) {
 
         if(!stars.empty())
@@ -14,13 +16,15 @@ namespace game {
             stars.push_back({rand()%1280-20, rand()%720-20, rand()%static_cast<int>(images.size()), rand()%3});
         }
     }
-    
+
+    // set the star field images    
     void StarField::setImages(const std::vector<Image> &i) {
         if(!images.empty()) 
             images.erase(images.begin(), images.end());
         std::copy(i.begin(), i.end(), std::back_inserter(images));
     }
 
+    // draw the star field
     void StarField::draw(RenderObject *ro) {
         if(images.size() == 0) return;
         for(auto i = stars.begin(); i != stars.end(); ++i) {
@@ -28,6 +32,7 @@ namespace game {
         }
     }
     
+    // process the positions of the stars
     void StarField::proc() {
         if(images.size() == 0) return;
         static int index = 0;
