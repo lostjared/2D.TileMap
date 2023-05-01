@@ -93,17 +93,19 @@ namespace game {
             SDL_BlitSurface(surfaces.at(image), 0, surface, &rc);
         }
 
+        // draw at rect x,y,w,h
         void drawAtRect(Image image, int x, int y, int w, int h) override {
             SDL_Rect rc = { x, y, w, h };
             SDL_BlitSurface(surfaces.at(image), 0, surface, &rc);
         }
 
+        // draw at source rect dest rect
         void drawAtRect(Image image, int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2) override {
             SDL_Rect rc = { x1, y1, w1, h1 };
             SDL_Rect rc2 = { x2, y2, w2, h2 };
             SDL_BlitSurface(surfaces.at(image), &rc, surface, &rc2);
         }
-        
+        // print text with font
         void printText(Font font, int x, int y, const std::string &text, const Color &col) override {
             SDL_Color col_s = { col.r, col.g, col.b };
             SDL_Surface *surf = TTF_RenderText_Solid(fonts.at(font), text.c_str(), col_s);
@@ -112,22 +114,26 @@ namespace game {
             SDL_FreeSurface(surf);
         }
 
+        // draw At point
         void drawAt(Image image, const Point &p) override {
             drawAt(image, p.x, p.y);
         }
-        
+        // draw at rect
         void drawAtRect(Image image, const Rect &r) override {
             drawAtRect(image, r.x, r.y, r.w, r.h);
         }
 
+        // draw at rect source rect, destination rect
         void drawAtRect(Image image, const Rect &src, const Rect &dst) override {
             drawAtRect(image, src.x, src.y, src.w, src.h, dst.x, dst.y, dst.w, dst.h);
         }
 
+        // print text at Point with color
         void printText(Font font, const Point &p, const std::string &text, const Color &col) override {
             printText(font, p.x, p.y, text, col);
         }
 
+       // load texture
        Texture loadTexture(const std::string &text) override {
             SDL_Surface *surf = SDL_LoadBMP(text.c_str());
             if(!surf) {
@@ -143,6 +149,7 @@ namespace game {
             return textures.size()-1;
        }
 
+      // return Image size
       virtual Size imageSize(Image img) override {
           if(img >= 0 && img < static_cast<int>(surfaces.size())) {
             return Size(surfaces[img]->w, surfaces[img]->h);
@@ -151,15 +158,18 @@ namespace game {
       }
 
 
+       // draw texture at rect
        void drawTextureAtRect(Texture tex, const Rect &r) override {
             SDL_Rect rc = { r.x, r.y, r.w, r.h };
             SDL_RenderCopy(ren, textures.at(tex), 0, &rc);
        }
 
+        // load image file with default color key
         Image loadImage(const std::string &text) override {
            return loadImage(text, Color(255,255,255));
         }
 
+        // load image file with color key
         Image loadImage(const std::string &text, const Color &color) override {
             SDL_Surface *surface = SDL_LoadBMP(text.c_str());
             if(!surface) {
@@ -173,6 +183,7 @@ namespace game {
             return index;
         }
 
+        // load image file from byte stream with color key
         Image loadImage(char *buf, int32_t size, const Color &c) override {
             SDL_RWops *ops = SDL_RWFromMem(buf, size);
             SDL_Surface *surface = SDL_LoadBMP_RW(ops, 1);
@@ -188,10 +199,12 @@ namespace game {
         }
 
 
+        // set Image color key
         void setImageColorKey(Image image, const Color &c) override {
             SDL_SetColorKey(surfaces[image], SDL_TRUE, SDL_MapRGB(surfaces[image]->format, c.r, c.g, c.b));
         }
 
+        // load font
         Image loadFont(const std::string &text, int size) override {
             TTF_Font *font = TTF_OpenFont(text.c_str(), size);
             if(!font) {
@@ -208,6 +221,7 @@ namespace game {
 
         }
 
+        // initalize subsystem
         bool init(const std::string &text, int w, int h) {
             if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK) < 0) {
                 std::cerr << "Error initaliziing SDL\n";
@@ -248,10 +262,12 @@ namespace game {
             return true;
         }
 
+        // get system time ticks
         unsigned int getTicks() override {
             return static_cast<unsigned int>(SDL_GetTicks());
         }
 
+        // is Key or joybutton pressed?
         bool keyDown(const Key &c) override {
             const Uint8 *keys = SDL_GetKeyboardState(0);
             switch(c) {
