@@ -323,17 +323,19 @@ namespace game {
     GameObject *Window::current_object = nullptr;
     SDL_RenderObject render_object;
 
+    // create window
     bool Window::createWindow(const std::string &text, int w, int h) {
         return render_object.init(text, w, h);
     }
-
+    // set GameObject 
     void Window::setObject(GameObject *obj) {
         Window::current_object = obj;
     }
-
+    // intalize game object with render object
     void Window::init_object(GameObject *obj) {
         obj->init(&render_object);
     }
+    // enter game loop
     int Window::loop() {
 
         if(current_object == nullptr) {
