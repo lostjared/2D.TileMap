@@ -8,6 +8,7 @@
 
 namespace game {
 
+    // render object implementation for SDL2
     struct SDL_RenderObject : public RenderObject {
          SDL_Window *window = NULL;
          SDL_Renderer *ren = NULL;
@@ -18,7 +19,8 @@ namespace game {
          SDL_Texture *tex = NULL;
          SDL_Surface *surface = NULL;
          int width = 0, height = 0;
-             
+
+        // destructor on clean up             
          ~SDL_RenderObject() {
             release_images();
             release_joysticks();
@@ -27,6 +29,7 @@ namespace game {
             SDL_Quit();
          }
 
+        // release the joysticks if initalized
          void release_joysticks() {
 
             if(joysticks.size() == 0) {
@@ -39,6 +42,7 @@ namespace game {
             }
          }
 
+        // initalize the joysticks if available
          void init_joysticks() {
 
             for(int i = 0; i < SDL_NumJoysticks(); ++i) {
@@ -54,6 +58,7 @@ namespace game {
                 
          }
 
+        // release image files
         void release_images() {
             for(std::vector<SDL_Surface*>::size_type i = 0; i < surfaces.size(); ++i) {
                 SDL_FreeSurface(surfaces[i]);
@@ -77,10 +82,12 @@ namespace game {
                 textures.erase(textures.begin(), textures.end());
         }
 
+        // release resources
         virtual void releaseResources() override {
             release_images();
         }
 
+        // draw image at x,y
         void drawAt(Image image, int x, int y) override {
             SDL_Rect rc = { x, y, surfaces[image]->w, surfaces[image]->h };
             SDL_BlitSurface(surfaces.at(image), 0, surface, &rc);
