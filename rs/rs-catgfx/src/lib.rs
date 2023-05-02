@@ -37,14 +37,17 @@ pub mod catgfx {
     }
 
     pub fn cat_gfx(input: &str, cfg_file: &str) -> bool {
+        println!("catgfx: concat {} with {}", input, cfg_file);
         true
     }
 
     pub fn extract_gfx(input: &str, output_dir: &str) -> bool {
+        println!("catgfx: extract {} to {}", input, output_dir);
         true
     }
 
     pub fn list_gfx(input: &str) -> bool {
+        println!("catgfx: list {}", input);
         true
     }
 }
