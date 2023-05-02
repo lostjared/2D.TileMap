@@ -78,12 +78,9 @@ fn parse_args() -> Arguments {
         let c = m.value_of_lossy("input").unwrap();
         return Arguments { source: value.unwrap().to_string(), dir: None, input: Some(c.to_string()), mode: Operation::Concat }
     }
-
-    let input = String::new();
-    let m = 0;
-
+   
     Arguments {
-        source: input,
+        source: String::new(),
         mode: Operation::About,
         dir: None,
         input: None,
@@ -92,6 +89,21 @@ fn parse_args() -> Arguments {
 
 fn main() -> std::io::Result<()> {
     let args = parse_args();
-
+    match args.mode {
+        Operation::About => {
+            println!("error: no input");
+        }
+        Operation::Concat => {
+            let i = args.input.unwrap();
+            cat_gfx(&args.source, &i);
+        }
+        Operation::Extract => {
+            let e = args.dir.unwrap();
+            extract_gfx(&args.source, &e);
+        }
+        Operation::List => {
+            list_gfx(&args.source);
+        }
+    }
     Ok(())
 }

@@ -36,15 +36,15 @@ pub mod catgfx {
         }
     }
 
-    pub fn cat_gfx(table: &GfxTable) -> bool {
+    pub fn cat_gfx(input: &str, cfg_file: &str) -> bool {
         true
     }
 
-    pub fn extract_gfx(table: &GfxTable) -> bool {
+    pub fn extract_gfx(input: &str, output_dir: &str) -> bool {
         true
     }
 
-    pub fn list_gfx(table: &GfxTable) -> bool {
+    pub fn list_gfx(input: &str) -> bool {
         true
     }
 }
