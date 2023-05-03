@@ -1,5 +1,9 @@
 pub mod catgfx {
 
+    use std::io::Cursor;
+    use byteorder::{LittleEndian, BigEndian, ReadBytesExt};
+    use std::io::Read;
+
     pub struct GfxItem {
         index: u32,
         solid: u32,
@@ -48,6 +52,14 @@ pub mod catgfx {
 
     pub fn list_gfx(input: &str) -> bool {
         println!("catgfx: list {}", input);
+        let mut f = std::fs::File::open(input).expect("on file open");
+        let mut data : Vec<u8> = Vec::new();
+        f.read_to_end(&mut data).expect("read");
+        let mut reader = Cursor::new(data);
+        let header = reader.read_u32::<LittleEndian>().expect("on read");
+        if header != 0x421 {
+            panic!("Error invalid file type");
+        }
         true
     }
 }
