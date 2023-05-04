@@ -64,13 +64,13 @@ pub mod catgfx {
         let mut f = std::fs::File::open(input)?;
         let mut data: Vec<u8> = Vec::new();
         f.read_to_end(&mut data)?;
-        let dlen = data.len();
+        let dlen = data.len() as u64;
         let mut reader = Cursor::new(data);
         let header = reader.read_u32::<LittleEndian>()?;
         if header != 0x421 {
             panic!("Error invalid file type");
         }
-        while reader.position() < dlen as u64 {
+        while reader.position() < dlen {
             let len: u32 = reader.read_u32::<LittleEndian>()?;
             if len > 0 {
                 let mut index = 0;
