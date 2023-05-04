@@ -1,15 +1,15 @@
 pub mod catgfx {
 
     use std::io::Cursor;
-    use byteorder::{LittleEndian, BigEndian, ReadBytesExt};
+    use byteorder::{LittleEndian,ReadBytesExt};
     use std::io::Read;
 
     /// Graphics Item
     pub struct GfxItem {
-        index: u32,
-        solid: u32,
-        obj: u32,
-        name: String,
+        pub index: u32,
+        pub solid: u32,
+        pub obj: u32,
+        pub name: String,
     }
 
     /// Graphics Table
@@ -47,28 +47,28 @@ pub mod catgfx {
         }
     }
     /// concat graphics
-    pub fn cat_gfx(input: &str, cfg_file: &str) -> bool {
+    pub fn cat_gfx(input: &str, cfg_file: &str) -> std::io::Result<()> {
         println!("catgfx: concat {} with {}", input, cfg_file);
-        true
+        Ok(())
     }
 
     /// extract graphics
-    pub fn extract_gfx(input: &str, output_dir: &str) -> bool {
+    pub fn extract_gfx(input: &str, output_dir: &str) -> std::io::Result<()> {
         println!("catgfx: extract {} to {}", input, output_dir);
-        true
+        Ok(())
     }
 
     /// list graphics in file
-    pub fn list_gfx(input: &str) -> bool {
+    pub fn list_gfx(input: &str) -> std::io::Result<()> {
         println!("catgfx: list {}", input);
-        let mut f = std::fs::File::open(input).expect("on file open");
+        let mut f = std::fs::File::open(input)?;
         let mut data : Vec<u8> = Vec::new();
-        f.read_to_end(&mut data).expect("read");
+        f.read_to_end(&mut data)?;
         let mut reader = Cursor::new(data);
-        let header = reader.read_u32::<LittleEndian>().expect("on read");
+        let header = reader.read_u32::<LittleEndian>()?;
         if header != 0x421 {
             panic!("Error invalid file type");
         }
-        true
+        Ok(())
     }
 }

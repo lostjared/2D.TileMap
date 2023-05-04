@@ -95,14 +95,14 @@ fn main() -> std::io::Result<()> {
         }
         Operation::Concat => {
             let i = args.input.unwrap();
-            cat_gfx(&args.source, &i);
+            cat_gfx(&args.source, &i)?;
         }
         Operation::Extract => {
             let e = args.dir.unwrap();
-            extract_gfx(&args.source, &e);
+            extract_gfx(&args.source, &e)?;
         }
         Operation::List => {
-            list_gfx(&args.source);
+            list_gfx(&args.source)?;
         }
     }
     Ok(())
