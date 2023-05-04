@@ -1,7 +1,8 @@
 pub mod catgfx {
 
+    use byteorder::{LittleEndian, ReadBytesExt};
+    use std::io::prelude::*;
     use std::io::Cursor;
-    use byteorder::{LittleEndian,ReadBytesExt};
     use std::io::Read;
 
     /// Graphics Item
@@ -32,7 +33,6 @@ pub mod catgfx {
 
     /// implemtnation of GfxTable
     impl GfxTable {
-
         /// create new table
         pub fn new() -> Self {
             GfxTable { items: Vec::new() }
@@ -62,12 +62,34 @@ pub mod catgfx {
     pub fn list_gfx(input: &str) -> std::io::Result<()> {
         println!("catgfx: list {}", input);
         let mut f = std::fs::File::open(input)?;
-        let mut data : Vec<u8> = Vec::new();
+        let mut data: Vec<u8> = Vec::new();
         f.read_to_end(&mut data)?;
+        let dlen = data.len();
         let mut reader = Cursor::new(data);
         let header = reader.read_u32::<LittleEndian>()?;
         if header != 0x421 {
             panic!("Error invalid file type");
+        }
+        while reader.position() < dlen as u64 {
+            let len: u32 = reader.read_u32::<LittleEndian>()?;
+            if len > 0 {
+                let mut index = 0;
+                let mut s = String::new();
+                while index < len {
+                    let b = reader.read_u8()?;
+                    s.push(b as char);
+                    index += 1;
+                }
+                let file_index: u32 = reader.read_u32::<LittleEndian>()?;
+                let file_solid: u32 = reader.read_u32::<LittleEndian>()?;
+                let file_obj: u32 = reader.read_u32::<LittleEndian>()?;
+                let file_len: u32 = reader.read_u32::<LittleEndian>()?;
+                println!(
+                    "{} [ index: {} solid: {} obj: {} len: {} ]",
+                    s, file_index, file_solid, file_obj, file_len
+                );
+                reader.seek(std::io::SeekFrom::Current(file_len as i64))?;
+            }
         }
         Ok(())
     }

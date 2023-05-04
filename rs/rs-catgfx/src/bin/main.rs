@@ -1,7 +1,6 @@
 use clap::{App, Arg};
 use rs_catgfx::catgfx::*;
 
-
 enum Operation {
     Concat,
     Extract,
@@ -11,7 +10,7 @@ enum Operation {
 
 struct Arguments {
     source: String,
-    dir: Option<String>, 
+    dir: Option<String>,
     input: Option<String>,
     mode: Operation,
 }
@@ -64,21 +63,36 @@ fn parse_args() -> Arguments {
 
     let value = m.value_of_lossy("list");
     if value != None {
-        return Arguments { source: value.unwrap().to_string(), dir: None,  input: None, mode: Operation::List }
+        return Arguments {
+            source: value.unwrap().to_string(),
+            dir: None,
+            input: None,
+            mode: Operation::List,
+        };
     }
 
     let value = m.value_of_lossy("extract");
     if value != None {
         let d = m.value_of_lossy("dir").unwrap();
-        return Arguments { source: value.unwrap().to_string(),dir: Some(d.to_string()), input: None, mode: Operation::Extract }
+        return Arguments {
+            source: value.unwrap().to_string(),
+            dir: Some(d.to_string()),
+            input: None,
+            mode: Operation::Extract,
+        };
     }
 
     let value = m.value_of_lossy("cat");
     if value != None {
         let c = m.value_of_lossy("input").unwrap();
-        return Arguments { source: value.unwrap().to_string(), dir: None, input: Some(c.to_string()), mode: Operation::Concat }
+        return Arguments {
+            source: value.unwrap().to_string(),
+            dir: None,
+            input: Some(c.to_string()),
+            mode: Operation::Concat,
+        };
     }
-   
+
     Arguments {
         source: String::new(),
         mode: Operation::About,
