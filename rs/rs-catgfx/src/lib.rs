@@ -90,12 +90,13 @@ pub mod catgfx {
                     index += 1;
                     out_buffer.push(b);
                 }
-                table.add_item(GfxItem::new(file_index, file_solid, file_obj, &s, out_buffer));
+                table.add_item(GfxItem::new(
+                    file_index, file_solid, file_obj, &s, out_buffer,
+                ));
             }
         }
         Ok(())
     }
-
 
     /// extract graphics
     pub fn extract_gfx(input: &str, output_dir: &str) -> std::io::Result<()> {
