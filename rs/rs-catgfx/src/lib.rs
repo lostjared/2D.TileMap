@@ -54,7 +54,7 @@ pub mod catgfx {
         println!("catgfx: concat {} with {}", input, cfg_file);
         Ok(())
     }
-
+    /// build gfx table
     pub fn build_gfx(input: &str, table: &mut GfxTable) -> std::io::Result<()> {
         let mut f = std::fs::File::open(input)?;
         let mut data: Vec<u8> = Vec::new();
