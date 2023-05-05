@@ -12,6 +12,7 @@ pub mod catgfx {
         pub solid: u32,
         pub obj: u32,
         pub name: String,
+        pub data: Vec<u8>,
     }
 
     /// Graphics Table
@@ -22,12 +23,13 @@ pub mod catgfx {
     /// implementation of GfxItem
     impl GfxItem {
         /// create new item function
-        pub fn new(i: u32, s: u32, o: u32, n: &str) -> Self {
+        pub fn new(i: u32, s: u32, o: u32, n: &str, d: Vec<u8>) -> Self {
             GfxItem {
                 index: i,
                 solid: s,
                 obj: o,
                 name: n.to_string(),
+                data: d,
             }
         }
     }
@@ -82,16 +84,13 @@ pub mod catgfx {
                     s, file_index, file_solid, file_obj, file_len
                 );
                 let mut index: i64 = 0;
-//                let _ = std::fs::create_dir(&output_dir);
-//                let path = format!("{}/{}", output_dir, s);
-//                let mut out_file = std::fs::File::create(path)?;
                 let mut out_buffer: Vec<u8> = Vec::new();
                 while index < file_len as i64 {
                     let b = reader.read_u8()?;
                     index += 1;
                     out_buffer.push(b);
                 }
-  //              out_file.write_all(out_buffer.as_slice())?;
+                table.add_item(GfxItem::new(file_index, file_solid, file_obj, &s, out_buffer));
             }
         }
         Ok(())
