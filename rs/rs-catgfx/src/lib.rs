@@ -53,6 +53,51 @@ pub mod catgfx {
         Ok(())
     }
 
+    pub fn build_gfx(input: &str, table: &mut GfxTable) -> std::io::Result<()> {
+        let mut f = std::fs::File::open(input)?;
+        let mut data: Vec<u8> = Vec::new();
+        f.read_to_end(&mut data)?;
+        let dlen = data.len() as u64;
+        let mut reader = Cursor::new(data);
+        let header = reader.read_u32::<LittleEndian>()?;
+        if header != 0x421 {
+            panic!("Error invalid file type");
+        }
+        while reader.position() < dlen {
+            let len: u32 = reader.read_u32::<LittleEndian>()?;
+            if len > 0 {
+                let mut index = 0;
+                let mut s = String::new();
+                while index < len {
+                    let b = reader.read_u8()?;
+                    s.push(b as char);
+                    index += 1;
+                }
+                let file_index: u32 = reader.read_u32::<LittleEndian>()?;
+                let file_solid: u32 = reader.read_u32::<LittleEndian>()?;
+                let file_obj: u32 = reader.read_u32::<LittleEndian>()?;
+                let file_len: u32 = reader.read_u32::<LittleEndian>()?;
+                println!(
+                    "{} [ index: {} solid: {} obj: {} len: {} ]",
+                    s, file_index, file_solid, file_obj, file_len
+                );
+                let mut index: i64 = 0;
+//                let _ = std::fs::create_dir(&output_dir);
+//                let path = format!("{}/{}", output_dir, s);
+//                let mut out_file = std::fs::File::create(path)?;
+                let mut out_buffer: Vec<u8> = Vec::new();
+                while index < file_len as i64 {
+                    let b = reader.read_u8()?;
+                    index += 1;
+                    out_buffer.push(b);
+                }
+  //              out_file.write_all(out_buffer.as_slice())?;
+            }
+        }
+        Ok(())
+    }
+
+
     /// extract graphics
     pub fn extract_gfx(input: &str, output_dir: &str) -> std::io::Result<()> {
         println!("catgfx: extract {} to {}", input, output_dir);
