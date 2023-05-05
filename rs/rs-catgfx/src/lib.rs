@@ -83,13 +83,13 @@ pub mod catgfx {
                     "{} [ index: {} solid: {} obj: {} len: {} ]",
                     s, file_index, file_solid, file_obj, file_len
                 );
-                let mut index : i64 = 0;
+                let mut index: i64 = 0;
                 let _ = std::fs::create_dir(&output_dir);
                 let path = format!("{}/{}", output_dir, s);
                 let mut out_file = std::fs::File::create(path)?;
-                let mut out_buffer : Vec<u8> = Vec::new();
+                let mut out_buffer: Vec<u8> = Vec::new();
                 while index < file_len as i64 {
-                    let b  = reader.read_u8()?;
+                    let b = reader.read_u8()?;
                     index += 1;
                     out_buffer.push(b);
                 }
