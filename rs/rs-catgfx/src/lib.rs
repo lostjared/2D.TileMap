@@ -55,31 +55,28 @@ pub mod catgfx {
         let f = std::fs::File::open(cfg_file)?;
         let r = std::io::BufReader::new(f);
         let mut out_f = std::fs::File::create(input)?;
-        let header : u32 = 0x421;
-
+        let header: u32 = 0x421;
         out_f.write_all(&header.to_le_bytes())?;
-
         let mut cur_index: u32 = 0;
-
         for input in r.lines() {
             match input {
                 Ok(input_str) => {
                     let pos = input_str.find('#');
                     if pos == None {
-                        let mut values : Vec<u32> = Vec::new();
+                        let mut values: Vec<u32> = Vec::new();
                         let pos = input_str.find(':').unwrap();
-                        let right = &input_str[pos+1..input_str.len()];
+                        let right = &input_str[pos + 1..input_str.len()];
                         let left = &input_str[0..pos];
                         values.push(left.parse().unwrap());
                         let pos = right.find(':').unwrap();
                         let left = &right[0..pos];
                         values.push(left.parse().unwrap());
-                        let right = &right[pos+1..right.len()];
-                   
+                        let right = &right[pos + 1..right.len()];
+
                         let rpos = right.rfind('/');
                         let filename = if rpos != None {
                             let rpos = rpos.unwrap();
-                            &right[rpos+1..]
+                            &right[rpos + 1..]
                         } else {
                             right
                         };
@@ -90,17 +87,20 @@ pub mod catgfx {
                         out_f.write_all(&values[0].to_le_bytes())?;
                         out_f.write_all(&values[1].to_le_bytes())?;
                         let mut file_value = std::fs::File::open(&right)?;
-                        let mut buf : Vec<u8> = Vec::new();
+                        let mut buf: Vec<u8> = Vec::new();
                         file_value.read_to_end(&mut buf)?;
                         let file_size = buf.len() as u32;
-                        out_f.write_all(&file_size.to_le_bytes())?;                     
+                        out_f.write_all(&file_size.to_le_bytes())?;
                         out_f.write_all(buf.as_slice())?;
-                        
-                        println!("Wrote: {} -> {}:{} [{}/{}]" , right,  values[0], values[1], cur_index, file_size);
+
+                        println!(
+                            "Wrote: {} -> {}:{} [{}/{}]",
+                            right, values[0], values[1], cur_index, file_size
+                        );
                     } else {
                         let value = &input_str[1..input_str.len()];
                         cur_index = value.parse().unwrap();
-                    }        
+                    }
                 }
                 Err(e) => {
                     eprintln!("{}", e);
