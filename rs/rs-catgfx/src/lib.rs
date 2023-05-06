@@ -52,6 +52,18 @@ pub mod catgfx {
     /// concat graphics
     pub fn cat_gfx(input: &str, cfg_file: &str) -> std::io::Result<()> {
         println!("catgfx: concat {} with {}", input, cfg_file);
+        let f = std::fs::File::open(cfg_file)?;
+        let r = std::io::BufReader::new(f);
+        let mut out_f = std::fs::File::create(input)?;
+        let header : u32 = 0x421;
+
+        out_f.write_all(&header.to_le_bytes())?;
+
+        let mut cur_index = 0;
+
+        for input in r.lines() {
+            
+        }
         Ok(())
     }
     /// build gfx table
