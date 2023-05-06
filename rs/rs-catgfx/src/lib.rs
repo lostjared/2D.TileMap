@@ -75,8 +75,6 @@ pub mod catgfx {
                         let left = &right[0..pos];
                         values.push(left.parse().unwrap());
                         let right = &right[pos+1..right.len()];
-                        let name_len = right.len() as u32;
-                        out_f.write_all(&name_len.to_le_bytes())?;
                    
                         let rpos = right.rfind('/');
                         let filename = if rpos != None {
@@ -85,16 +83,19 @@ pub mod catgfx {
                         } else {
                             right
                         };
+                        let name_len = filename.len() as u32;
+                        out_f.write_all(&name_len.to_le_bytes())?;
                         out_f.write_all(filename.as_bytes())?;
                         out_f.write_all(&cur_index.to_le_bytes())?;
                         out_f.write_all(&values[0].to_le_bytes())?;
                         out_f.write_all(&values[1].to_le_bytes())?;
                         let mut file_value = std::fs::File::open(&right)?;
                         let mut buf : Vec<u8> = Vec::new();
-                        file_value.read_to_end(&mut buf)?;  
+                        file_value.read_to_end(&mut buf)?;
                         let file_size = buf.len() as u32;
                         out_f.write_all(&file_size.to_le_bytes())?;                     
                         out_f.write_all(buf.as_slice())?;
+                        
                         println!("Wrote: {} -> {}:{} [{}/{}]" , right,  values[0], values[1], cur_index, file_size);
                     } else {
                         let value = &input_str[1..input_str.len()];
