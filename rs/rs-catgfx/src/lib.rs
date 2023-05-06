@@ -59,10 +59,52 @@ pub mod catgfx {
 
         out_f.write_all(&header.to_le_bytes())?;
 
-        let mut cur_index = 0;
+        let mut cur_index: u32 = 0;
 
         for input in r.lines() {
-            
+            match input {
+                Ok(input_str) => {
+                    let pos = input_str.find('#');
+                    if pos == None {
+                        let mut values : Vec<u32> = Vec::new();
+                        let pos = input_str.find(':').unwrap();
+                        let right = &input_str[pos+1..input_str.len()];
+                        let left = &input_str[0..pos];
+                        values.push(left.parse().unwrap());
+                        let pos = right.find(':').unwrap();
+                        let left = &right[0..pos];
+                        values.push(left.parse().unwrap());
+                        let right = &right[pos+1..right.len()];
+                        let name_len = right.len() as u32;
+                        out_f.write_all(&name_len.to_le_bytes())?;
+                   
+                        let rpos = right.rfind('/');
+                        let filename = if rpos != None {
+                            let rpos = rpos.unwrap();
+                            &right[rpos+1..]
+                        } else {
+                            right
+                        };
+                        out_f.write_all(filename.as_bytes())?;
+                        out_f.write_all(&cur_index.to_le_bytes())?;
+                        out_f.write_all(&values[0].to_le_bytes())?;
+                        out_f.write_all(&values[1].to_le_bytes())?;
+                        let mut file_value = std::fs::File::open(&right)?;
+                        let mut buf : Vec<u8> = Vec::new();
+                        file_value.read_to_end(&mut buf)?;  
+                        let file_size = buf.len() as u32;
+                        out_f.write_all(&file_size.to_le_bytes())?;                     
+                        out_f.write_all(buf.as_slice())?;
+                        println!("Wrote: {} ", right);
+                    } else {
+                        let value = &input_str[1..input_str.len()];
+                        cur_index = value.parse().unwrap();
+                    }        
+                }
+                Err(e) => {
+                    eprintln!("{}", e);
+                }
+            }
         }
         Ok(())
     }
