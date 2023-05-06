@@ -95,7 +95,7 @@ pub mod catgfx {
                         let file_size = buf.len() as u32;
                         out_f.write_all(&file_size.to_le_bytes())?;                     
                         out_f.write_all(buf.as_slice())?;
-                        println!("Wrote: {} ", right);
+                        println!("Wrote: {} -> {}:{} [{}/{}]" , right,  values[0], values[1], cur_index, file_size);
                     } else {
                         let value = &input_str[1..input_str.len()];
                         cur_index = value.parse().unwrap();
