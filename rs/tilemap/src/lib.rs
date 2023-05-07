@@ -1,6 +1,10 @@
 
 pub mod tile_map {
 
+    use std::io::Read;
+    use byteorder::{LittleEndian, ReadBytesExt};
+    use std::io::Cursor;
+
     #[repr(C)]
     pub struct Tile {
         pub color: u8,
@@ -23,7 +27,14 @@ pub mod tile_map {
         }
 
         pub fn load_map(&mut self, file: &str) -> std::io::Result<()> {
-
+            let mut f = std::fs::File::open(file)?;
+            let mut buffer : Vec<u8> = Vec::new();
+            f.read_to_end(&mut buffer)?;
+            let mut r = Cursor::new(buffer);
+            let header = r.read_u32::<LittleEndian>()?;
+            if header != 0x420 {
+                panic!("invalid file format");
+            }
             Ok(())
         }
     }
