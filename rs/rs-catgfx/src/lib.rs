@@ -17,7 +17,7 @@ pub mod catgfx {
 
     /// Graphics Table
     pub struct GfxTable {
-        items: Vec<GfxItem>,
+        pub items: Vec<GfxItem>,
     }
 
     /// implementation of GfxItem
@@ -92,7 +92,6 @@ pub mod catgfx {
                         let file_size = buf.len() as u32;
                         out_f.write_all(&file_size.to_le_bytes())?;
                         out_f.write_all(buf.as_slice())?;
-
                         println!(
                             "Wrote: {} -> {}:{} [{}/{}]",
                             right, values[0], values[1], cur_index, file_size
