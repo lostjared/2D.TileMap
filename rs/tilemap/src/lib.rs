@@ -35,6 +35,12 @@ pub mod tile_map {
             if header != 0x420 {
                 panic!("invalid file format");
             }
+            let name_len : u32 = r.read_u32::<LittleEndian>()?;
+            let mut index : u32 = 0;
+            while index < name_len {
+                let ch = r.read_u8()?;
+                self.name.push(ch as char);
+            }
             Ok(())
         }
     }
