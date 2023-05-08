@@ -4,7 +4,8 @@ pub mod tile_map {
     use std::io::Read;
     use byteorder::{LittleEndian, ReadBytesExt};
     use std::io::Cursor;
-
+    
+    #[derive(Debug, Default)]
     #[repr(C)]
     pub struct Tile {
         pub color: u8,
@@ -40,7 +41,29 @@ pub mod tile_map {
             while index < name_len {
                 let ch = r.read_u8()?;
                 self.name.push(ch as char);
+                index += 1;
             }
+            
+            self.width = r.read_i32::<LittleEndian>()?;
+            self.height = r.read_i32::<LittleEndian>()?;
+            /*
+            for _i in 0..self.width {
+                let mut tilez: Vec<Tile> = Vec::new();
+                for _z in 0..self.height {
+                    let mut tile = Tile { color: 0, solid: 0, img: 0, layers: [0; 3] };
+                    unsafe {
+                        let ptr = &mut tile as *mut Tile as *mut u8;
+                        let mut buf : &mut [u8] = std::slice::from_raw_parts_mut(
+                            ptr,
+                            std::mem::size_of::<Tile>(),
+                        );
+                        r.read_exact(&mut buf)?;
+                        tilez.push(tile);
+                    }
+               }
+               self.tiles.push(tilez);
+            } */           
+
             Ok(())
         }
     }
