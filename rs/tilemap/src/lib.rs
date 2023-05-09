@@ -6,13 +6,14 @@ pub mod tile_map {
 
     #[derive(Debug, Default)]
     #[repr(C)]
+/// TIle struct containing info for the each individual image in the map
     pub struct Tile {
         pub color: u8,
         pub solid: u8,
         pub img: u32,
         pub layers: [u8; 3],
     }
-
+/// TileMap structure
     pub struct TileMap {
         pub tiles: Vec<Vec<Tile>>,
         pub width: i32,
@@ -21,6 +22,7 @@ pub mod tile_map {
     }
 
     impl TileMap {
+        /// create new map
         pub fn new() -> Self {
             TileMap {
                 tiles: Vec::new(),
@@ -29,7 +31,7 @@ pub mod tile_map {
                 name: String::new(),
             }
         }
-
+        /// load new map from file on Little Endian system
         pub fn load_map(&mut self, file: &str) -> std::io::Result<()> {
             let mut f = std::fs::File::open(file)?;
             let mut buffer: Vec<u8> = Vec::new();
@@ -71,6 +73,7 @@ pub mod tile_map {
             Ok(())
         }
 
+/// tile at position in map
         pub fn at(&self, x: i32, y: i32) -> Option<&Tile> {
             if x >= 0 && x < self.width && y >= 0 && y < self.height {
                 Some(&self.tiles[x as usize][y as usize]);
