@@ -1,6 +1,7 @@
 use clap::{App, Arg};
 use rs_catgfx::catgfx::*;
 
+/// program operation enum 
 enum Operation {
     Concat,
     Extract,
@@ -8,13 +9,14 @@ enum Operation {
     About,
 }
 
+/// program arguments
 struct Arguments {
     source: String,
     dir: Option<String>,
     input: Option<String>,
     mode: Operation,
 }
-
+/// parse arguments
 fn parse_args() -> Arguments {
     let m = App::new("catgfx")
         .version("0.1.0")
@@ -101,20 +103,27 @@ fn parse_args() -> Arguments {
     }
 }
 
+/// main function
 fn main() -> std::io::Result<()> {
+    // parse argumetns store in args
     let args = parse_args();
+    // match args.mode
     match args.mode {
+        // print error no input
         Operation::About => {
             println!("error: no input");
         }
+        // operation concat
         Operation::Concat => {
             let i = args.input.unwrap();
             cat_gfx(&args.source, &i)?;
         }
+        // operation extract
         Operation::Extract => {
             let e = args.dir.unwrap();
             extract_gfx(&args.source, &e)?;
         }
+        // operation list files
         Operation::List => {
             list_gfx(&args.source)?;
         }
