@@ -14,6 +14,8 @@ fn main() -> std::io::Result<()> {
     let mut tmap : TileMap = TileMap::new();
     tmap.load_map(&args[1])?;
 
+    println!("Map loaded: [{}] - {}x{}", tmap.name, tmap.width, tmap.height);
+
     let mut table : GfxTable = GfxTable::new();
     build_gfx(&args[2], &mut table)?;
 
