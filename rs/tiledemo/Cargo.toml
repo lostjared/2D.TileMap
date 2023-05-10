@@ -8,3 +8,7 @@ edition = "2021"
 [dependencies]
 rs-catgfx = { path = "../rs-catgfx" }
 tilemap = { path = "../tilemap" }
+
+[dependencies.sdl2]
+version = "0.35.1"
+features = ["bundled"]
