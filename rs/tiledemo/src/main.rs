@@ -1,17 +1,22 @@
 use sdl2::event::Event;
 use sdl2::keyboard::Keycode;
 use tilemap::tile_map::*;
+use rs_catgfx::catgfx::*;
 
 fn main() -> std::io::Result<()> {
 
     let args : Vec<String> = std::env::args().collect();
 
-    if args.len() != 2 {
+    if args.len() != 3 {
         panic!("Requires one argument");
     }
 
     let mut tmap : TileMap = TileMap::new();
     tmap.load_map(&args[1])?;
+
+    let mut table : GfxTable = GfxTable::new();
+    build_gfx(&args[2], &mut table)?;
+
 
     let width = 1280;
     let height = 720;
