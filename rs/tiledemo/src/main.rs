@@ -3,6 +3,18 @@ use sdl2::keyboard::Keycode;
 use tilemap::tile_map::*;
 use rs_catgfx::catgfx::*;
 
+fn draw_map(tmap: &TileMap, surfaces: &Vec<sdl2::surface::Surface>) {
+
+}
+
+fn build_map(table: &GfxTable) -> Vec<sdl2::surface::Surface> {
+    let surf : Vec<sdl2::surface::Surface> = Vec::new();
+    for i in &table.items {
+
+    }
+    surf
+}
+
 fn main() -> std::io::Result<()> {
 
     let args : Vec<String> = std::env::args().collect();
@@ -18,6 +30,8 @@ fn main() -> std::io::Result<()> {
 
     let mut table : GfxTable = GfxTable::new();
     build_gfx(&args[2], &mut table)?;
+
+    let surfaces : Vec<sdl2::surface::Surface> = build_map(&table);
 
 
     let width = 1280;
@@ -40,6 +54,7 @@ fn main() -> std::io::Result<()> {
             }
         }
         can.clear();
+        draw_map(&tmap, &surfaces);
         can.present();
     }
     Ok(())
