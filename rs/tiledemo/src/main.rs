@@ -15,7 +15,7 @@ fn main() -> std::io::Result<()> {
     let args: Vec<String> = std::env::args().collect();
 
     if args.len() != 3 {
-        panic!("Requires one argument");
+        panic!("Requires two arguments");
     }
 
     let mut tmap: TileMap = TileMap::new();
