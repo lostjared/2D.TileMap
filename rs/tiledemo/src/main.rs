@@ -55,7 +55,8 @@ fn main() -> std::io::Result<()> {
     let tc = can.texture_creator();
     let mut textures: Vec<sdl2::render::Texture> = Vec::new();
 
-    for i in surfaces {
+    for mut i in surfaces {
+        i.set_color_key(true, sdl2::pixels::Color::RGBA(255, 255, 255, 255)).expect("on set color key");
         let tex = tc.create_texture_from_surface(i).unwrap(); 
         textures.push(tex);
     }
