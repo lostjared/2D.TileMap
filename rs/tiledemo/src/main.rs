@@ -5,8 +5,11 @@ use tilemap::tile_map::*;
 
 fn draw_map(tmap: &TileMap, surfaces: &Vec<sdl2::surface::Surface>) {}
 
-fn build_map(table: &GfxTable) -> Vec<sdl2::surface::Surface> {
+fn build_map(filename: &str) -> Vec<sdl2::surface::Surface> {
+    let mut table: GfxTable = GfxTable::new();
+    build_gfx(filename, &mut table).expect("building graphics table");
     let surf: Vec<sdl2::surface::Surface> = Vec::new();
+    // load graphics
     for i in &table.items {}
     surf
 }
@@ -26,10 +29,7 @@ fn main() -> std::io::Result<()> {
         tmap.name, tmap.width, tmap.height
     );
 
-    let mut table: GfxTable = GfxTable::new();
-    build_gfx(&args[2], &mut table)?;
-
-    let surfaces: Vec<sdl2::surface::Surface> = build_map(&table);
+    let surfaces: Vec<sdl2::surface::Surface> = build_map(&args[2]);
     let width = 1280;
     let height = 720;
     let sdl = sdl2::init().unwrap();
