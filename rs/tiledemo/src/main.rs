@@ -34,6 +34,7 @@ fn main() -> std::io::Result<()> {
     );
 
     let surfaces: Vec<sdl2::surface::Surface> = build_map(&args[2]);
+    println!("Images loaded: {}", surfaces.len());
     let width = 1280;
     let height = 720;
     let sdl = sdl2::init().unwrap();
