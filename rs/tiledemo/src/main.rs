@@ -3,7 +3,7 @@ use sdl2::event::Event;
 use sdl2::keyboard::Keycode;
 use tilemap::tile_map::*;
 
-fn draw_map(tmap: &TileMap, surfaces: &Vec<sdl2::surface::Surface>) {}
+fn draw_map(tmap: &TileMap, textures: &Vec<sdl2::render::Texture>) {}
 
 fn build_map(filename: &str) -> Vec<sdl2::surface::Surface> {
     let mut table: GfxTable = GfxTable::new();
@@ -35,6 +35,7 @@ fn main() -> std::io::Result<()> {
 
     let surfaces: Vec<sdl2::surface::Surface> = build_map(&args[2]);
     println!("Images loaded: {}", surfaces.len());
+    
     let width = 1280;
     let height = 720;
     let sdl = sdl2::init().unwrap();
@@ -50,7 +51,15 @@ fn main() -> std::io::Result<()> {
         .build()
         .map_err(|e| e.to_string())
         .expect("Error on canvas");
+   
     let tc = can.texture_creator();
+    let mut textures: Vec<sdl2::render::Texture> = Vec::new();
+
+    for i in surfaces {
+        let tex = tc.create_texture_from_surface(i).unwrap(); 
+        textures.push(tex);
+    }
+
     let mut e = sdl.event_pump().unwrap();
     'main: loop {
         for _event in e.poll_iter() {
@@ -64,7 +73,7 @@ fn main() -> std::io::Result<()> {
             }
         }
         can.clear();
-        draw_map(&tmap, &surfaces);
+        draw_map(&tmap, &textures);
         can.present();
     }
     Ok(())
