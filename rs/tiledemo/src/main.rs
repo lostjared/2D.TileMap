@@ -8,9 +8,13 @@ fn draw_map(tmap: &TileMap, surfaces: &Vec<sdl2::surface::Surface>) {}
 fn build_map(filename: &str) -> Vec<sdl2::surface::Surface> {
     let mut table: GfxTable = GfxTable::new();
     build_gfx(filename, &mut table).expect("building graphics table");
-    let surf: Vec<sdl2::surface::Surface> = Vec::new();
+    let mut surf: Vec<sdl2::surface::Surface> = Vec::new();
     // load graphics
-    for i in &table.items {}
+    for i in &table.items {
+        let mut rwops = sdl2::rwops::RWops::from_bytes(i.data.as_slice()).unwrap();
+        let s= sdl2::surface::Surface::load_bmp_rw(&mut rwops).unwrap();
+        surf.push(s);
+    }
     surf
 }
 
