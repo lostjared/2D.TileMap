@@ -4,7 +4,7 @@ use sdl2::keyboard::Keycode;
 use tilemap::tile_map::*;
 
 /// draw map 
-fn draw_map(cam: &Camera, tmap: &TileMap, textures: &Vec<sdl2::render::Texture>) {}
+fn draw_map(can: &mut sdl2::render::WindowCanvas, cam: &Camera, tmap: &TileMap, textures: &Vec<sdl2::render::Texture>) {}
 
 
 /// build table of surfaces
@@ -83,7 +83,7 @@ fn main() -> std::io::Result<()> {
             }
         }
         can.clear();
-        draw_map(&cam, &tmap, &textures);
+        draw_map(&mut can, &cam, &tmap, &textures);
         can.present();
     }
     Ok(())
