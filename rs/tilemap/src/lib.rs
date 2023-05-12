@@ -87,24 +87,30 @@ pub mod tile_map {
         pub y: i32,
         pub width: i32,
         pub height: i32,
-        pub speed_x: i32,
-        pub speed_y: i32,
         pub max_x: i32,
         pub max_y: i32,
+        pub speed: i32,
     }
 
     impl Camera {
-        pub fn new(w: i32, h: i32, s: i32, mx: i32, my: i32) -> Self {
-            Self {
+        pub fn new(w: i32, h: i32, mx: i32, my: i32) -> Camera {
+            Camera {
                 x: 0,
                 y: 0,
                 width: w,
                 height: h,
-                speed_x: s,
-                speed_y: s,
                 max_x: mx,
                 max_y: my,
+                speed: 1280,
             }
+        }
+        pub fn move_camera(&mut self, delta: f64, dx: i32, dy: i32) {
+            let dx_val: f64 = dx as f64 * self.speed as f64 * delta;
+            let dy_val: f64 = dy as f64 * self.speed as f64 * delta;
+            self.x += dx_val as i32;
+            self.y += dy_val as i32;
+            self.x = std::cmp::max(0, std::cmp::min(self.x, self.max_x));
+            self.y = std::cmp::max(0, std::cmp::min(self.y, self.max_y));
         }
     }
 }
