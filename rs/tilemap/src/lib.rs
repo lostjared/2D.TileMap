@@ -81,4 +81,30 @@ pub mod tile_map {
             None
         }
     }
+
+    pub struct Camera {
+        pub x: i32,
+        pub y: i32,
+        pub width: i32,
+        pub height: i32,
+        pub speed_x: i32,
+        pub speed_y: i32,
+        pub max_x: i32,
+        pub max_y: i32,
+    }
+
+    impl Camera {
+        pub fn new(w: i32, h: i32, s: i32, mx: i32, my: i32) -> Self {
+            Self {
+                x: 0,
+                y: 0,
+                width: w,
+                height: h,
+                speed_x: s,
+                speed_y: s,
+                max_x: mx,
+                max_y: my,
+            }
+        }
+    }
 }
