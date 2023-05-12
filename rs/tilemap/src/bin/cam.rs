@@ -6,6 +6,8 @@ fn main() -> std::io::Result<()> {
     let mut c: Camera = Camera::new(1280, 720, max_x, max_y);
     c.move_camera(1.0, 1, 1);
     println!("Camera pos: {}, {}", c.x, c.y);
+    c.reset();
+    println!("Camera pos: {}, {}", c.x, c.y);
 
     Ok(())
 }

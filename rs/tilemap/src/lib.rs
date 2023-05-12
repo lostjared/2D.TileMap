@@ -112,5 +112,9 @@ pub mod tile_map {
             self.x = std::cmp::max(0, std::cmp::min(self.x, self.max_x));
             self.y = std::cmp::max(0, std::cmp::min(self.y, self.max_y));
         }
+        pub fn reset(&mut self) {
+            self.x = 0;
+            self.y = 0;
+        }
     }
 }
