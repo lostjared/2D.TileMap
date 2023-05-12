@@ -12,7 +12,7 @@ fn build_map(filename: &str) -> Vec<sdl2::surface::Surface> {
     // load graphics
     for i in &table.items {
         let mut rwops = sdl2::rwops::RWops::from_bytes(i.data.as_slice()).unwrap();
-        let s= sdl2::surface::Surface::load_bmp_rw(&mut rwops).unwrap();
+        let s = sdl2::surface::Surface::load_bmp_rw(&mut rwops).unwrap();
         surf.push(s);
     }
     surf
@@ -35,7 +35,7 @@ fn main() -> std::io::Result<()> {
 
     let surfaces: Vec<sdl2::surface::Surface> = build_map(&args[2]);
     println!("Images loaded: {}", surfaces.len());
-    
+
     let width = 1280;
     let height = 720;
     let sdl = sdl2::init().unwrap();
@@ -51,13 +51,14 @@ fn main() -> std::io::Result<()> {
         .build()
         .map_err(|e| e.to_string())
         .expect("Error on canvas");
-   
+
     let tc = can.texture_creator();
     let mut textures: Vec<sdl2::render::Texture> = Vec::new();
 
     for mut i in surfaces {
-        i.set_color_key(true, sdl2::pixels::Color::RGBA(255, 255, 255, 255)).expect("on set color key");
-        let tex = tc.create_texture_from_surface(i).unwrap(); 
+        i.set_color_key(true, sdl2::pixels::Color::RGBA(255, 255, 255, 255))
+            .expect("on set color key");
+        let tex = tc.create_texture_from_surface(i).unwrap();
         textures.push(tex);
     }
 
