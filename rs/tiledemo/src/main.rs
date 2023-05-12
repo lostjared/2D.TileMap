@@ -3,7 +3,7 @@ use sdl2::event::Event;
 use sdl2::keyboard::Keycode;
 use tilemap::tile_map::*;
 
-fn draw_map(tmap: &TileMap, textures: &Vec<sdl2::render::Texture>) {}
+fn draw_map(cam: &Camera, tmap: &TileMap, textures: &Vec<sdl2::render::Texture>) {}
 
 fn build_map(filename: &str) -> Vec<sdl2::surface::Surface> {
     let mut table: GfxTable = GfxTable::new();
@@ -35,6 +35,10 @@ fn main() -> std::io::Result<()> {
 
     let surfaces: Vec<sdl2::surface::Surface> = build_map(&args[2]);
     println!("Images loaded: {}", surfaces.len());
+
+    let max_x = tmap.width * 16 - 1280 - 1;
+    let max_y = tmap.height * 16 - 720 - 1;
+    let mut cam: Camera = Camera::new(1280, 720, max_x, max_y);
 
     let width = 1280;
     let height = 720;
@@ -75,7 +79,7 @@ fn main() -> std::io::Result<()> {
             }
         }
         can.clear();
-        draw_map(&tmap, &textures);
+        draw_map(&cam, &tmap, &textures);
         can.present();
     }
     Ok(())
