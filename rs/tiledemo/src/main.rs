@@ -4,7 +4,36 @@ use sdl2::keyboard::Keycode;
 use tilemap::tile_map::*;
 
 /// draw map 
-fn draw_map(can: &mut sdl2::render::WindowCanvas, cam: &Camera, tmap: &TileMap, textures: &Vec<sdl2::render::Texture>) {}
+fn draw_map(can: &mut sdl2::render::WindowCanvas, cam: &Camera, tmap: &TileMap, textures: &Vec<sdl2::render::Texture>) {
+    let tsize = 16;
+    let start_col = cam.x / tsize;
+    let end_col = start_col + (cam.width / tsize);
+    let start_row = cam.y / tsize;
+    let end_row = start_row + (cam.height / tsize);
+    let cx = cam.x;
+    let cy = cam.y;
+    let off_x = -cx + start_col * tsize;
+    let off_y = -cy + start_row * tsize;
+    let mut x = 0;
+    let mut y = 0;
+    x = start_col;
+    while x < end_col {
+        y = start_row;
+        while y < end_row {
+            let tile = tmap.at(x,y);  
+            if x >= 0 && x < tmap.width && y >= 0 && y < tmap.height {
+                let tile = &tmap.tiles[x as usize][y as usize];
+                let xx: i32 = (x - start_col) * tsize + off_x;
+                let yy: i32 = (y - start_row) * tsize + off_y;
+                if tile.solid != 2 && tile.solid != 3 {
+                    can.copy(&textures[tile.img as usize], sdl2::rect::Rect::new(0, 0, 16, 16), sdl2::rect::Rect::new(xx, yy, 16,16)).expect("on copy");
+                }  
+            }
+            y += 1;
+        }
+        x += 1;
+    }
+}
 
 
 /// build table of surfaces

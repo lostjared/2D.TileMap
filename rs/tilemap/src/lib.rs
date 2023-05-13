@@ -4,7 +4,7 @@ pub mod tile_map {
     use std::io::Cursor;
     use std::io::Read;
 
-    #[derive(Debug, Default)]
+    #[derive(Debug, Default, PartialEq)]
     #[repr(C)]
     /// TIle struct containing info for the each individual image in the map
     pub struct Tile {
