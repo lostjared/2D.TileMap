@@ -25,7 +25,6 @@ fn draw_map(
     while x < end_col {
         y = start_row;
         while y < end_row {
-            let tile = tmap.at(x, y);
             if x >= 0 && x < tmap.width && y >= 0 && y < tmap.height {
                 let tile = &tmap.tiles[x as usize][y as usize];
                 let xx: i32 = (x - start_col) * tsize + off_x;
