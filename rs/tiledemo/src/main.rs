@@ -39,15 +39,15 @@ fn draw_map(
     }
 }
 /// build table of surfaces
-fn build_map(filename: &str) -> Vec<sdl2::surface::Surface> {
+fn build_map(filename: &str) -> Vec<(sdl2::surface::Surface,(u32, u32, u32))> {
     let mut table: GfxTable = GfxTable::new();
     build_gfx(filename, &mut table).expect("building graphics table");
-    let mut surf: Vec<sdl2::surface::Surface> = Vec::new();
+    let mut surf: Vec<(sdl2::surface::Surface,(u32, u32, u32))> = Vec::new();
     // load graphics
     for i in &table.items {
         let mut rwops = sdl2::rwops::RWops::from_bytes(i.data.as_slice()).unwrap();
         let s = sdl2::surface::Surface::load_bmp_rw(&mut rwops).unwrap();
-        surf.push(s);
+        surf.push((s,(i.index, i.solid, i.obj)));
     }
     surf
 }
@@ -76,7 +76,7 @@ fn main() -> std::io::Result<()> {
         tmap.name, tmap.width, tmap.height
     );
 
-    let surfaces: Vec<sdl2::surface::Surface> = build_map(&args[2]);
+    let surfaces: Vec<(sdl2::surface::Surface,(u32, u32, u32))> = build_map(&args[2]);
     println!("Images loaded: {}", surfaces.len());
 
     let max_x = tmap.width * 16 - 1280 - 1;
@@ -101,12 +101,22 @@ fn main() -> std::io::Result<()> {
 
     let tc = can.texture_creator();
     let mut textures: Vec<sdl2::render::Texture> = Vec::new();
+    let mut obj_text: Vec<sdl2::render::Texture> = Vec::new();
+
 
     for mut i in surfaces {
-        i.set_color_key(true, sdl2::pixels::Color::RGBA(255, 255, 255, 255))
+        i.0.set_color_key(true, sdl2::pixels::Color::RGBA(255, 255, 255, 255))
             .expect("on set color key");
-        let tex = tc.create_texture_from_surface(i).unwrap();
-        textures.push(tex);
+        let tex = tc.create_texture_from_surface(i.0).unwrap();
+        match i.1.2 {
+            0 => {
+                textures.push(tex);
+            }
+            1 => {
+                obj_text.push(tex);
+            }
+            _ => {}
+        }
     }
 
     let mut e = sdl.event_pump().unwrap();
