@@ -1,9 +1,9 @@
 use rs_catgfx::catgfx::*;
 use sdl2::event::Event;
 use sdl2::keyboard::Keycode;
+use std::collections::HashSet;
 use std::time::{SystemTime, UNIX_EPOCH};
 use tilemap::tile_map::*;
-use std::collections::HashSet;
 /// draw map
 fn draw_map(
     can: &mut sdl2::render::WindowCanvas,
@@ -20,12 +20,8 @@ fn draw_map(
     let cy = cam.y;
     let off_x = -cx + start_col * tsize;
     let off_y = -cy + start_row * tsize;
-    let mut x;
-    let mut y;
-    x = start_col;
-    while x < end_col {
-        y = start_row;
-        while y < end_row {
+    for x in start_col..end_col {
+        for y in start_row..end_row {
             if x >= 0 && x < tmap.width && y >= 0 && y < tmap.height {
                 let tile = &tmap.tiles[x as usize][y as usize];
                 let xx: i32 = (x - start_col) * tsize + off_x;
@@ -39,12 +35,9 @@ fn draw_map(
                     .expect("on copy");
                 }
             }
-            y += 1;
         }
-        x += 1;
     }
 }
-
 /// build table of surfaces
 fn build_map(filename: &str) -> Vec<sdl2::surface::Surface> {
     let mut table: GfxTable = GfxTable::new();
@@ -90,8 +83,8 @@ fn main() -> std::io::Result<()> {
     let max_y = tmap.height * 16 - 720 - 1;
     let mut cam: Camera = Camera::new(1280, 720, max_x, max_y);
 
-    let width = 1280-32;
-    let height = 720-32;
+    let width = 1280 - 32;
+    let height = 720 - 32;
     let sdl = sdl2::init().unwrap();
     let video = sdl.video().unwrap();
     let window = video
@@ -123,7 +116,7 @@ fn main() -> std::io::Result<()> {
         let start = SystemTime::now();
         let se = start.duration_since(UNIX_EPOCH).expect("error on time");
         let tick = se.as_secs() * 1000 + se.subsec_nanos() as u64 / 1_000_000;
-        let mut delta : f64 = (tick as f64 - prev_tick as f64) / 1000.0;
+        let mut delta: f64 = (tick as f64 - prev_tick as f64) / 1000.0;
         prev_tick = tick;
         delta = fmin(0.50, delta);
 
@@ -141,16 +134,20 @@ fn main() -> std::io::Result<()> {
         draw_map(&mut can, &cam, &tmap, &textures);
         can.present();
 
-        let keys : HashSet<_> = e.keyboard_state().pressed_scancodes().filter_map(Keycode::from_scancode).collect();
-        let mut move_x : i32 = 0;
-        let mut move_y : i32 = 0;
+        let keys: HashSet<_> = e
+            .keyboard_state()
+            .pressed_scancodes()
+            .filter_map(Keycode::from_scancode)
+            .collect();
+        let mut move_x: i32 = 0;
+        let mut move_y: i32 = 0;
         for i in &keys {
             match *i {
                 Keycode::Left => {
                     move_x = -1;
                 }
                 Keycode::Right => {
-                     move_x = 1;
+                    move_x = 1;
                 }
                 Keycode::Up => {
                     move_y = -1;
@@ -158,14 +155,13 @@ fn main() -> std::io::Result<()> {
                 Keycode::Down => {
                     move_y = 1;
                 }
-                    _ => {}
-                }
+                _ => {}
             }
-            if move_x != 0 || move_y != 0 {
-                cam.move_camera(delta, move_x, move_y);
-                println!("x: {} y: {} delta: {}", move_x, move_y, delta);
-            }
-
+        }
+        if move_x != 0 || move_y != 0 {
+            cam.move_camera(delta, move_x, move_y);
+            println!("x: {} y: {} delta: {}", move_x, move_y, delta);
+        }
     }
     Ok(())
 }
