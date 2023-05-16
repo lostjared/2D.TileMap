@@ -39,15 +39,15 @@ fn draw_map(
     }
 }
 /// build table of surfaces
-fn build_map(filename: &str) -> Vec<(sdl2::surface::Surface,(u32, u32, u32))> {
+fn build_map(filename: &str) -> Vec<(sdl2::surface::Surface, (u32, u32, u32))> {
     let mut table: GfxTable = GfxTable::new();
     build_gfx(filename, &mut table).expect("building graphics table");
-    let mut surf: Vec<(sdl2::surface::Surface,(u32, u32, u32))> = Vec::new();
+    let mut surf: Vec<(sdl2::surface::Surface, (u32, u32, u32))> = Vec::new();
     // load graphics
     for i in &table.items {
         let mut rwops = sdl2::rwops::RWops::from_bytes(i.data.as_slice()).unwrap();
         let s = sdl2::surface::Surface::load_bmp_rw(&mut rwops).unwrap();
-        surf.push((s,(i.index, i.solid, i.obj)));
+        surf.push((s, (i.index, i.solid, i.obj)));
     }
     surf
 }
@@ -63,11 +63,9 @@ fn fmin(x: f64, x2: f64) -> f64 {
 /// main function
 fn main() -> std::io::Result<()> {
     let args: Vec<String> = std::env::args().collect();
-
     if args.len() != 3 {
         panic!("Requires two arguments");
     }
-
     let mut tmap: TileMap = TileMap::new();
     tmap.load_map(&args[1])?;
 
@@ -75,14 +73,11 @@ fn main() -> std::io::Result<()> {
         "Map loaded: [{}] - {}x{}",
         tmap.name, tmap.width, tmap.height
     );
-
-    let surfaces: Vec<(sdl2::surface::Surface,(u32, u32, u32))> = build_map(&args[2]);
+    let surfaces: Vec<(sdl2::surface::Surface, (u32, u32, u32))> = build_map(&args[2]);
     println!("Images loaded: {}", surfaces.len());
-
     let max_x = tmap.width * 16 - 1280 - 1;
     let max_y = tmap.height * 16 - 720 - 1;
     let mut cam: Camera = Camera::new(1280, 720, max_x, max_y);
-
     let width = 1280 - 32;
     let height = 720 - 32;
     let sdl = sdl2::init().unwrap();
@@ -98,17 +93,14 @@ fn main() -> std::io::Result<()> {
         .build()
         .map_err(|e| e.to_string())
         .expect("Error on canvas");
-
     let tc = can.texture_creator();
     let mut textures: Vec<sdl2::render::Texture> = Vec::new();
     let mut obj_text: Vec<sdl2::render::Texture> = Vec::new();
-
-
     for mut i in surfaces {
         i.0.set_color_key(true, sdl2::pixels::Color::RGBA(255, 255, 255, 255))
             .expect("on set color key");
         let tex = tc.create_texture_from_surface(i.0).unwrap();
-        match i.1.2 {
+        match i.1 .2 {
             0 => {
                 textures.push(tex);
             }
@@ -121,7 +113,6 @@ fn main() -> std::io::Result<()> {
 
     let mut e = sdl.event_pump().unwrap();
     let mut prev_tick: u64 = 0;
-
     'main: loop {
         let start = SystemTime::now();
         let se = start.duration_since(UNIX_EPOCH).expect("error on time");
@@ -143,7 +134,6 @@ fn main() -> std::io::Result<()> {
         can.clear();
         draw_map(&mut can, &cam, &tmap, &textures);
         can.present();
-
         let keys: HashSet<_> = e
             .keyboard_state()
             .pressed_scancodes()
