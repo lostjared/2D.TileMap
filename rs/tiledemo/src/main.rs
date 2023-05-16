@@ -23,7 +23,6 @@ fn draw_map(
     for x in start_col..end_col {
         for y in start_row..end_row {
             if x >= 0 && x < tmap.width && y >= 0 && y < tmap.height {
-                //let tile = &tmap.tiles[x as usize][y as usize];
                 let tile = tmap.at(x, y);
                 if tile != None {
                     let tile = tile.unwrap();
