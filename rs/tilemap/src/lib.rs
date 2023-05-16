@@ -76,7 +76,7 @@ pub mod tile_map {
         /// tile at position in map
         pub fn at(&self, x: i32, y: i32) -> Option<&Tile> {
             if x >= 0 && x < self.width && y >= 0 && y < self.height {
-                Some(&self.tiles[x as usize][y as usize]);
+                return Some(&self.tiles[x as usize][y as usize]);
             }
             None
         }
