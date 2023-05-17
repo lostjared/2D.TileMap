@@ -41,6 +41,15 @@ fn draw_map(
         }
     }
 }
+
+fn draw_map_objects(
+    can: &mut sdl2::render::WindowCanvas,
+    cam: &Camera,
+    tmap: &TileMap,
+    obj_tex: &Vec<sdl2::render::Texture>,
+) {
+}
+
 /// build table of surfaces
 fn build_map(filename: &str) -> Vec<(sdl2::surface::Surface, (u32, u32, u32))> {
     let mut table: GfxTable = GfxTable::new();
