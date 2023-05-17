@@ -145,6 +145,7 @@ fn main() -> std::io::Result<()> {
         }
         can.clear();
         draw_map(&mut can, &cam, &tmap, &textures);
+        draw_map_objects(&mut can, &cam, &tmap, &obj_text);
         can.present();
         let keys: HashSet<_> = e
             .keyboard_state()
