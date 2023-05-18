@@ -114,7 +114,8 @@ fn fmin(x: f64, x2: f64) -> f64 {
 fn main() -> std::io::Result<()> {
     let args: Vec<String> = std::env::args().collect();
     if args.len() != 3 {
-        panic!("Requires two arguments");
+        println!("use: level.lvl level.gfx");
+        std::process::exit(0);
     }
     let mut tmap: TileMap = TileMap::new();
     tmap.load_map(&args[1])?;
