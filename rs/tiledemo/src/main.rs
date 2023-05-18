@@ -63,14 +63,11 @@ fn draw_map_objects(
                 let tile = tmap.at(x, y);
                 if tile != None {
                     let tile = tile.unwrap();
-                    if (tile.layers[0] > 0 && tile.layers[0] <= 7) || (tile.layers[2] > 0) {
+                    if tile.layers[0] > 0 && tile.layers[0] <= 7 {
                         let xx: i32 = (x - start_col) * tsize + off_x;
                         let yy: i32 = (y - start_row) * tsize + off_y;
                         if tile.solid != 2 && tile.solid != 3 {
-                            let mut layer = tile.layers[0];
-                            if layer > 0 {
-                                layer = tile.layers[0] - 1;
-                            }
+                            let layer = tile.layers[0]-1;
                             let sdl2::render::TextureQuery {
                                 width: wi,
                                 height: hi,
