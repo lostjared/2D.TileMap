@@ -1,3 +1,8 @@
+// view map 
+// use arrow keys to scroll
+// pass arguments
+// cargo run -- levelfile.lvl levelgraphics.gfx
+
 use rs_catgfx::catgfx::*;
 use sdl2::event::Event;
 use sdl2::keyboard::Keycode;
