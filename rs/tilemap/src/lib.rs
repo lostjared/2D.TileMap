@@ -21,6 +21,8 @@ pub mod tile_map {
         pub name: String,
     }
 
+    
+
     impl TileMap {
         /// create new map
         pub fn new() -> Self {
@@ -80,6 +82,15 @@ pub mod tile_map {
             }
             None
         }
+
+        pub fn solid(&self, x: i32, y: i32) -> Option<u8> {
+            let tile = self.at(x, y);
+            if tile != None {
+                let tile = tile.unwrap();
+                return Some(tile.solid);   
+            }
+            None
+        }        
     }
 
     pub struct Camera {
