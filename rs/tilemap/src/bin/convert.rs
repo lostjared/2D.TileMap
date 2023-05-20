@@ -21,10 +21,10 @@ fn convert(input: &str, output: &str) -> std::io::Result<()> {
     for i in 0..tmap.width {
         for z in 0..tmap.height {
             let tile = tmap.at(i, z).unwrap();
-            writeln!(buf, "{{ {}, {}, {}, {}, {}, {} }}, ", tile.color, tile.img, tile.solid, tile.layers[0], tile.layers[1], tile.layers[2])?;            
+            writeln!(buf, "{{ {}, {}, {}, {}, {}, {} }}", tile.color, tile.img, tile.solid, tile.layers[0], tile.layers[1], tile.layers[2])?;            
         }
     }
-    writeln!(buf, " 0 \n}}")?;
+    writeln!(buf, "}};")?;
     println!("convert: converted {} to {}", input, output);
     Ok(())
 }
