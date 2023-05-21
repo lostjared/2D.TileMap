@@ -221,6 +221,7 @@ fn main() -> std::io::Result<()> {
         draw_map(&mut can, &cam, &tmap, &textures);
         draw_map_objects(&mut can, &cam, &tmap, &obj_text);
         can.present();
+        ::std::thread::sleep(std::time::Duration::new(0, 1_000_000_000u32 / 60));
 
     }
     Ok(())
