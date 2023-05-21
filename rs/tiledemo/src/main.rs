@@ -170,6 +170,10 @@ fn main() -> std::io::Result<()> {
     let mut e = sdl.event_pump().unwrap();
     let mut prev_tick: u64 = 0;
     'main: loop {
+        can.clear();
+        draw_map(&mut can, &cam, &tmap, &textures);
+        draw_map_objects(&mut can, &cam, &tmap, &obj_text);
+        can.present();
         let start = SystemTime::now();
         let se = start.duration_since(UNIX_EPOCH).expect("error on time");
         let tick = se.as_secs() * 1000 + se.subsec_nanos() as u64 / 1_000_000;
@@ -215,12 +219,7 @@ fn main() -> std::io::Result<()> {
         }
         if move_x != 0 || move_y != 0 {
             cam.move_camera(delta, move_x, move_y);
-        }
-        
-        can.clear();
-        draw_map(&mut can, &cam, &tmap, &textures);
-        draw_map_objects(&mut can, &cam, &tmap, &obj_text);
-        can.present();
+        }        
         ::std::thread::sleep(std::time::Duration::new(0, 1_000_000_000u32 / 60));
 
     }
