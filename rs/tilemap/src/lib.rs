@@ -75,6 +75,10 @@ pub mod tile_map {
             Ok(())
         }
 
+        pub fn load_map_text(&mut self, input: &str) -> std::io::Result<()> {
+            Ok(())
+        }
+
         /// tile at position in map
         pub fn at(&self, x: i32, y: i32) -> Option<&Tile> {
             if x >= 0 && x < self.width && y >= 0 && y < self.height {
