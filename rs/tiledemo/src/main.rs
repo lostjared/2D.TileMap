@@ -179,7 +179,7 @@ fn main() -> std::io::Result<()> {
         let tick = se.as_secs() * 1000 + se.subsec_nanos() as u64 / 1_000_000;
         let mut delta: f64 = (tick as f64 - prev_tick as f64) / 1000.0;
         prev_tick = tick;
-        delta = fmin(0.50, delta);
+        delta = fmin(0.75, delta);
 
         for _event in e.poll_iter() {
             match _event {
