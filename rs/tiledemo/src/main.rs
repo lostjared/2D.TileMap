@@ -176,7 +176,7 @@ fn main() -> std::io::Result<()> {
         let tick = se.as_secs() * 1000 + se.subsec_nanos() as u64 / 1_000_000;
         let mut delta: f64 = (tick as f64 - prev_tick as f64) / 1000.0;
         prev_tick = tick;
-        delta = fmin(0.75, delta);
+        delta = fmin(0.95, delta);
 
         for _event in e.poll_iter() {
             match _event {
@@ -215,7 +215,7 @@ fn main() -> std::io::Result<()> {
             }
         }
         if move_x != 0 || move_y != 0 {
-            cam.move_camera(delta, move_x, move_y);
+            cam.move_camera(0.0125, move_x, move_y);
         }        
         draw_map(&mut can, &cam, &tmap, &textures);
         draw_map_objects(&mut can, &cam, &tmap, &obj_text);
