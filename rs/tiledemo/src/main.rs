@@ -187,17 +187,15 @@ fn main() -> std::io::Result<()> {
                 _ => {}
             }
         }
-        can.clear();
-        draw_map(&mut can, &cam, &tmap, &textures);
-        draw_map_objects(&mut can, &cam, &tmap, &obj_text);
-        can.present();
         let keys: HashSet<_> = e
             .keyboard_state()
             .pressed_scancodes()
             .filter_map(Keycode::from_scancode)
             .collect();
+
         let mut move_x: i32 = 0;
         let mut move_y: i32 = 0;
+
         for i in &keys {
             match *i {
                 Keycode::Left => {
@@ -217,8 +215,13 @@ fn main() -> std::io::Result<()> {
         }
         if move_x != 0 || move_y != 0 {
             cam.move_camera(delta, move_x, move_y);
-            println!("x: {} y: {} delta: {}", move_x, move_y, delta);
         }
+        
+        can.clear();
+        draw_map(&mut can, &cam, &tmap, &textures);
+        draw_map_objects(&mut can, &cam, &tmap, &obj_text);
+        can.present();
+
     }
     Ok(())
 }
