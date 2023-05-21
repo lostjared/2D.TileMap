@@ -11,4 +11,3 @@ tilemap = { path = "../tilemap" }
 
 [dependencies.sdl2]
 version = "0.35.1"
-features = ["bundled"]
