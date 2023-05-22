@@ -88,8 +88,11 @@ pub mod tile_map {
             let scan = Scanner::new(&line);
             let tokens: Vec<Box<dyn Token>> = scan.into_iter().collect();
 
-            println!("{}", tokens[0].get_string());
+            match_token(&tokens, 0, "map");
+            let map_name = tokens[1].get_string();
+            println!("Map Name: {}", map_name);
 
+            // TODO: continue to break down text
 
             Ok(())
         }
