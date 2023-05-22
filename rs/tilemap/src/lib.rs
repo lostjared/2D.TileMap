@@ -3,6 +3,7 @@ pub mod tile_map {
     use byteorder::{LittleEndian, ReadBytesExt};
     use std::io::Cursor;
     use std::io::Read;
+    use std::io::BufRead;
 
     #[derive(Debug, Default, PartialEq)]
     #[repr(C)]
@@ -76,6 +77,13 @@ pub mod tile_map {
         }
 
         pub fn load_map_text(&mut self, input: &str) -> std::io::Result<()> {
+
+            let file = std::fs::File::open(input)?;
+            let mut rd = std::io::BufReader::new(file);
+
+            let mut line : String = String::new();
+            rd.read_line(&mut line)?;
+
             Ok(())
         }
 
