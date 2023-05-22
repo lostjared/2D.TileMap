@@ -1,4 +1,4 @@
-// view map 
+// view map
 // use arrow keys to scroll
 // pass arguments
 // cargo run -- levelfile.lvl levelgraphics.gfx
@@ -72,7 +72,7 @@ fn draw_map_objects(
                         let xx: i32 = (x - start_col) * tsize + off_x;
                         let yy: i32 = (y - start_row) * tsize + off_y;
                         if tile.solid != 2 && tile.solid != 3 {
-                            let layer = tile.layers[0]-1;
+                            let layer = tile.layers[0] - 1;
                             let sdl2::render::TextureQuery {
                                 width: wi,
                                 height: hi,
@@ -169,14 +169,17 @@ fn main() -> std::io::Result<()> {
 
     let mut e = sdl.event_pump().unwrap();
     let mut prev_tick: u64 = 0;
+    let mut amt = 0;
     'main: loop {
         can.clear();
         let start = SystemTime::now();
         let se = start.duration_since(UNIX_EPOCH).expect("error on time");
         let tick = se.as_secs() * 1000 + se.subsec_nanos() as u64 / 1_000_000;
         let mut delta: f64 = (tick as f64 - prev_tick as f64) / 1000.0;
+        let timeout = tick - prev_tick;
         prev_tick = tick;
         delta = fmin(0.95, delta);
+        amt += timeout;
 
         for _event in e.poll_iter() {
             match _event {
@@ -214,14 +217,16 @@ fn main() -> std::io::Result<()> {
                 _ => {}
             }
         }
-        if move_x != 0 || move_y != 0 {
-            cam.move_camera(0.0125, move_x, move_y);
-        }        
+        if amt > 10 {
+            amt = 0;
+            if move_x != 0 || move_y != 0 {
+                cam.move_camera(0.0125, move_x, move_y);
+            }
+        }
         draw_map(&mut can, &cam, &tmap, &textures);
         draw_map_objects(&mut can, &cam, &tmap, &obj_text);
         can.present();
         ::std::thread::sleep(std::time::Duration::new(0, 1_000_000_000u32 / 60));
-
     }
     Ok(())
 }
