@@ -4,6 +4,7 @@ pub mod tile_map {
     use std::io::Cursor;
     use std::io::Read;
     use std::io::BufRead;
+    use rs_lex::rlex::*;
 
     #[derive(Debug, Default, PartialEq)]
     #[repr(C)]
@@ -83,6 +84,12 @@ pub mod tile_map {
 
             let mut line : String = String::new();
             rd.read_line(&mut line)?;
+
+            let scan = Scanner::new(&line);
+            let tokens: Vec<Box<dyn Token>> = scan.into_iter().collect();
+
+            println!("{}", tokens[0].get_string());
+
 
             Ok(())
         }
