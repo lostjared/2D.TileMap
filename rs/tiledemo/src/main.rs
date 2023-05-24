@@ -123,7 +123,15 @@ fn main() -> std::io::Result<()> {
         std::process::exit(0);
     }
     let mut tmap: TileMap = TileMap::new();
-    tmap.load_map(&args[1])?;
+
+    if args[1].find(".lvl") != None {
+        tmap.load_map(&args[1])?;
+    } else if args[1].find(".txt") != None {
+        tmap.load_map_text(&args[1])?;
+    } else {
+        println!("filename must end in .lvl or .txt");
+        std::process::exit(0);
+    }
 
     println!(
         "Map loaded: [{}] - {}x{}",
