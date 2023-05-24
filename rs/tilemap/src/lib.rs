@@ -95,14 +95,22 @@ pub mod tile_map {
             let xpos = map_size.find('x').unwrap();
             let map_width = &map_size[0..xpos];
             let map_height = &map_size[xpos+1..];
-            let width: u32 = map_width.parse().unwrap();
-            let height: u32 = map_height.parse().unwrap();
+            let width: i32 = map_width.parse().unwrap();
+            let height: i32 = map_height.parse().unwrap();
             println!("size {}x{}", width, height);       
+
+            self.width = width;
+            self.height = height;
+            self.name = map_name;
+
             for _x in 0..width {
                 for _y in 0..height {
+                    let mut line = String::new();
                     rd.read_line(&mut line)?;
-                    let scanner = Scanner::new(&line);
-                           
+                    let mut items = line.split(' ');
+                    let first = items.next();
+                    let second = items.next(); 
+                    println!("{}", second.unwrap());
                 }
             }
             // TODO: continue to break down text
