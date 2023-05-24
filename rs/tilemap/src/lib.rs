@@ -91,7 +91,14 @@ pub mod tile_map {
             match_token(&tokens, 0, "map");
             let map_name = tokens[1].get_string();
             println!("Map Name: {}", map_name);
+            let map_size = tokens[2].get_string();
+            let xpos = map_size.find('x').unwrap();
+            let map_width = &map_size[0..xpos];
+            let map_height = &map_size[xpos+1..];
+            let width: u32 = map_width.parse().unwrap();
+            let height: u32 = map_height.parse().unwrap();
 
+            println!("size {}x{}", width, height);             
             // TODO: continue to break down text
 
             Ok(())
