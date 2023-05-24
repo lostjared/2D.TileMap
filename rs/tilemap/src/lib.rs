@@ -81,13 +81,10 @@ pub mod tile_map {
 
             let file = std::fs::File::open(input)?;
             let mut rd = std::io::BufReader::new(file);
-
             let mut line : String = String::new();
             rd.read_line(&mut line)?;
-
             let scan = Scanner::new(&line);
             let tokens: Vec<Box<dyn Token>> = scan.into_iter().collect();
-
             match_token(&tokens, 0, "map");
             let map_name = tokens[1].get_string();
             println!("Map Name: {}", map_name);
@@ -98,23 +95,36 @@ pub mod tile_map {
             let width: i32 = map_width.parse().unwrap();
             let height: i32 = map_height.parse().unwrap();
             println!("size {}x{}", width, height);       
-
             self.width = width;
             self.height = height;
             self.name = map_name;
-
             for _x in 0..width {
+                let mut v = Vec::new();
                 for _y in 0..height {
                     let mut line = String::new();
                     rd.read_line(&mut line)?;
                     let mut items = line.split(' ');
-                    let first = items.next();
-                    let second = items.next(); 
-                    println!("{}", second.unwrap());
-                }
-            }
-            // TODO: continue to break down text
+                    let _first = items.next();
+                    let color = items.next(); 
+                    let img = items.next();
+                    let solid = items.next();
+                    let layers1 = items.next();
+                    let layers2 = items.next();
+                    let layers3 = items.next();
 
+                    let mut tile = Tile {
+                        color: color.unwrap().parse().unwrap(),
+                        img: img.unwrap().parse().unwrap(),
+                        solid: solid.unwrap().parse().unwrap(),
+                        layers: [0u8; 3],
+                    };
+                    tile.layers[0] = layers1.unwrap().parse().unwrap();
+                    tile.layers[1] = layers2.unwrap().parse().unwrap();
+                    tile.layers[2] = layers3.unwrap().parse().unwrap();
+                    v.push(tile);
+                }
+                self.tiles.push(v);
+            }
             Ok(())
         }
 
