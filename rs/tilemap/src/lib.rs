@@ -78,6 +78,7 @@ pub mod tile_map {
             Ok(())
         }
 
+        /// load map text
         pub fn load_map_text(&mut self, input: &str) -> std::io::Result<()> {
 
             let file = std::fs::File::open(input)?;
@@ -157,7 +158,7 @@ pub mod tile_map {
             }
             None
         }
-        
+
         /// check if tile is solid
         pub fn solid(&self, x: i32, y: i32) -> Option<u8> {
             let tile = self.at(x, y);
@@ -169,6 +170,7 @@ pub mod tile_map {
         }        
     }
 
+    /// Camera 
     pub struct Camera {
         pub x: i32,
         pub y: i32,
@@ -180,6 +182,7 @@ pub mod tile_map {
     }
 
     impl Camera {
+        /// create new camera 
         pub fn new(w: i32, h: i32, mx: i32, my: i32) -> Camera {
             Camera {
                 x: 0,
@@ -191,6 +194,7 @@ pub mod tile_map {
                 speed: 1280,
             }
         }
+        /// move camera
         pub fn move_camera(&mut self, delta: f64, dx: i32, dy: i32) {
             let dx_val: f64 = dx as f64 * self.speed as f64 * delta;
             let dy_val: f64 = dy as f64 * self.speed as f64 * delta;
@@ -199,6 +203,7 @@ pub mod tile_map {
             self.x = std::cmp::max(0, std::cmp::min(self.x, self.max_x));
             self.y = std::cmp::max(0, std::cmp::min(self.y, self.max_y));
         }
+        /// reset camera
         pub fn reset(&mut self) {
             self.x = 0;
             self.y = 0;
