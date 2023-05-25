@@ -13,8 +13,7 @@ fn main() -> std::io::Result<()> {
 fn convert(input: &str, output: &str) -> std::io::Result<()> {
     let mut tmap = TileMap::new();
     tmap.load_map_text(input)?;
-    //tmap.save_map_text(output)?;
-    // add save to bin
+    tmap.save_map(output)?;
     println!("convert: converted {} to {}", input, output);
     Ok(())
 }

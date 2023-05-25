@@ -80,7 +80,6 @@ pub mod tile_map {
 
         /// load map text
         pub fn load_map_text(&mut self, input: &str) -> std::io::Result<()> {
-
             let file = std::fs::File::open(input)?;
             let mut rd = std::io::BufReader::new(file);
             let mut line : String = String::new();
@@ -147,7 +146,26 @@ pub mod tile_map {
 
         /// save map as binary
         pub fn save_map(&self, output: &str) -> std::io::Result<()> {
-
+            let mut f = std::fs::File::create(output)?;
+            let header: u32 = 0x420;
+            f.write_all(&header.to_le_bytes())?;
+            let len : u32 = self.name.len() as u32;
+            f.write_all(&len.to_le_bytes())?;
+            f.write_all(self.name.as_bytes())?;
+            f.write_all(&self.width.to_le_bytes())?;
+            f.write_all(&self.height.to_le_bytes())?;
+            for x in 0..self.width {
+                for y in 0..self.height {
+                    let tile = self.at(x, y).unwrap();
+                    unsafe {
+                        let bytes : &[u8] = ::core::slice::from_raw_parts(
+                            (tile as *const Tile) as *const u8,
+                            ::core::mem::size_of::<Tile>(),
+                        );
+                        f.write_all(bytes)?;
+                    }
+                }
+            }
             Ok(())
         }
 
