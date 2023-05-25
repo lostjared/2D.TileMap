@@ -4,6 +4,7 @@ pub mod tile_map {
     use std::io::Cursor;
     use std::io::Read;
     use std::io::BufRead;
+    use std::io::Write;
     use rs_lex::rlex::*;
 
     #[derive(Debug, Default, PartialEq)]
@@ -128,9 +129,17 @@ pub mod tile_map {
             Ok(())
         }
 
-        pub fn save_map_text(output: &str) -> std::io::Result<()> {
-
-
+        pub fn save_map_text(&self, output: &str) -> std::io::Result<()> {
+            let ofile = std::fs::File::create(output)?;
+            let mut buf = std::io::BufWriter::new(ofile);
+            writeln!(buf, "map \"{}\" \"{}x{}\" {{", self.name, self.width, self.height)?;
+            for i in 0..self.width {
+                for z in 0..self.height {
+                    let tile = self.at(i, z).unwrap();
+                    writeln!(buf, "{{ {} {} {} {} {} {} }}", tile.color, tile.img, tile.solid, tile.layers[0], tile.layers[1], tile.layers[2])?;            
+                }
+            }
+            writeln!(buf, "}};")?;
             Ok(())
         }
 
