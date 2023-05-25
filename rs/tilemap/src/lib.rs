@@ -129,6 +129,7 @@ pub mod tile_map {
             Ok(())
         }
 
+        /// save map as text file format
         pub fn save_map_text(&self, output: &str) -> std::io::Result<()> {
             let ofile = std::fs::File::create(output)?;
             let mut buf = std::io::BufWriter::new(ofile);
@@ -143,6 +144,12 @@ pub mod tile_map {
             Ok(())
         }
 
+        /// save map as binary
+        pub fn save_map(&self, output: &str) -> std::io::Result<()> {
+
+            Ok(())
+        }
+
         /// tile at position in map
         pub fn at(&self, x: i32, y: i32) -> Option<&Tile> {
             if x >= 0 && x < self.width && y >= 0 && y < self.height {
@@ -150,7 +157,8 @@ pub mod tile_map {
             }
             None
         }
-
+        
+        /// check if tile is solid
         pub fn solid(&self, x: i32, y: i32) -> Option<u8> {
             let tile = self.at(x, y);
             if tile != None {
