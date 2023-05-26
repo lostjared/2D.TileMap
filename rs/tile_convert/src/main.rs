@@ -30,8 +30,8 @@ fn parse_args() -> Arguments {
                 .required(true)
                 .allow_invalid_utf8(true),
         )
-        .arg(Arg::new("bin").short('b').long("bin"))
-        .arg(Arg::new("text").short('t').long("text"))
+        .arg(Arg::new("bin").short('b').long("bin2text"))
+        .arg(Arg::new("text").short('t').long("text2bin"))
         .get_matches();
 
     let input_ = m.value_of_lossy("input").unwrap();
@@ -42,7 +42,7 @@ fn parse_args() -> Arguments {
     } else if m.is_present("text") {
         op_mode = OpMode::Text2Bin;
     } else {
-        panic!("Required mode info not available use either -t or -b");
+        panic!("Required mode info not available use either --text2bin or --bin2text");
     }
     Arguments {
         input: input_.to_string(),
