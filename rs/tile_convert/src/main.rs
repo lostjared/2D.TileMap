@@ -1,17 +1,20 @@
 use clap::{App, Arg};
 use tilemap::tile_map;
 
+/// Operation for console app
 enum OpMode {
     Text2Bin,
     Bin2Text,
 }
 
+/// Command line arguments parsed
 struct Arguments {
     input: String,
     output: String,
     mode: OpMode,
 }
 
+/// Parse command line arguments and turn into struct
 fn parse_args() -> Arguments {
     let m = App::new("tile_convert")
         .arg(
@@ -53,6 +56,7 @@ fn parse_args() -> Arguments {
     }
 }
 
+/// main function
 fn main() -> std::io::Result<()> {
     let args = parse_args();
     match args.mode {
