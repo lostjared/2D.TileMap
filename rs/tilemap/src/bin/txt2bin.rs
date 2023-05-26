@@ -1,7 +1,7 @@
 use tilemap::tile_map::*;
 
 fn main() -> std::io::Result<()> {
-    let args : Vec<String> = std::env::args().collect();
+    let args: Vec<String> = std::env::args().collect();
     if args.len() != 3 {
         println!("Requires two arguments\ninput.txt output.lvl");
         std::process::exit(0);

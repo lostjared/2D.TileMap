@@ -1,11 +1,11 @@
 pub mod tile_map {
 
     use byteorder::{LittleEndian, ReadBytesExt};
+    use rs_lex::rlex::*;
+    use std::io::BufRead;
     use std::io::Cursor;
     use std::io::Read;
-    use std::io::BufRead;
     use std::io::Write;
-    use rs_lex::rlex::*;
 
     #[derive(Debug, Default, PartialEq)]
     #[repr(C)]
@@ -23,8 +23,6 @@ pub mod tile_map {
         pub height: i32,
         pub name: String,
     }
-
-    
 
     impl TileMap {
         /// create new map
@@ -82,7 +80,7 @@ pub mod tile_map {
         pub fn load_map_text(&mut self, input: &str) -> std::io::Result<()> {
             let file = std::fs::File::open(input)?;
             let mut rd = std::io::BufReader::new(file);
-            let mut line : String = String::new();
+            let mut line: String = String::new();
             rd.read_line(&mut line)?;
             let scan = Scanner::new(&line);
             let tokens: Vec<Box<dyn Token>> = scan.into_iter().collect();
@@ -92,10 +90,10 @@ pub mod tile_map {
             let map_size = tokens[2].get_string();
             let xpos = map_size.find('x').unwrap();
             let map_width = &map_size[0..xpos];
-            let map_height = &map_size[xpos+1..];
+            let map_height = &map_size[xpos + 1..];
             let width: i32 = map_width.parse().unwrap();
             let height: i32 = map_height.parse().unwrap();
-            println!("size {}x{}", width, height);       
+            println!("size {}x{}", width, height);
             self.width = width;
             self.height = height;
             self.name = map_name;
@@ -106,7 +104,7 @@ pub mod tile_map {
                     rd.read_line(&mut line)?;
                     let mut items = line.split(' ');
                     let _first = items.next();
-                    let color = items.next(); 
+                    let color = items.next();
                     let img = items.next();
                     let solid = items.next();
                     let layers1 = items.next();
@@ -133,11 +131,24 @@ pub mod tile_map {
         pub fn save_map_text(&self, output: &str) -> std::io::Result<()> {
             let ofile = std::fs::File::create(output)?;
             let mut buf = std::io::BufWriter::new(ofile);
-            writeln!(buf, "map \"{}\" \"{}x{}\" {{", self.name, self.width, self.height)?;
+            writeln!(
+                buf,
+                "map \"{}\" \"{}x{}\" {{",
+                self.name, self.width, self.height
+            )?;
             for i in 0..self.width {
                 for z in 0..self.height {
                     let tile = self.at(i, z).unwrap();
-                    writeln!(buf, "{{ {} {} {} {} {} {} }}", tile.color, tile.img, tile.solid, tile.layers[0], tile.layers[1], tile.layers[2])?;            
+                    writeln!(
+                        buf,
+                        "{{ {} {} {} {} {} {} }}",
+                        tile.color,
+                        tile.img,
+                        tile.solid,
+                        tile.layers[0],
+                        tile.layers[1],
+                        tile.layers[2]
+                    )?;
                 }
             }
             writeln!(buf, "}};")?;
@@ -149,7 +160,7 @@ pub mod tile_map {
             let mut f = std::fs::File::create(output)?;
             let header: u32 = 0x420;
             f.write_all(&header.to_le_bytes())?;
-            let len : u32 = self.name.len() as u32;
+            let len: u32 = self.name.len() as u32;
             f.write_all(&len.to_le_bytes())?;
             f.write_all(self.name.as_bytes())?;
             f.write_all(&self.width.to_le_bytes())?;
@@ -158,7 +169,7 @@ pub mod tile_map {
                 for y in 0..self.height {
                     let tile = self.at(x, y).unwrap();
                     unsafe {
-                        let bytes : &[u8] = ::core::slice::from_raw_parts(
+                        let bytes: &[u8] = ::core::slice::from_raw_parts(
                             (tile as *const Tile) as *const u8,
                             ::core::mem::size_of::<Tile>(),
                         );
@@ -182,13 +193,13 @@ pub mod tile_map {
             let tile = self.at(x, y);
             if tile != None {
                 let tile = tile.unwrap();
-                return Some(tile.solid);   
+                return Some(tile.solid);
             }
             None
-        }        
+        }
     }
 
-    /// Camera 
+    /// Camera
     pub struct Camera {
         pub x: i32,
         pub y: i32,
@@ -200,7 +211,7 @@ pub mod tile_map {
     }
 
     impl Camera {
-        /// create new camera 
+        /// create new camera
         pub fn new(w: i32, h: i32, mx: i32, my: i32) -> Camera {
             Camera {
                 x: 0,
