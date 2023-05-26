@@ -20,7 +20,8 @@ fn parse_args() -> Arguments {
                 .long("input")
                 .required(true)
                 .takes_value(true)
-                .allow_invalid_utf8(true),
+                .allow_invalid_utf8(true)
+                .help("input file"),
         )
         .arg(
             Arg::new("output")
@@ -28,7 +29,8 @@ fn parse_args() -> Arguments {
                 .long("output")
                 .takes_value(true)
                 .required(true)
-                .allow_invalid_utf8(true),
+                .allow_invalid_utf8(true)
+                .help("output file"),
         )
         .arg(Arg::new("bin").short('b').long("bin2text"))
         .arg(Arg::new("text").short('t').long("text2bin"))
