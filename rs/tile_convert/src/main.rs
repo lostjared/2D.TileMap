@@ -1,4 +1,5 @@
 use clap::{App, Arg};
+use tilemap::tile_map;
 
 enum OpMode {
     Text2Bin,
@@ -41,7 +42,6 @@ fn parse_args() -> Arguments {
     } else {
         panic!("Required mode info not available use either -t or -b");
     }
-
     Arguments {
         input: input_.to_string(),
         output: out_.to_string(),
@@ -49,4 +49,21 @@ fn parse_args() -> Arguments {
     }
 }
 
-fn main() {}
+fn main() -> std::io::Result<()> {
+    let args = parse_args();
+    match args.mode {
+        OpMode::Text2Bin => {
+            let mut tmap = tile_map::TileMap::new();
+            tmap.load_map_text(&args.input)?;
+            tmap.save_map(&args.output)?;
+            println!(" {} (text) -> {} (bin) ", args.input, args.output);
+        }
+        OpMode::Bin2Text => {
+            let mut tmap = tile_map::TileMap::new();
+            tmap.load_map(&args.input)?;
+            tmap.save_map_text(&args.output)?;
+            println!(" {} (bin) -> {} (text) ", args.input, args.output);
+        }
+    }
+    Ok(())
+}
