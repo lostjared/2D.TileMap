@@ -19,12 +19,14 @@ fn parse_args() -> Arguments {
                 .short('i')
                 .long("input")
                 .required(true)
+                .takes_value(true)
                 .allow_invalid_utf8(true),
         )
         .arg(
             Arg::new("output")
                 .short('o')
                 .long("output")
+                .takes_value(true)
                 .required(true)
                 .allow_invalid_utf8(true),
         )
