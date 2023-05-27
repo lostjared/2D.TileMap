@@ -3,13 +3,13 @@
 // pass arguments
 // cargo run -- levelfile.lvl levelgraphics.gfx
 
+use clap::{App, Arg};
 use rs_catgfx::catgfx::*;
 use sdl2::event::Event;
 use sdl2::keyboard::Keycode;
 use std::collections::HashSet;
 use std::time::{SystemTime, UNIX_EPOCH};
 use tilemap::tile_map::*;
-use clap::{App, Arg};
 /// draw map
 fn draw_map(
     can: &mut sdl2::render::WindowCanvas,
@@ -122,7 +122,24 @@ struct Arguments {
 }
 
 fn parse_args() -> Arguments {
-    let m = App::new("tiledmeo").arg(Arg::new("map").takes_value(true).required(true).long("map").short('m').allow_invalid_utf8(true)).arg(Arg::new("gfx").takes_value(true).required(true).long("gfx").short('g').allow_invalid_utf8(true)).get_matches();
+    let m = App::new("tiledmeo")
+        .arg(
+            Arg::new("map")
+                .takes_value(true)
+                .required(true)
+                .long("map")
+                .short('m')
+                .allow_invalid_utf8(true),
+        )
+        .arg(
+            Arg::new("gfx")
+                .takes_value(true)
+                .required(true)
+                .long("gfx")
+                .short('g')
+                .allow_invalid_utf8(true),
+        )
+        .get_matches();
     let map_ = m.value_of_lossy("map").unwrap();
     let gfx_ = m.value_of_lossy("gfx").unwrap();
 
