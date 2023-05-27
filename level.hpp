@@ -51,6 +51,7 @@ namespace game {
         void releaseTiles();
         bool serialize(std::ostream &out);
         bool unserialize(std::istream &in);
+        void serialize_text(std::ostream &out);
         std::string level_name = "Untitled Level";
     };
 

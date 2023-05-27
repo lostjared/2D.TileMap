@@ -140,6 +140,21 @@ namespace game {
         }
         return true;
    }
+
+   void Level::serialize_text(std::ostream &out) {
+        out << "map " << "\"" << level_name << "\"" << " \"" << width << "x" << height << "\" {\n";
+        for(int i = 0; i < width; ++i) {
+            for(int z = 0; z < height; ++z) {
+                Tile *tile = at(i, z);
+                if(tile != nullptr) {
+                    out << "{ " << tile->color << " " << tile->img << " " << tile->solid << " " << tile->layers[0] << " " << tile->layers[1] << " " << tile->layers[2] << " }\n";
+                }
+            }
+        }
+        out << "\n};\n";
+   }
+
+
    // unserialize - construct from stream
    bool Level::unserialize(std::istream &in) {
         uint32_t type = 0;
