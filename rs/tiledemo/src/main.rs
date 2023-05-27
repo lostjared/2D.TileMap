@@ -129,7 +129,8 @@ fn parse_args() -> Arguments {
                 .required(true)
                 .long("map")
                 .short('m')
-                .allow_invalid_utf8(true),
+                .allow_invalid_utf8(true)
+                .help("map file"),
         )
         .arg(
             Arg::new("gfx")
@@ -137,7 +138,8 @@ fn parse_args() -> Arguments {
                 .required(true)
                 .long("gfx")
                 .short('g')
-                .allow_invalid_utf8(true),
+                .allow_invalid_utf8(true)
+                .help("graphics file"),
         )
         .get_matches();
     let map_ = m.value_of_lossy("map").unwrap();
