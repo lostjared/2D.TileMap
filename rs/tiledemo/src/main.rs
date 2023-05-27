@@ -9,6 +9,7 @@ use sdl2::keyboard::Keycode;
 use std::collections::HashSet;
 use std::time::{SystemTime, UNIX_EPOCH};
 use tilemap::tile_map::*;
+use clap::{App, Arg};
 /// draw map
 fn draw_map(
     can: &mut sdl2::render::WindowCanvas,
@@ -115,19 +116,32 @@ fn fmin(x: f64, x2: f64) -> f64 {
     }
 }
 
+struct Arguments {
+    map: String,
+    gfx: String,
+}
+
+fn parse_args() -> Arguments {
+    let m = App::new("tiledmeo").arg(Arg::new("map").takes_value(true).required(true).long("map").short('m').allow_invalid_utf8(true)).arg(Arg::new("gfx").takes_value(true).required(true).long("gfx").short('g').allow_invalid_utf8(true)).get_matches();
+    let map_ = m.value_of_lossy("map").unwrap();
+    let gfx_ = m.value_of_lossy("gfx").unwrap();
+
+    Arguments {
+        map: map_.to_string(),
+        gfx: gfx_.to_string(),
+    }
+}
+
 /// main function
 fn main() -> std::io::Result<()> {
-    let args: Vec<String> = std::env::args().collect();
-    if args.len() != 3 {
-        println!("use: level.lvl level.gfx");
-        std::process::exit(0);
-    }
+    let args = parse_args();
+
     let mut tmap: TileMap = TileMap::new();
 
-    if args[1].find(".lvl") != None {
-        tmap.load_map(&args[1])?;
-    } else if args[1].find(".txt") != None {
-        tmap.load_map_text(&args[1])?;
+    if args.map.find(".lvl") != None {
+        tmap.load_map(&args.map)?;
+    } else if args.map.find(".txt") != None {
+        tmap.load_map_text(&args.map)?;
     } else {
         println!("filename must end in .lvl or .txt");
         std::process::exit(0);
@@ -137,7 +151,7 @@ fn main() -> std::io::Result<()> {
         "Map loaded: [{}] - {}x{}",
         tmap.name, tmap.width, tmap.height
     );
-    let surfaces: Vec<(sdl2::surface::Surface, (u32, u32, u32))> = build_map(&args[2]);
+    let surfaces: Vec<(sdl2::surface::Surface, (u32, u32, u32))> = build_map(&args.gfx);
     println!("Images loaded: {}", surfaces.len());
     let max_x = tmap.width * 16 - 1280 - 1;
     let max_y = tmap.height * 16 - 720 - 1;
