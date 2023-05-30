@@ -67,6 +67,15 @@ namespace game {
         return serialize(file);
     }
 
+    bool Level::saveLevelText(const std::string &filename) {
+        std::fstream file;
+        file.open(filename, std::ios::out);
+        if(!file.is_open())
+            return false;
+        serialize_text(file);
+        return true;
+    }
+
     // create new map
     void Level::create(int32_t w, int32_t h, const Tile &init_tile) {
         resizeTiles(w, h);
