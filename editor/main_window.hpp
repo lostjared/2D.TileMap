@@ -16,6 +16,7 @@
 #include"open_window.hpp"
 #include"about_window.hpp"
 #include"pref_window.hpp"
+#include"export_window.hpp"
 #include "../level.hpp"
 
 const int MAP_WIDTH=1280/16;
@@ -83,6 +84,7 @@ private:
     OpenWindow *open_window;
     AboutWindow *about_window;
     PrefWindow *pref_window;
+    ExportWindow *export_window;
     std::vector<QImage> images;
     std::vector<QImage> col;
     std::vector<QImage> en;

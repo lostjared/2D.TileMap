@@ -59,6 +59,9 @@ MainWindow::MainWindow() {
     pref_window->setMainWindow(this);
     pref_window->hide();
 
+    export_window = new ExportWindow(this);
+    export_window->hide();
+
     file_menu = menuBar()->addMenu(tr("&File"));
     file_new = new QAction(tr("New Map"), this);
     file_new->setShortcut(tr("Ctrl+N"));
@@ -439,7 +442,7 @@ void MainWindow::setObject(const QPoint &pos) {
 }
 
 void MainWindow::exportFile() {
-
+    export_window->show();
 }
 
 
