@@ -14,6 +14,7 @@ ExportWindow::ExportWindow(QWidget *parent) : QDialog(parent) {
 
     export_file = new QPushButton("Export", this);
     export_file->setGeometry(400-125, 75, 100, 25);
+    connect(export_file, SIGNAL(clicked()), this, SLOT(exportFile()));
 
 }
 
