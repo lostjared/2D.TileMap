@@ -3,7 +3,7 @@
 #include<QIcon>
 // About Window constructor - (init)
 AboutWindow::AboutWindow(QWidget *parent) : QDialog(parent) {
-    setFixedSize(350, 120);
+    setFixedSize(400, 120);
     setWindowTitle(tr("About"));
     setWindowIcon(QIcon(":/images/bluebrick.bmp"));
     QLabel *lbl_img = new QLabel(this);
@@ -11,6 +11,6 @@ AboutWindow::AboutWindow(QWidget *parent) : QDialog(parent) {
     lbl_img->setPixmap(QPixmap(":/images/brick.bmp").scaled(QSize(64, 64)));
     QLabel *lbl_txt = new QLabel(this);
     lbl_txt->setText(tr("(C) 2023 LostSideDead Software - GPL v3"));
-    lbl_txt->setGeometry(25+64+10, 25+16, 250, 45);
+    lbl_txt->setGeometry(25+64+10, 25+16, 350, 45);
 
 }
