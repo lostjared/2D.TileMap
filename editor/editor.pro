@@ -14,5 +14,5 @@ QT += widgets gui
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 RESOURCES += resources.qrc
 # Input
-HEADERS += main_window.hpp new_window.hpp tool_window.hpp run_window.hpp debug_window.hpp gfx_window.hpp open_window.hpp about_window.hpp pref_window.hpp ../level.hpp ../gfx_file.hpp
-SOURCES += main.cpp main_window.cpp new_window.cpp tool_window.cpp run_window.cpp debug_window.cpp gfx_window.cpp open_window.cpp about_window.cpp pref_window.cpp ../level.cpp ../gfx_file.cpp
+HEADERS += main_window.hpp new_window.hpp tool_window.hpp run_window.hpp debug_window.hpp gfx_window.hpp open_window.hpp about_window.hpp pref_window.hpp export_window.hpp ../level.hpp ../gfx_file.hpp
+SOURCES += main.cpp main_window.cpp new_window.cpp tool_window.cpp run_window.cpp debug_window.cpp gfx_window.cpp open_window.cpp about_window.cpp pref_window.cpp export_window.cpp ../level.cpp ../gfx_file.cpp
