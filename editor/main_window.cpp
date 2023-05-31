@@ -71,7 +71,7 @@ MainWindow::MainWindow() {
     connect(file_load, SIGNAL(triggered()), this, SLOT(loadFile()));
     file_menu->addAction(file_load);
     file_save = new QAction(tr("Save Map"), this);
-    file_save->setShortcut(tr("Ctr+S"));
+    file_save->setShortcut(tr("Ctrl+S"));
     connect(file_save, SIGNAL(triggered()), this, SLOT(saveFile()));
     file_menu->addAction(file_save);
     file_save_as = new QAction(tr("Save Map As"), this);
@@ -79,7 +79,15 @@ MainWindow::MainWindow() {
     connect(file_save_as, SIGNAL(triggered()), this, SLOT(saveFileAs()));
     file_menu->addAction(file_save_as);
 
+    export_file = new QAction(tr("E&xport"), this);
+    export_file->setShortcut(tr("Ctrl+E"));
+    connect(export_file, SIGNAL(triggered()), this, SLOT(exportFile()));
+
+    file_menu->addAction(export_file);
+    
     file_menu->addSeparator();
+    
+    
     file_pref = new QAction(tr("Preferences"), this);
 
     connect(file_pref, SIGNAL(triggered()), this, SLOT(openPref()));
@@ -429,6 +437,11 @@ void MainWindow::setObject(const QPoint &pos) {
         }
     }   
 }
+
+void MainWindow::exportFile() {
+
+}
+
 
 // created a new map
 void MainWindow::createdNewMap() { 

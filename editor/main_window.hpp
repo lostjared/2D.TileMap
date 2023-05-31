@@ -68,9 +68,10 @@ public slots:
     void showAbout();
     void openPref();
     void showTool();
+    void exportFile();
 private:
     QMenu *file_menu, *level_menu, *run_menu, *help_menu, *view_menu;
-    QAction *file_new, *file_save,*file_save_as,*file_load, *file_pref, *file_exit;
+    QAction *file_new, *file_save,*file_save_as,*export_file, *file_load, *file_pref, *file_exit;
     QAction *level_left, *level_right, *level_down, *level_up, *level_gfx;
     QAction *run_settings, *run_exec;
     QAction *view_show_tool;
