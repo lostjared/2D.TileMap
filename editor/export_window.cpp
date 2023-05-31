@@ -1,4 +1,5 @@
 #include"export_window.hpp"
+#include"main_window.hpp"
 #include<QIcon>
 #include<QComboBox>
 #include<QPushButton>
@@ -24,13 +25,21 @@ void ExportWindow::setLevel(game::Level *lvl) {
     level = lvl;
 }
 
+void ExportWindow::setMainWindow(MainWindow *m) {
+    main_window = m;
+}
+
 void ExportWindow::exportFile() {
 
     QString outfile = QFileDialog::getSaveFileName(this, tr("Export File"), "", "Txt Files (*.txt)");
 
     if(outfile != "") {
         level->saveLevelText(outfile.toStdString());
-        
+        QString text;
+        QTextStream stream(&text);
+        stream << "editor: Text file outputed to: " << outfile << "\n";
+        main_window->debug_window->Log(text);
+        hide();
     }
 
 }

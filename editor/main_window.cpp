@@ -61,6 +61,7 @@ MainWindow::MainWindow() {
 
     export_window = new ExportWindow(this);
     export_window->setLevel(&level);
+    export_window->setMainWindow(this);
     export_window->hide();
 
     file_menu = menuBar()->addMenu(tr("&File"));
