@@ -156,7 +156,7 @@ namespace game {
             for(int z = 0; z < height; ++z) {
                 Tile *tile = at(i, z);
                 if(tile != nullptr) {
-                    out << "{ " << tile->color << " " << tile->img << " " << tile->solid << " " << tile->layers[0] << " " << tile->layers[1] << " " << tile->layers[2] << " }\n";
+                    out << "{ " << static_cast<int>(tile->color) << " " << static_cast<int>(tile->img) << " " << static_cast<int>(tile->solid) << " " << static_cast<int>(tile->layers[0]) << " " << static_cast<int>(tile->layers[1]) << " " << static_cast<int>(tile->layers[2]) << " }\n";
                 }
             }
         }
