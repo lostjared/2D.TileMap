@@ -2,6 +2,7 @@
 #include<QIcon>
 #include<QComboBox>
 #include<QPushButton>
+#include<QFileDialog>
 
 // About Window constructor - (init)
 ExportWindow::ExportWindow(QWidget *parent) : QDialog(parent) {
@@ -20,5 +21,6 @@ ExportWindow::ExportWindow(QWidget *parent) : QDialog(parent) {
 
 void ExportWindow::exportFile() {
 
-    
+    QString outfile = QFileDialog::getSaveFileName(this, tr("Export File"), "", "Txt Files (*.txt)");
+
 }
