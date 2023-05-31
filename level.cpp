@@ -160,7 +160,7 @@ namespace game {
                 }
             }
         }
-        out << "\n};\n";
+        out << "};\n";
    }
 
 
