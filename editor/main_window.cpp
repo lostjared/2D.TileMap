@@ -443,7 +443,11 @@ void MainWindow::setObject(const QPoint &pos) {
 }
 
 void MainWindow::exportFile() {
-    export_window->show();
+    if(map_init == true)
+        export_window->show();
+    else {
+        // print out message
+    }
 }
 
 
