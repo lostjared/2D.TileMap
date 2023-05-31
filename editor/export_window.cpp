@@ -3,6 +3,7 @@
 #include<QComboBox>
 #include<QPushButton>
 #include<QFileDialog>
+#include"../level.hpp"
 
 // About Window constructor - (init)
 ExportWindow::ExportWindow(QWidget *parent) : QDialog(parent) {
@@ -19,8 +20,17 @@ ExportWindow::ExportWindow(QWidget *parent) : QDialog(parent) {
 
 }
 
+void ExportWindow::setLevel(game::Level *lvl) {
+    level = lvl;
+}
+
 void ExportWindow::exportFile() {
 
     QString outfile = QFileDialog::getSaveFileName(this, tr("Export File"), "", "Txt Files (*.txt)");
+
+    if(outfile != "") {
+        level->saveLevelText(outfile.toStdString());
+        
+    }
 
 }
