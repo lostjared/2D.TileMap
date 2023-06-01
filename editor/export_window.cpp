@@ -29,17 +29,33 @@ void ExportWindow::setMainWindow(MainWindow *m) {
 }
 
 void ExportWindow::exportFile() {
-    QString outfile = QFileDialog::getSaveFileName(this, tr("Export File"), "", "Txt Files (*.txt)");
-    if(outfile != "") {
+        QString btype;
         switch(export_type->currentIndex()) {
-            case 0:
-            level->saveLevelText(outfile.toStdString());
+            case 0: {
+                QString outfile = QFileDialog::getSaveFileName(this, tr("Export File"), "", "Txt Files (*.txt)");
+                if(outfile != "") {
+                    btype = "txt";
+                    level->saveLevelText(outfile.toStdString());
+                    QString text;
+                    QTextStream stream(&text);
+                    stream << "editor: Text file outputed to: " << outfile << "\n";
+                    main_window->debug_window->Log(text);
+                    hide();
+                }
+            }
+            break;
+            case 1: {
+                 QString outfile = QFileDialog::getSaveFileName(this, tr("Export File"), "", "Lvl Files (*.lvl)");
+                 if(outfile != "") {
+                    btype = "lvl";
+                    level->saveLevel(outfile.toStdString());
+                    QString text;
+                    QTextStream stream(&text);
+                    stream << "editor: Binary file outputed to: " << outfile << "\n";
+                    main_window->debug_window->Log(text);
+                    hide();
+                 }
+            }
             break;
         }
-        QString text;
-        QTextStream stream(&text);
-        stream << "editor: Text file outputed to: " << outfile << "\n";
-        main_window->debug_window->Log(text);
-        hide();
-    }
 }
