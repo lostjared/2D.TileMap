@@ -14,6 +14,7 @@ ExportWindow::ExportWindow(QWidget *parent) : QDialog(parent) {
     export_type = new QComboBox(this);
     export_type->setGeometry(15, 15, 375, 25);
     export_type->addItem(tr("Export as Text"));
+    export_type->addItem(tr("Export as Binary"));
     export_file = new QPushButton("Export", this);
     export_file->setGeometry(400-125, 75, 100, 25);
     connect(export_file, SIGNAL(clicked()), this, SLOT(exportFile()));
