@@ -448,6 +448,12 @@ void MainWindow::exportFile() {
         export_window->show();
     else {
         // print out message
+        QMessageBox msgbox;
+        msgbox.setText("Must create/open map to export");
+        msgbox.setWindowTitle("Error exporting map");
+        msgbox.setIcon(QMessageBox::Icon::Warning);
+        msgbox.setWindowIcon(QIcon(":/images/col1.bmp"));
+        msgbox.exec();
     }
 }
 
