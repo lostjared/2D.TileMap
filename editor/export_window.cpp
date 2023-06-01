@@ -14,11 +14,9 @@ ExportWindow::ExportWindow(QWidget *parent) : QDialog(parent) {
     export_type = new QComboBox(this);
     export_type->setGeometry(15, 15, 375, 25);
     export_type->addItem(tr("Export as Text"));
-
     export_file = new QPushButton("Export", this);
     export_file->setGeometry(400-125, 75, 100, 25);
     connect(export_file, SIGNAL(clicked()), this, SLOT(exportFile()));
-
 }
 
 void ExportWindow::setLevel(game::Level *lvl) {
@@ -30,16 +28,17 @@ void ExportWindow::setMainWindow(MainWindow *m) {
 }
 
 void ExportWindow::exportFile() {
-
     QString outfile = QFileDialog::getSaveFileName(this, tr("Export File"), "", "Txt Files (*.txt)");
-
     if(outfile != "") {
-        level->saveLevelText(outfile.toStdString());
+        switch(export_type->currentIndex()) {
+            case 0:
+            level->saveLevelText(outfile.toStdString());
+            break;
+        }
         QString text;
         QTextStream stream(&text);
         stream << "editor: Text file outputed to: " << outfile << "\n";
         main_window->debug_window->Log(text);
         hide();
     }
-
 }
