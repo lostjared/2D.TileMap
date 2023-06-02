@@ -217,7 +217,29 @@ namespace game {
             height = atoi(right.c_str());
             std::cout << "Map: " << level_name << " size " << width << "X" << height << "\n";
             // todo construct level structure
-            
+            releaseTiles();
+            create(width, height, game::Tile{});
+            for (int x = 0; x < width; ++x) {
+                for (int y = 0; y < height; ++y) {
+                    std::string line;
+                    std::getline(in, line);
+                    if(in) {
+                        std::string text_line = line.substr(1, line.length()-2);
+                        std::istringstream stream(text_line);
+                        int color = 0, img = 0, solid = 0, layer1 = 0, layer2 = 0, layer3 = 0;
+                        game::Tile *t = at(x, y);
+                        if(t != nullptr) {
+                            stream >> color >> img >> solid >> layer1 >> layer2 >> layer3;
+                            t->color = color;
+                            t->img = img;
+                            t->solid = solid;
+                            t->layers[0] = layer1;
+                            t->layers[1] = layer2;
+                            t->layers[2] = layer3;
+                        }
+                    }
+                }
+            } 
         }
 
         return true;
