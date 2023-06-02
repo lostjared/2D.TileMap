@@ -199,7 +199,6 @@ namespace game {
    }
 
    bool Level::unserialize_text(std::istream &in) {
-
         std::string input;
         std::getline(in, input);
         if(in) {
@@ -240,6 +239,8 @@ namespace game {
                     }
                 }
             } 
+        } else {
+            return false;
         }
 
         return true;
