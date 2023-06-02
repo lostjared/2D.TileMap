@@ -203,11 +203,21 @@ namespace game {
         std::string input;
         std::getline(in, input);
         if(in) {
-
             auto start_pos = input.find("\"");
             auto stop_pos = input.find("\"", start_pos+1);            
-            std::string text = input.substr(start_pos+1, stop_pos-start_pos);
-            std::cout << text << "\n";
+            std::string text = input.substr(start_pos+1, stop_pos-start_pos-1);
+            level_name = text;
+            start_pos = input.find("\"", stop_pos+1);
+            stop_pos = input.find("\"", start_pos+1);
+            text = input.substr(start_pos+1, stop_pos-start_pos-1);
+            auto x = text.find("x");
+            std::string left = text.substr(0, x);
+            std::string right = text.substr(x+1, text.length()-x);
+            width = atoi(left.c_str());
+            height = atoi(right.c_str());
+            std::cout << "Map: " << level_name << " size " << width << "X" << height << "\n";
+            // todo construct level structure
+            
         }
 
         return true;
