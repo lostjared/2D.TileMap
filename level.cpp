@@ -189,6 +189,12 @@ namespace game {
         return true;
    }
 
+   bool Level::unserialize_text(std::istream &in) {
+
+
+        return true;
+   }
+
     // check Type
     bool Level::checkType(const Point &p, int type) {
         Tile *tile = at(p.x, p.y);
