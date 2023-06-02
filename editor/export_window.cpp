@@ -29,30 +29,30 @@ void ExportWindow::setMainWindow(MainWindow *m) {
 }
 
 void ExportWindow::exportFile() {
-        switch(export_type->currentIndex()) {
-            case 0: {
-                QString outfile = QFileDialog::getSaveFileName(this, tr("Export File"), "", "Txt Files (*.txt)");
-                if(outfile != "") {
-                    level->saveLevelText(outfile.toStdString());
-                    QString text;
-                    QTextStream stream(&text);
-                    stream << "editor: Text file outputed to: " << outfile << "\n";
-                    main_window->debug_window->Log(text);
-                    hide();
-                }
+    switch(export_type->currentIndex()) {
+        case 0: {
+            QString outfile = QFileDialog::getSaveFileName(this, tr("Export File"), "", "Txt Files (*.txt)");
+            if(outfile != "") {
+                level->saveLevelText(outfile.toStdString());
+                QString text;
+                QTextStream stream(&text);
+                stream << "editor: Text file outputed to: " << outfile << "\n";
+                main_window->debug_window->Log(text);
+                hide();
             }
-            break;
-            case 1: {
-                 QString outfile = QFileDialog::getSaveFileName(this, tr("Export File"), "", "Lvl Files (*.lvl)");
-                 if(outfile != "") {
-                    level->saveLevel(outfile.toStdString());
-                    QString text;
-                    QTextStream stream(&text);
-                    stream << "editor: Binary file outputed to: " << outfile << "\n";
-                    main_window->debug_window->Log(text);
-                    hide();
-                 }
-            }
-            break;
         }
+            break;
+        case 1: {
+            QString outfile = QFileDialog::getSaveFileName(this, tr("Export File"), "", "Lvl Files (*.lvl)");
+            if(outfile != "") {
+                level->saveLevel(outfile.toStdString());
+                QString text;
+                QTextStream stream(&text);
+                stream << "editor: Binary file outputed to: " << outfile << "\n";
+                main_window->debug_window->Log(text);
+                hide();
+            }
+        }
+            break;
+    }
 }
