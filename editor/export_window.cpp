@@ -29,12 +29,10 @@ void ExportWindow::setMainWindow(MainWindow *m) {
 }
 
 void ExportWindow::exportFile() {
-        QString btype;
         switch(export_type->currentIndex()) {
             case 0: {
                 QString outfile = QFileDialog::getSaveFileName(this, tr("Export File"), "", "Txt Files (*.txt)");
                 if(outfile != "") {
-                    btype = "txt";
                     level->saveLevelText(outfile.toStdString());
                     QString text;
                     QTextStream stream(&text);
@@ -47,7 +45,6 @@ void ExportWindow::exportFile() {
             case 1: {
                  QString outfile = QFileDialog::getSaveFileName(this, tr("Export File"), "", "Lvl Files (*.lvl)");
                  if(outfile != "") {
-                    btype = "lvl";
                     level->saveLevel(outfile.toStdString());
                     QString text;
                     QTextStream stream(&text);
