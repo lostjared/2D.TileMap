@@ -58,6 +58,15 @@ namespace game {
             return false;
         return unserialize(file);
     }
+
+    bool Level::loadLevelText(const std::string &filename) {
+        std::fstream file;
+        file.open(filename, std::ios::in);
+        if(!file.is_open()) 
+            return false;
+        return unserialize_text(file);
+    }
+
     // save level
     bool Level::saveLevel(const std::string &filename) {
         std::fstream file;
@@ -191,6 +200,15 @@ namespace game {
 
    bool Level::unserialize_text(std::istream &in) {
 
+        std::string input;
+        std::getline(in, input);
+        if(in) {
+
+            auto start_pos = input.find("\"");
+            auto stop_pos = input.find("\"", start_pos+1);            
+            std::string text = input.substr(start_pos+1, stop_pos-start_pos);
+            std::cout << text << "\n";
+        }
 
         return true;
    }

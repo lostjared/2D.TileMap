@@ -32,6 +32,7 @@ namespace game {
         void setLevelName(const std::string &name);
         std::string getLevelName() const;
         bool loadLevel(const std::string &filename);
+        bool loadLevelText(const std::string &filename);
         bool saveLevel(const std::string &filename);
         bool saveLevelText(const std::string &filename);
         int32_t width, height;
