@@ -51,7 +51,7 @@ void OpenWindow::setMainWindow(MainWindow *main) {
 
 // open level
 void OpenWindow::openLevel() {
-    QString lvl_name = QFileDialog::getOpenFileName(this, "Open Level", "", "Level Files (*.lvl)");
+    QString lvl_name = QFileDialog::getOpenFileName(this, "Open Level", "", "Level Files (*.lvl *.txt)");
     if(lvl_name != "") {
         lbl_lvl->setText(lvl_name);
         level_file = lvl_name;
