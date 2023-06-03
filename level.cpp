@@ -67,6 +67,14 @@ namespace game {
         return unserialize_text(file);
     }
 
+    bool Level::loadLevelByName(const std::string &filename) {
+        if(filename.find(".txt") == std::string::npos)
+            return loadLevel(filename);
+        
+        return loadLevelText(filename);
+    }
+
+
     // save level
     bool Level::saveLevel(const std::string &filename) {
         std::fstream file;
