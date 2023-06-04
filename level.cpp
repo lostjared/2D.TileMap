@@ -74,6 +74,12 @@ namespace game {
         return loadLevelText(filename);
     }
 
+    bool Level::saveLevelByName(const std::string &filename) {
+        if(filename.find(".txt") == std::string::npos)
+            return saveLevel(filename);
+
+        return saveLevelText(filename);
+    }
 
     // save level
     bool Level::saveLevel(const std::string &filename) {
