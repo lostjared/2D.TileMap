@@ -1,40 +1,59 @@
 #include<iostream>
 #include<string>
 #include"../level.hpp"
+#include<unistd.h>
 
 int main(int argc, char **argv) {
-	
-	if(argc != 4) {
-		std::cerr << "Error requires three arguments.\n";
-		std::cerr << argv[0] << " -t level.lvl level.txt\n";
-		std::cerr << argv[0] << " -b level.txt level.lvl\n";
+
+    int opt = 0;
+    int mode = 0;
+    std::string input, output;
+    while((opt = getopt(argc, argv, "i:o:tb")) != -1) {
+        switch(opt) {
+            case 'i':
+                input = optarg;
+                break;
+            case 'o':
+                output = optarg;
+                break;
+			case 't':
+				mode = 1;
+				break;
+			case 'b':
+				mode = 2;
+				break;
+        }
+    }
+
+	if(mode == 0 || input.length() == 0 || output.length() == 0) {
+		std::cerr << argv[0] << " -i input.lvl-o output.txt-t\n";
+		std::cerr << argv[0] << " -i input.txt -o output.lvl -b\n";
 		exit(EXIT_FAILURE);
 	}
 
-	if(std::string(argv[1]) == "-t") {
+	if(mode == 1) {
 		game::Level level;
-		if(!level.loadLevel(argv[2])) {
+		if(!level.loadLevel(input)) {
 			std::cerr << "Error loading level: " << argv[2] << "\n";
 			exit(EXIT_FAILURE);
 		}
-		if(level.saveLevelText(argv[3])) {
-			std::cout << "level saved as text: " << argv[3] << "\n";
+		if(level.saveLevelText(output)) {
+			std::cout << "level saved as text: " <<  output << "\n";
 		} else {
-			std::cerr << "Error level " << argv[3] << " could not be saved.\n";
+			std::cerr << "Error level " << output << " could not be saved.\n";
 		}
-	} else if (std::string(argv[1]) == "-b") {
+	} else if (mode == 2) {
 		game::Level level;
-		if(!level.loadLevelText(argv[2])) {
+		if(!level.loadLevelText(input)) {
 			std::cerr << "Error loading level text..\n";
 			exit(EXIT_FAILURE);
 		}
-		if(level.saveLevel(argv[3])) {
-			std::cout << "Level saved as bin: " << argv[3] << "\n";
+		if(level.saveLevel(output)) {
+			std::cout << "Level saved as bin: " << output << "\n";
 		} else {
-			std::cerr << "Error level " << argv[3] << " could not be saved.\n";
+			std::cerr << "Error level " << output << " could not be saved.\n";
 		}
 	}
-	
 	return 0;
 }
 
