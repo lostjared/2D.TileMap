@@ -135,7 +135,7 @@ namespace game {
 
         emiter.setImages(shot);
 
-        if(!level.loadLevel(filename)) {
+        if(!level.loadLevelByName(filename)) {
             std::cerr << "Error loading level..\n";
             exit(0);
         }
