@@ -6,11 +6,11 @@
 #include<unistd.h>
 
 int main(int argc, char **argv) {
-        int opt = 0;
-        int mode = 0;
-        std::string input, output;
-        while((opt = getopt(argc, argv, "leci:o:hv")) != -1) {
-            switch(opt) {
+    int opt = 0;
+    int mode = 0;
+    std::string input, output;
+    while((opt = getopt(argc, argv, "leci:o:hv")) != -1) {
+        switch(opt) {
             case 'c':
                 mode = 1;
                 break;
