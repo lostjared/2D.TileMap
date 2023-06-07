@@ -14,25 +14,25 @@ int main(int argc, char **argv) {
             gfx_file = argv[2];
             background = argv[3];
         }
-        break;
+            break;
         case 1:
         case 2:
         case 3: {
             std::cout << argv[0] << "level.lvl file.gfx background.bmp\n";
             return 0;
         } 
-        break;
+            break;
         case 6: {
             def_level = argv[1];
             gfx_file = argv[2];
             background = argv[3];
             width = atoi(argv[4]);
             height = atoi(argv[5]);
-       } 
-       break;
-       default:
+        } 
+            break;
+        default:
             std::cout << argv[0] << "level.lvl file.gfx background.bmp\n";
-       break;
+            break;
     }
     if(!game::Window::createWindow("Game", width, height)) {
         std::cerr << "Error on init.\n";
