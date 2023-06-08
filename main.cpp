@@ -1,9 +1,11 @@
+#define GAME_VERSION "0.0.1"
 #include"window.hpp"
 #include"game_level.hpp"
 #include<iostream>
 
 
 int main(int argc, char **argv) {
+    std::cout << argv[0] << " v" << GAME_VERSION << "\n";
     int width = 1280-16, height = 720-16;
     std::string def_level = "levels/level1.lvl";
     std::string gfx_file = "img/level.gfx";
