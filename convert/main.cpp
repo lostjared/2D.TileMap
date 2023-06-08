@@ -8,7 +8,7 @@ int main(int argc, char **argv) {
     int opt = 0;
     int mode = 0;
     std::string input, output;
-    while((opt = getopt(argc, argv, "i:o:tb")) != -1) {
+    while((opt = getopt(argc, argv, "i:o:tbh")) != -1) {
         switch(opt) {
             case 'i':
                 input = optarg;
@@ -22,10 +22,14 @@ int main(int argc, char **argv) {
             case 'b':
                 mode = 2;
                 break;
+            case 'h':
+                mode = 3;
+                break;    
         }
     }
     
-    if(mode == 0 || input.length() == 0 || output.length() == 0) {
+    if(mode == 0 || mode == 3 || input.length() == 0 || output.length() == 0) {
+        std::cerr << "to use:\n\n";
         std::cerr << argv[0] << " -i input.lvl-o output.txt-t\n";
         std::cerr << argv[0] << " -i input.txt -o output.lvl -b\n";
         exit(EXIT_FAILURE);
