@@ -1,3 +1,4 @@
+#define CONVERT_VERSION "0.0.1"
 #include<iostream>
 #include<string>
 #include"../level.hpp"
@@ -23,12 +24,14 @@ int main(int argc, char **argv) {
                 mode = 2;
                 break;
             case 'h':
+            case 'v':
                 mode = 3;
                 break;    
         }
     }
     
     if(mode == 0 || mode == 3 || input.length() == 0 || output.length() == 0) {
+        std::cout << argv[0] << " v" << CONVERT_VERSION << "\n";
         std::cerr << "to use:\n\n";
         std::cerr << argv[0] << " -i input.lvl-o output.txt-t\n";
         std::cerr << argv[0] << " -i input.txt -o output.lvl -b\n";
