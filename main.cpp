@@ -5,7 +5,7 @@
 
 
 int main(int argc, char **argv) {
-    std::cout << argv[0] << " v" << GAME_VERSION << "\n";
+    std::cout << argv[0] << " v" << GAME_VERSION << " (C) 2023 LostSideDead Software\n";
     int width = 1280-16, height = 720-16;
     std::string def_level = "levels/level1.lvl";
     std::string gfx_file = "img/level.gfx";
