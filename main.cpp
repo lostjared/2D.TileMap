@@ -1,4 +1,4 @@
-#define GAME_VERSION "0.0.1"
+#include"version.hpp"
 #include"window.hpp"
 #include"game_level.hpp"
 #include<iostream>
