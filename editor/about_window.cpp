@@ -17,7 +17,7 @@ AboutWindow::AboutWindow(QWidget *parent) : QDialog(parent) {
     lbl_txt->setText(text);
     lbl_txt->setGeometry(25+64+10, 25+16, 350, 45);
     QLabel *lbl_txt2 = new QLabel(this);
-    lbl_txt2->setText("editor - by Jared Bruni");
+    lbl_txt2->setText("Level Editor - by Jared Bruni");
     lbl_txt2->setGeometry(25+64+10,20, 350, 45);
 
 }
