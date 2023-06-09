@@ -20,7 +20,7 @@ int main(int argc, char **argv) {
         case 1:
         case 2:
         case 3: {
-            std::cout << argv[0] << "level.lvl file.gfx background.bmp\n";
+            std::cout << argv[0] << " level.lvl file.gfx background.bmp\n";
             return 0;
         } 
             break;
@@ -33,7 +33,7 @@ int main(int argc, char **argv) {
         } 
             break;
         default:
-            std::cout << argv[0] << "level.lvl file.gfx background.bmp\n";
+            std::cout << argv[0] << " level.lvl file.gfx background.bmp\n";
             break;
     }
     if(!game::Window::createWindow("Game", width, height)) {
