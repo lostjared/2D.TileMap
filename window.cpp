@@ -24,7 +24,7 @@ namespace game {
          ~SDL_RenderObject() {
             release_images();
             release_joysticks();
-            std::cout << "game: SDL2 Shtudown...\n";
+            std::cout << "game: SDL2 Shutdown...\n";
             TTF_Quit();
             SDL_Quit();
          }
