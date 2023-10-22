@@ -112,13 +112,13 @@ void GfxWindow::rmvFile() {
 
     switch(image_type->currentIndex()) {
         case 0:
-            tile_list.remove(index);
+            tile_list.removeAt(index);
         break;
         case 1:
-            object_list.remove(index);
+            object_list.removeAt(index);
         break;
         case 2:
-            other_list.remove(index);
+            other_list.removeAt(index);
         break;
     }
 

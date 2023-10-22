@@ -2,6 +2,7 @@
 #define _ABOUT_WINDOW_H__
 
 #include<QDialog>
+#include<QTextStream>
 
 class AboutWindow : public QDialog {
     Q_OBJECT

@@ -7,6 +7,7 @@
 #include<QVector>
 #include<QPainter>
 #include<QProcess>
+#include<QTextStream>
 #include<vector>
 #include"tool_window.hpp"
 #include"new_window.hpp"
